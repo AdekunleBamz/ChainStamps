@@ -4,3 +4,4 @@
 // Commit 4: docs: add initial project documentation
 // Commit 5: chore: setup deployment configurations
 // Commit 6: feat: create hash-registry contract skeleton
+// Commit 7: feat(hash-registry): add data maps and constants
