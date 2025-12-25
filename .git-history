@@ -1,2 +1,3 @@
 // Commit 1: chore: initialize clarinet project structure
 // Commit 2: chore: add package.json and typescript configuration
+// Commit 3: chore: configure vitest for contract testing
