@@ -1,0 +1,145 @@
+import { describe, expect, it } from "vitest";
+import { Cl } from "@stacks/transactions";
+
+const accounts = simnet.getAccounts();
+const deployer = accounts.get("deployer")!;
+const wallet1 = accounts.get("wallet_1")!;
+const wallet2 = accounts.get("wallet_2")!;
+
+const HASH_FEE = 30000n; // 0.03 STX in microSTX
+
+// Helper to create a test hash (32 bytes)
+const createTestHash = (seed: number): Uint8Array => {
+  const hash = new Uint8Array(32);
+  for (let i = 0; i < 32; i++) {
+    hash[i] = (seed + i) % 256;
+  }
+  return hash;
+};
+
+describe("hash-registry", () => {
+  it("ensures simnet is well initialized", () => {
+    expect(simnet.blockHeight).toBeDefined();
+  });
+
+  it("should return correct hash fee", () => {
+    const { result } = simnet.callReadOnlyFn(
+      "hash-registry",
+      "get-hash-fee",
+      [],
+      wallet1
+    );
+    expect(result).toBeUint(HASH_FEE);
+  });
+
+  it("should start with zero hashes", () => {
+    const { result } = simnet.callReadOnlyFn(
+      "hash-registry",
+      "get-hash-count",
+      [],
+      wallet1
+    );
+    expect(result).toBeUint(0);
+  });
+
+  it("should allow user to store a hash", () => {
+    const testHash = createTestHash(1);
+    const description = "My document hash";
+    
+    const { result } = simnet.callPublicFn(
+      "hash-registry",
+      "store-hash",
+      [Cl.buffer(testHash), Cl.stringUtf8(description)],
+      wallet1
+    );
+    expect(result).toBeOk(Cl.uint(1));
+
+    // Verify hash count increased
+    const { result: countResult } = simnet.callReadOnlyFn(
+      "hash-registry",
+      "get-hash-count",
+      [],
+      wallet1
+    );
+    expect(countResult).toBeUint(1);
+  });
+
+  it("should verify hash exists", () => {
+    const testHash = createTestHash(2);
+    
+    simnet.callPublicFn(
+      "hash-registry",
+      "store-hash",
+      [Cl.buffer(testHash), Cl.stringUtf8("Test doc")],
+      wallet1
+    );
+
+    const { result } = simnet.callReadOnlyFn(
+      "hash-registry",
+      "verify-hash",
+      [Cl.buffer(testHash)],
+      wallet1
+    );
+    expect(result).toBeBool(true);
+  });
+
+  it("should return false for non-existent hash", () => {
+    const nonExistentHash = createTestHash(99);
+    
+    const { result } = simnet.callReadOnlyFn(
+      "hash-registry",
+      "verify-hash",
+      [Cl.buffer(nonExistentHash)],
+      wallet1
+    );
+    expect(result).toBeBool(false);
+  });
+
+  it("should reject duplicate hash", () => {
+    const testHash = createTestHash(3);
+    
+    simnet.callPublicFn(
+      "hash-registry",
+      "store-hash",
+      [Cl.buffer(testHash), Cl.stringUtf8("First")],
+      wallet1
+    );
+
+    const { result } = simnet.callPublicFn(
+      "hash-registry",
+      "store-hash",
+      [Cl.buffer(testHash), Cl.stringUtf8("Duplicate")],
+      wallet2
+    );
+    expect(result).toBeErr(Cl.uint(101)); // ERR-HASH-ALREADY-EXISTS
+  });
+
+  it("should track fees collected", () => {
+    const testHash = createTestHash(4);
+    
+    simnet.callPublicFn(
+      "hash-registry",
+      "store-hash",
+      [Cl.buffer(testHash), Cl.stringUtf8("Fee test")],
+      wallet1
+    );
+
+    const { result } = simnet.callReadOnlyFn(
+      "hash-registry",
+      "get-total-fees",
+      [],
+      wallet1
+    );
+    expect(result).toBeUint(HASH_FEE);
+  });
+
+  it("should return contract owner", () => {
+    const { result } = simnet.callReadOnlyFn(
+      "hash-registry",
+      "get-contract-owner",
+      [],
+      wallet1
+    );
+    expect(result).toBePrincipal(deployer);
+  });
+});

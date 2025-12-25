@@ -1,0 +1,30 @@
+**/settings/Mainnet.toml
+**/settings/Testnet.toml
+**/settings/Devnet.toml
+settings/
+.cache/**
+history.txt
+.env
+.env.*
+
+logs
+*.log
+npm-debug.log*
+coverage
+*.info
+costs-reports.json
+node_modules
+
+# IDE
+.idea/
+.vscode/
+*.swp
+*.swo
+
+# OS
+.DS_Store
+Thumbs.db
+
+# Build artifacts
+dist/
+build/

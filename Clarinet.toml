@@ -1,0 +1,38 @@
+[project]
+name = 'chainstamp'
+description = ''
+authors = []
+telemetry = true
+cache_dir = './.cache'
+requirements = []
+[contracts.hash-registry]
+path = 'contracts/hash-registry.clar'
+clarity_version = 4
+epoch = 'latest'
+
+[contracts.stamp-registry]
+path = 'contracts/stamp-registry.clar'
+clarity_version = 4
+epoch = 'latest'
+
+[contracts.tag-registry]
+path = 'contracts/tag-registry.clar'
+clarity_version = 4
+epoch = 'latest'
+[repl.analysis]
+passes = [
+    'call_checker',
+    'check_checker',
+]
+
+[repl.analysis.lints]
+
+[repl.analysis.check_checker]
+strict = false
+trusted_sender = false
+trusted_caller = false
+callee_filter = false
+
+[repl.remote_data]
+enabled = false
+api_url = 'https://api.hiro.so'
