@@ -14,3 +14,4 @@
 // Commit 14: feat(stamp-registry): add user stamp tracking
 // Commit 15: feat(stamp-registry): implement fee mechanism
 // Commit 16: test(stamp-registry): add comprehensive tests
+// Commit 17: feat: create tag-registry contract skeleton
