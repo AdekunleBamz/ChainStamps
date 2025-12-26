@@ -7,3 +7,4 @@
 // Commit 7: feat(hash-registry): add data maps and constants
 // Commit 8: feat(hash-registry): implement store-hash function
 // Commit 9: feat(hash-registry): add read-only functions
+// Commit 10: feat(hash-registry): implement fee collection
