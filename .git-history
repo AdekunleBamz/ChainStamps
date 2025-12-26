@@ -8,3 +8,4 @@
 // Commit 8: feat(hash-registry): implement store-hash function
 // Commit 9: feat(hash-registry): add read-only functions
 // Commit 10: feat(hash-registry): implement fee collection
+// Commit 11: test(hash-registry): add unit tests
