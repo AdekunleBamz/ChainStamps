@@ -10,3 +10,4 @@
 // Commit 10: feat(hash-registry): implement fee collection
 // Commit 11: test(hash-registry): add unit tests
 // Commit 12: feat: create stamp-registry contract skeleton
+// Commit 13: feat(stamp-registry): implement stamp-message function
