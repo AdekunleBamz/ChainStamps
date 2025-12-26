@@ -17,3 +17,4 @@
 // Commit 17: feat: create tag-registry contract skeleton
 // Commit 18: feat(tag-registry): implement store-tag function
 // Commit 19: feat(tag-registry): add update-tag functionality
+// Commit 20: feat(tag-registry): implement key-value lookup
