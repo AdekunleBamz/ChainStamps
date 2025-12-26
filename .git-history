@@ -12,3 +12,4 @@
 // Commit 12: feat: create stamp-registry contract skeleton
 // Commit 13: feat(stamp-registry): implement stamp-message function
 // Commit 14: feat(stamp-registry): add user stamp tracking
+// Commit 15: feat(stamp-registry): implement fee mechanism
