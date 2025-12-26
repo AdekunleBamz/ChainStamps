@@ -6,3 +6,4 @@
 // Commit 6: feat: create hash-registry contract skeleton
 // Commit 7: feat(hash-registry): add data maps and constants
 // Commit 8: feat(hash-registry): implement store-hash function
+// Commit 9: feat(hash-registry): add read-only functions
