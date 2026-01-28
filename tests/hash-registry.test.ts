@@ -142,4 +142,97 @@ describe("hash-registry", () => {
     );
     expect(result).toBePrincipal(deployer);
   });
+
+  it("should retrieve hash by ID", () => {
+    const testHash = createTestHash(5);
+    
+    simnet.callPublicFn(
+      "hash-registry",
+      "store-hash",
+      [Cl.buffer(testHash), Cl.stringUtf8("By ID test")],
+      wallet1
+    );
+
+    const { result } = simnet.callReadOnlyFn(
+      "hash-registry",
+      "get-hash-by-id",
+      [Cl.uint(1)],
+      wallet1
+    );
+    expect(result).toBeSome(Cl.buffer(testHash));
+  });
+
+  it("should track user hashes", () => {
+    const testHash1 = createTestHash(6);
+    const testHash2 = createTestHash(7);
+    
+    simnet.callPublicFn(
+      "hash-registry",
+      "store-hash",
+      [Cl.buffer(testHash1), Cl.stringUtf8("Hash 1")],
+      wallet2
+    );
+    
+    simnet.callPublicFn(
+      "hash-registry",
+      "store-hash",
+      [Cl.buffer(testHash2), Cl.stringUtf8("Hash 2")],
+      wallet2
+    );
+
+    const { result } = simnet.callReadOnlyFn(
+      "hash-registry",
+      "get-user-hashes",
+      [Cl.principal(wallet2)],
+      wallet2
+    );
+    expect(result).toBeList([Cl.buffer(testHash1), Cl.buffer(testHash2)]);
+  });
+
+  it("should get hash info with all metadata", () => {
+    const testHash = createTestHash(8);
+    const description = "Full metadata test";
+    
+    simnet.callPublicFn(
+      "hash-registry",
+      "store-hash",
+      [Cl.buffer(testHash), Cl.stringUtf8(description)],
+      wallet1
+    );
+
+    const { result } = simnet.callReadOnlyFn(
+      "hash-registry",
+      "get-hash-info",
+      [Cl.buffer(testHash)],
+      wallet1
+    );
+    
+    expect(result).toBeSome(
+      Cl.tuple({
+        owner: Cl.principal(wallet1),
+        description: Cl.stringUtf8(description),
+        timestamp: Cl.uint(expect.any(Number)),
+        "block-height": Cl.uint(expect.any(Number)),
+        "hash-id": Cl.uint(expect.any(Number)),
+      })
+    );
+  });
+
+  it("should allow only owner to verify ownership", () => {
+    const { result: ownerResult } = simnet.callPublicFn(
+      "hash-registry",
+      "verify-owner",
+      [],
+      deployer
+    );
+    expect(ownerResult).toBeOk(Cl.bool(true));
+
+    const { result: nonOwnerResult } = simnet.callPublicFn(
+      "hash-registry",
+      "verify-owner",
+      [],
+      wallet1
+    );
+    expect(nonOwnerResult).toBeErr(Cl.uint(100)); // ERR-NOT-AUTHORIZED
+  });
 });
