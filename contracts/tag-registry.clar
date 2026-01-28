@@ -1,5 +1,5 @@
 ;; title: tag-registry
-;; version: 1.0.0
+;; version: 1.1.0
 ;; summary: Store key-value tags on-chain
 ;; description: ChainStamp - Pay 0.04 STX to store a key-value pair permanently on the blockchain
 
@@ -9,6 +9,7 @@
 (define-constant ERR-KEY-TOO-LONG (err u101))
 (define-constant ERR-VALUE-TOO-LONG (err u102))
 (define-constant ERR-TAG-NOT-FOUND (err u103))
+(define-constant ERR-TAG-ALREADY-DELETED (err u104))
 
 ;; Fee in microSTX (0.04 STX = 40000 microSTX)
 (define-constant TAG-FEE u40000)
@@ -26,7 +27,8 @@
     key: (string-utf8 64),
     value: (string-utf8 256),
     timestamp: uint,
-    block-height: uint
+    block-height: uint,
+    deleted: bool
 })
 
 ;; Store user's tag IDs
@@ -43,8 +45,18 @@
 
 (define-read-only (get-tag-by-key (owner principal) (key (string-utf8 64)))
     (match (map-get? tag-lookup { owner: owner, key: key })
-        tag-id (map-get? tags tag-id)
+        tag-id (match (map-get? tags tag-id)
+            tag-data (if (get deleted tag-data) none (some tag-data))
+            none
+        )
         none
+    )
+)
+
+(define-read-only (is-tag-deleted (tag-id uint))
+    (match (map-get? tags tag-id)
+        tag-data (get deleted tag-data)
+        false
     )
 )
 
@@ -90,7 +102,8 @@
             key: key,
             value: value,
             timestamp: (unwrap-panic (get-stacks-block-info? time (- stacks-block-height u1))),
-            block-height: stacks-block-height
+            block-height: stacks-block-height,
+            deleted: false
         })
         
         ;; Store lookup
@@ -116,6 +129,8 @@
             (existing-tag-id (unwrap! (map-get? tag-lookup { owner: tx-sender, key: key }) ERR-TAG-NOT-FOUND))
             (existing-tag (unwrap! (map-get? tags existing-tag-id) ERR-TAG-NOT-FOUND))
         )
+        ;; Check if tag is deleted
+        (asserts! (not (get deleted existing-tag)) ERR-TAG-ALREADY-DELETED)
         ;; Check value length
         (asserts! (<= (len new-value) MAX-VALUE-LENGTH) ERR-VALUE-TOO-LONG)
         
@@ -128,13 +143,35 @@
             key: key,
             value: new-value,
             timestamp: (unwrap-panic (get-stacks-block-info? time (- stacks-block-height u1))),
-            block-height: stacks-block-height
+            block-height: stacks-block-height,
+            deleted: false
         })
         
         ;; Update fees collected
         (var-set total-fees-collected (+ (var-get total-fees-collected) TAG-FEE))
         
         (ok existing-tag-id)
+    )
+)
+
+;; Delete a tag (owner only) - marks the tag as deleted
+(define-public (delete-tag (tag-id uint))
+    (let
+        (
+            (tag-data (unwrap! (map-get? tags tag-id) ERR-TAG-NOT-FOUND))
+        )
+        ;; Only the owner can delete
+        (asserts! (is-eq tx-sender (get owner tag-data)) ERR-NOT-AUTHORIZED)
+        ;; Cannot delete if already deleted
+        (asserts! (not (get deleted tag-data)) ERR-TAG-ALREADY-DELETED)
+        
+        ;; Update the tag to deleted state
+        (map-set tags tag-id (merge tag-data { deleted: true }))
+        
+        ;; Remove from lookup
+        (map-delete tag-lookup { owner: tx-sender, key: (get key tag-data) })
+        
+        (ok true)
     )
 )
 
