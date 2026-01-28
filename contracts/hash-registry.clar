@@ -50,6 +50,14 @@
     (map-get? hashes hash)
 )
 
+;; Get owner of a hash if it exists
+(define-read-only (get-hash-owner (hash (buff 32)))
+    (match (map-get? hashes hash)
+        hash-data (some (get owner hash-data))
+        none
+    )
+)
+
 (define-read-only (verify-hash (hash (buff 32)))
     (match (map-get? hashes hash)
         hash-data (not (get revoked hash-data))
