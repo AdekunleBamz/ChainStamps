@@ -73,6 +73,14 @@
     )
 )
 
+;; Get key of a tag if it exists
+(define-read-only (get-tag-key (tag-id uint))
+    (match (map-get? tags tag-id)
+        tag-data (some (get key tag-data))
+        none
+    )
+)
+
 (define-read-only (get-tag-by-key (owner principal) (key (string-utf8 64)))
     (get-tag-by-ns-key owner DEFAULT-NAMESPACE key)
 )
