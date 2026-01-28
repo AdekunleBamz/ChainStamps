@@ -34,6 +34,14 @@
     (map-get? stamps stamp-id)
 )
 
+;; Get block height for a stamp if it exists
+(define-read-only (get-stamp-block-height (stamp-id uint))
+    (match (map-get? stamps stamp-id)
+        stamp-data (some (get block-height stamp-data))
+        none
+    )
+)
+
 (define-read-only (get-stamp-count)
     (var-get stamp-counter)
 )
