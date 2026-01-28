@@ -41,6 +41,14 @@
     (map-get? tags tag-id)
 )
 
+;; Get block height for a tag if it exists
+(define-read-only (get-tag-block-height (tag-id uint))
+    (match (map-get? tags tag-id)
+        tag-data (some (get block-height tag-data))
+        none
+    )
+)
+
 (define-read-only (get-tag-by-key (owner principal) (key (string-utf8 64)))
     (match (map-get? tag-lookup { owner: owner, key: key })
         tag-id (map-get? tags tag-id)
