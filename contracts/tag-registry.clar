@@ -68,6 +68,15 @@
     CONTRACT-OWNER
 )
 
+;; Get contract stats summary
+(define-read-only (get-stats)
+    {
+        total-tags: (var-get tag-counter),
+        total-fees: (var-get total-fees-collected),
+        fee-per-tag: TAG-FEE
+    }
+)
+
 ;; Public functions
 
 ;; Store a key-value tag on-chain
