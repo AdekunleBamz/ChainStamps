@@ -1,5 +1,5 @@
 ;; title: hash-registry
-;; version: 1.0.0
+;; version: 1.2.0
 ;; summary: Store document hashes on-chain for verification
 ;; description: ChainStamp - Pay 0.03 STX to permanently store a hash for document verification
 
@@ -8,9 +8,14 @@
 (define-constant ERR-NOT-AUTHORIZED (err u100))
 (define-constant ERR-HASH-ALREADY-EXISTS (err u101))
 (define-constant ERR-HASH-NOT-FOUND (err u102))
+(define-constant ERR-BATCH-TOO-LARGE (err u103))
+(define-constant ERR-EMPTY-BATCH (err u104))
 
 ;; Fee in microSTX (0.03 STX = 30000 microSTX)
 (define-constant HASH-FEE u30000)
+;; Discounted fee for batch operations (0.025 STX = 25000 microSTX per hash)
+(define-constant BATCH-HASH-FEE u25000)
+(define-constant MAX-BATCH-SIZE u10)
 
 ;; Data Variables
 (define-data-var hash-counter uint u0)
@@ -54,6 +59,14 @@
     HASH-FEE
 )
 
+(define-read-only (get-batch-hash-fee)
+    BATCH-HASH-FEE
+)
+
+(define-read-only (get-max-batch-size)
+    MAX-BATCH-SIZE
+)
+
 (define-read-only (get-user-hashes (user principal))
     (default-to (list) (map-get? user-hashes user))
 )
@@ -66,21 +79,13 @@
     CONTRACT-OWNER
 )
 
-;; Public functions
-
-;; Store a hash on-chain
-(define-public (store-hash (hash (buff 32)) (description (string-utf8 128)))
+;; Private helper for storing a single hash (used in batch)
+(define-private (store-hash-internal (hash (buff 32)) (description (string-utf8 128)))
     (let
         (
             (new-hash-id (+ (var-get hash-counter) u1))
             (current-user-hashes (default-to (list) (map-get? user-hashes tx-sender)))
         )
-        ;; Check if hash already exists
-        (asserts! (is-none (map-get? hashes hash)) ERR-HASH-ALREADY-EXISTS)
-        
-        ;; Transfer fee to contract owner
-        (try! (stx-transfer? HASH-FEE tx-sender CONTRACT-OWNER))
-        
         ;; Store the hash
         (map-set hashes hash {
             owner: tx-sender,
@@ -97,12 +102,71 @@
         (map-set user-hashes tx-sender 
             (unwrap-panic (as-max-len? (append current-user-hashes hash) u100)))
         
-        ;; Increment counter and fees
+        ;; Increment counter
         (var-set hash-counter new-hash-id)
-        (var-set total-fees-collected (+ (var-get total-fees-collected) HASH-FEE))
         
-        ;; Return the hash ID
-        (ok new-hash-id)
+        new-hash-id
+    )
+)
+
+;; Public functions
+
+;; Store a hash on-chain
+(define-public (store-hash (hash (buff 32)) (description (string-utf8 128)))
+    (begin
+        ;; Check if hash already exists
+        (asserts! (is-none (map-get? hashes hash)) ERR-HASH-ALREADY-EXISTS)
+        
+        ;; Transfer fee to contract owner
+        (try! (stx-transfer? HASH-FEE tx-sender CONTRACT-OWNER))
+        
+        ;; Store and update fees
+        (let ((new-hash-id (store-hash-internal hash description)))
+            (var-set total-fees-collected (+ (var-get total-fees-collected) HASH-FEE))
+            (ok new-hash-id)
+        )
+    )
+)
+
+;; Store multiple hashes in a single transaction (discounted fee)
+(define-public (store-hashes-batch (hash-list (list 10 { hash: (buff 32), description: (string-utf8 128) })))
+    (let
+        (
+            (batch-size (len hash-list))
+            (total-fee (* BATCH-HASH-FEE batch-size))
+        )
+        ;; Validate batch size
+        (asserts! (> batch-size u0) ERR-EMPTY-BATCH)
+        (asserts! (<= batch-size MAX-BATCH-SIZE) ERR-BATCH-TOO-LARGE)
+        
+        ;; Transfer total fee
+        (try! (stx-transfer? total-fee tx-sender CONTRACT-OWNER))
+        
+        ;; Store each hash (fold to collect IDs)
+        (let
+            (
+                (result (fold store-hash-fold hash-list (ok (list))))
+            )
+            ;; Update total fees
+            (var-set total-fees-collected (+ (var-get total-fees-collected) total-fee))
+            result
+        )
+    )
+)
+
+;; Fold helper for batch storage
+(define-private (store-hash-fold 
+    (entry { hash: (buff 32), description: (string-utf8 128) })
+    (acc (response (list 10 uint) uint)))
+    (match acc
+        success-list
+            (if (is-none (map-get? hashes (get hash entry)))
+                (let ((new-id (store-hash-internal (get hash entry) (get description entry))))
+                    (ok (unwrap-panic (as-max-len? (append success-list new-id) u10)))
+                )
+                acc ;; Skip existing hashes
+            )
+        err-val (err err-val)
     )
 )
 
