@@ -1,5 +1,5 @@
 ;; title: stamp-registry
-;; version: 1.0.0
+;; version: 1.1.0
 ;; summary: Store short messages on-chain for a small fee
 ;; description: ChainStamp - Pay 0.05 STX to permanently stamp a message on the Stacks blockchain
 
@@ -9,6 +9,7 @@
 (define-constant ERR-MESSAGE-TOO-LONG (err u101))
 (define-constant ERR-INSUFFICIENT-PAYMENT (err u102))
 (define-constant ERR-STAMP-NOT-FOUND (err u103))
+(define-constant ERR-STAMP-ALREADY-REVOKED (err u104))
 
 ;; Fee in microSTX (0.05 STX = 50000 microSTX)
 (define-constant STAMP-FEE u50000)
@@ -23,7 +24,8 @@
     sender: principal,
     message: (string-utf8 256),
     timestamp: uint,
-    block-height: uint
+    block-height: uint,
+    revoked: bool
 })
 
 (define-map user-stamps principal (list 100 uint))
@@ -32,6 +34,20 @@
 
 (define-read-only (get-stamp (stamp-id uint))
     (map-get? stamps stamp-id)
+)
+
+(define-read-only (is-stamp-valid (stamp-id uint))
+    (match (map-get? stamps stamp-id)
+        stamp-data (not (get revoked stamp-data))
+        false
+    )
+)
+
+(define-read-only (is-stamp-revoked (stamp-id uint))
+    (match (map-get? stamps stamp-id)
+        stamp-data (get revoked stamp-data)
+        false
+    )
 )
 
 (define-read-only (get-stamp-count)
@@ -74,7 +90,8 @@
             sender: tx-sender,
             message: message,
             timestamp: (unwrap-panic (get-stacks-block-info? time (- stacks-block-height u1))),
-            block-height: stacks-block-height
+            block-height: stacks-block-height,
+            revoked: false
         })
         
         ;; Update user stamps list
@@ -87,6 +104,24 @@
         
         ;; Return the stamp ID
         (ok new-stamp-id)
+    )
+)
+
+;; Revoke a stamp (sender only) - marks the stamp as no longer valid
+(define-public (revoke-stamp (stamp-id uint))
+    (let
+        (
+            (stamp-data (unwrap! (map-get? stamps stamp-id) ERR-STAMP-NOT-FOUND))
+        )
+        ;; Only the sender can revoke
+        (asserts! (is-eq tx-sender (get sender stamp-data)) ERR-NOT-AUTHORIZED)
+        ;; Cannot revoke if already revoked
+        (asserts! (not (get revoked stamp-data)) ERR-STAMP-ALREADY-REVOKED)
+        
+        ;; Update the stamp to revoked state
+        (map-set stamps stamp-id (merge stamp-data { revoked: true }))
+        
+        (ok true)
     )
 )
 

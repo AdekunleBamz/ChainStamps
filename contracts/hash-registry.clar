@@ -8,8 +8,9 @@
 (define-constant ERR-NOT-AUTHORIZED (err u100))
 (define-constant ERR-HASH-ALREADY-EXISTS (err u101))
 (define-constant ERR-HASH-NOT-FOUND (err u102))
-(define-constant ERR-BATCH-TOO-LARGE (err u103))
-(define-constant ERR-EMPTY-BATCH (err u104))
+(define-constant ERR-HASH-ALREADY-REVOKED (err u103))
+(define-constant ERR-BATCH-TOO-LARGE (err u104))
+(define-constant ERR-EMPTY-BATCH (err u105))
 
 ;; Fee in microSTX (0.03 STX = 30000 microSTX)
 (define-constant HASH-FEE u30000)
@@ -28,7 +29,8 @@
     description: (string-utf8 128),
     timestamp: uint,
     block-height: uint,
-    hash-id: uint
+    hash-id: uint,
+    revoked: bool
 })
 
 ;; Track hashes by user
@@ -44,7 +46,17 @@
 )
 
 (define-read-only (verify-hash (hash (buff 32)))
-    (is-some (map-get? hashes hash))
+    (match (map-get? hashes hash)
+        hash-data (not (get revoked hash-data))
+        false
+    )
+)
+
+(define-read-only (is-hash-revoked (hash (buff 32)))
+    (match (map-get? hashes hash)
+        hash-data (get revoked hash-data)
+        false
+    )
 )
 
 (define-read-only (get-hash-count)
@@ -92,7 +104,8 @@
             description: description,
             timestamp: (unwrap-panic (get-stacks-block-info? time (- stacks-block-height u1))),
             block-height: stacks-block-height,
-            hash-id: new-hash-id
+            hash-id: new-hash-id,
+            revoked: false
         })
         
         ;; Store reverse lookup
@@ -167,6 +180,24 @@
                 acc ;; Skip existing hashes
             )
         err-val (err err-val)
+    )
+)
+
+;; Revoke a hash (owner only) - marks the hash as no longer valid
+(define-public (revoke-hash (hash (buff 32)))
+    (let
+        (
+            (hash-data (unwrap! (map-get? hashes hash) ERR-HASH-NOT-FOUND))
+        )
+        ;; Only the owner can revoke
+        (asserts! (is-eq tx-sender (get owner hash-data)) ERR-NOT-AUTHORIZED)
+        ;; Cannot revoke if already revoked
+        (asserts! (not (get revoked hash-data)) ERR-HASH-ALREADY-REVOKED)
+        
+        ;; Update the hash to revoked state
+        (map-set hashes hash (merge hash-data { revoked: true }))
+        
+        (ok true)
     )
 )
 
