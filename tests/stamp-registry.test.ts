@@ -119,6 +119,23 @@ describe("stamp-registry", () => {
     expect(result).toBeList([Cl.uint(1), Cl.uint(2)]);
   });
 
+  it("should return stamp block height", () => {
+    simnet.callPublicFn(
+      "stamp-registry",
+      "stamp-message",
+      [Cl.stringUtf8("Block height test")],
+      wallet1
+    );
+
+    const { result } = simnet.callReadOnlyFn(
+      "stamp-registry",
+      "get-stamp-block-height",
+      [Cl.uint(1)],
+      wallet1
+    );
+    expect(result).toBeSome(Cl.uint(expect.any(Number)));
+  });
+
   it("should return contract owner", () => {
     const { result } = simnet.callReadOnlyFn(
       "stamp-registry",
