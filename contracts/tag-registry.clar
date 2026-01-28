@@ -1,7 +1,7 @@
 ;; title: tag-registry
-;; version: 1.1.0
-;; summary: Store key-value tags on-chain
-;; description: ChainStamp - Pay 0.04 STX to store a key-value pair permanently on the blockchain
+;; version: 1.2.0
+;; summary: Store key-value tags on-chain with namespace support
+;; description: ChainStamp - Pay 0.04 STX to store a namespaced key-value pair permanently on the blockchain
 
 ;; Constants
 (define-constant CONTRACT-OWNER tx-sender)
@@ -10,11 +10,14 @@
 (define-constant ERR-VALUE-TOO-LONG (err u102))
 (define-constant ERR-TAG-NOT-FOUND (err u103))
 (define-constant ERR-TAG-ALREADY-DELETED (err u104))
+(define-constant ERR-NAMESPACE-TOO-LONG (err u105))
 
 ;; Fee in microSTX (0.04 STX = 40000 microSTX)
 (define-constant TAG-FEE u40000)
 (define-constant MAX-KEY-LENGTH u64)
 (define-constant MAX-VALUE-LENGTH u256)
+(define-constant MAX-NAMESPACE-LENGTH u32)
+(define-constant DEFAULT-NAMESPACE u"default")
 
 ;; Data Variables
 (define-data-var tag-counter uint u0)
@@ -24,6 +27,7 @@
 ;; Store tags by ID
 (define-map tags uint {
     owner: principal,
+    namespace: (string-utf8 32),
     key: (string-utf8 64),
     value: (string-utf8 256),
     timestamp: uint,
@@ -34,8 +38,11 @@
 ;; Store user's tag IDs
 (define-map user-tags principal (list 100 uint))
 
-;; Store tag ID by owner+key for lookup
-(define-map tag-lookup { owner: principal, key: (string-utf8 64) } uint)
+;; Store user's tags by namespace
+(define-map namespace-tags { owner: principal, namespace: (string-utf8 32) } (list 100 uint))
+
+;; Store tag ID by owner+namespace+key for lookup
+(define-map tag-lookup { owner: principal, namespace: (string-utf8 32), key: (string-utf8 64) } uint)
 
 ;; Read-only functions
 
@@ -44,7 +51,11 @@
 )
 
 (define-read-only (get-tag-by-key (owner principal) (key (string-utf8 64)))
-    (match (map-get? tag-lookup { owner: owner, key: key })
+    (get-tag-by-ns-key owner DEFAULT-NAMESPACE key)
+)
+
+(define-read-only (get-tag-by-ns-key (owner principal) (namespace (string-utf8 32)) (key (string-utf8 64)))
+    (match (map-get? tag-lookup { owner: owner, namespace: namespace, key: key })
         tag-id (match (map-get? tags tag-id)
             tag-data (if (get deleted tag-data) none (some tag-data))
             none
@@ -76,20 +87,31 @@
     (default-to (list) (map-get? user-tags user))
 )
 
+(define-read-only (get-user-namespace-tags (user principal) (namespace (string-utf8 32)))
+    (default-to (list) (map-get? namespace-tags { owner: user, namespace: namespace }))
+)
+
 (define-read-only (get-contract-owner)
     CONTRACT-OWNER
 )
 
 ;; Public functions
 
-;; Store a key-value tag on-chain
+;; Store a key-value tag on-chain (default namespace)
 (define-public (store-tag (key (string-utf8 64)) (value (string-utf8 256)))
+    (store-tag-with-namespace DEFAULT-NAMESPACE key value)
+)
+
+;; Store a key-value tag with custom namespace
+(define-public (store-tag-with-namespace (namespace (string-utf8 32)) (key (string-utf8 64)) (value (string-utf8 256)))
     (let
         (
             (new-tag-id (+ (var-get tag-counter) u1))
             (current-user-tags (default-to (list) (map-get? user-tags tx-sender)))
+            (current-ns-tags (default-to (list) (map-get? namespace-tags { owner: tx-sender, namespace: namespace })))
         )
         ;; Check lengths
+        (asserts! (<= (len namespace) MAX-NAMESPACE-LENGTH) ERR-NAMESPACE-TOO-LONG)
         (asserts! (<= (len key) MAX-KEY-LENGTH) ERR-KEY-TOO-LONG)
         (asserts! (<= (len value) MAX-VALUE-LENGTH) ERR-VALUE-TOO-LONG)
         
@@ -99,6 +121,7 @@
         ;; Store the tag
         (map-set tags new-tag-id {
             owner: tx-sender,
+            namespace: namespace,
             key: key,
             value: value,
             timestamp: (unwrap-panic (get-stacks-block-info? time (- stacks-block-height u1))),
@@ -107,11 +130,15 @@
         })
         
         ;; Store lookup
-        (map-set tag-lookup { owner: tx-sender, key: key } new-tag-id)
+        (map-set tag-lookup { owner: tx-sender, namespace: namespace, key: key } new-tag-id)
         
         ;; Update user tags list
         (map-set user-tags tx-sender 
             (unwrap-panic (as-max-len? (append current-user-tags new-tag-id) u100)))
+        
+        ;; Update namespace tags list
+        (map-set namespace-tags { owner: tx-sender, namespace: namespace }
+            (unwrap-panic (as-max-len? (append current-ns-tags new-tag-id) u100)))
         
         ;; Increment counter and fees
         (var-set tag-counter new-tag-id)
@@ -124,9 +151,14 @@
 
 ;; Update an existing tag value (same fee applies)
 (define-public (update-tag (key (string-utf8 64)) (new-value (string-utf8 256)))
+    (update-tag-with-namespace DEFAULT-NAMESPACE key new-value)
+)
+
+;; Update an existing tag with namespace
+(define-public (update-tag-with-namespace (namespace (string-utf8 32)) (key (string-utf8 64)) (new-value (string-utf8 256)))
     (let
         (
-            (existing-tag-id (unwrap! (map-get? tag-lookup { owner: tx-sender, key: key }) ERR-TAG-NOT-FOUND))
+            (existing-tag-id (unwrap! (map-get? tag-lookup { owner: tx-sender, namespace: namespace, key: key }) ERR-TAG-NOT-FOUND))
             (existing-tag (unwrap! (map-get? tags existing-tag-id) ERR-TAG-NOT-FOUND))
         )
         ;; Check if tag is deleted
@@ -140,6 +172,7 @@
         ;; Update the tag
         (map-set tags existing-tag-id {
             owner: tx-sender,
+            namespace: namespace,
             key: key,
             value: new-value,
             timestamp: (unwrap-panic (get-stacks-block-info? time (- stacks-block-height u1))),
@@ -169,7 +202,7 @@
         (map-set tags tag-id (merge tag-data { deleted: true }))
         
         ;; Remove from lookup
-        (map-delete tag-lookup { owner: tx-sender, key: (get key tag-data) })
+        (map-delete tag-lookup { owner: tx-sender, namespace: (get namespace tag-data), key: (get key tag-data) })
         
         (ok true)
     )
