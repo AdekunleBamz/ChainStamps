@@ -320,6 +320,25 @@ describe("hash-registry", () => {
           expect(result).toBeSome(Cl.stringUtf8(description));
         });
 
+        it("should return hash block height", () => {
+          const testHash = createTestHash(10);
+
+          simnet.callPublicFn(
+            "hash-registry",
+            "store-hash",
+            [Cl.buffer(testHash), Cl.stringUtf8("Block height test")],
+            wallet1
+          );
+
+          const { result } = simnet.callReadOnlyFn(
+            "hash-registry",
+            "get-hash-block-height",
+            [Cl.buffer(testHash)],
+            wallet1
+          );
+          expect(result).toBeSome(Cl.uint(expect.any(Number)));
+        });
+
         it("should return contract owner", () => {
           const { result } = simnet.callReadOnlyFn(
             "hash-registry",
