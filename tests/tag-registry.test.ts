@@ -184,6 +184,26 @@ describe("tag-registry", () => {
     expect(result).toBeList([Cl.uint(1), Cl.uint(2)]);
   });
 
+  it("should return tag key", () => {
+    const key = "key-only";
+    const value = "value-only";
+
+    simnet.callPublicFn(
+      "tag-registry",
+      "store-tag",
+      [Cl.stringUtf8(key), Cl.stringUtf8(value)],
+      wallet1
+    );
+
+    const { result } = simnet.callReadOnlyFn(
+      "tag-registry",
+      "get-tag-key",
+      [Cl.uint(1)],
+      wallet1
+    );
+    expect(result).toBeSome(Cl.stringUtf8(key));
+  });
+
   it("should return contract owner", () => {
     const { result } = simnet.callReadOnlyFn(
       "tag-registry",
