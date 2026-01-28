@@ -1,5 +1,5 @@
 ;; title: stamp-registry
-;; version: 1.0.0
+;; version: 1.1.0
 ;; summary: Store short messages on-chain for a small fee
 ;; description: ChainStamp - Pay 0.05 STX to permanently stamp a message on the Stacks blockchain
 
@@ -9,10 +9,19 @@
 (define-constant ERR-MESSAGE-TOO-LONG (err u101))
 (define-constant ERR-INSUFFICIENT-PAYMENT (err u102))
 (define-constant ERR-STAMP-NOT-FOUND (err u103))
+(define-constant ERR-INVALID-CATEGORY (err u104))
 
 ;; Fee in microSTX (0.05 STX = 50000 microSTX)
 (define-constant STAMP-FEE u50000)
 (define-constant MAX-MESSAGE-LENGTH u256)
+(define-constant MAX-CATEGORY-LENGTH u32)
+
+;; Valid categories
+(define-constant CATEGORY-GENERAL u0)
+(define-constant CATEGORY-ANNOUNCEMENT u1)
+(define-constant CATEGORY-MILESTONE u2)
+(define-constant CATEGORY-LEGAL u3)
+(define-constant CATEGORY-PERSONAL u4)
 
 ;; Data Variables
 (define-data-var stamp-counter uint u0)
@@ -22,11 +31,15 @@
 (define-map stamps uint {
     sender: principal,
     message: (string-utf8 256),
+    category: uint,
     timestamp: uint,
     block-height: uint
 })
 
 (define-map user-stamps principal (list 100 uint))
+
+;; Category tracking
+(define-map category-stamps uint (list 100 uint))
 
 ;; Read-only functions
 
@@ -50,21 +63,37 @@
     (default-to (list) (map-get? user-stamps user))
 )
 
+(define-read-only (get-stamps-by-category (category uint))
+    (default-to (list) (map-get? category-stamps category))
+)
+
+(define-read-only (is-valid-category (category uint))
+    (<= category CATEGORY-PERSONAL)
+)
+
 (define-read-only (get-contract-owner)
     CONTRACT-OWNER
 )
 
 ;; Public functions
 
-;; Stamp a message on-chain
+;; Stamp a message on-chain with default category
 (define-public (stamp-message (message (string-utf8 256)))
+    (stamp-message-with-category message CATEGORY-GENERAL)
+)
+
+;; Stamp a message on-chain with specific category
+(define-public (stamp-message-with-category (message (string-utf8 256)) (category uint))
     (let
         (
             (new-stamp-id (+ (var-get stamp-counter) u1))
             (current-user-stamps (default-to (list) (map-get? user-stamps tx-sender)))
+            (current-category-stamps (default-to (list) (map-get? category-stamps category)))
         )
         ;; Check message length
         (asserts! (<= (len message) MAX-MESSAGE-LENGTH) ERR-MESSAGE-TOO-LONG)
+        ;; Check valid category
+        (asserts! (is-valid-category category) ERR-INVALID-CATEGORY)
         
         ;; Transfer fee to contract owner
         (try! (stx-transfer? STAMP-FEE tx-sender CONTRACT-OWNER))
@@ -73,6 +102,7 @@
         (map-set stamps new-stamp-id {
             sender: tx-sender,
             message: message,
+            category: category,
             timestamp: (unwrap-panic (get-stacks-block-info? time (- stacks-block-height u1))),
             block-height: stacks-block-height
         })
@@ -80,6 +110,10 @@
         ;; Update user stamps list
         (map-set user-stamps tx-sender 
             (unwrap-panic (as-max-len? (append current-user-stamps new-stamp-id) u100)))
+        
+        ;; Update category stamps list
+        (map-set category-stamps category
+            (unwrap-panic (as-max-len? (append current-category-stamps new-stamp-id) u100)))
         
         ;; Increment counter and fees
         (var-set stamp-counter new-stamp-id)
