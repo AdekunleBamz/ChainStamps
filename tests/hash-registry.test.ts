@@ -272,6 +272,34 @@ describe("hash-registry", () => {
           expect(result).toBeSome(Cl.principal(wallet2));
         });
 
+        it("should get hash info by id", () => {
+          const testHash = createTestHash(8);
+          const description = "Info by id";
+
+          simnet.callPublicFn(
+            "hash-registry",
+            "store-hash",
+            [Cl.buffer(testHash), Cl.stringUtf8(description)],
+            wallet1
+          );
+
+          const { result } = simnet.callReadOnlyFn(
+            "hash-registry",
+            "get-hash-info-by-id",
+            [Cl.uint(1)],
+            wallet1
+          );
+          expect(result).toBeSome(
+            Cl.tuple({
+              owner: Cl.principal(wallet1),
+              description: Cl.stringUtf8(description),
+              timestamp: Cl.uint(expect.any(Number)),
+              "block-height": Cl.uint(expect.any(Number)),
+              "hash-id": Cl.uint(1),
+            })
+          );
+        });
+
         it("should return contract owner", () => {
           const { result } = simnet.callReadOnlyFn(
             "hash-registry",
