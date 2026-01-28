@@ -97,3 +97,14 @@
         (ok true)
     )
 )
+
+;; Batch stamp multiple messages at once
+;; Returns list of stamp IDs for all messages
+(define-public (batch-stamp-messages (messages (list 5 (string-utf8 256))))
+    (let
+        (
+            (results (map stamp-message messages))
+        )
+        (ok results)
+    )
+)
