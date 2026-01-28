@@ -113,3 +113,9 @@
         (ok true)
     )
 )
+
+;; Batch verify multiple hashes at once
+;; Returns a list of booleans indicating which hashes exist
+(define-read-only (batch-verify-hashes (hash-list (list 10 (buff 32))))
+    (map verify-hash hash-list)
+)
