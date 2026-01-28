@@ -64,6 +64,11 @@
     (default-to (list) (map-get? user-tags user))
 )
 
+;; Get total tags stored by a user
+(define-read-only (get-user-tag-count (user principal))
+    (len (default-to (list) (map-get? user-tags user)))
+)
+
 (define-read-only (get-contract-owner)
     CONTRACT-OWNER
 )
