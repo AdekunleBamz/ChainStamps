@@ -34,6 +34,14 @@
     (map-get? stamps stamp-id)
 )
 
+;; Get timestamp for a stamp if it exists
+(define-read-only (get-stamp-timestamp (stamp-id uint))
+    (match (map-get? stamps stamp-id)
+        stamp-data (some (get timestamp stamp-data))
+        none
+    )
+)
+
 (define-read-only (get-stamp-count)
     (var-get stamp-counter)
 )
