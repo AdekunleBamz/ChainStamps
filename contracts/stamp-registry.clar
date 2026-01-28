@@ -54,6 +54,15 @@
     CONTRACT-OWNER
 )
 
+;; Get contract stats summary
+(define-read-only (get-stats)
+    {
+        total-stamps: (var-get stamp-counter),
+        total-fees: (var-get total-fees-collected),
+        fee-per-stamp: STAMP-FEE
+    }
+)
+
 ;; Public functions
 
 ;; Stamp a message on-chain
