@@ -65,6 +65,14 @@
     )
 )
 
+;; Get block height for a stamp if it exists
+(define-read-only (get-stamp-block-height (stamp-id uint))
+    (match (map-get? stamps stamp-id)
+        stamp-data (some (get block-height stamp-data))
+        none
+    )
+)
+
 ;; Check if a principal is the sender of a stamp
 (define-read-only (is-stamp-sender (stamp-id uint) (user principal))
     (match (map-get? stamps stamp-id)
