@@ -34,6 +34,14 @@
     (map-get? stamps stamp-id)
 )
 
+;; Get message from a stamp if it exists
+(define-read-only (get-stamp-message (stamp-id uint))
+    (match (map-get? stamps stamp-id)
+        stamp-data (some (get message stamp-data))
+        none
+    )
+)
+
 (define-read-only (get-stamp-count)
     (var-get stamp-counter)
 )
