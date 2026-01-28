@@ -34,6 +34,14 @@
     (map-get? stamps stamp-id)
 )
 
+;; Check if a principal is the sender of a stamp
+(define-read-only (is-stamp-sender (stamp-id uint) (user principal))
+    (match (map-get? stamps stamp-id)
+        stamp-data (is-eq (get sender stamp-data) user)
+        false
+    )
+)
+
 (define-read-only (get-stamp-count)
     (var-get stamp-counter)
 )
