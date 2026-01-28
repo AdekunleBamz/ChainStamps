@@ -49,6 +49,13 @@
 (define-read-only (get-tag (tag-id uint))
     (map-get? tags tag-id)
 )
+;; Get owner of a tag if it exists
+(define-read-only (get-tag-owner (tag-id uint))
+    (match (map-get? tags tag-id)
+        tag-data (some (get owner tag-data))
+        none
+    )
+)
 
 ;; Check if a principal is the owner of a tag
 (define-read-only (is-tag-owner (tag-id uint) (user principal))
