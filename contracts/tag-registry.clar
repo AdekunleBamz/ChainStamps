@@ -102,6 +102,11 @@
     (default-to (list) (map-get? user-tags user))
 )
 
+;; Get total tags stored by a user
+(define-read-only (get-user-tag-count (user principal))
+    (len (default-to (list) (map-get? user-tags user)))
+)
+
 (define-read-only (get-user-namespace-tags (user principal) (namespace (string-utf8 32)))
     (default-to (list) (map-get? namespace-tags { owner: user, namespace: namespace }))
 )
