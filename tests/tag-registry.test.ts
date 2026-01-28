@@ -273,6 +273,26 @@ describe("tag-registry", () => {
     expect(result).toBeSome(Cl.stringUtf8(value));
   });
 
+  it("should return tag key", () => {
+    const key = "key-only";
+    const value = "value-only";
+
+    simnet.callPublicFn(
+      "tag-registry",
+      "store-tag",
+      [Cl.stringUtf8(key), Cl.stringUtf8(value)],
+      wallet1
+    );
+
+    const { result } = simnet.callReadOnlyFn(
+      "tag-registry",
+      "get-tag-key",
+      [Cl.uint(1)],
+      wallet1
+    );
+    expect(result).toBeSome(Cl.stringUtf8(key));
+  });
+
   it("should handle special characters in keys and values", () => {
     const key = "data:json";
     const value = "{\"name\":\"test\"}";
