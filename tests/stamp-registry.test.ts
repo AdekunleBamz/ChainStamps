@@ -119,6 +119,23 @@ describe("stamp-registry", () => {
     expect(result).toBeList([Cl.uint(1), Cl.uint(2)]);
   });
 
+  it("should return stamp sender", () => {
+    simnet.callPublicFn(
+      "stamp-registry",
+      "stamp-message",
+      [Cl.stringUtf8("Sender test")],
+      wallet1
+    );
+
+    const { result } = simnet.callReadOnlyFn(
+      "stamp-registry",
+      "get-stamp-sender",
+      [Cl.uint(1)],
+      wallet1
+    );
+    expect(result).toBeSome(Cl.principal(wallet1));
+  });
+
   it("should return contract owner", () => {
     const { result } = simnet.callReadOnlyFn(
       "stamp-registry",
