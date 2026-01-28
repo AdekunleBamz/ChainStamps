@@ -5,6 +5,7 @@ const accounts = simnet.getAccounts();
 const deployer = accounts.get("deployer")!;
 const wallet1 = accounts.get("wallet_1")!;
 const wallet2 = accounts.get("wallet_2")!;
+const wallet3 = accounts.get("wallet_3")!;
 
 const STAMP_FEE = 50000n; // 0.05 STX in microSTX
 
@@ -119,6 +120,46 @@ describe("stamp-registry", () => {
     expect(result).toBeList([Cl.uint(1), Cl.uint(2)]);
   });
 
+  it("should return user stamp count", () => {
+    simnet.callPublicFn(
+      "stamp-registry",
+      "stamp-message",
+      [Cl.stringUtf8("Count 1")],
+      wallet1
+    );
+    simnet.callPublicFn(
+      "stamp-registry",
+      "stamp-message",
+      [Cl.stringUtf8("Count 2")],
+      wallet1
+    );
+
+    const { result } = simnet.callReadOnlyFn(
+      "stamp-registry",
+      "get-user-stamp-count",
+      [Cl.principal(wallet1)],
+      wallet1
+    );
+    expect(result).toBeUint(2);
+  });
+
+  it("should return stamp sender", () => {
+    simnet.callPublicFn(
+      "stamp-registry",
+      "stamp-message",
+      [Cl.stringUtf8("Sender test")],
+      wallet1
+    );
+
+    const { result } = simnet.callReadOnlyFn(
+      "stamp-registry",
+      "get-stamp-sender",
+      [Cl.uint(1)],
+      wallet1
+    );
+    expect(result).toBeSome(Cl.principal(wallet1));
+  });
+
   it("should return contract owner", () => {
     const { result } = simnet.callReadOnlyFn(
       "stamp-registry",
@@ -127,5 +168,138 @@ describe("stamp-registry", () => {
       wallet1
     );
     expect(result).toBePrincipal(deployer);
+  });
+
+  it("should allow multiple users to stamp", () => {
+    simnet.callPublicFn(
+      "stamp-registry",
+      "stamp-message",
+      [Cl.stringUtf8("Wallet1 message")],
+      wallet1
+    );
+    simnet.callPublicFn(
+      "stamp-registry",
+      "stamp-message",
+      [Cl.stringUtf8("Wallet2 message")],
+      wallet2
+    );
+    simnet.callPublicFn(
+      "stamp-registry",
+      "stamp-message",
+      [Cl.stringUtf8("Wallet3 message")],
+      wallet3
+    );
+
+    const { result: count } = simnet.callReadOnlyFn(
+      "stamp-registry",
+      "get-stamp-count",
+      [],
+      wallet1
+    );
+    expect(count).toBeUint(3);
+  });
+
+  it("should allow empty message", () => {
+    const { result } = simnet.callPublicFn(
+      "stamp-registry",
+      "stamp-message",
+      [Cl.stringUtf8("")],
+      wallet1
+    );
+    expect(result).toBeOk(Cl.uint(1));
+  });
+
+  it("should allow maximum length message", () => {
+    const maxMessage = "a".repeat(256);
+    const { result } = simnet.callPublicFn(
+      "stamp-registry",
+      "stamp-message",
+      [Cl.stringUtf8(maxMessage)],
+      wallet1
+    );
+    expect(result).toBeOk(Cl.uint(1));
+  });
+
+  it("should return none for non-existent stamp", () => {
+    const { result } = simnet.callReadOnlyFn(
+      "stamp-registry",
+      "get-stamp",
+      [Cl.uint(9999)],
+      wallet1
+    );
+    expect(result).toBeNone();
+  });
+
+  it("should return empty list for user with no stamps", () => {
+    const { result } = simnet.callReadOnlyFn(
+      "stamp-registry",
+      "get-user-stamps",
+      [Cl.principal(wallet3)],
+      wallet3
+    );
+    expect(result).toBeList([]);
+  });
+
+  it("should allow only owner to verify ownership", () => {
+    const { result: ownerResult } = simnet.callPublicFn(
+      "stamp-registry",
+      "verify-owner",
+      [],
+      deployer
+    );
+    expect(ownerResult).toBeOk(Cl.bool(true));
+
+    const { result: nonOwnerResult } = simnet.callPublicFn(
+      "stamp-registry",
+      "verify-owner",
+      [],
+      wallet1
+    );
+    expect(nonOwnerResult).toBeErr(Cl.uint(100));
+  });
+
+  it("should return stamp message", () => {
+    const message = "Message lookup";
+    simnet.callPublicFn(
+      "stamp-registry",
+      "stamp-message",
+      [Cl.stringUtf8(message)],
+      wallet1
+    );
+
+    const { result } = simnet.callReadOnlyFn(
+      "stamp-registry",
+      "get-stamp-message",
+      [Cl.uint(1)],
+      wallet1
+    );
+    expect(result).toBeSome(Cl.stringUtf8(message));
+  });
+
+  it("should handle unicode characters in messages", () => {
+    const unicodeMessage = "Hello 世界! 🚀🌟 Привет мир!";
+    const { result } = simnet.callPublicFn(
+      "stamp-registry",
+      "stamp-message",
+      [Cl.stringUtf8(unicodeMessage)],
+      wallet1
+    );
+    expect(result).toBeOk(Cl.uint(1));
+
+    const { result: stampResult } = simnet.callReadOnlyFn(
+      "stamp-registry",
+      "get-stamp",
+      [Cl.uint(1)],
+      wallet1
+    );
+    
+    expect(stampResult).toBeSome(
+      Cl.tuple({
+        sender: Cl.principal(wallet1),
+        message: Cl.stringUtf8(unicodeMessage),
+        timestamp: Cl.uint(expect.any(Number)),
+        "block-height": Cl.uint(expect.any(Number)),
+      })
+    );
   });
 });
