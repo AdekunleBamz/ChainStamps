@@ -5,7 +5,7 @@ This document shows how to interact with ChainStamps contracts using the Stacks.
 ## Installation
 
 ```bash
-npm install @stacks/transactions @stacks/network
+npm install @stacks/transactions @stacks/network @stacks/connect
 ```
 
 ## Setup
@@ -26,6 +26,40 @@ const network = new StacksTestnet(); // or StacksMainnet()
 
 // Contract details (update after deployment)
 const CONTRACT_ADDRESS = 'YOUR_DEPLOYER_ADDRESS';
+```
+
+## Wallet Connect (Browser)
+
+```typescript
+import { showConnect, openContractCall } from '@stacks/connect';
+import { uintCV, stringUtf8CV } from '@stacks/transactions';
+
+const appDetails = {
+  name: 'ChainStamps',
+  icon: window.location.origin + '/logo.png'
+};
+
+function connectWallet() {
+  showConnect({
+    appDetails,
+    onFinish: data => {
+      console.log('Connected:', data);
+    }
+  });
+}
+
+async function stampWithWallet(message: string) {
+  await openContractCall({
+    contractAddress: CONTRACT_ADDRESS,
+    contractName: 'stamp-registry',
+    functionName: 'stamp-message',
+    functionArgs: [stringUtf8CV(message)],
+    network,
+    onFinish: data => {
+      console.log('Tx sent:', data);
+    }
+  });
+}
 ```
 
 ## Hash Registry Examples

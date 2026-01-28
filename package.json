@@ -14,6 +14,7 @@
   "license": "ISC",
   "dependencies": {
     "@stacks/clarinet-sdk": "^3.9.0",
+    "@stacks/connect": "^7.2.0",
     "@stacks/transactions": "^7.2.0",
     "@stacks/wallet-sdk": "^7.2.0",
     "@types/node": "^24.4.0",
