@@ -8,6 +8,7 @@
 (define-constant ERR-NOT-AUTHORIZED (err u100))
 (define-constant ERR-HASH-ALREADY-EXISTS (err u101))
 (define-constant ERR-HASH-NOT-FOUND (err u102))
+(define-constant ERR-TRANSFER-TO-SELF (err u103))
 
 ;; Fee in microSTX (0.03 STX = 30000 microSTX)
 (define-constant HASH-FEE u30000)
@@ -110,6 +111,23 @@
 (define-public (verify-owner)
     (begin
         (asserts! (is-eq tx-sender CONTRACT-OWNER) ERR-NOT-AUTHORIZED)
+        (ok true)
+    )
+)
+
+;; Transfer hash ownership to another user
+(define-public (transfer-hash (hash (buff 32)) (new-owner principal))
+    (let
+        (
+            (hash-data (unwrap! (map-get? hashes hash) ERR-HASH-NOT-FOUND))
+        )
+        ;; Only current owner can transfer
+        (asserts! (is-eq tx-sender (get owner hash-data)) ERR-NOT-AUTHORIZED)
+        ;; Cannot transfer to self
+        (asserts! (not (is-eq tx-sender new-owner)) ERR-TRANSFER-TO-SELF)
+        
+        ;; Update ownership
+        (map-set hashes hash (merge hash-data { owner: new-owner }))
         (ok true)
     )
 )
