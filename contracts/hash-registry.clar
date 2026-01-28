@@ -1,5 +1,5 @@
 ;; title: hash-registry
-;; version: 1.2.0
+;; version: 1.3.0
 ;; summary: Store document hashes on-chain for verification
 ;; description: ChainStamp - Pay 0.03 STX to permanently store a hash for document verification
 
@@ -9,14 +9,17 @@
 (define-constant ERR-HASH-ALREADY-EXISTS (err u101))
 (define-constant ERR-HASH-NOT-FOUND (err u102))
 (define-constant ERR-HASH-ALREADY-REVOKED (err u103))
-(define-constant ERR-BATCH-TOO-LARGE (err u104))
-(define-constant ERR-EMPTY-BATCH (err u105))
+(define-constant ERR-DESCRIPTION-TOO-LONG (err u104))
+(define-constant ERR-BATCH-TOO-LARGE (err u105))
+(define-constant ERR-EMPTY-BATCH (err u106))
 
 ;; Fee in microSTX (0.03 STX = 30000 microSTX)
 (define-constant HASH-FEE u30000)
 ;; Discounted fee for batch operations (0.025 STX = 25000 microSTX per hash)
 (define-constant BATCH-HASH-FEE u25000)
 (define-constant MAX-BATCH-SIZE u10)
+;; Smaller fee for description update only
+(define-constant UPDATE-FEE u10000)
 
 ;; Data Variables
 (define-data-var hash-counter uint u0)
@@ -30,6 +33,7 @@
     timestamp: uint,
     block-height: uint,
     hash-id: uint,
+    last-updated: uint,
     revoked: bool
 })
 
@@ -79,6 +83,10 @@
     MAX-BATCH-SIZE
 )
 
+(define-read-only (get-update-fee)
+    UPDATE-FEE
+)
+
 (define-read-only (get-user-hashes (user principal))
     (default-to (list) (map-get? user-hashes user))
 )
@@ -104,8 +112,9 @@
             description: description,
             timestamp: (unwrap-panic (get-stacks-block-info? time (- stacks-block-height u1))),
             block-height: stacks-block-height,
-            hash-id: new-hash-id,
-            revoked: false
+                hash-id: new-hash-id,
+                last-updated: stacks-block-height,
+                revoked: false
         })
         
         ;; Store reverse lookup
@@ -196,6 +205,33 @@
         
         ;; Update the hash to revoked state
         (map-set hashes hash (merge hash-data { revoked: true }))
+        
+        (ok true)
+    )
+)
+
+;; Update the description of an existing hash (owner only, smaller fee)
+(define-public (update-description (hash (buff 32)) (new-description (string-utf8 128)))
+    (let
+        (
+            (hash-data (unwrap! (map-get? hashes hash) ERR-HASH-NOT-FOUND))
+        )
+        ;; Only owner can update
+        (asserts! (is-eq tx-sender (get owner hash-data)) ERR-NOT-AUTHORIZED)
+        ;; Check description length
+        (asserts! (<= (len new-description) u128) ERR-DESCRIPTION-TOO-LONG)
+        
+        ;; Transfer update fee
+        (try! (stx-transfer? UPDATE-FEE tx-sender CONTRACT-OWNER))
+        
+        ;; Update the hash description
+        (map-set hashes hash (merge hash-data {
+            description: new-description,
+            last-updated: stacks-block-height
+        }))
+        
+        ;; Update fees
+        (var-set total-fees-collected (+ (var-get total-fees-collected) UPDATE-FEE))
         
         (ok true)
     )
