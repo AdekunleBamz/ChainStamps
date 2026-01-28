@@ -12,6 +12,7 @@
 (define-constant ERR-DESCRIPTION-TOO-LONG (err u104))
 (define-constant ERR-BATCH-TOO-LARGE (err u105))
 (define-constant ERR-EMPTY-BATCH (err u106))
+(define-constant ERR-TRANSFER-TO-SELF (err u107))
 
 ;; Fee in microSTX (0.03 STX = 30000 microSTX)
 (define-constant HASH-FEE u30000)
@@ -249,4 +250,21 @@
 ;; Returns a list of booleans indicating which hashes exist
 (define-read-only (batch-verify-hashes (hash-list (list 10 (buff 32))))
     (map verify-hash hash-list)
+)
+
+;; Transfer hash ownership to another user
+(define-public (transfer-hash (hash (buff 32)) (new-owner principal))
+    (let
+        (
+            (hash-data (unwrap! (map-get? hashes hash) ERR-HASH-NOT-FOUND))
+        )
+        ;; Only current owner can transfer
+        (asserts! (is-eq tx-sender (get owner hash-data)) ERR-NOT-AUTHORIZED)
+        ;; Cannot transfer to self
+        (asserts! (not (is-eq tx-sender new-owner)) ERR-TRANSFER-TO-SELF)
+        
+        ;; Update ownership
+        (map-set hashes hash (merge hash-data { owner: new-owner }))
+        (ok true)
+    )
 )
