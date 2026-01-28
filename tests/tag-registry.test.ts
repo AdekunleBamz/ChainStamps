@@ -133,6 +133,29 @@ describe("tag-registry", () => {
     expect(result).toBeList([Cl.uint(1), Cl.uint(2)]);
   });
 
+  it("should return user tag count", () => {
+    simnet.callPublicFn(
+      "tag-registry",
+      "store-tag",
+      [Cl.stringUtf8("count-key-1"), Cl.stringUtf8("count-val-1")],
+      wallet1
+    );
+    simnet.callPublicFn(
+      "tag-registry",
+      "store-tag",
+      [Cl.stringUtf8("count-key-2"), Cl.stringUtf8("count-val-2")],
+      wallet1
+    );
+
+    const { result } = simnet.callReadOnlyFn(
+      "tag-registry",
+      "get-user-tag-count",
+      [Cl.principal(wallet1)],
+      wallet1
+    );
+    expect(result).toBeUint(2);
+  });
+
   it("should return tag owner", () => {
     simnet.callPublicFn(
       "tag-registry",
