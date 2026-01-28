@@ -66,6 +66,15 @@
     CONTRACT-OWNER
 )
 
+;; Get contract stats summary
+(define-read-only (get-stats)
+    {
+        total-hashes: (var-get hash-counter),
+        total-fees: (var-get total-fees-collected),
+        fee-per-hash: HASH-FEE
+    }
+)
+
 ;; Public functions
 
 ;; Store a hash on-chain
