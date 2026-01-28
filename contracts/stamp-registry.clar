@@ -91,6 +91,11 @@
     CONTRACT-OWNER
 )
 
+;; Get multiple stamps by IDs
+(define-read-only (batch-get-stamps (stamp-ids (list 10 uint)))
+    (map get-stamp stamp-ids)
+)
+
 ;; Public functions
 
 ;; Stamp a message on-chain with default category
