@@ -38,6 +38,14 @@
     (map-get? hashes hash)
 )
 
+;; Get description for a hash if it exists
+(define-read-only (get-hash-description (hash (buff 32)))
+    (match (map-get? hashes hash)
+        hash-data (some (get description hash-data))
+        none
+    )
+)
+
 (define-read-only (verify-hash (hash (buff 32)))
     (is-some (map-get? hashes hash))
 )
