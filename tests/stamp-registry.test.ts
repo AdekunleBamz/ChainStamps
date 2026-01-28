@@ -293,6 +293,23 @@ describe("stamp-registry", () => {
     expect(result).toBeSome(Cl.uint(expect.any(Number)));
   });
 
+  it("should return stamp block height", () => {
+    simnet.callPublicFn(
+      "stamp-registry",
+      "stamp-message",
+      [Cl.stringUtf8("Block height test")],
+      wallet1
+    );
+
+    const { result } = simnet.callReadOnlyFn(
+      "stamp-registry",
+      "get-stamp-block-height",
+      [Cl.uint(1)],
+      wallet1
+    );
+    expect(result).toBeSome(Cl.uint(expect.any(Number)));
+  });
+
   it("should handle unicode characters in messages", () => {
     const unicodeMessage = "Hello 世界! 🚀🌟 Привет мир!";
     const { result } = simnet.callPublicFn(
