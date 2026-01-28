@@ -1,0 +1,18 @@
+# ChainStamps Code Owners
+# These owners will be requested for review when someone opens a PR
+
+# Default owners for everything
+* @AdekunleBamz
+
+# Contract files
+/contracts/ @AdekunleBamz
+
+# Test files
+/tests/ @AdekunleBamz
+
+# Documentation
+/docs/ @AdekunleBamz
+*.md @AdekunleBamz
+
+# CI/CD
+/.github/ @AdekunleBamz
