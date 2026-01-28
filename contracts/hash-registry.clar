@@ -100,6 +100,15 @@
     CONTRACT-OWNER
 )
 
+;; Get contract stats summary
+(define-read-only (get-stats)
+    {
+        total-hashes: (var-get hash-counter),
+        total-fees: (var-get total-fees-collected),
+        fee-per-hash: HASH-FEE
+    }
+)
+
 ;; Private helper for storing a single hash (used in batch)
 (define-private (store-hash-internal (hash (buff 32)) (description (string-utf8 128)))
     (let
