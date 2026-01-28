@@ -49,6 +49,14 @@
     (map-get? stamps stamp-id)
 )
 
+;; Get message from a stamp if it exists
+(define-read-only (get-stamp-message (stamp-id uint))
+    (match (map-get? stamps stamp-id)
+        stamp-data (some (get message stamp-data))
+        none
+    )
+)
+
 ;; Check if a principal is the sender of a stamp
 (define-read-only (is-stamp-sender (stamp-id uint) (user principal))
     (match (map-get? stamps stamp-id)
