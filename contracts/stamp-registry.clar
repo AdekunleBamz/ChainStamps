@@ -91,6 +91,15 @@
     CONTRACT-OWNER
 )
 
+;; Get contract stats summary
+(define-read-only (get-stats)
+    {
+        total-stamps: (var-get stamp-counter),
+        total-fees: (var-get total-fees-collected),
+        fee-per-stamp: STAMP-FEE
+    }
+)
+
 ;; Get multiple stamps by IDs
 (define-read-only (batch-get-stamps (stamp-ids (list 10 uint)))
     (map get-stamp stamp-ids)
