@@ -133,6 +133,26 @@ describe("hash-registry", () => {
     expect(result).toBeUint(HASH_FEE);
   });
 
+  it("should return hash description", () => {
+    const testHash = createTestHash(5);
+    const description = "Description lookup";
+
+    simnet.callPublicFn(
+      "hash-registry",
+      "store-hash",
+      [Cl.buffer(testHash), Cl.stringUtf8(description)],
+      wallet1
+    );
+
+    const { result } = simnet.callReadOnlyFn(
+      "hash-registry",
+      "get-hash-description",
+      [Cl.buffer(testHash)],
+      wallet1
+    );
+    expect(result).toBeSome(Cl.stringUtf8(description));
+  });
+
   it("should return contract owner", () => {
     const { result } = simnet.callReadOnlyFn(
       "hash-registry",
