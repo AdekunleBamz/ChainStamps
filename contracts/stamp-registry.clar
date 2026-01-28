@@ -87,6 +87,11 @@
     (default-to (list) (map-get? user-stamps user))
 )
 
+;; Get total stamps created by a user
+(define-read-only (get-user-stamp-count (user principal))
+    (len (default-to (list) (map-get? user-stamps user)))
+)
+
 (define-read-only (get-stamps-by-category (category uint))
     (default-to (list) (map-get? category-stamps category))
 )
