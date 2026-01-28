@@ -108,6 +108,11 @@
     (default-to (list) (map-get? user-hashes user))
 )
 
+;; Get total hashes stored by a user
+(define-read-only (get-user-hash-count (user principal))
+    (len (default-to (list) (map-get? user-hashes user)))
+)
+
 (define-read-only (get-hash-by-id (id uint))
     (map-get? hash-by-id id)
 )
