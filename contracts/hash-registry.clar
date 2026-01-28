@@ -117,6 +117,14 @@
     (map-get? hash-by-id id)
 )
 
+;; Get hash info by ID
+(define-read-only (get-hash-info-by-id (id uint))
+    (match (map-get? hash-by-id id)
+        hash (map-get? hashes hash)
+        none
+    )
+)
+
 (define-read-only (get-contract-owner)
     CONTRACT-OWNER
 )
