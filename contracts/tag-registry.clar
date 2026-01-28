@@ -215,3 +215,8 @@
         (ok true)
     )
 )
+
+;; Get multiple tags by IDs
+(define-read-only (batch-get-tags (tag-ids (list 10 uint)))
+    (map get-tag tag-ids)
+)
