@@ -50,6 +50,11 @@
     (default-to (list) (map-get? user-stamps user))
 )
 
+;; Get total stamps created by a user
+(define-read-only (get-user-stamp-count (user principal))
+    (len (default-to (list) (map-get? user-stamps user)))
+)
+
 (define-read-only (get-contract-owner)
     CONTRACT-OWNER
 )
