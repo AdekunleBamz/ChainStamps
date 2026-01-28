@@ -41,6 +41,14 @@
     (map-get? tags tag-id)
 )
 
+;; Check if a principal is the owner of a tag
+(define-read-only (is-tag-owner (tag-id uint) (user principal))
+    (match (map-get? tags tag-id)
+        tag-data (is-eq (get owner tag-data) user)
+        false
+    )
+)
+
 (define-read-only (get-tag-by-key (owner principal) (key (string-utf8 64)))
     (match (map-get? tag-lookup { owner: owner, key: key })
         tag-id (map-get? tags tag-id)
