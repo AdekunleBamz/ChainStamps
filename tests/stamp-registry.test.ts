@@ -120,6 +120,29 @@ describe("stamp-registry", () => {
     expect(result).toBeList([Cl.uint(1), Cl.uint(2)]);
   });
 
+  it("should return user stamp count", () => {
+    simnet.callPublicFn(
+      "stamp-registry",
+      "stamp-message",
+      [Cl.stringUtf8("Count 1")],
+      wallet1
+    );
+    simnet.callPublicFn(
+      "stamp-registry",
+      "stamp-message",
+      [Cl.stringUtf8("Count 2")],
+      wallet1
+    );
+
+    const { result } = simnet.callReadOnlyFn(
+      "stamp-registry",
+      "get-user-stamp-count",
+      [Cl.principal(wallet1)],
+      wallet1
+    );
+    expect(result).toBeUint(2);
+  });
+
   it("should return stamp sender", () => {
     simnet.callPublicFn(
       "stamp-registry",
