@@ -64,6 +64,14 @@
     )
 )
 
+;; Check if a principal is the owner of a hash
+(define-read-only (is-hash-owner (hash (buff 32)) (user principal))
+    (match (map-get? hashes hash)
+        hash-data (is-eq (get owner hash-data) user)
+        false
+    )
+)
+
 (define-read-only (get-hash-count)
     (var-get hash-counter)
 )
