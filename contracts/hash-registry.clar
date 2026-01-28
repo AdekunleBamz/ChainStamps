@@ -66,6 +66,14 @@
     )
 )
 
+;; Get block height for a hash if it exists
+(define-read-only (get-hash-block-height (hash (buff 32)))
+    (match (map-get? hashes hash)
+        hash-data (some (get block-height hash-data))
+        none
+    )
+)
+
 (define-read-only (verify-hash (hash (buff 32)))
     (match (map-get? hashes hash)
         hash-data (not (get revoked hash-data))
