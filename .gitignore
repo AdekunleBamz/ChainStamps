@@ -28,3 +28,9 @@ Thumbs.db
 # Build artifacts
 dist/
 build/
+
+# Test artifacts
+test-wallets.json
+scripts/
+get-address.js
+*.code-workspace
