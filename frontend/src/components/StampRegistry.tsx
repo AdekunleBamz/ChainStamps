@@ -2,7 +2,7 @@ import { useState } from 'react';
 import { useWallet } from '../context/WalletContext';
 import { wcCallContract } from '../utils/walletconnect';
 import { CONTRACT_ADDRESS, CONTRACTS } from '../config/contracts';
-import { Stamp, Loader2, CheckCircle, AlertCircle } from 'lucide-react';
+import { Stamp, Loader2, CheckCircle, AlertCircle, Clipboard } from 'lucide-react';
 
 export function StampRegistry() {
   const { isConnected, userAddress } = useWallet();
@@ -27,6 +27,9 @@ export function StampRegistry() {
       setTxId(result.txid);
       setStatus('success');
       setMessage('');
+
+      // Auto-copy transaction ID to clipboard
+      await navigator.clipboard.writeText(result.txid);
     } catch (error) {
       console.error('Transaction failed:', error);
       setStatus('error');
@@ -73,16 +76,18 @@ export function StampRegistry() {
       </button>
       
       {status === 'success' && txId && (
-        <div className="success-message">
+        <div className="success-message flex items-center gap-2">
           <CheckCircle size={18} />
-          <span>Message stamped! </span>
+          <span>Message stamped! Transaction ID copied to clipboard.</span>
           <a
             href={`https://explorer.stacks.co/txid/${txId}?chain=mainnet`}
             target="_blank"
             rel="noopener noreferrer"
+            className="underline ml-1"
           >
             View transaction
           </a>
+          <Clipboard size={18} className="cursor-pointer" onClick={() => navigator.clipboard.writeText(txId)} />
         </div>
       )}
       
