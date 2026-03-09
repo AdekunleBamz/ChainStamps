@@ -5,8 +5,8 @@ export function Footer() {
     <footer className="footer">
       <div className="footer-content">
         <div className="footer-brand">
-          <span className="logo-icon">⛓️</span>
-          <span>ChainStamp</span>
+          <img src="/logo.png" alt="ChainStamps Logo" className="logo-img" />
+          <span>ChainStamps</span>
         </div>
 
         <p className="footer-tagline">

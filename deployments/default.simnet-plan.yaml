@@ -66,16 +66,16 @@ plan:
         - emulated-contract-publish:
             contract-name: hash-registry
             emulated-sender: ST1PQHQKV0RJXZFY1DGX8MNSNYVE3VGZJSRTPGZGM
-            path: contracts/hash-registry.clar
+            path: ontracts/hash-registry.clar
             clarity-version: 4
         - emulated-contract-publish:
             contract-name: stamp-registry
             emulated-sender: ST1PQHQKV0RJXZFY1DGX8MNSNYVE3VGZJSRTPGZGM
-            path: contracts/stamp-registry.clar
+            path: ontracts/stamp-registry.clar
             clarity-version: 4
         - emulated-contract-publish:
             contract-name: tag-registry
             emulated-sender: ST1PQHQKV0RJXZFY1DGX8MNSNYVE3VGZJSRTPGZGM
-            path: contracts/tag-registry.clar
+            path: ontracts/tag-registry.clar
             clarity-version: 4
       epoch: "3.3"

@@ -24,10 +24,10 @@ export function Header() {
       <header className="header">
         <div className="header-content">
           <div className="logo">
-            <span className="logo-icon">⛓️</span>
-            <span className="logo-text">ChainStamp</span>
+            <img src="/logo.png" alt="ChainStamps Logo" className="logo-img" />
+            <span className="logo-text">ChainStamps</span>
           </div>
-          
+
           <nav className="nav-links">
             <a href="#hash">Hash</a>
             <a href="#stamp">Stamp</a>
