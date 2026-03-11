@@ -80,21 +80,19 @@ export function Header() {
               isConnected ? "connected" : isConnecting ? "connecting" : "disconnected"
             )} style={{ marginRight: '12px' }} title={isConnected ? "Connected" : isConnecting ? "Connecting..." : "Disconnected"} />
             {isConnected ? (
-              <div className="wallet-connected">
-                <Button
-                  variant="secondary"
-                  size="md"
-                  className="address-btn font-mono"
-                  onClick={copyAddress}
-                >
-                  {copied ? <Check size={16} strokeWidth={1.5} /> : <Copy size={16} strokeWidth={1.5} />}
-                  {truncateAddress(userAddress || '')}
-                </Button>
+              <div className="wallet-connected flex items-center gap-2">
+                <div className="flex items-center gap-2 rounded-xl border border-border bg-background/50 pl-3 pr-1 py-1 shadow-inner">
+                  <span className="text-sm font-mono text-muted-foreground mr-1">
+                    {userAddress?.slice(0, 6)}...{userAddress?.slice(-4)}
+                  </span>
+                  <CopyButton value={userAddress || ''} size={14} className="h-8 w-8" />
+                </div>
                 <Button
                   variant="outline"
                   size="icon"
-                  className="disconnect-btn"
+                  className="disconnect-btn rounded-xl"
                   onClick={disconnect}
+                  title="Disconnect Wallet"
                 >
                   <LogOut size={16} strokeWidth={1.5} />
                 </Button>
