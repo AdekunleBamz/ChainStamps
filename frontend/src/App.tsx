@@ -11,8 +11,10 @@ import { ToastProvider } from './context/ToastContext';
 import { ToastContainer } from './components/ui/Toast';
 import { updateFavicon } from './utils/favicon';
 import { useWallet } from './context/WalletContext';
-import { Search, X } from 'lucide-react';
+import { Search, Activity, Wallet, LogOut, Shield, Clock, Database, Menu, X, RefreshCw } from 'lucide-react';
 import { Button } from './components/ui/Button';
+import { CardSkeleton } from './components/ui/Skeleton';
+import { PullToRefresh } from './components/ui/PullToRefresh';
 import { EmptyState } from './components/ui/EmptyState';
 import './App.css';
 
@@ -48,6 +50,9 @@ function App() {
           <a href="#main-content" className="skip-to-content">
             Skip to content
           </a>
+          <PullToRefresh onRefresh={async () => {
+            window.location.reload(); // Simple refresh for now
+          }} />
           <MeshGradient />
           <ToastContainer />
           <Header />

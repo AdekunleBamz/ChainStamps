@@ -1059,3 +1059,11 @@ body {
 .skip-to-content:focus {
   top: 0;
 }
+
+/* Pull to Refresh */
+.pull-to-refresh-indicator {
+  background: transparent;
+  pointer-events: none;
+  position: relative;
+  z-index: 50;
+}
