@@ -1,8 +1,7 @@
-import { useState, useEffect } from 'react';
+import { useState, useEffect, useCallback } from 'react';
 import { motion, useAnimation } from 'framer-motion';
 import { useWallet } from '../context/WalletContext';
-import { wcCallContract } from '../utils/walletconnect';
-import { CONTRACT_ADDRESS, CONTRACTS } from '../config/contracts';
+import { ChainStampsService } from '../services/api';
 import { Tag, Loader2, CheckCircle, AlertCircle } from 'lucide-react';
 import { Button } from './ui/Button';
 import { CardSkeleton } from './ui/Skeleton';
@@ -27,14 +26,14 @@ export function TagRegistry() {
     return () => clearTimeout(timer);
   }, []);
 
-  const shake = async () => {
+  const shake = useCallback(async () => {
     await controls.start({
       x: [-10, 10, -10, 10, 0],
       transition: { duration: 0.4 }
     });
-  };
+  }, [controls]);
 
-  const storeTag = async () => {
+  const storeTag = useCallback(async () => {
     if (!key || !value || !isConnected || !userAddress) {
       if (!key || !value) {
         addToast('Please enter both key and value for the tag.', 'warning');
@@ -46,13 +45,7 @@ export function TagRegistry() {
     setStatus('submitting');
 
     try {
-      const result = await wcCallContract({
-        contractAddress: CONTRACT_ADDRESS,
-        contractName: CONTRACTS.tagRegistry.name,
-        functionName: 'store-tag',
-        functionArgs: [key, value],
-        stxAmount: CONTRACTS.tagRegistry.fee,
-      });
+      const result = await ChainStampsService.storeTag(key, value);
 
       setTxId(result.txid);
       setStatus('success');
@@ -60,20 +53,20 @@ export function TagRegistry() {
       setValue('');
       addToast('Tag stored successfully!', 'success');
       triggerSuccessConfetti();
-    } catch (error) {
+    } catch (error: any) {
       console.error('Transaction failed:', error);
       setStatus('error');
-      addToast('Failed to store tag. Please try again.', 'error');
+      addToast(error.message || 'Failed to store tag. Please try again.', 'error');
     }
-  };
+  }, [key, value, isConnected, userAddress, addToast, shake]);
 
-  const handleKeyDown = (e: React.KeyboardEvent) => {
+  const handleKeyDown = useCallback((e: React.KeyboardEvent) => {
     if ((e.metaKey || e.ctrlKey) && e.key === 'Enter') {
       if (key && value && isConnected && status !== 'submitting') {
         storeTag();
       }
     }
-  };
+  }, [key, value, isConnected, status, storeTag]);
 
   if (isLoading) return <CardSkeleton />;
 

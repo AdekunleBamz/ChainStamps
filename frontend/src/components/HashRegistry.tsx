@@ -1,8 +1,7 @@
-import { useState, useEffect } from 'react';
+import { useState, useEffect, useCallback, useMemo } from 'react';
 import { motion, useAnimation } from 'framer-motion';
 import { useWallet } from '../context/WalletContext';
-import { wcCallContract } from '../utils/walletconnect';
-import { CONTRACT_ADDRESS, CONTRACTS } from '../config/contracts';
+import { ChainStampsService } from '../services/api';
 import { FileText, Hash, Loader2, CheckCircle, AlertCircle } from 'lucide-react';
 import { Button } from './ui/Button';
 import { CardSkeleton } from './ui/Skeleton';
@@ -29,13 +28,13 @@ export function HashRegistry() {
     return () => clearTimeout(timer);
   }, []);
 
-  const shake = async () => {
+  const shake = useCallback(async () => {
     await controls.start({
       x: [-10, 10, -10, 10, 0],
       transition: { duration: 0.4 }
     });
-  };
-  const handleFileChange = async (e: React.ChangeEvent<HTMLInputElement>) => {
+  }, [controls]);
+  const handleFileChange = useCallback(async (e: React.ChangeEvent<HTMLInputElement>) => {
     const selectedFile = e.target.files?.[0];
     if (selectedFile) {
       setFile(selectedFile);
@@ -49,9 +48,9 @@ export function HashRegistry() {
       setHash(hashHex);
       setStatus('idle');
     }
-  };
+  }, []);
 
-  const storeHash = async () => {
+  const storeHash = useCallback(async () => {
     if (!hash || !isConnected || !userAddress) {
       addToast('Please select a file or enter a hash first.', 'warning');
       shake();
@@ -61,36 +60,27 @@ export function HashRegistry() {
     setStatus('submitting');
 
     try {
-      const result = await wcCallContract({
-        contractAddress: CONTRACT_ADDRESS,
-        contractName: CONTRACTS.hashRegistry.name,
-        functionName: 'store-hash',
-        functionArgs: [
-          `0x${hash}`,
-          description || 'Document hash',
-        ],
-        stxAmount: CONTRACTS.hashRegistry.fee,
-      });
+      const result = await ChainStampsService.storeHash(hash, description);
 
       setTxId(result.txid);
       setStatus('success');
       setDescription('');
       addToast('Hash stored successfully!', 'success');
       triggerSuccessConfetti();
-    } catch (error) {
+    } catch (error: any) {
       console.error('Transaction failed:', error);
       setStatus('error');
-      addToast('Failed to store hash. Please try again.', 'error');
+      addToast(error.message || 'Failed to store hash. Please try again.', 'error');
     }
-  };
+  }, [hash, isConnected, userAddress, description, addToast, shake]);
 
-  const handleKeyDown = (e: React.KeyboardEvent) => {
+  const handleKeyDown = useCallback((e: React.KeyboardEvent) => {
     if ((e.metaKey || e.ctrlKey) && e.key === 'Enter') {
       if (hash && isConnected && status !== 'submitting') {
         storeHash();
       }
     }
-  };
+  }, [hash, isConnected, status, storeHash]);
 
   const cardVariants = {
     initial: { opacity: 0, y: 20 },
