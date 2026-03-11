@@ -5,6 +5,7 @@ import { WalletConnectQRModal } from './WalletConnectQRModal';
 import { twMerge } from 'tailwind-merge';
 import { Button } from './ui/Button';
 import { Tooltip } from './ui/Tooltip';
+import { CopyButton } from './ui/CopyButton';
 
 export function Header() {
   const { isConnected, isConnecting, userAddress, connect, disconnect, wcUri, showQRModal, setShowQRModal } = useWallet();

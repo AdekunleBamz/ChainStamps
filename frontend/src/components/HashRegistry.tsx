@@ -7,6 +7,7 @@ import { FileText, Hash, Loader2, CheckCircle, AlertCircle } from 'lucide-react'
 import { Button } from './ui/Button';
 import { CardSkeleton } from './ui/Skeleton';
 import { Tooltip } from './ui/Tooltip';
+import { CopyButton } from './ui/CopyButton';
 import { useToast } from '../context/ToastContext';
 import { triggerSuccessConfetti } from '../utils/confetti';
 
@@ -115,11 +116,14 @@ export function HashRegistry() {
       </div>
 
       {hash && (
-        <div className="hash-display">
-          <label>SHA-256 Hash:</label>
-          <code>{hash}</code>
+        <div className="hash-display flex items-center justify-between">
+          <div className="flex-1 overflow-hidden">
+            <label>SHA-256 Hash:</label>
+            <code className="block truncate">{hash}</code>
+          </div>
+          <CopyButton value={hash} size={16} className="ml-2 h-8 w-8" />
         </div>
-      )}
+极      )}
 
       <div className="form-group">
         <input
