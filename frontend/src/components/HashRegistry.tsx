@@ -12,6 +12,7 @@ import { AnimatedNumber } from './ui/AnimatedNumber';
 import { useToast } from '../context/ToastContext';
 import { triggerSuccessConfetti } from '../utils/confetti';
 import { RegistryLayout } from './RegistryLayout';
+import { useTabFeedback } from '../hooks/useTabFeedback';
 
 export function HashRegistry() {
   const { isConnected, userAddress } = useWallet();
@@ -20,6 +21,8 @@ export function HashRegistry() {
   const [description, setDescription] = useState('');
   const [hash, setHash] = useState('');
   const [status, setStatus] = useState<'idle' | 'hashing' | 'submitting' | 'success' | 'error'>('idle');
+
+  useTabFeedback(status === 'hashing' ? 'submitting' : status);
   const [txId, setTxId] = useState('');
   const [isLoading, setIsLoading] = useState(true);
   const controls = useAnimation();

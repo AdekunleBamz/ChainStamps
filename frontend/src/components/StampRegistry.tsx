@@ -9,12 +9,15 @@ import { useToast } from '../context/ToastContext';
 import { triggerSuccessConfetti } from '../utils/confetti';
 import { RegistryLayout } from './RegistryLayout';
 import { useFormDraft } from '../hooks/useFormDraft';
+import { useTabFeedback } from '../hooks/useTabFeedback';
 
 export function StampRegistry() {
   const { isConnected, userAddress } = useWallet();
   const { addToast } = useToast();
   const [message, setMessage, clearDraft] = useFormDraft('stamp_message', '');
   const [status, setStatus] = useState<'idle' | 'submitting' | 'success' | 'error'>('idle');
+
+  useTabFeedback(status);
   const [txId, setTxId] = useState('');
   const [isLoading, setIsLoading] = useState(true);
   const controls = useAnimation();

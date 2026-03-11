@@ -9,6 +9,7 @@ import { useToast } from '../context/ToastContext';
 import { triggerSuccessConfetti } from '../utils/confetti';
 import { RegistryLayout } from './RegistryLayout';
 import { useFormDraft } from '../hooks/useFormDraft';
+import { useTabFeedback } from '../hooks/useTabFeedback';
 
 export function TagRegistry() {
   const { isConnected, userAddress } = useWallet();
@@ -19,6 +20,8 @@ export function TagRegistry() {
   const setKey = (k: string) => setTag({ ...tag, key: k });
   const setValue = (v: string) => setTag({ ...tag, value: v });
   const [status, setStatus] = useState<'idle' | 'submitting' | 'success' | 'error'>('idle');
+
+  useTabFeedback(status);
   const [txId, setTxId] = useState('');
   const [isLoading, setIsLoading] = useState(true);
   const controls = useAnimation();
