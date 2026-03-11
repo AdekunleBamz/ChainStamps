@@ -8,6 +8,7 @@ import { Button } from './ui/Button';
 import { CardSkeleton } from './ui/Skeleton';
 import { Tooltip } from './ui/Tooltip';
 import { CopyButton } from './ui/CopyButton';
+import { Breadcrumbs } from './ui/Breadcrumbs';
 import { useToast } from '../context/ToastContext';
 import { triggerSuccessConfetti } from '../utils/confetti';
 
@@ -86,6 +87,7 @@ export function HashRegistry() {
 
   return (
     <motion.section id="hash" className="card" animate={controls}>
+      <Breadcrumbs items={[{ label: 'Hash Registry' }]} />
       <div className="card-header">
         <div className="flex items-center gap-2">
           <Hash className="card-icon" size={24} strokeWidth={1.5} />
