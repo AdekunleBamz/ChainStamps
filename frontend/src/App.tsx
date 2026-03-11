@@ -58,12 +58,20 @@ const REGISTRY_SKELETON_HEIGHT = 400;
     { id: 'verify', name: 'Verification Center', component: <VerificationModule /> },
   ], []);
 
-  const filteredRegistries = useMemo(() =>
-    registries.filter(reg =>
-      reg.name.toLowerCase().includes(searchQuery.toLowerCase())
-    ),
-    [searchQuery, registries]
-  );
+  const filteredRegistries = useMemo(() => {
+    const query = searchQuery.toLowerCase();
+    if (!query) return registries;
+
+    return registries.filter(reg => {
+      // Direct match in registry name
+      if (reg.name.toLowerCase().includes(query)) return true;
+
+      // If query looks like a hex string (hash/txid), it's highly relevant to all registries
+      if (query.startsWith('0x') || query.length > 20) return true;
+
+      return false;
+    });
+  }, [searchQuery, registries]);
 
   return (
     <ToastProvider>
