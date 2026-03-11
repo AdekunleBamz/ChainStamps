@@ -67,6 +67,14 @@ export function TagRegistry() {
     }
   };
 
+  const handleKeyDown = (e: React.KeyboardEvent) => {
+    if ((e.metaKey || e.ctrlKey) && e.key === 'Enter') {
+      if (key && value && isConnected && status !== 'submitting') {
+        storeTag();
+      }
+    }
+  };
+
   if (isLoading) return <CardSkeleton />;
 
   const cardVariants = {
@@ -103,6 +111,7 @@ export function TagRegistry() {
           placeholder="Key (e.g., 'project-name')"
           value={key}
           onChange={(e) => setKey(e.target.value)}
+          onKeyDown={handleKeyDown}
           maxLength={64}
           className="input"
         />
@@ -114,6 +123,7 @@ export function TagRegistry() {
           placeholder="Value (e.g., 'ChainStamp v1.0')"
           value={value}
           onChange={(e) => setValue(e.target.value)}
+          onKeyDown={handleKeyDown}
           maxLength={256}
           rows={3}
           className="textarea"

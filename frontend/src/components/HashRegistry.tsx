@@ -84,6 +84,14 @@ export function HashRegistry() {
     }
   };
 
+  const handleKeyDown = (e: React.KeyboardEvent) => {
+    if ((e.metaKey || e.ctrlKey) && e.key === 'Enter') {
+      if (hash && isConnected && status !== 'submitting') {
+        storeHash();
+      }
+    }
+  };
+
   const cardVariants = {
     initial: { opacity: 0, y: 20 },
     animate: { opacity: 1, y: 0, transition: { duration: 0.5 } }
@@ -127,6 +135,7 @@ export function HashRegistry() {
             type="file"
             onChange={handleFileChange}
             className="file-input"
+            onKeyDown={handleKeyDown}
           />
         </label>
       </div>
@@ -149,6 +158,7 @@ export function HashRegistry() {
           onChange={(e) => setDescription(e.target.value)}
           maxLength={128}
           className="input"
+          onKeyDown={handleKeyDown}
         />
       </div>
 

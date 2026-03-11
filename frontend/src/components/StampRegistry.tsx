@@ -65,6 +65,14 @@ export function StampRegistry() {
     }
   };
 
+  const handleKeyDown = (e: React.KeyboardEvent) => {
+    if ((e.metaKey || e.ctrlKey) && e.key === 'Enter') {
+      if (message && isConnected && status !== 'submitting') {
+        stampMessage();
+      }
+    }
+  };
+
   if (isLoading) return <CardSkeleton />;
 
   const cardVariants = {
@@ -100,6 +108,7 @@ export function StampRegistry() {
           placeholder="Enter your message to stamp on-chain..."
           value={message}
           onChange={(e) => setMessage(e.target.value)}
+          onKeyDown={handleKeyDown}
           maxLength={256}
           rows={4}
           className="textarea"
