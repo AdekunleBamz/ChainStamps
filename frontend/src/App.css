@@ -950,3 +950,61 @@ body {
     border-radius: 12px;
   }
 }
+
+/* Footer Metrics */
+.footer-metrics {
+  margin: 2rem 0;
+  padding: 1.5rem;
+  background: hsla(var(--muted-h), var(--muted-s), var(--muted-l), 0.05);
+  border: 1px solid hsla(var(--border-h), var(--border-s), var(--border-l), 0.1);
+  border-radius: 16px;
+  max-width: 600px;
+  width: 100%;
+}
+
+.metrics-title {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  font-size: 0.75rem;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+  color: var(--muted-foreground);
+  margin-bottom: 1rem;
+}
+
+.metrics-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 1.5rem;
+}
+
+@media (max-width: 640px) {
+  .metrics-grid {
+    grid-template-columns: 1fr;
+    gap: 1rem;
+  }
+}
+
+.metric-item {
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+}
+
+.metric-info {
+  display: flex;
+  flex-direction: column;
+}
+
+.metric-label {
+  font-size: 0.7rem;
+  color: var(--muted-foreground);
+}
+
+.metric-value {
+  font-size: 0.9rem;
+  font-weight: 600;
+  font-family: var(--font-mono);
+}
