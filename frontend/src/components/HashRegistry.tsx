@@ -1,17 +1,16 @@
-import { useState, useEffect } from 'react';
-import { motion, useAnimation } from 'framer-motion';
+import { useState, useEffect, useCallback } from 'react';
+import { useAnimation } from 'framer-motion';
 import { useWallet } from '../context/WalletContext';
-import { wcCallContract } from '../utils/walletconnect';
-import { CONTRACT_ADDRESS, CONTRACTS } from '../config/contracts';
+import { ChainStampsService } from '../services/api';
 import { FileText, Hash, Loader2, CheckCircle, AlertCircle } from 'lucide-react';
 import { Button } from './ui/Button';
 import { CardSkeleton } from './ui/Skeleton';
-import { Tooltip } from './ui/Tooltip';
 import { CopyButton } from './ui/CopyButton';
-import { Breadcrumbs } from './ui/Breadcrumbs';
-import { AnimatedNumber } from './ui/AnimatedNumber';
 import { useToast } from '../context/ToastContext';
 import { triggerSuccessConfetti } from '../utils/confetti';
+import { RegistryLayout } from './RegistryLayout';
+import { useTabFeedback } from '../hooks/useTabFeedback';
+import { useTabFeedback } from '../hooks/useTabFeedback';
 
 export function HashRegistry() {
   const { isConnected, userAddress } = useWallet();
@@ -20,6 +19,8 @@ export function HashRegistry() {
   const [description, setDescription] = useState('');
   const [hash, setHash] = useState('');
   const [status, setStatus] = useState<'idle' | 'hashing' | 'submitting' | 'success' | 'error'>('idle');
+
+  useTabFeedback(status === 'hashing' ? 'submitting' : status);
   const [txId, setTxId] = useState('');
   const [isLoading, setIsLoading] = useState(true);
   const controls = useAnimation();
@@ -29,13 +30,13 @@ export function HashRegistry() {
     return () => clearTimeout(timer);
   }, []);
 
-  const shake = async () => {
+  const shake = useCallback(async () => {
     await controls.start({
       x: [-10, 10, -10, 10, 0],
       transition: { duration: 0.4 }
     });
-  };
-  const handleFileChange = async (e: React.ChangeEvent<HTMLInputElement>) => {
+  }, [controls]);
+  const handleFileChange = useCallback(async (e: React.ChangeEvent<HTMLInputElement>) => {
     const selectedFile = e.target.files?.[0];
     if (selectedFile) {
       setFile(selectedFile);
@@ -49,9 +50,9 @@ export function HashRegistry() {
       setHash(hashHex);
       setStatus('idle');
     }
-  };
+  }, []);
 
-  const storeHash = async () => {
+  const storeHash = useCallback(async () => {
     if (!hash || !isConnected || !userAddress) {
       addToast('Please select a file or enter a hash first.', 'warning');
       shake();
@@ -61,36 +62,27 @@ export function HashRegistry() {
     setStatus('submitting');
 
     try {
-      const result = await wcCallContract({
-        contractAddress: CONTRACT_ADDRESS,
-        contractName: CONTRACTS.hashRegistry.name,
-        functionName: 'store-hash',
-        functionArgs: [
-          `0x${hash}`,
-          description || 'Document hash',
-        ],
-        stxAmount: CONTRACTS.hashRegistry.fee,
-      });
+      const result = await ChainStampsService.storeHash(hash, description);
 
       setTxId(result.txid);
       setStatus('success');
       setDescription('');
       addToast('Hash stored successfully!', 'success');
       triggerSuccessConfetti();
-    } catch (error) {
+    } catch (error: any) {
       console.error('Transaction failed:', error);
       setStatus('error');
-      addToast('Failed to store hash. Please try again.', 'error');
+      addToast(error.message || 'Failed to store hash. Please try again.', 'error');
     }
-  };
+  }, [hash, isConnected, userAddress, description, addToast, shake]);
 
-  const handleKeyDown = (e: React.KeyboardEvent) => {
+  const handleKeyDown = useCallback((e: React.KeyboardEvent) => {
     if ((e.metaKey || e.ctrlKey) && e.key === 'Enter') {
       if (hash && isConnected && status !== 'submitting') {
         storeHash();
       }
     }
-  };
+  }, [hash, isConnected, status, storeHash]);
 
   const cardVariants = {
     initial: { opacity: 0, y: 20 },
@@ -100,33 +92,15 @@ export function HashRegistry() {
   if (isLoading) return <CardSkeleton />;
 
   return (
-    <motion.section
+    <RegistryLayout
       id="hash"
-      className="card"
-      variants={cardVariants}
-      initial="initial"
-      animate={controls}
+      title="Hash Registry"
+      description="Store SHA-256 document hashes on-chain for permanent verification"
+      icon={Hash}
+      controls={controls}
+      headerBadge={{ label: "SHA-256", tooltip: "Secure cryptographic identifier for your document" }}
+      fee={{ value: 0.03, unit: "STX", tooltip: "Stacks network transaction fee (paid in STX)" }}
     >
-      <Breadcrumbs items={[{ label: 'Hash Registry' }]} />
-      <div className="card-header">
-        <div className="flex items-center gap-2">
-          <Hash className="card-icon" size={24} strokeWidth={1.5} />
-          <Tooltip content="Secure cryptographic identifier for your document">
-            <span className="text-sm font-semibold text-muted-foreground mr-1">SHA-256</span>
-          </Tooltip>
-        </div>
-        <h2>Hash Registry</h2>
-        <Tooltip content="Stacks network transaction fee (paid in STX)">
-          <span className="fee-badge">
-            <AnimatedNumber value={0.03} decimals={2} suffix=" STX" />
-          </span>
-        </Tooltip>
-      </div>
-
-      <p className="card-description">
-        Store SHA-256 document hashes on-chain for permanent verification
-      </p>
-
       <div className="form-group">
         <label className="file-input-label">
           <FileText size={20} strokeWidth={1.5} />
@@ -208,6 +182,6 @@ export function HashRegistry() {
           </div>
         )
       }
-    </motion.section >
+    </RegistryLayout>
   );
 }
