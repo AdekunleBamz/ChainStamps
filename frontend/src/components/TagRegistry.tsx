@@ -1,8 +1,7 @@
 import { useState, useEffect } from 'react';
 import { motion, useAnimation } from 'framer-motion';
 import { useWallet } from '../context/WalletContext';
-import { wcCallContract } from '../utils/walletconnect';
-import { CONTRACT_ADDRESS, CONTRACTS } from '../config/contracts';
+import { ChainStampsService } from '../services/api';
 import { Tag, Loader2, CheckCircle, AlertCircle } from 'lucide-react';
 import { Button } from './ui/Button';
 import { CardSkeleton } from './ui/Skeleton';
@@ -46,13 +45,7 @@ export function TagRegistry() {
     setStatus('submitting');
 
     try {
-      const result = await wcCallContract({
-        contractAddress: CONTRACT_ADDRESS,
-        contractName: CONTRACTS.tagRegistry.name,
-        functionName: 'store-tag',
-        functionArgs: [key, value],
-        stxAmount: CONTRACTS.tagRegistry.fee,
-      });
+      const result = await ChainStampsService.storeTag(key, value);
 
       setTxId(result.txid);
       setStatus('success');
@@ -60,10 +53,10 @@ export function TagRegistry() {
       setValue('');
       addToast('Tag stored successfully!', 'success');
       triggerSuccessConfetti();
-    } catch (error) {
+    } catch (error: any) {
       console.error('Transaction failed:', error);
       setStatus('error');
-      addToast('Failed to store tag. Please try again.', 'error');
+      addToast(error.message || 'Failed to store tag. Please try again.', 'error');
     }
   };
 
