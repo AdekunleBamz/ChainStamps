@@ -116,9 +116,14 @@ export function HashRegistry() {
       </div>
 
       {hash && (
+        <div className="hash-display flex items-center justify-between">
+          <div className="flex-1 overflow-hidden">
+            <label>SHA-256 Hash:</label>
+            <code className="block truncate">{hash}</code>
+          </div>
+          <CopyButton value={hash} size={16} className="ml-2 h-8 w-8" />
         </div>
-  )
-}
+      )}
 
       <div className="form-group">
         <input
@@ -153,30 +158,30 @@ export function HashRegistry() {
         )}
       </Button>
 
-{
-  status === 'success' && txId && (
-    <div className="success-message">
-      <CheckCircle size={18} />
-      <span>Hash stored! </span>
-      <a
-        href={`https://explorer.stacks.co/txid/${txId}?chain=mainnet`}
-        target="_blank"
-        rel="noopener noreferrer"
-      >
-        View transaction
-      </a>
-    </div>
-  )
-}
+      {
+        status === 'success' && txId && (
+          <div className="success-message">
+            <CheckCircle size={18} />
+            <span>Hash stored! </span>
+            <a
+              href={`https://explorer.stacks.co/txid/${txId}?chain=mainnet`}
+              target="_blank"
+              rel="noopener noreferrer"
+            >
+              View transaction
+            </a>
+          </div>
+        )
+      }
 
-{
-  !isConnected && (
-    <div className="warning-message">
-      <AlertCircle size={18} />
-      Connect your wallet to store hashes
-    </div>
-  )
-}
+      {
+        !isConnected && (
+          <div className="warning-message">
+            <AlertCircle size={18} />
+            Connect your wallet to store hashes
+          </div>
+        )
+      }
     </motion.section >
   );
 }
