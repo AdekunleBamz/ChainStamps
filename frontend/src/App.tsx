@@ -1,4 +1,4 @@
-import { useEffect, useState } from 'react';
+import { useEffect, useState, useMemo } from 'react';
 import { WalletProvider } from './context/WalletContext';
 import { Header } from './components/Header';
 import { Hero } from './components/Hero';
@@ -36,15 +36,18 @@ function FaviconManager() {
 function App() {
   const [searchQuery, setSearchQuery] = useState('');
 
-  const registries = [
+  const registries = useMemo(() => [
     { id: 'hash', name: 'Hash Registry', component: <HashRegistry /> },
     { id: 'stamp', name: 'Stamp Registry', component: <StampRegistry /> },
     { id: 'tag', name: 'Tag Registry', component: <TagRegistry /> },
     { id: 'verify', name: 'Verification Center', component: <VerificationModule /> },
-  ];
+  ], []);
 
-  const filteredRegistries = registries.filter(reg =>
-    reg.name.toLowerCase().includes(searchQuery.toLowerCase())
+  const filteredRegistries = useMemo(() =>
+    registries.filter(reg =>
+      reg.name.toLowerCase().includes(searchQuery.toLowerCase())
+    ),
+    [searchQuery, registries]
   );
 
   return (

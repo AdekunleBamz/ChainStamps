@@ -1,4 +1,4 @@
-import { useState, useEffect } from 'react';
+import { useState, useEffect, useCallback } from 'react';
 import { motion, useAnimation } from 'framer-motion';
 import { useWallet } from '../context/WalletContext';
 import { ChainStampsService } from '../services/api';
@@ -26,14 +26,14 @@ export function TagRegistry() {
     return () => clearTimeout(timer);
   }, []);
 
-  const shake = async () => {
+  const shake = useCallback(async () => {
     await controls.start({
       x: [-10, 10, -10, 10, 0],
       transition: { duration: 0.4 }
     });
-  };
+  }, [controls]);
 
-  const storeTag = async () => {
+  const storeTag = useCallback(async () => {
     if (!key || !value || !isConnected || !userAddress) {
       if (!key || !value) {
         addToast('Please enter both key and value for the tag.', 'warning');
@@ -58,15 +58,15 @@ export function TagRegistry() {
       setStatus('error');
       addToast(error.message || 'Failed to store tag. Please try again.', 'error');
     }
-  };
+  }, [key, value, isConnected, userAddress, addToast, shake]);
 
-  const handleKeyDown = (e: React.KeyboardEvent) => {
+  const handleKeyDown = useCallback((e: React.KeyboardEvent) => {
     if ((e.metaKey || e.ctrlKey) && e.key === 'Enter') {
       if (key && value && isConnected && status !== 'submitting') {
         storeTag();
       }
     }
-  };
+  }, [key, value, isConnected, status, storeTag]);
 
   if (isLoading) return <CardSkeleton />;
 

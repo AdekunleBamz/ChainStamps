@@ -1,4 +1,4 @@
-import { useState, useEffect } from 'react';
+import { useState, useEffect, useCallback, useMemo } from 'react';
 import { motion, useAnimation } from 'framer-motion';
 import { useWallet } from '../context/WalletContext';
 import { ChainStampsService } from '../services/api';
@@ -28,13 +28,13 @@ export function HashRegistry() {
     return () => clearTimeout(timer);
   }, []);
 
-  const shake = async () => {
+  const shake = useCallback(async () => {
     await controls.start({
       x: [-10, 10, -10, 10, 0],
       transition: { duration: 0.4 }
     });
-  };
-  const handleFileChange = async (e: React.ChangeEvent<HTMLInputElement>) => {
+  }, [controls]);
+  const handleFileChange = useCallback(async (e: React.ChangeEvent<HTMLInputElement>) => {
     const selectedFile = e.target.files?.[0];
     if (selectedFile) {
       setFile(selectedFile);
@@ -48,9 +48,9 @@ export function HashRegistry() {
       setHash(hashHex);
       setStatus('idle');
     }
-  };
+  }, []);
 
-  const storeHash = async () => {
+  const storeHash = useCallback(async () => {
     if (!hash || !isConnected || !userAddress) {
       addToast('Please select a file or enter a hash first.', 'warning');
       shake();
@@ -72,15 +72,15 @@ export function HashRegistry() {
       setStatus('error');
       addToast(error.message || 'Failed to store hash. Please try again.', 'error');
     }
-  };
+  }, [hash, isConnected, userAddress, description, addToast, shake]);
 
-  const handleKeyDown = (e: React.KeyboardEvent) => {
+  const handleKeyDown = useCallback((e: React.KeyboardEvent) => {
     if ((e.metaKey || e.ctrlKey) && e.key === 'Enter') {
       if (hash && isConnected && status !== 'submitting') {
         storeHash();
       }
     }
-  };
+  }, [hash, isConnected, status, storeHash]);
 
   const cardVariants = {
     initial: { opacity: 0, y: 20 },
