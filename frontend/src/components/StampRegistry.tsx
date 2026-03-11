@@ -1,8 +1,7 @@
-import { useState, useEffect } from 'react';
+import { useState, useEffect, useCallback } from 'react';
 import { motion, useAnimation } from 'framer-motion';
 import { useWallet } from '../context/WalletContext';
-import { wcCallContract } from '../utils/walletconnect';
-import { CONTRACT_ADDRESS, CONTRACTS } from '../config/contracts';
+import { ChainStampsService } from '../services/api';
 import { Stamp, Loader2, CheckCircle, AlertCircle } from 'lucide-react';
 import { Button } from './ui/Button';
 import { CardSkeleton } from './ui/Skeleton';
@@ -11,6 +10,7 @@ import { Breadcrumbs } from './ui/Breadcrumbs';
 import { AnimatedNumber } from './ui/AnimatedNumber';
 import { useToast } from '../context/ToastContext';
 import { triggerSuccessConfetti } from '../utils/confetti';
+import { RegistryLayout } from './RegistryLayout';
 
 export function StampRegistry() {
   const { isConnected, userAddress } = useWallet();
@@ -26,14 +26,14 @@ export function StampRegistry() {
     return () => clearTimeout(timer);
   }, []);
 
-  const shake = async () => {
+  const shake = useCallback(async () => {
     await controls.start({
       x: [-10, 10, -10, 10, 0],
       transition: { duration: 0.4 }
     });
-  };
+  }, [controls]);
 
-  const stampMessage = async () => {
+  const stampMessage = useCallback(async () => {
     if (!message || !isConnected || !userAddress) {
       if (!message) {
         addToast('Please enter a message to stamp.', 'warning');
@@ -45,33 +45,27 @@ export function StampRegistry() {
     setStatus('submitting');
 
     try {
-      const result = await wcCallContract({
-        contractAddress: CONTRACT_ADDRESS,
-        contractName: CONTRACTS.stampRegistry.name,
-        functionName: 'stamp-message',
-        functionArgs: [message],
-        stxAmount: CONTRACTS.stampRegistry.fee,
-      });
+      const result = await ChainStampsService.stampMessage(message);
 
       setTxId(result.txid);
       setStatus('success');
       setMessage('');
       addToast('Message stamped successfully!', 'success');
       triggerSuccessConfetti();
-    } catch (error) {
+    } catch (error: any) {
       console.error('Transaction failed:', error);
       setStatus('error');
-      addToast('Failed to stamp message. Please try again.', 'error');
+      addToast(error.message || 'Failed to stamp message. Please try again.', 'error');
     }
-  };
+  }, [message, isConnected, userAddress, addToast, shake]);
 
-  const handleKeyDown = (e: React.KeyboardEvent) => {
+  const handleKeyDown = useCallback((e: React.KeyboardEvent) => {
     if ((e.metaKey || e.ctrlKey) && e.key === 'Enter') {
       if (message && isConnected && status !== 'submitting') {
         stampMessage();
       }
     }
-  };
+  }, [message, isConnected, status, stampMessage]);
 
   if (isLoading) return <CardSkeleton />;
 
@@ -81,28 +75,14 @@ export function StampRegistry() {
   };
 
   return (
-    <motion.section
+    <RegistryLayout
       id="stamp"
-      className="card"
-      variants={cardVariants}
-      initial="initial"
-      animate={controls}
+      title="Stamp Registry"
+      description="Permanently stamp messages on the Stacks blockchain with timestamps"
+      icon={Stamp}
+      controls={controls}
+      fee={{ value: 0.05, unit: "STX", tooltip: "Stacks network transaction fee (paid in STX)" }}
     >
-      <Breadcrumbs items={[{ label: 'Stamp Registry' }]} />
-      <div className="card-header">
-        <Stamp className="card-icon" size={24} strokeWidth={1.5} />
-        <h2>Stamp Registry</h2>
-        <Tooltip content="Stacks network transaction fee (paid in STX)">
-          <span className="fee-badge">
-            <AnimatedNumber value={0.05} decimals={2} suffix=" STX" />
-          </span>
-        </Tooltip>
-      </div>
-
-      <p className="card-description">
-        Permanently stamp messages on the Stacks blockchain with timestamps
-      </p>
-
       <div className="form-group">
         <textarea
           placeholder="Enter your message to stamp on-chain..."
@@ -153,6 +133,7 @@ export function StampRegistry() {
           Connect your wallet to stamp messages
         </div>
       )}
-    </motion.section>
+    </RegistryLayout>
+  );
   );
 }

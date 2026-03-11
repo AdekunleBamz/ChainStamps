@@ -1,4 +1,4 @@
-import { useEffect, useState } from 'react';
+import { useEffect, useState, memo } from 'react';
 import { animate } from 'framer-motion';
 
 interface AnimatedNumberProps {
@@ -9,7 +9,7 @@ interface AnimatedNumberProps {
     decimals?: number;
 }
 
-export function AnimatedNumber({ value, className, prefix = '', suffix = '', decimals = 0 }: AnimatedNumberProps) {
+export const AnimatedNumber = memo(function AnimatedNumber({ value, className, prefix = '', suffix = '', decimals = 0 }: AnimatedNumberProps) {
     const [displayValue, setDisplayValue] = useState(value);
 
     useEffect(() => {
@@ -32,4 +32,4 @@ export function AnimatedNumber({ value, className, prefix = '', suffix = '', dec
             {suffix}
         </span>
     );
-}
+});
