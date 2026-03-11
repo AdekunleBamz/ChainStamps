@@ -1,8 +1,7 @@
 import { useState, useEffect } from 'react';
 import { motion, useAnimation } from 'framer-motion';
 import { useWallet } from '../context/WalletContext';
-import { wcCallContract } from '../utils/walletconnect';
-import { CONTRACT_ADDRESS, CONTRACTS } from '../config/contracts';
+import { ChainStampsService } from '../services/api';
 import { Stamp, Loader2, CheckCircle, AlertCircle } from 'lucide-react';
 import { Button } from './ui/Button';
 import { CardSkeleton } from './ui/Skeleton';
@@ -45,23 +44,17 @@ export function StampRegistry() {
     setStatus('submitting');
 
     try {
-      const result = await wcCallContract({
-        contractAddress: CONTRACT_ADDRESS,
-        contractName: CONTRACTS.stampRegistry.name,
-        functionName: 'stamp-message',
-        functionArgs: [message],
-        stxAmount: CONTRACTS.stampRegistry.fee,
-      });
+      const result = await ChainStampsService.stampMessage(message);
 
       setTxId(result.txid);
       setStatus('success');
       setMessage('');
       addToast('Message stamped successfully!', 'success');
       triggerSuccessConfetti();
-    } catch (error) {
+    } catch (error: any) {
       console.error('Transaction failed:', error);
       setStatus('error');
-      addToast('Failed to stamp message. Please try again.', 'error');
+      addToast(error.message || 'Failed to stamp message. Please try again.', 'error');
     }
   };
 
