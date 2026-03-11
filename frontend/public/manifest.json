@@ -1,0 +1,21 @@
+{
+    "short_name": "ChainStamps",
+    "name": "ChainStamps: Permanent On-Chain Registry",
+    "icons": [
+        {
+            "src": "favicon.png",
+            "sizes": "64x64 32x32 24x24 16x16",
+            "type": "image/png"
+        },
+        {
+            "src": "logo.png",
+            "type": "image/png",
+            "sizes": "512x512",
+            "purpose": "any maskable"
+        }
+    ],
+    "start_url": ".",
+    "display": "standalone",
+    "theme_color": "#0a0a0a",
+    "background_color": "#0a0a0a"
+}
