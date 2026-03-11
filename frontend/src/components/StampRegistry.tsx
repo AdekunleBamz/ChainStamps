@@ -4,12 +4,20 @@ import { wcCallContract } from '../utils/walletconnect';
 import { CONTRACT_ADDRESS, CONTRACTS } from '../config/contracts';
 import { Stamp, Loader2, CheckCircle, AlertCircle } from 'lucide-react';
 import { Button } from './ui/Button';
+import { CardSkeleton } from './ui/Skeleton';
+import { useEffect } from 'react';
 
 export function StampRegistry() {
   const { isConnected, userAddress } = useWallet();
   const [message, setMessage] = useState('');
   const [status, setStatus] = useState<'idle' | 'submitting' | 'success' | 'error'>('idle');
   const [txId, setTxId] = useState('');
+  const [isLoading, setIsLoading] = useState(true);
+
+  useEffect(() => {
+    const timer = setTimeout(() => setIsLoading(false), 1200);
+    return () => clearTimeout(timer);
+  }, []);
 
   const stampMessage = async () => {
     if (!message || !isConnected || !userAddress) return;
@@ -33,6 +41,8 @@ export function StampRegistry() {
       setStatus('error');
     }
   };
+
+  if (isLoading) return <CardSkeleton />;
 
   return (
     <section id="stamp" className="card">

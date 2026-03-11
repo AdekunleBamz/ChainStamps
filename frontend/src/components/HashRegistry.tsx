@@ -1,9 +1,10 @@
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import { useWallet } from '../context/WalletContext';
 import { wcCallContract } from '../utils/walletconnect';
 import { CONTRACT_ADDRESS, CONTRACTS } from '../config/contracts';
 import { FileText, Hash, Loader2, CheckCircle, AlertCircle } from 'lucide-react';
 import { Button } from './ui/Button';
+import { CardSkeleton } from './ui/Skeleton';
 
 export function HashRegistry() {
   const { isConnected, userAddress } = useWallet();
@@ -12,6 +13,12 @@ export function HashRegistry() {
   const [hash, setHash] = useState('');
   const [status, setStatus] = useState<'idle' | 'hashing' | 'submitting' | 'success' | 'error'>('idle');
   const [txId, setTxId] = useState('');
+  const [isLoading, setIsLoading] = useState(true);
+
+  useEffect(() => {
+    const timer = setTimeout(() => setIsLoading(false), 1200);
+    return () => clearTimeout(timer);
+  }, []);
 
   const handleFileChange = async (e: React.ChangeEvent<HTMLInputElement>) => {
     const selectedFile = e.target.files?.[0];
@@ -53,6 +60,8 @@ export function HashRegistry() {
       setStatus('error');
     }
   };
+
+  if (isLoading) return <CardSkeleton />;
 
   return (
     <section id="hash" className="card">

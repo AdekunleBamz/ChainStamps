@@ -4,6 +4,8 @@ import { wcCallContract } from '../utils/walletconnect';
 import { CONTRACT_ADDRESS, CONTRACTS } from '../config/contracts';
 import { Tag, Loader2, CheckCircle, AlertCircle } from 'lucide-react';
 import { Button } from './ui/Button';
+import { CardSkeleton } from './ui/Skeleton';
+import { useEffect } from 'react';
 
 export function TagRegistry() {
   const { isConnected, userAddress } = useWallet();
@@ -11,6 +13,12 @@ export function TagRegistry() {
   const [value, setValue] = useState('');
   const [status, setStatus] = useState<'idle' | 'submitting' | 'success' | 'error'>('idle');
   const [txId, setTxId] = useState('');
+  const [isLoading, setIsLoading] = useState(true);
+
+  useEffect(() => {
+    const timer = setTimeout(() => setIsLoading(false), 1200);
+    return () => clearTimeout(timer);
+  }, []);
 
   const storeTag = async () => {
     if (!key || !value || !isConnected || !userAddress) return;
@@ -35,6 +43,8 @@ export function TagRegistry() {
       setStatus('error');
     }
   };
+
+  if (isLoading) return <CardSkeleton />;
 
   return (
     <section id="tag" className="card">
