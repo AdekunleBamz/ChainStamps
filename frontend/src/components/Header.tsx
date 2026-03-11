@@ -6,6 +6,7 @@ import { twMerge } from 'tailwind-merge';
 import { Button } from './ui/Button';
 import { Tooltip } from './ui/Tooltip';
 import { CopyButton } from './ui/CopyButton';
+import { AnimatedNumber } from './ui/AnimatedNumber';
 
 export function Header() {
   const { isConnected, isConnecting, userAddress, connect, disconnect, wcUri, showQRModal, setShowQRModal } = useWallet();
@@ -62,7 +63,11 @@ export function Header() {
               <div className="network-heartbeat">
                 <Activity size={14} className="mr-1 text-primary animate-pulse" strokeWidth={2} />
                 <span className="text-xs font-mono text-muted-foreground">
-                  {blockHeight ? `#${blockHeight.toLocaleString()}` : '---'}
+                  {blockHeight ? (
+                    <AnimatedNumber value={blockHeight} prefix="#" />
+                  ) : (
+                    '---'
+                  )}
                 </span>
               </div>
             </Tooltip>
