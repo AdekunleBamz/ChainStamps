@@ -1,10 +1,11 @@
 import { useState, useEffect } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
-import { Clock, ExternalLink, Trash2, Hash, Tag, Stamp, Search } from 'lucide-react';
+import { Clock, ExternalLink, Trash2, Hash, Tag, Stamp, Search, Download } from 'lucide-react';
 import { HistoryService, TransactionRecord } from '../services/history';
 import { Button } from './ui/Button';
 import { Breadcrumbs } from './ui/Breadcrumbs';
 import { EmptyState } from './ui/EmptyState';
+import { exportData } from '../utils/export';
 
 export function TransactionHistory() {
     const [history, setHistory] = useState<TransactionRecord[]>([]);
