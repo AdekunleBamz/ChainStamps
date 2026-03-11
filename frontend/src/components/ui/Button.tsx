@@ -1,7 +1,8 @@
 import { motion, type HTMLMotionProps } from 'framer-motion';
-import { type ReactNode } from 'react';
+import { type ReactNode, memo } from 'react';
 import { twMerge } from 'tailwind-merge';
 import { triggerHaptic } from '../../utils/haptics';
+import { SPRINGS } from '../../constants/animations';
 
 interface ButtonProps extends HTMLMotionProps<'button'> {
     children: ReactNode;
@@ -43,7 +44,7 @@ export const Button = memo(function Button({
         <motion.button
             whileHover={{ scale: 1.02 }}
             whileTap={{ scale: 0.98 }}
-            transition={{ type: "spring", stiffness: 400, damping: 17 }}
+            transition={SPRINGS.snappy}
             className={twMerge(
                 "inline-flex items-center justify-center rounded-xl font-medium transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring disabled:pointer-events-none disabled:opacity-50",
                 variants[variant],
@@ -57,4 +58,3 @@ export const Button = memo(function Button({
         </motion.button>
     );
 });
-极

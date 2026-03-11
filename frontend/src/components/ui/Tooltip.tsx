@@ -1,7 +1,8 @@
-import { useState } from 'react';
+import { useState, memo } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import { type ReactNode } from 'react';
 import { twMerge } from 'tailwind-merge';
+import { TRANSITIONS } from '../../constants/animations';
 
 interface TooltipProps {
     content: string;
@@ -22,9 +23,7 @@ export const Tooltip = memo(function Tooltip({ content, children, className }: T
             <AnimatePresence>
                 {isVisible && (
                     <motion.div
-                        initial={{ opacity: 0, y: 10, scale: 0.95 }}
-                        animate={{ opacity: 1, y: 0, scale: 1 }}
-                        exit={{ opacity: 0, y: 10, scale: 0.95 }}
+                        {...TRANSITIONS.scaleIn}
                         className="absolute bottom-full left-1/2 z-[100] mb-2 -translate-x-1/2"
                         style={{ left: '50%', transform: 'translateX(-50%)' }}
                     >

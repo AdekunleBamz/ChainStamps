@@ -7,10 +7,9 @@ import {
     uintCV,
     standardPrincipalCV,
     cvToValue,
-    // The lint suggests fetchCallReadOnlyFunction might be the correct one in this env
-    callReadOnlyFunction
+    fetchCallReadOnlyFunction as callReadOnlyFunction
 } from '@stacks/transactions';
-import { StacksMainnet } from '@stacks/network';
+import { STACKS_MAINNET as StacksMainnet } from '@stacks/network';
 
 const network = new StacksMainnet();
 
