@@ -1,22 +1,23 @@
-import { useState, useEffect } from 'react';
-import { motion, useAnimation } from 'framer-motion';
+import { useState, useEffect, useCallback } from 'react';
+import { useAnimation } from 'framer-motion';
 import { useWallet } from '../context/WalletContext';
-import { wcCallContract } from '../utils/walletconnect';
-import { CONTRACT_ADDRESS, CONTRACTS } from '../config/contracts';
+import { ChainStampsService } from '../services/api';
 import { Tag, Loader2, CheckCircle, AlertCircle } from 'lucide-react';
 import { Button } from './ui/Button';
 import { CardSkeleton } from './ui/Skeleton';
-import { Tooltip } from './ui/Tooltip';
-import { Breadcrumbs } from './ui/Breadcrumbs';
-import { AnimatedNumber } from './ui/AnimatedNumber';
 import { useToast } from '../context/ToastContext';
 import { triggerSuccessConfetti } from '../utils/confetti';
+import { RegistryLayout } from './RegistryLayout';
+import { useFormDraft } from '../hooks/useFormDraft';
 
 export function TagRegistry() {
   const { isConnected, userAddress } = useWallet();
   const { addToast } = useToast();
-  const [key, setKey] = useState('');
-  const [value, setValue] = useState('');
+  const [tag, setTag, clearDraft] = useFormDraft('tag_draft', { key: '', value: '' });
+  const key = tag.key;
+  const value = tag.value;
+  const setKey = (k: string) => setTag({ ...tag, key: k });
+  const setValue = (v: string) => setTag({ ...tag, value: v });
   const [status, setStatus] = useState<'idle' | 'submitting' | 'success' | 'error'>('idle');
   const [txId, setTxId] = useState('');
   const [isLoading, setIsLoading] = useState(true);
@@ -27,14 +28,14 @@ export function TagRegistry() {
     return () => clearTimeout(timer);
   }, []);
 
-  const shake = async () => {
+  const shake = useCallback(async () => {
     await controls.start({
       x: [-10, 10, -10, 10, 0],
       transition: { duration: 0.4 }
     });
-  };
+  }, [controls]);
 
-  const storeTag = async () => {
+  const storeTag = useCallback(async () => {
     if (!key || !value || !isConnected || !userAddress) {
       if (!key || !value) {
         addToast('Please enter both key and value for the tag.', 'warning');
@@ -46,34 +47,27 @@ export function TagRegistry() {
     setStatus('submitting');
 
     try {
-      const result = await wcCallContract({
-        contractAddress: CONTRACT_ADDRESS,
-        contractName: CONTRACTS.tagRegistry.name,
-        functionName: 'store-tag',
-        functionArgs: [key, value],
-        stxAmount: CONTRACTS.tagRegistry.fee,
-      });
+      const result = await ChainStampsService.storeTag(key, value);
 
       setTxId(result.txid);
       setStatus('success');
-      setKey('');
-      setValue('');
+      clearDraft();
       addToast('Tag stored successfully!', 'success');
       triggerSuccessConfetti();
-    } catch (error) {
+    } catch (error: any) {
       console.error('Transaction failed:', error);
       setStatus('error');
-      addToast('Failed to store tag. Please try again.', 'error');
+      addToast(error.message || 'Failed to store tag. Please try again.', 'error');
     }
-  };
+  }, [key, value, isConnected, userAddress, addToast, shake]);
 
-  const handleKeyDown = (e: React.KeyboardEvent) => {
+  const handleKeyDown = useCallback((e: React.KeyboardEvent) => {
     if ((e.metaKey || e.ctrlKey) && e.key === 'Enter') {
       if (key && value && isConnected && status !== 'submitting') {
         storeTag();
       }
     }
-  };
+  }, [key, value, isConnected, status, storeTag]);
 
   if (isLoading) return <CardSkeleton />;
 
@@ -83,28 +77,14 @@ export function TagRegistry() {
   };
 
   return (
-    <motion.section
+    <RegistryLayout
       id="tag"
-      className="card"
-      variants={cardVariants}
-      initial="initial"
-      animate={controls}
+      title="Tag Registry"
+      description="Store key-value pairs permanently on the blockchain"
+      icon={Tag}
+      controls={controls}
+      fee={{ value: 0.04, unit: "STX", tooltip: "Stacks network transaction fee (paid in STX)" }}
     >
-      <Breadcrumbs items={[{ label: 'Tag Registry' }]} />
-      <div className="card-header">
-        <Tag className="card-icon" size={24} strokeWidth={1.5} />
-        <h2>Tag Registry</h2>
-        <Tooltip content="Stacks network transaction fee (paid in STX)">
-          <span className="fee-badge">
-            <AnimatedNumber value={0.04} decimals={2} suffix=" STX" />
-          </span>
-        </Tooltip>
-      </div>
-
-      <p className="card-description">
-        Store key-value pairs permanently on the blockchain
-      </p>
-
       <div className="form-group">
         <input
           type="text"
@@ -170,6 +150,6 @@ export function TagRegistry() {
           </div>
         )
       }
-    </motion.section>
+    </RegistryLayout>
   );
 }
