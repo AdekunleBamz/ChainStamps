@@ -1,4 +1,5 @@
 import { useState, useEffect } from 'react';
+import { motion, useAnimation } from 'framer-motion';
 import { useWallet } from '../context/WalletContext';
 import { wcCallContract } from '../utils/walletconnect';
 import { CONTRACT_ADDRESS, CONTRACTS } from '../config/contracts';
@@ -17,12 +18,19 @@ export function HashRegistry() {
   const [status, setStatus] = useState<'idle' | 'hashing' | 'submitting' | 'success' | 'error'>('idle');
   const [txId, setTxId] = useState('');
   const [isLoading, setIsLoading] = useState(true);
+  const controls = useAnimation();
 
   useEffect(() => {
     const timer = setTimeout(() => setIsLoading(false), 1200);
     return () => clearTimeout(timer);
   }, []);
 
+  const shake = async () => {
+    await controls.start({
+      x: [-10, 10, -10, 10, 0],
+      transition: { duration: 0.4 }
+    });
+  };
   const handleFileChange = async (e: React.ChangeEvent<HTMLInputElement>) => {
     const selectedFile = e.target.files?.[0];
     if (selectedFile) {
@@ -40,7 +48,11 @@ export function HashRegistry() {
   };
 
   const storeHash = async () => {
-    if (!hash || !isConnected || !userAddress) return;
+    if (!hash || !isConnected || !userAddress) {
+      addToast('Please select a file or enter a hash first.', 'warning');
+      shake();
+      return;
+    }
 
     setStatus('submitting');
 
@@ -71,7 +83,7 @@ export function HashRegistry() {
   if (isLoading) return <CardSkeleton />;
 
   return (
-    <section id="hash" className="card">
+    <motion.section id="hash" className="card" animate={controls}>
       <div className="card-header">
         <Hash className="card-icon" size={24} strokeWidth={1.5} />
         <h2>Hash Registry</h2>
@@ -154,6 +166,6 @@ export function HashRegistry() {
           Connect your wallet to store hashes
         </div>
       )}
-    </section>
+    </motion.section>
   );
 }

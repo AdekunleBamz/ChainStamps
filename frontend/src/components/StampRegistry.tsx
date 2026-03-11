@@ -1,11 +1,11 @@
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
+import { motion, useAnimation } from 'framer-motion';
 import { useWallet } from '../context/WalletContext';
 import { wcCallContract } from '../utils/walletconnect';
 import { CONTRACT_ADDRESS, CONTRACTS } from '../config/contracts';
 import { Stamp, Loader2, CheckCircle, AlertCircle } from 'lucide-react';
 import { Button } from './ui/Button';
 import { CardSkeleton } from './ui/Skeleton';
-import { useEffect } from 'react';
 import { useToast } from '../context/ToastContext';
 import { triggerSuccessConfetti } from '../utils/confetti';
 
@@ -16,14 +16,28 @@ export function StampRegistry() {
   const [status, setStatus] = useState<'idle' | 'submitting' | 'success' | 'error'>('idle');
   const [txId, setTxId] = useState('');
   const [isLoading, setIsLoading] = useState(true);
+  const controls = useAnimation();
 
   useEffect(() => {
     const timer = setTimeout(() => setIsLoading(false), 1200);
     return () => clearTimeout(timer);
   }, []);
 
+  const shake = async () => {
+    await controls.start({
+      x: [-10, 10, -10, 10, 0],
+      transition: { duration: 0.4 }
+    });
+  };
+
   const stampMessage = async () => {
-    if (!message || !isConnected || !userAddress) return;
+    if (!message || !isConnected || !userAddress) {
+      if (!message) {
+        addToast('Please enter a message to stamp.', 'warning');
+        shake();
+      }
+      return;
+    }
 
     setStatus('submitting');
 
@@ -51,7 +65,7 @@ export function StampRegistry() {
   if (isLoading) return <CardSkeleton />;
 
   return (
-    <section id="stamp" className="card">
+    <motion.section id="stamp" className="card" animate={controls}>
       <div className="card-header">
         <Stamp className="card-icon" size={24} strokeWidth={1.5} />
         <h2>Stamp Registry</h2>
@@ -111,6 +125,6 @@ export function StampRegistry() {
           Connect your wallet to stamp messages
         </div>
       )}
-    </section>
+    </motion.section>
   );
 }
