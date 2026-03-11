@@ -5,12 +5,14 @@ import { HashRegistry } from './components/HashRegistry';
 import { StampRegistry } from './components/StampRegistry';
 import { TagRegistry } from './components/TagRegistry';
 import { Footer } from './components/Footer';
+import { MeshGradient } from './components/MeshGradient';
 import './App.css';
 
 function App() {
   return (
     <WalletProvider>
       <div className="app">
+        <MeshGradient />
         <Header />
         <main className="main">
           <Hero />
