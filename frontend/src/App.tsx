@@ -8,6 +8,7 @@ import { TagRegistry } from './components/TagRegistry';
 import { Roadmap } from './components/Roadmap';
 import { VerificationModule } from './components/VerificationModule';
 import { TransactionHistory } from './components/TransactionHistory';
+import { NetworkMetrics } from './components/NetworkMetrics';
 import { Footer } from './components/Footer';
 import { MeshGradient } from './components/MeshGradient';
 import { ToastProvider } from './context/ToastContext';
