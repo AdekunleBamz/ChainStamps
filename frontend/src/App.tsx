@@ -18,6 +18,7 @@ import { CardSkeleton } from './components/ui/Skeleton';
 import { PullToRefresh } from './components/ui/PullToRefresh';
 import { EmptyState } from './components/ui/EmptyState';
 import { LogicErrorBoundary } from './components/ui/LogicErrorBoundary';
+import { PerformanceOverlay } from './components/ui/PerformanceOverlay';
 import './App.css';
 
 function FaviconManager() {
@@ -106,6 +107,7 @@ function App() {
             </main>
             <Footer />
           </LogicErrorBoundary>
+          <PerformanceOverlay />
         </div>
         极      </WalletProvider>
     </ToastProvider>
