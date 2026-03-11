@@ -693,3 +693,29 @@ body {
   0% { transform: scale(1); opacity: 0.5; }
   100% { transform: scale(2.5); opacity: 0; }
 }
+
+/* Network Heartbeat */
+.network-heartbeat {
+  display: flex;
+  align-items: center;
+  padding: 0.25rem 0.75rem;
+  background: hsla(var(--primary-h), var(--primary-s), var(--primary-l), 0.1);
+  border-radius: 99px;
+  border: 1px solid hsla(var(--primary-h), var(--primary-s), var(--primary-l), 0.2);
+}
+
+.animate-pulse {
+  animation: pulse-subtle 2s cubic-bezier(0.4, 0, 0.6, 1) infinite;
+}
+
+@keyframes pulse-subtle {
+  0%, 100% { opacity: 1; }
+  50% { opacity: .5; }
+}
+
+.mr-1 { margin-right: 0.25rem; }
+.mr-2 { margin-right: 0.5rem; }
+.mr-3 { margin-right: 0.75rem; }
+.text-xs { font-size: 0.75rem; }
+.font-mono { font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, "Liberation Mono", "Courier New", monospace; }
+.text-muted-foreground { color: var(--muted-foreground); }

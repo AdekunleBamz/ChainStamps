@@ -1,5 +1,5 @@
 import { useWallet } from '../context/WalletContext';
-import { Wallet, LogOut, Copy, Check, Loader2 } from 'lucide-react';
+import { Wallet, LogOut, Copy, Check, Loader2, Activity } from 'lucide-react';
 import { useState, useEffect } from 'react';
 import { WalletConnectQRModal } from './WalletConnectQRModal';
 import { twMerge } from 'tailwind-merge';
@@ -9,11 +9,29 @@ export function Header() {
   const { isConnected, isConnecting, userAddress, connect, disconnect, wcUri, showQRModal, setShowQRModal } = useWallet();
   const [copied, setCopied] = useState(false);
   const [isScrolled, setIsScrolled] = useState(false);
+  const [blockHeight, setBlockHeight] = useState<number | null>(null);
 
   useEffect(() => {
     const handleScroll = () => setIsScrolled(window.scrollY > 20);
     window.addEventListener('scroll', handleScroll);
-    return () => window.removeEventListener('scroll', handleScroll);
+
+    const fetchBlockHeight = async () => {
+      try {
+        const response = await fetch('https://api.mainnet.hiro.so/v2/info');
+        const data = await response.json();
+        setBlockHeight(data.stacks_tip_height);
+      } catch (error) {
+        console.error('Failed to fetch block height:', error);
+      }
+    };
+
+    fetchBlockHeight();
+    const interval = setInterval(fetchBlockHeight, 30000);
+
+    return () => {
+      window.removeEventListener('scroll', handleScroll);
+      clearInterval(interval);
+    };
   }, []);
 
   const truncateAddress = (address: string) => {
@@ -41,6 +59,12 @@ export function Header() {
           </div>
 
           <nav className="nav-links">
+            <div className="network-heartbeat">
+              <Activity size={14} className="mr-1 text-primary animate-pulse" strokeWidth={2} />
+              <span className="text-xs font-mono text-muted-foreground">
+                {blockHeight ? `#${blockHeight.toLocaleString()}` : '---'}
+              </span>
+            </div>
             <a href="#hash">Hash</a>
             <a href="#stamp">Stamp</a>
             <a href="#tag">Tag</a>
