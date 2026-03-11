@@ -47,6 +47,10 @@ export function Header() {
           </nav>
 
           <div className="wallet-section">
+            <div className={twMerge(
+              "status-pulse",
+              isConnected ? "connected" : isConnecting ? "connecting" : "disconnected"
+            )} style={{ marginRight: '12px' }} title={isConnected ? "Connected" : isConnecting ? "Connecting..." : "Disconnected"} />
             {isConnected ? (
               <div className="wallet-connected">
                 <Button
