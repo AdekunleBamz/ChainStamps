@@ -1,6 +1,6 @@
 import { useState, useEffect } from 'react';
 import { motion } from 'framer-motion';
-import { BarChart3, Clock, Zap, database, Layers } from 'lucide-react';
+import { Clock, Zap, Database, Layers } from 'lucide-react';
 import { AnimatedNumber } from './ui/AnimatedNumber';
 
 export function NetworkMetrics() {

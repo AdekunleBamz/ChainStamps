@@ -1,17 +1,15 @@
-import { useState, useEffect, useCallback, useMemo } from 'react';
-import { motion, useAnimation } from 'framer-motion';
+import { useState, useEffect, useCallback } from 'react';
+import { useAnimation } from 'framer-motion';
 import { useWallet } from '../context/WalletContext';
 import { ChainStampsService } from '../services/api';
 import { FileText, Hash, Loader2, CheckCircle, AlertCircle } from 'lucide-react';
 import { Button } from './ui/Button';
 import { CardSkeleton } from './ui/Skeleton';
-import { Tooltip } from './ui/Tooltip';
 import { CopyButton } from './ui/CopyButton';
-import { Breadcrumbs } from './ui/Breadcrumbs';
-import { AnimatedNumber } from './ui/AnimatedNumber';
 import { useToast } from '../context/ToastContext';
 import { triggerSuccessConfetti } from '../utils/confetti';
 import { RegistryLayout } from './RegistryLayout';
+import { useTabFeedback } from '../hooks/useTabFeedback';
 import { useTabFeedback } from '../hooks/useTabFeedback';
 
 export function HashRegistry() {

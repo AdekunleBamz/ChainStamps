@@ -42,8 +42,20 @@ function App() {
     { id: 'hash', name: 'Hash Registry', component: <HashRegistry /> },
     { id: 'stamp', name: 'Stamp Registry', component: <StampRegistry /> },
     { id: 'tag', name: 'Tag Registry', component: <TagRegistry /> },
-    { id: 'verify', name: 'Verification Center', component: <VerificationModule /> },
-    { id: 'history', name: 'Transaction History', component: <TransactionHistory /> },
+    {
+      id: 'verify', name: 'Verification Center', component: (
+        <Suspense fallback={<CardSkeleton />}>
+          <VerificationModule />
+        </Suspense>
+      )
+    },
+    {
+      id: 'history', name: 'Transaction History', component: (
+        <Suspense fallback={<CardSkeleton />}>
+          <TransactionHistory />
+        </Suspense>
+      )
+    },
   ], []);
 
   const filteredRegistries = useMemo(() => {
