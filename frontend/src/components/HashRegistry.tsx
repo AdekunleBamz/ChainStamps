@@ -9,6 +9,7 @@ import { CardSkeleton } from './ui/Skeleton';
 import { Tooltip } from './ui/Tooltip';
 import { CopyButton } from './ui/CopyButton';
 import { Breadcrumbs } from './ui/Breadcrumbs';
+import { AnimatedNumber } from './ui/AnimatedNumber';
 import { useToast } from '../context/ToastContext';
 import { triggerSuccessConfetti } from '../utils/confetti';
 
@@ -108,7 +109,9 @@ export function HashRegistry() {
         </div>
         <h2>Hash Registry</h2>
         <Tooltip content="Stacks network transaction fee (paid in STX)">
-          <span className="fee-badge">0.03 STX</span>
+          <span className="fee-badge">
+            <AnimatedNumber value={0.03} decimals={2} suffix=" STX" />
+          </span>
         </Tooltip>
       </div>
 

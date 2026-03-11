@@ -8,6 +8,7 @@ import { Button } from './ui/Button';
 import { CardSkeleton } from './ui/Skeleton';
 import { Tooltip } from './ui/Tooltip';
 import { Breadcrumbs } from './ui/Breadcrumbs';
+import { AnimatedNumber } from './ui/AnimatedNumber';
 import { useToast } from '../context/ToastContext';
 import { triggerSuccessConfetti } from '../utils/confetti';
 
@@ -80,19 +81,6 @@ export function TagRegistry() {
       variants={cardVariants}
       initial="initial"
       animate={controls}
-    >
-      <Breadcrumbs items={[{ label: 'Tag Registry' }]} />
-      <div className="card-header">
-        <Tag className="card-icon" size={24} strokeWidth={1.5} />
-        <h2>Tag Registry</h2>
-        <Tooltip content="Stacks network transaction fee (paid in STX)">
-          <span className="fee-badge">0.04 STX</span>
-        </Tooltip>
-      </div>
-
-      <p className="card-description">
-        Store key-value pairs permanently on the blockchain
-      </p>
 
       <div className="form-group">
         <input
@@ -135,26 +123,30 @@ export function TagRegistry() {
         )}
       </Button>
 
-      {status === 'success' && txId && (
-        <div className="success-message">
-          <CheckCircle size={18} />
-          <span>Tag stored! </span>
-          <a
-            href={`https://explorer.stacks.co/txid/${txId}?chain=mainnet`}
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            View transaction
-          </a>
-        </div>
-      )}
+      {
+    status === 'success' && txId && (
+      <div className="success-message">
+        <CheckCircle size={18} />
+        <span>Tag stored! </span>
+        <a
+          href={`https://explorer.stacks.co/txid/${txId}?chain=mainnet`}
+          target="_blank"
+          rel="noopener noreferrer"
+        >
+          View transaction
+        </a>
+      </div>
+    )
+  }
 
-      {!isConnected && (
-        <div className="warning-message">
-          <AlertCircle size={18} />
-          Connect your wallet to store tags
-        </div>
-      )}
-    </motion.section>
+  {
+    !isConnected && (
+      <div className="warning-message">
+        <AlertCircle size={18} />
+        Connect your wallet to store tags
+      </div>
+    )
+  }
+    </motion.section >
   );
 }

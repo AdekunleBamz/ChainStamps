@@ -8,6 +8,7 @@ import { Button } from './ui/Button';
 import { CardSkeleton } from './ui/Skeleton';
 import { Tooltip } from './ui/Tooltip';
 import { Breadcrumbs } from './ui/Breadcrumbs';
+import { AnimatedNumber } from './ui/AnimatedNumber';
 import { useToast } from '../context/ToastContext';
 import { triggerSuccessConfetti } from '../utils/confetti';
 
@@ -84,7 +85,9 @@ export function StampRegistry() {
         <Stamp className="card-icon" size={24} strokeWidth={1.5} />
         <h2>Stamp Registry</h2>
         <Tooltip content="Stacks network transaction fee (paid in STX)">
-          <span className="fee-badge">0.05 STX</span>
+          <span className="fee-badge">
+            <AnimatedNumber value={0.05} decimals={2} suffix=" STX" />
+          </span>
         </Tooltip>
       </div>
 
