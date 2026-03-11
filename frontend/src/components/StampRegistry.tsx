@@ -37,7 +37,7 @@ export function StampRegistry() {
   return (
     <section id="stamp" className="card">
       <div className="card-header">
-        <Stamp className="card-icon" />
+        <Stamp className="card-icon" size={24} strokeWidth={1.5} />
         <h2>Stamp Registry</h2>
         <span className="fee-badge">0.05 STX</span>
       </div>
@@ -67,7 +67,7 @@ export function StampRegistry() {
       >
         {status === 'submitting' ? (
           <>
-            <Loader2 className="spinning mr-2" size={18} />
+            <Loader2 className="spinning mr-2" size={18} strokeWidth={1.5} />
             Stamping...
           </>
         ) : (

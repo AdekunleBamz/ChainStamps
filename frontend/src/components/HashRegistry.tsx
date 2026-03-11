@@ -57,7 +57,7 @@ export function HashRegistry() {
   return (
     <section id="hash" className="card">
       <div className="card-header">
-        <Hash className="card-icon" />
+        <Hash className="card-icon" size={24} strokeWidth={1.5} />
         <h2>Hash Registry</h2>
         <span className="fee-badge">0.03 STX</span>
       </div>
@@ -68,7 +68,7 @@ export function HashRegistry() {
 
       <div className="form-group">
         <label className="file-input-label">
-          <FileText size={20} />
+          <FileText size={20} strokeWidth={1.5} />
           {file ? file.name : 'Choose a file to hash'}
           <input
             type="file"
@@ -105,12 +105,12 @@ export function HashRegistry() {
       >
         {status === 'submitting' ? (
           <>
-            <Loader2 className="spinning mr-2" size={18} />
+            <Loader2 className="spinning mr-2" size={18} strokeWidth={1.5} />
             Storing...
           </>
         ) : status === 'hashing' ? (
           <>
-            <Loader2 className="spinning mr-2" size={18} />
+            <Loader2 className="spinning mr-2" size={18} strokeWidth={1.5} />
             Hashing...
           </>
         ) : (

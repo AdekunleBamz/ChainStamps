@@ -39,7 +39,7 @@ export function TagRegistry() {
   return (
     <section id="tag" className="card">
       <div className="card-header">
-        <Tag className="card-icon" />
+        <Tag className="card-icon" size={24} strokeWidth={1.5} />
         <h2>Tag Registry</h2>
         <span className="fee-badge">0.04 STX</span>
       </div>
@@ -81,7 +81,7 @@ export function TagRegistry() {
       >
         {status === 'submitting' ? (
           <>
-            <Loader2 className="spinning mr-2" size={18} />
+            <Loader2 className="spinning mr-2" size={18} strokeWidth={1.5} />
             Storing...
           </>
         ) : (

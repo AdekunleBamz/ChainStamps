@@ -213,10 +213,11 @@ body {
 }
 
 .feature-icon {
-  width: 48px;
-  height: 48px;
-  color: var(--accent);
-  margin-bottom: 1rem;
+  width: 40px;
+  height: 40px;
+  color: var(--primary);
+  margin-bottom: 1.25rem;
+  stroke-width: 1.5;
 }
 
 .feature h3 {
@@ -261,9 +262,10 @@ body {
 }
 
 .card-icon {
-  width: 28px;
-  height: 28px;
-  color: var(--accent);
+  width: 24px;
+  height: 24px;
+  color: var(--primary);
+  stroke-width: 1.5;
 }
 
 .card-header h2 {

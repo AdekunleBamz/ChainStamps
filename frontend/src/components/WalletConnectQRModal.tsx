@@ -23,7 +23,7 @@ export function WalletConnectQRModal({ uri, onClose }: WalletConnectQRModalProps
             className="qr-close-btn"
             onClick={onClose}
           >
-            <X size={20} />
+            <X size={20} strokeWidth={1.5} />
           </Button>
         </div>
 
@@ -40,7 +40,7 @@ export function WalletConnectQRModal({ uri, onClose }: WalletConnectQRModalProps
           </div>
 
           <p className="qr-instructions">
-            <Smartphone size={18} />
+            <Smartphone size={18} strokeWidth={1.5} />
             Scan with your Stacks wallet app
           </p>
 
@@ -56,7 +56,7 @@ export function WalletConnectQRModal({ uri, onClose }: WalletConnectQRModalProps
             rel="noopener noreferrer"
             className="qr-mobile-link"
           >
-            <ExternalLink size={16} />
+            <ExternalLink size={16} strokeWidth={1.5} />
             Open in wallet app (mobile)
           </motion.a>
         </div>

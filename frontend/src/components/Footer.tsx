@@ -22,7 +22,7 @@ export function Footer() {
             target="_blank"
             rel="noopener noreferrer"
           >
-            <Github size={20} />
+            <Github size={20} strokeWidth={1.5} />
           </motion.a>
           <motion.a
             whileHover={{ scale: 1.1, y: -2 }}
@@ -31,7 +31,7 @@ export function Footer() {
             target="_blank"
             rel="noopener noreferrer"
           >
-            <Twitter size={20} />
+            <Twitter size={20} strokeWidth={1.5} />
           </motion.a>
           <motion.a
             whileHover={{ scale: 1.1, y: -2 }}
@@ -40,7 +40,7 @@ export function Footer() {
             target="_blank"
             rel="noopener noreferrer"
           >
-            <Globe size={20} />
+            <Globe size={20} strokeWidth={1.5} />
           </motion.a>
         </div>
 

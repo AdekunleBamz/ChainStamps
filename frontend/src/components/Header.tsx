@@ -55,7 +55,7 @@ export function Header() {
                   className="address-btn font-mono"
                   onClick={copyAddress}
                 >
-                  {copied ? <Check size={16} /> : <Copy size={16} />}
+                  {copied ? <Check size={16} strokeWidth={1.5} /> : <Copy size={16} strokeWidth={1.5} />}
                   {truncateAddress(userAddress || '')}
                 </Button>
                 <Button
@@ -64,7 +64,7 @@ export function Header() {
                   className="disconnect-btn"
                   onClick={disconnect}
                 >
-                  <LogOut size={16} />
+                  <LogOut size={16} strokeWidth={1.5} />
                 </Button>
               </div>
             ) : (
@@ -77,12 +77,12 @@ export function Header() {
               >
                 {isConnecting ? (
                   <>
-                    <Loader2 size={18} className="spinning mr-2" />
+                    <Loader2 size={18} className="spinning mr-2" strokeWidth={1.5} />
                     Connecting...
                   </>
                 ) : (
                   <>
-                    <Wallet size={18} className="mr-2" />
+                    <Wallet size={18} className="mr-2" strokeWidth={1.5} />
                     Connect Wallet
                   </>
                 )}
