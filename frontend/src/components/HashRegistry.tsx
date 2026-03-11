@@ -83,10 +83,21 @@ export function HashRegistry() {
     }
   };
 
+  const cardVariants = {
+    initial: { opacity: 0, y: 20 },
+    animate: { opacity: 1, y: 0, transition: { duration: 0.5 } }
+  };
+
   if (isLoading) return <CardSkeleton />;
 
   return (
-    <motion.section id="hash" className="card" animate={controls}>
+    <motion.section
+      id="hash"
+      className="card"
+      variants={cardVariants}
+      initial="initial"
+      animate={controls}
+    >
       <Breadcrumbs items={[{ label: 'Hash Registry' }]} />
       <div className="card-header">
         <div className="flex items-center gap-2">
