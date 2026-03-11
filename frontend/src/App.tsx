@@ -13,6 +13,7 @@ import { updateFavicon } from './utils/favicon';
 import { useWallet } from './context/WalletContext';
 import { Search, X } from 'lucide-react';
 import { Button } from './components/ui/Button';
+import { EmptyState } from './components/ui/EmptyState';
 import './App.css';
 
 function FaviconManager() {
@@ -76,9 +77,16 @@ function App() {
                   </div>
                 ))
               ) : (
-                <div className="no-results">
-                  <p>No registries found matching "{searchQuery}"</p>
-                  <Button variant="outline" onClick={() => setSearchQuery('')}>Clear Search</Button>
+                <div className="col-span-full">
+                  <EmptyState
+                    title="No registries found"
+                    description={`We couldn't find any results matching "${searchQuery}". Try a different search term or clear the filter.`}
+                    action={
+                      <Button variant="outline" onClick={() => setSearchQuery('')}>
+                        Clear Search
+                      </Button>
+                    }
+                  />
                 </div>
               )}
             </div>
