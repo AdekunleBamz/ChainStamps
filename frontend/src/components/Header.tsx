@@ -3,6 +3,7 @@ import { Wallet, LogOut, Copy, Check, Loader2 } from 'lucide-react';
 import { useState, useEffect } from 'react';
 import { WalletConnectQRModal } from './WalletConnectQRModal';
 import { twMerge } from 'tailwind-merge';
+import { Button } from './ui/Button';
 
 export function Header() {
   const { isConnected, isConnecting, userAddress, connect, disconnect, wcUri, showQRModal, setShowQRModal } = useWallet();
@@ -48,28 +49,44 @@ export function Header() {
           <div className="wallet-section">
             {isConnected ? (
               <div className="wallet-connected">
-                <button className="address-btn" onClick={copyAddress}>
+                <Button
+                  variant="secondary"
+                  size="md"
+                  className="address-btn font-mono"
+                  onClick={copyAddress}
+                >
                   {copied ? <Check size={16} /> : <Copy size={16} />}
                   {truncateAddress(userAddress || '')}
-                </button>
-                <button className="disconnect-btn" onClick={disconnect}>
+                </Button>
+                <Button
+                  variant="outline"
+                  size="icon"
+                  className="disconnect-btn"
+                  onClick={disconnect}
+                >
                   <LogOut size={16} />
-                </button>
+                </Button>
               </div>
             ) : (
-              <button className="connect-btn" onClick={connect} disabled={isConnecting}>
+              <Button
+                variant="primary"
+                size="md"
+                className="connect-btn"
+                onClick={connect}
+                disabled={isConnecting}
+              >
                 {isConnecting ? (
                   <>
-                    <Loader2 size={18} className="spinning" />
+                    <Loader2 size={18} className="spinning mr-2" />
                     Connecting...
                   </>
                 ) : (
                   <>
-                    <Wallet size={18} />
+                    <Wallet size={18} className="mr-2" />
                     Connect Wallet
                   </>
                 )}
-              </button>
+              </Button>
             )}
           </div>
         </div>
