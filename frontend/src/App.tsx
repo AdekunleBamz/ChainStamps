@@ -1,3 +1,4 @@
+import { useEffect, useState } from 'react';
 import { WalletProvider } from './context/WalletContext';
 import { Header } from './components/Header';
 import { Hero } from './components/Hero';
@@ -10,6 +11,8 @@ import { ToastProvider } from './context/ToastContext';
 import { ToastContainer } from './components/ui/Toast';
 import { updateFavicon } from './utils/favicon';
 import { useWallet } from './context/WalletContext';
+import { Search, X } from 'lucide-react';
+import { Button } from './components/ui/Button';
 import './App.css';
 
 function FaviconManager() {
@@ -24,6 +27,18 @@ function FaviconManager() {
 }
 
 function App() {
+  const [searchQuery, setSearchQuery] = useState('');
+
+  const registries = [
+    { id: 'hash', name: 'Hash Registry', component: <HashRegistry /> },
+    { id: 'stamp', name: 'Stamp Registry', component: <StampRegistry /> },
+    { id: 'tag', name: 'Tag Registry', component: <TagRegistry /> },
+  ];
+
+  const filteredRegistries = registries.filter(reg =>
+    reg.name.toLowerCase().includes(searchQuery.toLowerCase())
+  );
+
   return (
     <ToastProvider>
       <WalletProvider>
@@ -34,10 +49,38 @@ function App() {
           <Header />
           <main className="main">
             <Hero />
+
+            <div className="filter-container">
+              <div className="search-wrapper">
+                <Search className="search-icon" size={18} />
+                <input
+                  type="text"
+                  placeholder="Search registries (e.g., 'hash', 'tag')..."
+                  value={searchQuery}
+                  onChange={(e) => setSearchQuery(e.target.value)}
+                  className="search-input"
+                />
+                {searchQuery && (
+                  <button onClick={() => setSearchQuery('')} className="search-clear">
+                    <X size={16} />
+                  </button>
+                )}
+              </div>
+            </div>
+
             <div className="cards-container">
-              <HashRegistry />
-              <StampRegistry />
-              <TagRegistry />
+              {filteredRegistries.length > 0 ? (
+                filteredRegistries.map(reg => (
+                  <div key={reg.id} className="registry-wrapper">
+                    {reg.component}
+                  </div>
+                ))
+              ) : (
+                <div className="no-results">
+                  <p>No registries found matching "{searchQuery}"</p>
+                  <Button variant="outline" onClick={() => setSearchQuery('')}>Clear Search</Button>
+                </div>
+              )}
             </div>
           </main>
           <Footer />
