@@ -1,5 +1,5 @@
 import { useWallet } from '../context/WalletContext';
-import { Wallet, LogOut, Copy, Check, Loader2, Activity } from 'lucide-react';
+import { Wallet, LogOut, Loader2, Activity, Menu, X } from 'lucide-react';
 import { useState, useEffect } from 'react';
 import { WalletConnectQRModal } from './WalletConnectQRModal';
 import { twMerge } from 'tailwind-merge';
@@ -9,9 +9,9 @@ import { CopyButton } from './ui/CopyButton';
 
 export function Header() {
   const { isConnected, isConnecting, userAddress, connect, disconnect, wcUri, showQRModal, setShowQRModal } = useWallet();
-  const [copied, setCopied] = useState(false);
   const [isScrolled, setIsScrolled] = useState(false);
   const [blockHeight, setBlockHeight] = useState<number | null>(null);
+  const [isMenuOpen, setIsMenuOpen] = useState(false);
 
   useEffect(() => {
     const handleScroll = () => setIsScrolled(window.scrollY > 20);
