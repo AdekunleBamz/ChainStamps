@@ -81,6 +81,21 @@ export function TagRegistry() {
       variants={cardVariants}
       initial="initial"
       animate={controls}
+    >
+      <Breadcrumbs items={[{ label: 'Tag Registry' }]} />
+      <div className="card-header">
+        <Tag className="card-icon" size={24} strokeWidth={1.5} />
+        <h2>Tag Registry</h2>
+        <Tooltip content="Stacks network transaction fee (paid in STX)">
+          <span className="fee-badge">
+            <AnimatedNumber value={0.04} decimals={2} suffix=" STX" />
+          </span>
+        </Tooltip>
+      </div>
+
+      <p className="card-description">
+        Store key-value pairs permanently on the blockchain
+      </p>
 
       <div className="form-group">
         <input
@@ -123,21 +138,20 @@ export function TagRegistry() {
         )}
       </Button>
 
-      {
-    status === 'success' && txId && (
-      <div className="success-message">
-        <CheckCircle size={18} />
-        <span>Tag stored! </span>
-        <a
-          href={`https://explorer.stacks.co/txid/${txId}?chain=mainnet`}
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          View transaction
-        </a>
-      </div>
-    )
-  }
+      {status === 'success' && txId && (
+        <div className="success-message">
+          <CheckCircle size={18} />
+          <span>Tag stored! </span>
+          <a
+            href={`https://explorer.stacks.co/txid/${txId}?chain=mainnet`}
+            target="_blank"
+            rel="noopener noreferrer"
+          >
+            View transaction
+          </a>
+        </div>
+      )}
+    </motion.section>
 
   {
     !isConnected && (
