@@ -8,12 +8,26 @@ import { Footer } from './components/Footer';
 import { MeshGradient } from './components/MeshGradient';
 import { ToastProvider } from './context/ToastContext';
 import { ToastContainer } from './components/ui/Toast';
+import { updateFavicon } from './utils/favicon';
+import { useWallet } from './context/WalletContext';
 import './App.css';
+
+function FaviconManager() {
+  const { isConnected, isConnecting } = useWallet();
+
+  useEffect(() => {
+    const status = isConnected ? 'connected' : isConnecting ? 'connecting' : 'disconnected';
+    updateFavicon(status);
+  }, [isConnected, isConnecting]);
+
+  return null;
+}
 
 function App() {
   return (
     <ToastProvider>
       <WalletProvider>
+        <FaviconManager />
         <div className="app">
           <MeshGradient />
           <ToastContainer />
