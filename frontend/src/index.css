@@ -32,9 +32,16 @@
   --font-heading: 'Outfit', var(--font-sans);
 
   /* Glassmorphism Defaults */
-  --glass-bg: hsla(0, 0%, 100%, 0.03);
-  --glass-border: hsla(0, 0%, 100%, 0.08);
-  --glass-blur: 12px;
+  --glass-bg: hsla(224, 71%, 4%, 0.4);
+  --glass-border: hsla(0, 0%, 100%, 0.1);
+  --glass-blur: 16px;
+
+  /* Shadows & Glows */
+  --shadow-sm: 0 1px 2px 0 rgb(0 0 0 / 0.05);
+  --shadow-md: 0 4px 6px -1px rgb(0 0 0 / 0.1), 0 2px 4px -2px rgb(0 0 0 / 0.1);
+  --shadow-lg: 0 10px 15px -3px rgb(0 0 0 / 0.1), 0 4px 6px -4px rgb(0 0 0 / 0.1);
+  --shadow-primary: 0 0 20px -5px hsla(var(--primary-h), var(--primary-s), var(--primary-l), 0.3);
+  --glow-primary: 0 0 30px -10px hsla(var(--primary-h), var(--primary-s), var(--primary-l), 0.5);
 }
 
 body {
@@ -100,13 +107,31 @@ h6 {
   -webkit-backdrop-filter: blur(var(--glass-blur));
   border: 1px solid var(--glass-border);
   border-radius: var(--radius);
+  box-shadow: var(--shadow-lg);
+}
+
+.card {
+  @apply glass p-6 transition-all duration-300;
+  background: linear-gradient(135deg, var(--glass-bg), hsla(222, 89%, 60%, 0.02));
+}
+
+.card:hover {
+  border-color: hsla(var(--primary-h), var(--primary-s), var(--primary-l), 0.2);
+  box-shadow: var(--shadow-primary);
+}
+
+.input,
+.textarea {
+  @apply w-full bg-background/50 border-border rounded-xl px-4 py-3 text-sm transition-all focus:ring-2 focus:ring-primary/20 focus:border-primary outline-none;
+  box-shadow: var(--shadow-sm);
 }
 
 .gradient-text {
-  background: linear-gradient(to right, var(--primary), hsl(210, 100%, 80%));
+  background: linear-gradient(to right, var(--primary), white);
   -webkit-background-clip: text;
   -webkit-text-fill-color: transparent;
   background-clip: text;
+  text-shadow: 0 0 40px hsla(var(--primary-h), var(--primary-s), var(--primary-l), 0.2);
 }
 
 .spinning {
