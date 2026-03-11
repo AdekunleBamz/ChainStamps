@@ -1,4 +1,4 @@
-import { useEffect, useState } from 'react';
+import { useEffect, useState, useMemo } from 'react';
 import { WalletProvider } from './context/WalletContext';
 import { Header } from './components/Header';
 import { Hero } from './components/Hero';
@@ -6,6 +6,10 @@ import { HashRegistry } from './components/HashRegistry';
 import { StampRegistry } from './components/StampRegistry';
 import { TagRegistry } from './components/TagRegistry';
 import { Roadmap } from './components/Roadmap';
+import { VerificationModule } from './components/VerificationModule';
+import { TransactionHistory } from './components/TransactionHistory';
+import { NetworkMetrics } from './components/NetworkMetrics';
+import { PortfolioOverview } from './components/PortfolioOverview';
 import { Footer } from './components/Footer';
 import { MeshGradient } from './components/MeshGradient';
 import { ToastProvider } from './context/ToastContext';
@@ -35,15 +39,40 @@ function FaviconManager() {
 function App() {
   const [searchQuery, setSearchQuery] = useState('');
 
-  const registries = [
+  const registries = useMemo(() => [
     { id: 'hash', name: 'Hash Registry', component: <HashRegistry /> },
     { id: 'stamp', name: 'Stamp Registry', component: <StampRegistry /> },
     { id: 'tag', name: 'Tag Registry', component: <TagRegistry /> },
-  ];
+    {
+      id: 'verify', name: 'Verification Center', component: (
+        <Suspense fallback={<CardSkeleton />}>
+          <VerificationModule />
+        </Suspense>
+      )
+    },
+    {
+      id: 'history', name: 'Transaction History', component: (
+        <Suspense fallback={<CardSkeleton />}>
+          <TransactionHistory />
+        </Suspense>
+      )
+    },
+  ], []);
 
-  const filteredRegistries = registries.filter(reg =>
-    reg.name.toLowerCase().includes(searchQuery.toLowerCase())
-  );
+  const filteredRegistries = useMemo(() => {
+    const query = searchQuery.toLowerCase();
+    if (!query) return registries;
+
+    return registries.filter(reg => {
+      // Direct match in registry name
+      if (reg.name.toLowerCase().includes(query)) return true;
+
+      // If query looks like a hex string (hash/txid), it's highly relevant to all registries
+      if (query.startsWith('0x') || query.length > 20) return true;
+
+      return false;
+    });
+  }, [searchQuery, registries]);
 
   return (
     <ToastProvider>
