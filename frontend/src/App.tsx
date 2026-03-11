@@ -16,6 +16,7 @@ import { Button } from './components/ui/Button';
 import { CardSkeleton } from './components/ui/Skeleton';
 import { PullToRefresh } from './components/ui/PullToRefresh';
 import { EmptyState } from './components/ui/EmptyState';
+import { LogicErrorBoundary } from './components/ui/LogicErrorBoundary';
 import './App.css';
 
 function FaviconManager() {
@@ -47,61 +48,63 @@ function App() {
       <WalletProvider>
         <FaviconManager />
         <div className="app">
-          <a href="#main-content" className="skip-to-content">
-            Skip to content
-          </a>
-          <PullToRefresh onRefresh={async () => {
-            window.location.reload(); // Simple refresh for now
-          }} />
-          <MeshGradient />
-          <ToastContainer />
-          <Header />
-          <main id="main-content" className="main">
-            <Hero />
+          <LogicErrorBoundary>
+            <a href="#main-content" className="skip-to-content">
+              Skip to content
+            </a>
+            <PullToRefresh onRefresh={async () => {
+              window.location.reload(); // Simple refresh for now
+            }} />
+            <MeshGradient />
+            <ToastContainer />
+            <Header />
+            <main id="main-content" className="main">
+              <Hero />
 
-            <div className="filter-container">
-              <div className="search-wrapper">
-                <Search className="search-icon" size={18} />
-                <input
-                  type="text"
-                  placeholder="Search registries (e.g., 'hash', 'tag')..."
-                  value={searchQuery}
-                  onChange={(e) => setSearchQuery(e.target.value)}
-                  className="search-input"
-                />
-                {searchQuery && (
-                  <button onClick={() => setSearchQuery('')} className="search-clear">
-                    <X size={16} />
-                  </button>
+              <div className="filter-container">
+                <div className="search-wrapper">
+                  <Search className="search-icon" size={18} />
+                  <input
+                    type="text"
+                    placeholder="Search registries (e.g., 'hash', 'tag')..."
+                    value={searchQuery}
+                    onChange={(e) => setSearchQuery(e.target.value)}
+                    className="search-input"
+                  />
+                  {searchQuery && (
+                    <button onClick={() => setSearchQuery('')} className="search-clear">
+                      <X size={16} />
+                    </button>
+                  )}
+                </div>
+              </div>
+
+              <div className="cards-container">
+                {filteredRegistries.length > 0 ? (
+                  filteredRegistries.map(reg => (
+                    <div key={reg.id} className="registry-wrapper">
+                      {reg.component}
+                    </div>
+                  ))
+                ) : (
+                  <div className="col-span-full">
+                    <EmptyState
+                      title="No registries found"
+                      description={`We couldn't find any results matching "${searchQuery}". Try a different search term or clear the filter.`}
+                      action={
+                        <Button variant="outline" onClick={() => setSearchQuery('')}>
+                          Clear Search
+                        </Button>
+                      }
+                    />
+                  </div>
                 )}
               </div>
-            </div>
-
-            <div className="cards-container">
-              {filteredRegistries.length > 0 ? (
-                filteredRegistries.map(reg => (
-                  <div key={reg.id} className="registry-wrapper">
-                    {reg.component}
-                  </div>
-                ))
-              ) : (
-                <div className="col-span-full">
-                  <EmptyState
-                    title="No registries found"
-                    description={`We couldn't find any results matching "${searchQuery}". Try a different search term or clear the filter.`}
-                    action={
-                      <Button variant="outline" onClick={() => setSearchQuery('')}>
-                        Clear Search
-                      </Button>
-                    }
-                  />
-                </div>
-              )}
-            </div>
-          </main>
-          <Footer />
+            </main>
+            <Footer />
+          </LogicErrorBoundary>
         </div>
-      </WalletProvider>
+        极      </WalletProvider>
     </ToastProvider>
   );
 }
