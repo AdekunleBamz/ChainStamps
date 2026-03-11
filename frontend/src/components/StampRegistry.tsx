@@ -1,21 +1,20 @@
-import { useState, useEffect, useCallback } from 'react';
-import { motion, useAnimation } from 'framer-motion';
+import { useEffect, useCallback } from 'react';
+import { useAnimation } from 'framer-motion';
 import { useWallet } from '../context/WalletContext';
 import { ChainStampsService } from '../services/api';
 import { Stamp, Loader2, CheckCircle, AlertCircle } from 'lucide-react';
 import { Button } from './ui/Button';
 import { CardSkeleton } from './ui/Skeleton';
-import { Tooltip } from './ui/Tooltip';
-import { Breadcrumbs } from './ui/Breadcrumbs';
-import { AnimatedNumber } from './ui/AnimatedNumber';
 import { useToast } from '../context/ToastContext';
 import { triggerSuccessConfetti } from '../utils/confetti';
+import { RegistryLayout } from './RegistryLayout';
+import { useFormDraft } from '../hooks/useFormDraft';
 import { RegistryLayout } from './RegistryLayout';
 
 export function StampRegistry() {
   const { isConnected, userAddress } = useWallet();
   const { addToast } = useToast();
-  const [message, setMessage] = useState('');
+  const [message, setMessage, clearDraft] = useFormDraft('stamp_message', '');
   const [status, setStatus] = useState<'idle' | 'submitting' | 'success' | 'error'>('idle');
   const [txId, setTxId] = useState('');
   const [isLoading, setIsLoading] = useState(true);
@@ -49,7 +48,7 @@ export function StampRegistry() {
 
       setTxId(result.txid);
       setStatus('success');
-      setMessage('');
+      clearDraft();
       addToast('Message stamped successfully!', 'success');
       triggerSuccessConfetti();
     } catch (error: any) {
@@ -134,6 +133,5 @@ export function StampRegistry() {
         </div>
       )}
     </RegistryLayout>
-  );
   );
 }
