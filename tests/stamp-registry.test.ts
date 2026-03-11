@@ -258,6 +258,58 @@ describe("stamp-registry", () => {
     expect(nonOwnerResult).toBeErr(Cl.uint(100));
   });
 
+  it("should return stamp message", () => {
+    const message = "Message lookup";
+    simnet.callPublicFn(
+      "stamp-registry",
+      "stamp-message",
+      [Cl.stringUtf8(message)],
+      wallet1
+    );
+
+    const { result } = simnet.callReadOnlyFn(
+      "stamp-registry",
+      "get-stamp-message",
+      [Cl.uint(1)],
+      wallet1
+    );
+    expect(result).toBeSome(Cl.stringUtf8(message));
+  });
+
+  it("should return stamp timestamp", () => {
+    simnet.callPublicFn(
+      "stamp-registry",
+      "stamp-message",
+      [Cl.stringUtf8("Timestamp test")],
+      wallet1
+    );
+
+    const { result } = simnet.callReadOnlyFn(
+      "stamp-registry",
+      "get-stamp-timestamp",
+      [Cl.uint(1)],
+      wallet1
+    );
+    expect(result).toBeSome(Cl.uint(expect.any(Number)));
+  });
+
+  it("should return stamp block height", () => {
+    simnet.callPublicFn(
+      "stamp-registry",
+      "stamp-message",
+      [Cl.stringUtf8("Block height test")],
+      wallet1
+    );
+
+    const { result } = simnet.callReadOnlyFn(
+      "stamp-registry",
+      "get-stamp-block-height",
+      [Cl.uint(1)],
+      wallet1
+    );
+    expect(result).toBeSome(Cl.uint(expect.any(Number)));
+  });
+
   it("should handle unicode characters in messages", () => {
     const unicodeMessage = "Hello 世界! 🚀🌟 Привет мир!";
     const { result } = simnet.callPublicFn(

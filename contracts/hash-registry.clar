@@ -58,6 +58,22 @@
     )
 )
 
+;; Get description for a hash if it exists
+(define-read-only (get-hash-description (hash (buff 32)))
+    (match (map-get? hashes hash)
+        hash-data (some (get description hash-data))
+        none
+    )
+)
+
+;; Get block height for a hash if it exists
+(define-read-only (get-hash-block-height (hash (buff 32)))
+    (match (map-get? hashes hash)
+        hash-data (some (get block-height hash-data))
+        none
+    )
+)
+
 (define-read-only (verify-hash (hash (buff 32)))
     (match (map-get? hashes hash)
         hash-data (not (get revoked hash-data))
@@ -115,6 +131,14 @@
 
 (define-read-only (get-hash-by-id (id uint))
     (map-get? hash-by-id id)
+)
+
+;; Get hash info by ID
+(define-read-only (get-hash-info-by-id (id uint))
+    (match (map-get? hash-by-id id)
+        hash (map-get? hashes hash)
+        none
+    )
 )
 
 (define-read-only (get-contract-owner)
