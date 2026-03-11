@@ -151,16 +151,15 @@ export function TagRegistry() {
           </a>
         </div>
       )}
-    </motion.section>
 
-  {
-    !isConnected && (
-      <div className="warning-message">
-        <AlertCircle size={18} />
-        Connect your wallet to store tags
-      </div>
-    )
-  }
-    </motion.section >
+      {
+        !isConnected && (
+          <div className="warning-message">
+            <AlertCircle size={18} />
+            Connect your wallet to store tags
+          </div>
+        )
+      }
+    </motion.section>
   );
 }

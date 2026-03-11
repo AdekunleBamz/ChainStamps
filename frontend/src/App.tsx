@@ -45,10 +45,13 @@ function App() {
       <WalletProvider>
         <FaviconManager />
         <div className="app">
+          <a href="#main-content" className="skip-to-content">
+            Skip to content
+          </a>
           <MeshGradient />
           <ToastContainer />
           <Header />
-          <main className="main">
+          <main id="main-content" className="main">
             <Hero />
 
             <div className="filter-container">

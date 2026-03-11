@@ -1039,3 +1039,23 @@ body {
 .card-content {
   flex: 1;
 }
+
+/* Accessibility: Skip to Content */
+.skip-to-content {
+  position: absolute;
+  top: -100px;
+  left: 50%;
+  transform: translateX(-50%);
+  background: var(--primary);
+  color: var(--primary-foreground);
+  padding: 0.75rem 1.5rem;
+  border-radius: 0 0 12px 12px;
+  font-weight: 600;
+  z-index: 9999;
+  transition: top 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+  text-decoration: none;
+}
+
+.skip-to-content:focus {
+  top: 0;
+}
