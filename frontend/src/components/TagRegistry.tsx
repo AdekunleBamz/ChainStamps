@@ -7,6 +7,7 @@ import { Button } from './ui/Button';
 import { CardSkeleton } from './ui/Skeleton';
 import { useEffect } from 'react';
 import { useToast } from '../context/ToastContext';
+import { triggerSuccessConfetti } from '../utils/confetti';
 
 export function TagRegistry() {
   const { isConnected, userAddress } = useWallet();
@@ -41,6 +42,7 @@ export function TagRegistry() {
       setKey('');
       setValue('');
       addToast('Tag stored successfully!', 'success');
+      triggerSuccessConfetti();
     } catch (error) {
       console.error('Transaction failed:', error);
       setStatus('error');

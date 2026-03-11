@@ -6,6 +6,7 @@ import { FileText, Hash, Loader2, CheckCircle, AlertCircle } from 'lucide-react'
 import { Button } from './ui/Button';
 import { CardSkeleton } from './ui/Skeleton';
 import { useToast } from '../context/ToastContext';
+import { triggerSuccessConfetti } from '../utils/confetti';
 
 export function HashRegistry() {
   const { isConnected, userAddress } = useWallet();
@@ -59,6 +60,7 @@ export function HashRegistry() {
       setStatus('success');
       setDescription('');
       addToast('Hash stored successfully!', 'success');
+      triggerSuccessConfetti();
     } catch (error) {
       console.error('Transaction failed:', error);
       setStatus('error');

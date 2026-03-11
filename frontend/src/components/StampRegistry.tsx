@@ -7,6 +7,7 @@ import { Button } from './ui/Button';
 import { CardSkeleton } from './ui/Skeleton';
 import { useEffect } from 'react';
 import { useToast } from '../context/ToastContext';
+import { triggerSuccessConfetti } from '../utils/confetti';
 
 export function StampRegistry() {
   const { isConnected, userAddress } = useWallet();
@@ -39,6 +40,7 @@ export function StampRegistry() {
       setStatus('success');
       setMessage('');
       addToast('Message stamped successfully!', 'success');
+      triggerSuccessConfetti();
     } catch (error) {
       console.error('Transaction failed:', error);
       setStatus('error');
