@@ -63,7 +63,12 @@ function App() {
             <main id="main-content" className="main">
               <Hero />
 
-              <div className="filter-container">
+              <motion.div
+                initial={{ opacity: 0, y: 20 }}
+                whileInView={{ opacity: 1, y: 0 }}
+                viewport={{ once: true, margin: "-100px" }}
+                className="filter-container"
+              >
                 <div className="search-wrapper">
                   <Search className="search-icon" size={18} />
                   <input
@@ -79,14 +84,26 @@ function App() {
                     </button>
                   )}
                 </div>
-              </div>
+              </motion.div>
 
-              <div className="cards-container">
+              <motion.div
+                initial={{ opacity: 0 }}
+                whileInView={{ opacity: 1 }}
+                viewport={{ once: true }}
+                className="cards-container"
+              >
                 {filteredRegistries.length > 0 ? (
-                  filteredRegistries.map(reg => (
-                    <div key={reg.id} className="registry-wrapper">
+                  filteredRegistries.map((reg, index) => (
+                    <motion.div
+                      key={reg.id}
+                      initial={{ opacity: 0, y: 30 }}
+                      whileInView={{ opacity: 1, y: 0 }}
+                      viewport={{ once: true }}
+                      transition={{ delay: index * 0.1 }}
+                      className="registry-wrapper"
+                    >
                       {reg.component}
-                    </div>
+                    </motion.div>
                   ))
                 ) : (
                   <div className="col-span-full">
@@ -101,7 +118,7 @@ function App() {
                     />
                   </div>
                 )}
-              </div>
+              </motion.div>
 
               <Roadmap />
             </main>
