@@ -5,6 +5,7 @@ import { Hero } from './components/Hero';
 import { HashRegistry } from './components/HashRegistry';
 import { StampRegistry } from './components/StampRegistry';
 import { TagRegistry } from './components/TagRegistry';
+import { Roadmap } from './components/Roadmap';
 import { Footer } from './components/Footer';
 import { MeshGradient } from './components/MeshGradient';
 import { ToastProvider } from './context/ToastContext';
@@ -100,6 +101,8 @@ function App() {
                   </div>
                 )}
               </div>
+
+              <Roadmap />
             </main>
             <Footer />
           </LogicErrorBoundary>
