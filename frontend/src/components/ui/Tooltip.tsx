@@ -9,7 +9,7 @@ interface TooltipProps {
     className?: string;
 }
 
-export function Tooltip({ content, children, className }: TooltipProps) {
+export const Tooltip = memo(function Tooltip({ content, children, className }: TooltipProps) {
     const [isVisible, setIsVisible] = useState(false);
 
     return (
@@ -37,4 +37,5 @@ export function Tooltip({ content, children, className }: TooltipProps) {
             </AnimatePresence>
         </div>
     );
-}
+});
+极
