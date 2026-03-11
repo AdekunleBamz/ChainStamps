@@ -1,4 +1,4 @@
-import { useEffect, useCallback } from 'react';
+import { useState, useEffect, useCallback } from 'react';
 import { useAnimation } from 'framer-motion';
 import { useWallet } from '../context/WalletContext';
 import { ChainStampsService } from '../services/api';
@@ -9,7 +9,6 @@ import { useToast } from '../context/ToastContext';
 import { triggerSuccessConfetti } from '../utils/confetti';
 import { RegistryLayout } from './RegistryLayout';
 import { useFormDraft } from '../hooks/useFormDraft';
-import { RegistryLayout } from './RegistryLayout';
 
 export function StampRegistry() {
   const { isConnected, userAddress } = useWallet();

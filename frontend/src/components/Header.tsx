@@ -7,6 +7,7 @@ import { Button } from './ui/Button';
 import { Tooltip } from './ui/Tooltip';
 import { CopyButton } from './ui/CopyButton';
 import { AnimatedNumber } from './ui/AnimatedNumber';
+import { NetworkStatus } from './NetworkStatus';
 
 export function Header() {
   const { isConnected, isConnecting, userAddress, connect, disconnect, wcUri, showQRModal, setShowQRModal } = useWallet();
@@ -59,6 +60,7 @@ export function Header() {
           </button>
 
           <nav className={twMerge("nav-links", isMenuOpen && "mobile-open")}>
+            <NetworkStatus />
             <Tooltip content="Current Stacks network block height">
               <div className="network-heartbeat">
                 <Activity size={14} className="mr-1 text-primary animate-pulse" strokeWidth={2} />
