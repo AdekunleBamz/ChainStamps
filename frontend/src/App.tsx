@@ -7,6 +7,7 @@ import { StampRegistry } from './components/StampRegistry';
 import { TagRegistry } from './components/TagRegistry';
 import { Roadmap } from './components/Roadmap';
 import { VerificationModule } from './components/VerificationModule';
+import { TransactionHistory } from './components/TransactionHistory';
 import { Footer } from './components/Footer';
 import { MeshGradient } from './components/MeshGradient';
 import { ToastProvider } from './context/ToastContext';
@@ -41,6 +42,7 @@ function App() {
     { id: 'stamp', name: 'Stamp Registry', component: <StampRegistry /> },
     { id: 'tag', name: 'Tag Registry', component: <TagRegistry /> },
     { id: 'verify', name: 'Verification Center', component: <VerificationModule /> },
+    { id: 'history', name: 'Transaction History', component: <TransactionHistory /> },
   ], []);
 
   const filteredRegistries = useMemo(() =>

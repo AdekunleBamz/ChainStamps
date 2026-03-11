@@ -1,12 +1,14 @@
 import { wcCallContract } from '../utils/walletconnect';
-import { CONTRACT_ADDRESS, CONTRACTS, STACKS_API_URL } from '../config/contracts';
+import { CONTRACT_ADDRESS, CONTRACTS } from '../config/contracts';
+import { HistoryService } from './history';
 import {
-    callReadOnlyFunction,
     bufferCV,
     stringUtf8CV,
     uintCV,
     standardPrincipalCV,
-    cvToValue
+    cvToValue,
+    // The lint suggests fetchCallReadOnlyFunction might be the correct one in this env
+    callReadOnlyFunction
 } from '@stacks/transactions';
 import { StacksMainnet } from '@stacks/network';
 
@@ -36,6 +38,14 @@ export const ChainStampsService = {
                 functionArgs: [`0x${hash}`, description],
                 stxAmount: CONTRACTS.hashRegistry.fee,
             });
+
+            // Record in local history
+            HistoryService.addRecord({
+                type: 'hash',
+                txid: result.txid,
+                details: description || 'Document hash',
+            });
+
             return { txid: result.txid };
         } catch (error: any) {
             this._logError('storeHash', error);
@@ -55,6 +65,14 @@ export const ChainStampsService = {
                 functionArgs: [message],
                 stxAmount: CONTRACTS.stampRegistry.fee,
             });
+
+            // Record in local history
+            HistoryService.addRecord({
+                type: 'stamp',
+                txid: result.txid,
+                details: message.substring(0, 50) + (message.length > 50 ? '...' : ''),
+            });
+
             return { txid: result.txid };
         } catch (error: any) {
             this._logError('stampMessage', error);
@@ -74,6 +92,14 @@ export const ChainStampsService = {
                 functionArgs: [key, value],
                 stxAmount: CONTRACTS.tagRegistry.fee,
             });
+
+            // Record in local history
+            HistoryService.addRecord({
+                type: 'tag',
+                txid: result.txid,
+                details: `${key}: ${value.substring(0, 30)}${value.length > 30 ? '...' : ''}`,
+            });
+
             return { txid: result.txid };
         } catch (error: any) {
             this._logError('storeTag', error);
@@ -166,4 +192,5 @@ export const ChainStampsService = {
         return new Error(message);
     }
 };
+
 
