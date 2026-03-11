@@ -44,82 +44,86 @@ export function Header() {
         isScrolled && "scrolled"
       )}>
         <div className="header-content">
-        </motion.div>
+          <div className="logo">
+            <img src="/logo.png" alt="ChainStamps Logo" className="logo-img" />
+            <span className="logo-text">ChainStamps</span>
+          </div>
 
-        <button
-          className="mobile-menu-toggle"
-          onClick={() => setIsMenuOpen(!isMenuOpen)}
-          aria-label="Toggle menu"
-        >
-          {isMenuOpen ? <X size={24} /> : <Menu size={24} />}
-        </button>
+          <button
+            className="mobile-menu-toggle"
+            onClick={() => setIsMenuOpen(!isMenuOpen)}
+            aria-label="Toggle menu"
+          >
+            {isMenuOpen ? <X size={24} /> : <Menu size={24} />}
+          </button>
 
-        <nav className={twMerge("nav-links", isMenuOpen && "mobile-open")}>
-          <Tooltip content="Current Stacks network block height">
-            <div className="network-heartbeat">
-              <Activity size={14} className="mr-1 text-primary animate-pulse" strokeWidth={2} />
-              <span className="text-xs font-mono text-muted-foreground">
-                {blockHeight ? `#${blockHeight.toLocaleString()}` : '---'}
-              </span>
-            </div>
-          </Tooltip>
-          <a href="#hash">Hash</a>
-          <a href="#stamp">Stamp</a>
-          <a href="#tag">Tag</a>
-        </nav>
-
-        <div className="wallet-section">
-          <div className={twMerge(
-            "status-pulse",
-            isConnected ? "connected" : isConnecting ? "connecting" : "disconnected"
-          )} style={{ marginRight: '12px' }} title={isConnected ? "Connected" : isConnecting ? "Connecting..." : "Disconnected"} />
-          {isConnected ? (
-            <div className="wallet-connected flex items-center gap-2">
-              <div className="flex items-center gap-2 rounded-xl border border-border bg-background/50 pl-3 pr-1 py-1 shadow-inner">
-                <span className="text-sm font-mono text-muted-foreground mr-1">
-                  {userAddress?.slice(0, 6)}...{userAddress?.slice(-4)}
+          <nav className={twMerge("nav-links", isMenuOpen && "mobile-open")}>
+            <Tooltip content="Current Stacks network block height">
+              <div className="network-heartbeat">
+                <Activity size={14} className="mr-1 text-primary animate-pulse" strokeWidth={2} />
+                <span className="text-xs font-mono text-muted-foreground">
+                  {blockHeight ? `#${blockHeight.toLocaleString()}` : '---'}
                 </span>
-                <CopyButton value={userAddress || ''} size={14} className="h-8 w-8" />
               </div>
-              <Button
-                variant="outline"
-                size="icon"
-                className="disconnect-btn rounded-xl"
-                onClick={disconnect}
-                title="Disconnect Wallet"
-              >
-                <LogOut size={16} strokeWidth={1.5} />
-              </Button>
-            </div>
-          ) : (
-            <Button
-              variant="primary"
-              size="md"
-              className="connect-btn"
-              onClick={connect}
-              disabled={isConnecting}
-            >
-              {isConnecting ? (
-                <>
-                  <Loader2 size={18} className="spinning mr-2" strokeWidth={1.5} />
-                  Connecting...
-                </>
-              ) : (
-                <>
-                  <Wallet size={18} className="mr-2" strokeWidth={1.5} />
-                  Connect Wallet
-                </>
-              )}
-            </Button>
-          )}
-        </div>
-      </div>
-    </header >
+            </Tooltip>
+            <a href="#hash" onClick={() => setIsMenuOpen(false)}>Hash</a>
+            <a href="#stamp" onClick={() => setIsMenuOpen(false)}>Stamp</a>
+            <a href="#tag" onClick={() => setIsMenuOpen(false)}>Tag</a>
+          </nav>
 
-      { showQRModal && wcUri && (
+          <div className="wallet-section">
+            <div className={twMerge(
+              "status-pulse",
+              isConnected ? "connected" : isConnecting ? "connecting" : "disconnected"
+            )} style={{ marginRight: '12px' }} title={isConnected ? "Connected" : isConnecting ? "Connecting..." : "Disconnected"} />
+            {isConnected ? (
+              <div className="wallet-connected flex items-center gap-2">
+                <div className="flex items-center gap-2 rounded-xl border border-border bg-background/50 pl-3 pr-1 py-1 shadow-inner">
+                  <span className="text-sm font-mono text-muted-foreground mr-1">
+                    {userAddress?.slice(0, 6)}...{userAddress?.slice(-4)}
+                  </span>
+                  <CopyButton value={userAddress || ''} size={14} className="h-8 w-8" />
+                </div>
+                <Button
+                  variant="outline"
+                  size="icon"
+                  className="disconnect-btn rounded-xl"
+                  onClick={disconnect}
+                  title="Disconnect Wallet"
+                >
+                  <LogOut size={16} strokeWidth={1.5} />
+                </Button>
+              </div>
+            ) : (
+              <Button
+                variant="primary"
+                size="md"
+                className="connect-btn"
+                onClick={connect}
+                disabled={isConnecting}
+              >
+                {isConnecting ? (
+                  <>
+                    <Loader2 size={18} className="spinning mr-2" strokeWidth={1.5} />
+                    Connecting...
+                  </>
+                ) : (
+                  <>
+                    <Wallet size={18} className="mr-2" strokeWidth={1.5} />
+                    Connect Wallet
+                  </>
+                )}
+              </Button>
+            )}
+          </div>
+        </div>
+      </header>
+
+      {showQRModal && wcUri && (
         <WalletConnectQRModal uri={wcUri} onClose={() => setShowQRModal(false)} />
-      )
-}
+      )}
+    </>
+  );
     </>
   );
 }
