@@ -60,13 +60,7 @@ interface ButtonProps extends HTMLMotionProps<'button'> {
     isLoading?: boolean;
 }
 
-/**
- * A reusable button component with haptic feedback and Framer Motion animations.
- * 
- * @param {ButtonProps} props - The button properties.
- * @returns {JSX.Element} The rendered button component.
- */
-export function Button({
+export const Button = memo(function Button({
     children,
     variant = 'primary',
     size = 'md',
@@ -108,4 +102,5 @@ export function Button({
             ) : children}
         </motion.button>
     );
-}
+});
+极

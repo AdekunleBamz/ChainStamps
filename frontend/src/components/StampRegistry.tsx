@@ -1,5 +1,5 @@
-import { useState, useEffect, memo } from 'react';
-import { motion, useAnimation, AnimatePresence } from 'framer-motion';
+import { useState, useEffect, useCallback } from 'react';
+import { motion, useAnimation } from 'framer-motion';
 import { useWallet } from '../context/WalletContext';
 import { BASE_NETWORK_FEE_STX, CONTRACT_ADDRESS, CONTRACTS } from '../config/contracts';
 import { Stamp, Share2, Shield, ExternalLink, HelpCircle, CheckCircle2, AlertCircle } from 'lucide-react';
@@ -55,17 +55,14 @@ export const StampRegistry = memo(({ searchQuery = '' }: { searchQuery?: string 
     return () => clearTimeout(timer);
   }, []);
 
-  const shake = () => {
-    controls.start(SHAKE_ANIMATION);
-    triggerHaptic('error');
-  };
+  const shake = useCallback(async () => {
+    await controls.start({
+      x: [-10, 10, -10, 10, 0],
+      transition: { duration: 0.4 }
+    });
+  }, [controls]);
 
-  const [lastSubmitTime, setLastSubmitTime] = useState(0);
-
-  const storeStamp = async () => {
-    const now = Date.now();
-    if (now - lastSubmitTime < RATE_LIMIT_INTERVAL) return;
-
+  const stampMessage = useCallback(async () => {
     if (!message || !isConnected || !userAddress) {
       if (!message) {
         addToast('Please enter a message to stamp.', 'warning');
@@ -87,15 +84,15 @@ export const StampRegistry = memo(({ searchQuery = '' }: { searchQuery?: string 
     } catch {
       // Error handled by hook
     }
-  };
+  }, [message, isConnected, userAddress, addToast, shake]);
 
-  const handleKeyDown = (e: React.KeyboardEvent) => {
+  const handleKeyDown = useCallback((e: React.KeyboardEvent) => {
     if ((e.metaKey || e.ctrlKey) && e.key === 'Enter') {
       if (message && isConnected && !isSubmitting) {
         storeStamp();
       }
     }
-  };
+  }, [message, isConnected, status, stampMessage]);
 
   if (isLoading) return <CardSkeleton />;
 

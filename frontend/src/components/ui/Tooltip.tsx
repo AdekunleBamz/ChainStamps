@@ -19,13 +19,7 @@ interface TooltipProps {
     placement?: 'top' | 'bottom';
 }
 
-/**
- * A floating tooltip component that appears on hover.
- * 
- * @param {TooltipProps} props - The component properties.
- * @returns {JSX.Element} The rendered tooltip container and popover.
- */
-export const Tooltip = ({ content, children, className, placement = 'top' }: TooltipProps) => {
+export const Tooltip = memo(function Tooltip({ content, children, className }: TooltipProps) {
     const [isVisible, setIsVisible] = useState(false);
 
     return (
@@ -63,4 +57,5 @@ export const Tooltip = ({ content, children, className, placement = 'top' }: Too
             </AnimatePresence>
         </div>
     );
-}
+});
+极

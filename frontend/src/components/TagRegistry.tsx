@@ -1,5 +1,5 @@
-import { useState, useEffect, memo } from 'react';
-import { motion, useAnimation, AnimatePresence } from 'framer-motion';
+import { useState, useEffect, useCallback } from 'react';
+import { motion, useAnimation } from 'framer-motion';
 import { useWallet } from '../context/WalletContext';
 import { BASE_NETWORK_FEE_STX, CONTRACT_ADDRESS, CONTRACTS } from '../config/contracts';
 import { Tag, Share2, Shield, ExternalLink, HelpCircle, CheckCircle2, AlertCircle } from 'lucide-react';
@@ -64,10 +64,14 @@ export const TagRegistry = memo(({ searchQuery = '' }: { searchQuery?: string })
     return () => clearTimeout(timer);
   }, []);
 
-  const storeTag = async () => {
-    const now = Date.now();
-    if (now - lastSubmitTime < RATE_LIMIT_INTERVAL) return;
+  const shake = useCallback(async () => {
+    await controls.start({
+      x: [-10, 10, -10, 10, 0],
+      transition: { duration: 0.4 }
+    });
+  }, [controls]);
 
+  const storeTag = useCallback(async () => {
     if (!key || !value || !isConnected || !userAddress) {
       if (!key || !value) {
         handleError('Please enter both key and value for the tag.');
@@ -93,15 +97,15 @@ export const TagRegistry = memo(({ searchQuery = '' }: { searchQuery?: string })
     } catch {
       // Error handled by hook
     }
-  };
+  }, [key, value, isConnected, userAddress, addToast, shake]);
 
-  const handleKeyDown = (e: React.KeyboardEvent) => {
+  const handleKeyDown = useCallback((e: React.KeyboardEvent) => {
     if ((e.metaKey || e.ctrlKey) && e.key === 'Enter') {
       if (key && value && isConnected && !isSubmitting) {
         storeTag();
       }
     }
-  };
+  }, [key, value, isConnected, status, storeTag]);
 
   if (isLoading) return <CardSkeleton />;
 

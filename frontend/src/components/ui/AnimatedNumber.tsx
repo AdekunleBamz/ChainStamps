@@ -1,4 +1,4 @@
-import { useEffect, useRef, useState } from 'react';
+import { useEffect, useState, memo } from 'react';
 import { animate } from 'framer-motion';
 
 /** Animation duration in seconds for number transitions. */
@@ -24,17 +24,8 @@ interface AnimatedNumberProps {
     onComplete?: () => void;
 }
 
-/**
- * AnimatedNumber component for smooth numerical transitions.
- * Uses framer-motion to animate value changes.
- * 
- * @param {AnimatedNumberProps} props - Component properties.
- */
-export function AnimatedNumber({ value, className, prefix = '', suffix = '', decimals = 0, onComplete }: AnimatedNumberProps) {
-    const safeValue = Number.isFinite(value) ? value : 0;
-    const safeDecimals = Number.isInteger(decimals) && decimals >= 0 ? decimals : 0;
-    const [displayValue, setDisplayValue] = useState(safeValue);
-    const latestValueRef = useRef(safeValue);
+export const AnimatedNumber = memo(function AnimatedNumber({ value, className, prefix = '', suffix = '', decimals = 0 }: AnimatedNumberProps) {
+    const [displayValue, setDisplayValue] = useState(value);
 
     useEffect(() => {
         if (latestValueRef.current === safeValue) return;
@@ -66,4 +57,4 @@ export function AnimatedNumber({ value, className, prefix = '', suffix = '', dec
             {suffix}
         </span>
     );
-}
+});

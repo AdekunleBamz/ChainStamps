@@ -1,5 +1,5 @@
-import { useState, useEffect, memo } from 'react';
-import { motion, useAnimation, AnimatePresence } from 'framer-motion';
+import { useState, useEffect, useCallback, useMemo } from 'react';
+import { motion, useAnimation } from 'framer-motion';
 import { useWallet } from '../context/WalletContext';
 import { BASE_NETWORK_FEE_STX, CONTRACT_ADDRESS, CONTRACTS } from '../config/contracts';
 import { twMerge } from 'tailwind-merge';
@@ -57,17 +57,29 @@ export const HashRegistry = memo(({ searchQuery = '' }: { searchQuery?: string }
     };
   }, []);
 
-  const shake = () => {
-    controls.start(SHAKE_ANIMATION);
-    triggerHaptic('error');
-  };
+  const shake = useCallback(async () => {
+    await controls.start({
+      x: [-10, 10, -10, 10, 0],
+      transition: { duration: 0.4 }
+    });
+  }, [controls]);
+  const handleFileChange = useCallback(async (e: React.ChangeEvent<HTMLInputElement>) => {
+    const selectedFile = e.target.files?.[0];
+    if (selectedFile) {
+      setFile(selectedFile);
+      setStatus('hashing');
 
-  const [lastSubmitTime, setLastSubmitTime] = useState(0);
+      const buffer = await selectedFile.arrayBuffer();
+      const hashBuffer = await crypto.subtle.digest('SHA-256', buffer);
+      const hashArray = Array.from(new Uint8Array(hashBuffer));
+      const hashHex = hashArray.map(b => b.toString(16).padStart(2, '0')).join('');
 
-  const storeHash = async () => {
-    const now = Date.now();
-    if (now - lastSubmitTime < RATE_LIMIT_INTERVAL) return;
-    
+      setHash(hashHex);
+      setStatus('idle');
+    }
+  }, []);
+
+  const storeHash = useCallback(async () => {
     if (!hash || !isConnected || !userAddress) {
       if (!hash) {
         addToast('Please enter a SHA-256 hash to register.', 'warning');
@@ -123,15 +135,15 @@ export const HashRegistry = memo(({ searchQuery = '' }: { searchQuery?: string }
       addToast('Failed to hash file.', 'error');
       triggerHaptic('error');
     }
-  };
+  }, [hash, isConnected, userAddress, description, addToast, shake]);
 
-  const handleKeyDown = (e: React.KeyboardEvent) => {
+  const handleKeyDown = useCallback((e: React.KeyboardEvent) => {
     if ((e.metaKey || e.ctrlKey) && e.key === 'Enter') {
       if (hash && isConnected && !isSubmitting) {
         storeHash();
       }
     }
-  };
+  }, [hash, isConnected, status, storeHash]);
 
   if (isLoading) return <CardSkeleton />;
 
