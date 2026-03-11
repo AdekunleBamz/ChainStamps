@@ -6,6 +6,7 @@ import { CONTRACT_ADDRESS, CONTRACTS } from '../config/contracts';
 import { Tag, Loader2, CheckCircle, AlertCircle } from 'lucide-react';
 import { Button } from './ui/Button';
 import { CardSkeleton } from './ui/Skeleton';
+import { Tooltip } from './ui/Tooltip';
 import { useToast } from '../context/ToastContext';
 import { triggerSuccessConfetti } from '../utils/confetti';
 
@@ -71,7 +72,9 @@ export function TagRegistry() {
       <div className="card-header">
         <Tag className="card-icon" size={24} strokeWidth={1.5} />
         <h2>Tag Registry</h2>
-        <span className="fee-badge">0.04 STX</span>
+        <Tooltip content="Stacks network transaction fee (paid in STX)">
+          <span className="fee-badge">0.04 STX</span>
+        </Tooltip>
       </div>
 
       <p className="card-description">

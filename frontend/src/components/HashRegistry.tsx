@@ -6,6 +6,7 @@ import { CONTRACT_ADDRESS, CONTRACTS } from '../config/contracts';
 import { FileText, Hash, Loader2, CheckCircle, AlertCircle } from 'lucide-react';
 import { Button } from './ui/Button';
 import { CardSkeleton } from './ui/Skeleton';
+import { Tooltip } from './ui/Tooltip';
 import { useToast } from '../context/ToastContext';
 import { triggerSuccessConfetti } from '../utils/confetti';
 
@@ -85,9 +86,16 @@ export function HashRegistry() {
   return (
     <motion.section id="hash" className="card" animate={controls}>
       <div className="card-header">
-        <Hash className="card-icon" size={24} strokeWidth={1.5} />
+        <div className="flex items-center gap-2">
+          <Hash className="card-icon" size={24} strokeWidth={1.5} />
+          <Tooltip content="Secure cryptographic identifier for your document">
+            <span className="text-sm font-semibold text-muted-foreground mr-1">SHA-256</span>
+          </Tooltip>
+        </div>
         <h2>Hash Registry</h2>
-        <span className="fee-badge">0.03 STX</span>
+        <Tooltip content="Stacks network transaction fee (paid in STX)">
+          <span className="fee-badge">0.03 STX</span>
+        </Tooltip>
       </div>
 
       <p className="card-description">
