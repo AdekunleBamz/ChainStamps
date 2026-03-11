@@ -57,15 +57,42 @@ h6 {
   letter-spacing: -0.02em;
   margin: 0;
 }
+
 /* Utilities */
-.fixed { position: fixed; }
-.absolute { position: absolute; }
-.inset-0 { top: 0; right: 0; bottom: 0; left: 0; }
-.-z-10 { z-index: -10; }
-.overflow-hidden { overflow: hidden; }
-.pointer-events-none { pointer-events: none; }
-.w-full { width: 100%; }
-.h-full { height: 100%; }
+.fixed {
+  position: fixed;
+}
+
+.absolute {
+  position: absolute;
+}
+
+.inset-0 {
+  top: 0;
+  right: 0;
+  bottom: 0;
+  left: 0;
+}
+
+.-z-10 {
+  z-index: -10;
+}
+
+.overflow-hidden {
+  overflow: hidden;
+}
+
+.pointer-events-none {
+  pointer-events: none;
+}
+
+.w-full {
+  width: 100%;
+}
+
+.h-full {
+  height: 100%;
+}
 
 .glass {
   background: var(--glass-bg);
@@ -86,7 +113,23 @@ h6 {
   animation: spin 1s linear infinite;
 }
 
+/* Accessibility */
+:focus {
+  outline: none;
+}
+
+:focus-visible {
+  outline: 2px solid var(--primary);
+  outline-offset: 2px;
+  box-shadow: 0 0 0 4px hsla(var(--primary-h), var(--primary-s), var(--primary-l), 0.2);
+}
+
 @keyframes spin {
-  from { transform: rotate(0deg); }
-  to { transform: rotate(360deg); }
+  from {
+    transform: rotate(0deg);
+  }
+
+  to {
+    transform: rotate(360deg);
+  }
 }
