@@ -1,0 +1,43 @@
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap');
+
+:root {
+  /* Core Palette (HSL) */
+  --primary-h: 222;
+  --primary-s: 89%;
+  --primary-l: 60%;
+
+  --primary: hsl(var(--primary-h), var(--primary-s), var(--primary-l));
+  --primary-foreground: hsl(210, 40%, 98%);
+
+  --background: hsl(224, 71%, 4%);
+  --foreground: hsl(213, 31%, 91%);
+
+  --card: hsla(224, 71%, 4%, 0.8);
+  --card-foreground: hsl(213, 31%, 91%);
+
+  --muted: hsl(223, 47%, 11%);
+  --muted-foreground: hsl(215.4, 16.3%, 56.9%);
+
+  --accent: hsl(216, 34%, 17%);
+  --accent-foreground: hsl(210, 40%, 98%);
+
+  --border: hsl(216, 34%, 17%);
+  --input: hsl(216, 34%, 17%);
+  --ring: hsla(var(--primary-h), var(--primary-s), var(--primary-l), 0.5);
+
+  --radius: 0.75rem;
+
+  /* Glassmorphism Defaults */
+  --glass-bg: hsla(0, 0%, 100%, 0.03);
+  --glass-border: hsla(0, 0%, 100%, 0.08);
+  --glass-blur: 12px;
+}
+
+body {
+  background-color: var(--background);
+  color: var(--foreground);
+  margin: 0;
+  min-height: 100vh;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
