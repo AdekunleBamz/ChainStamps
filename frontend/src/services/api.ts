@@ -9,9 +9,10 @@ import {
     cvToValue,
     fetchCallReadOnlyFunction as callReadOnlyFunction
 } from '@stacks/transactions';
-import { STACKS_MAINNET as StacksMainnet } from '@stacks/network';
+import { STACKS_MAINNET } from '@stacks/network';
 
-const network = new StacksMainnet();
+// If STACKS_MAINNET is the instance itself
+const network = STACKS_MAINNET;
 
 /**
  * Normalized result for blockchain transactions.

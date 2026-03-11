@@ -52,19 +52,39 @@ export function TransactionHistory() {
                 <Clock className="card-icon" size={24} strokeWidth={1.5} />
                 <h2>Local History</h2>
                 {history.length > 0 && (
-                    <Button
-                        variant="ghost"
-                        size="sm"
-                        onClick={() => {
-                            if (confirm('Clear all local transaction history?')) {
-                                HistoryService.clearHistory();
-                            }
-                        }}
-                        className="text-error hover:bg-error/10 ml-auto"
-                    >
-                        <Trash2 size={16} className="mr-2" />
-                        Clear
-                    </Button>
+                    <div className="flex items-center gap-2 ml-auto">
+                        <Button
+                            variant="outline"
+                            size="sm"
+                            onClick={() => exportData(history, 'chainstamps_history', 'json')}
+                            className="text-xs h-8"
+                        >
+                            <Download size={14} className="mr-1" />
+                            JSON
+                        </Button>
+                        <Button
+                            variant="outline"
+                            size="sm"
+                            onClick={() => exportData(history, 'chainstamps_history', 'csv')}
+                            className="text-xs h-8"
+                        >
+                            <Download size={14} className="mr-1" />
+                            CSV
+                        </Button>
+                        <Button
+                            variant="ghost"
+                            size="sm"
+                            onClick={() => {
+                                if (confirm('Clear all local transaction history?')) {
+                                    HistoryService.clearHistory();
+                                }
+                            }}
+                            className="text-error hover:bg-error/10 h-8 font-medium"
+                        >
+                            <Trash2 size={16} className="mr-1" />
+                            Clear
+                        </Button>
+                    </div>
                 )}
             </div>
 
