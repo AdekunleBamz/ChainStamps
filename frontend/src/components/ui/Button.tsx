@@ -1,12 +1,14 @@
-import { motion, HTMLMotionProps } from 'framer-motion';
-import { ReactNode } from 'react';
+import { motion, type HTMLMotionProps } from 'framer-motion';
+import { type ReactNode } from 'react';
 import { twMerge } from 'tailwind-merge';
+import { triggerHaptic } from '../../utils/haptics';
 
 interface ButtonProps extends HTMLMotionProps<'button'> {
     children: ReactNode;
     variant?: 'primary' | 'secondary' | 'outline' | 'ghost' | 'destructive';
     size?: 'sm' | 'md' | 'lg' | 'icon';
     className?: string;
+    haptic?: 'light' | 'medium' | 'heavy' | 'error' | 'success';
 }
 
 export function Button({
@@ -14,8 +16,14 @@ export function Button({
     variant = 'primary',
     size = 'md',
     className,
+    haptic = 'light',
+    onClick,
     ...props
 }: ButtonProps) {
+    const handleClick = (e: React.MouseEvent<HTMLButtonElement>) => {
+        triggerHaptic(haptic);
+        if (onClick) onClick(e as any);
+    };
     const variants = {
         primary: "bg-primary text-primary-foreground hover:opacity-90 shadow-lg shadow-primary/20",
         secondary: "bg-secondary text-secondary-foreground hover:bg-secondary/80",
@@ -43,6 +51,7 @@ export function Button({
                 className
             )}
             {...props}
+            onClick={handleClick}
         >
             {children}
         </motion.button>
