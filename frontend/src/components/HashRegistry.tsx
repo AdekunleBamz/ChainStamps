@@ -11,6 +11,7 @@ import { Breadcrumbs } from './ui/Breadcrumbs';
 import { AnimatedNumber } from './ui/AnimatedNumber';
 import { useToast } from '../context/ToastContext';
 import { triggerSuccessConfetti } from '../utils/confetti';
+import { RegistryLayout } from './RegistryLayout';
 
 export function HashRegistry() {
   const { isConnected, userAddress } = useWallet();
@@ -90,33 +91,15 @@ export function HashRegistry() {
   if (isLoading) return <CardSkeleton />;
 
   return (
-    <motion.section
+    <RegistryLayout
       id="hash"
-      className="card"
-      variants={cardVariants}
-      initial="initial"
-      animate={controls}
+      title="Hash Registry"
+      description="Store SHA-256 document hashes on-chain for permanent verification"
+      icon={Hash}
+      controls={controls}
+      headerBadge={{ label: "SHA-256", tooltip: "Secure cryptographic identifier for your document" }}
+      fee={{ value: 0.03, unit: "STX", tooltip: "Stacks network transaction fee (paid in STX)" }}
     >
-      <Breadcrumbs items={[{ label: 'Hash Registry' }]} />
-      <div className="card-header">
-        <div className="flex items-center gap-2">
-          <Hash className="card-icon" size={24} strokeWidth={1.5} />
-          <Tooltip content="Secure cryptographic identifier for your document">
-            <span className="text-sm font-semibold text-muted-foreground mr-1">SHA-256</span>
-          </Tooltip>
-        </div>
-        <h2>Hash Registry</h2>
-        <Tooltip content="Stacks network transaction fee (paid in STX)">
-          <span className="fee-badge">
-            <AnimatedNumber value={0.03} decimals={2} suffix=" STX" />
-          </span>
-        </Tooltip>
-      </div>
-
-      <p className="card-description">
-        Store SHA-256 document hashes on-chain for permanent verification
-      </p>
-
       <div className="form-group">
         <label className="file-input-label">
           <FileText size={20} strokeWidth={1.5} />
@@ -198,6 +181,6 @@ export function HashRegistry() {
           </div>
         )
       }
-    </motion.section >
+    </RegistryLayout>
   );
 }

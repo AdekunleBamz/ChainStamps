@@ -10,6 +10,7 @@ import { Breadcrumbs } from './ui/Breadcrumbs';
 import { AnimatedNumber } from './ui/AnimatedNumber';
 import { useToast } from '../context/ToastContext';
 import { triggerSuccessConfetti } from '../utils/confetti';
+import { RegistryLayout } from './RegistryLayout';
 
 export function StampRegistry() {
   const { isConnected, userAddress } = useWallet();
@@ -74,28 +75,14 @@ export function StampRegistry() {
   };
 
   return (
-    <motion.section
+    <RegistryLayout
       id="stamp"
-      className="card"
-      variants={cardVariants}
-      initial="initial"
-      animate={controls}
+      title="Stamp Registry"
+      description="Permanently stamp messages on the Stacks blockchain with timestamps"
+      icon={Stamp}
+      controls={controls}
+      fee={{ value: 0.05, unit: "STX", tooltip: "Stacks network transaction fee (paid in STX)" }}
     >
-      <Breadcrumbs items={[{ label: 'Stamp Registry' }]} />
-      <div className="card-header">
-        <Stamp className="card-icon" size={24} strokeWidth={1.5} />
-        <h2>Stamp Registry</h2>
-        <Tooltip content="Stacks network transaction fee (paid in STX)">
-          <span className="fee-badge">
-            <AnimatedNumber value={0.05} decimals={2} suffix=" STX" />
-          </span>
-        </Tooltip>
-      </div>
-
-      <p className="card-description">
-        Permanently stamp messages on the Stacks blockchain with timestamps
-      </p>
-
       <div className="form-group">
         <textarea
           placeholder="Enter your message to stamp on-chain..."
@@ -146,6 +133,7 @@ export function StampRegistry() {
           Connect your wallet to stamp messages
         </div>
       )}
-    </motion.section>
+    </RegistryLayout>
+  );
   );
 }

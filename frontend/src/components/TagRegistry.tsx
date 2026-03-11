@@ -10,6 +10,7 @@ import { Breadcrumbs } from './ui/Breadcrumbs';
 import { AnimatedNumber } from './ui/AnimatedNumber';
 import { useToast } from '../context/ToastContext';
 import { triggerSuccessConfetti } from '../utils/confetti';
+import { RegistryLayout } from './RegistryLayout';
 
 export function TagRegistry() {
   const { isConnected, userAddress } = useWallet();
@@ -76,28 +77,14 @@ export function TagRegistry() {
   };
 
   return (
-    <motion.section
+    <RegistryLayout
       id="tag"
-      className="card"
-      variants={cardVariants}
-      initial="initial"
-      animate={controls}
+      title="Tag Registry"
+      description="Store key-value pairs permanently on the blockchain"
+      icon={Tag}
+      controls={controls}
+      fee={{ value: 0.04, unit: "STX", tooltip: "Stacks network transaction fee (paid in STX)" }}
     >
-      <Breadcrumbs items={[{ label: 'Tag Registry' }]} />
-      <div className="card-header">
-        <Tag className="card-icon" size={24} strokeWidth={1.5} />
-        <h2>Tag Registry</h2>
-        <Tooltip content="Stacks network transaction fee (paid in STX)">
-          <span className="fee-badge">
-            <AnimatedNumber value={0.04} decimals={2} suffix=" STX" />
-          </span>
-        </Tooltip>
-      </div>
-
-      <p className="card-description">
-        Store key-value pairs permanently on the blockchain
-      </p>
-
       <div className="form-group">
         <input
           type="text"
@@ -163,6 +150,7 @@ export function TagRegistry() {
           </div>
         )
       }
-    </motion.section>
+    </RegistryLayout>
+  );
   );
 }
