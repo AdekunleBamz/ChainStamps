@@ -1,8 +1,7 @@
 import { useState, useEffect } from 'react';
 import { motion, useAnimation } from 'framer-motion';
 import { useWallet } from '../context/WalletContext';
-import { wcCallContract } from '../utils/walletconnect';
-import { CONTRACT_ADDRESS, CONTRACTS } from '../config/contracts';
+import { ChainStampsService } from '../services/api';
 import { FileText, Hash, Loader2, CheckCircle, AlertCircle } from 'lucide-react';
 import { Button } from './ui/Button';
 import { CardSkeleton } from './ui/Skeleton';
@@ -61,26 +60,17 @@ export function HashRegistry() {
     setStatus('submitting');
 
     try {
-      const result = await wcCallContract({
-        contractAddress: CONTRACT_ADDRESS,
-        contractName: CONTRACTS.hashRegistry.name,
-        functionName: 'store-hash',
-        functionArgs: [
-          `0x${hash}`,
-          description || 'Document hash',
-        ],
-        stxAmount: CONTRACTS.hashRegistry.fee,
-      });
+      const result = await ChainStampsService.storeHash(hash, description);
 
       setTxId(result.txid);
       setStatus('success');
       setDescription('');
       addToast('Hash stored successfully!', 'success');
       triggerSuccessConfetti();
-    } catch (error) {
+    } catch (error: any) {
       console.error('Transaction failed:', error);
       setStatus('error');
-      addToast('Failed to store hash. Please try again.', 'error');
+      addToast(error.message || 'Failed to store hash. Please try again.', 'error');
     }
   };
 
