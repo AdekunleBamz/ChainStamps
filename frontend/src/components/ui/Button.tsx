@@ -11,7 +11,7 @@ interface ButtonProps extends HTMLMotionProps<'button'> {
     haptic?: 'light' | 'medium' | 'heavy' | 'error' | 'success';
 }
 
-export function Button({
+export const Button = memo(function Button({
     children,
     variant = 'primary',
     size = 'md',
@@ -56,4 +56,5 @@ export function Button({
             {children}
         </motion.button>
     );
-}
+});
+极
