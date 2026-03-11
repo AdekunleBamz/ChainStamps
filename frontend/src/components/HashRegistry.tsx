@@ -5,9 +5,11 @@ import { CONTRACT_ADDRESS, CONTRACTS } from '../config/contracts';
 import { FileText, Hash, Loader2, CheckCircle, AlertCircle } from 'lucide-react';
 import { Button } from './ui/Button';
 import { CardSkeleton } from './ui/Skeleton';
+import { useToast } from '../context/ToastContext';
 
 export function HashRegistry() {
   const { isConnected, userAddress } = useWallet();
+  const { addToast } = useToast();
   const [file, setFile] = useState<File | null>(null);
   const [description, setDescription] = useState('');
   const [hash, setHash] = useState('');
@@ -55,9 +57,12 @@ export function HashRegistry() {
 
       setTxId(result.txid);
       setStatus('success');
+      setDescription('');
+      addToast('Hash stored successfully!', 'success');
     } catch (error) {
       console.error('Transaction failed:', error);
       setStatus('error');
+      addToast('Failed to store hash. Please try again.', 'error');
     }
   };
 

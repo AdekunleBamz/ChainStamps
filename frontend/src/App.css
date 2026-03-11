@@ -728,3 +728,19 @@ body {
 .gap-2 { gap: 0.5rem; }
 .gap-4 { gap: 1rem; }
 .rounded-full { border-radius: 9999px; }
+
+/* Toast Styles */
+.fixed { position: fixed; }
+.bottom-6 { bottom: 1.5rem; }
+.right-6 { right: 1.5rem; }
+.z-\[1000\] { z-index: 1000; }
+.flex-col { flex-direction: column; }
+.gap-3 { gap: 0.75rem; }
+.pointer-events-none { pointer-events: none; }
+.pointer-events-auto { pointer-events: auto; }
+.shrink-0 { flex-shrink: 0; }
+.text-sm { font-size: 0.875rem; }
+.font-medium { font-weight: 500; }
+.min-w-\[300px\] { min-width: 300px; }
+.max-w-md { max-width: 28rem; }
+.backdrop-blur-xl { backdrop-filter: blur(24px); -webkit-backdrop-filter: blur(24px); }

@@ -6,25 +6,30 @@ import { StampRegistry } from './components/StampRegistry';
 import { TagRegistry } from './components/TagRegistry';
 import { Footer } from './components/Footer';
 import { MeshGradient } from './components/MeshGradient';
+import { ToastProvider } from './context/ToastContext';
+import { ToastContainer } from './components/ui/Toast';
 import './App.css';
 
 function App() {
   return (
-    <WalletProvider>
-      <div className="app">
-        <MeshGradient />
-        <Header />
-        <main className="main">
-          <Hero />
-          <div className="cards-container">
-            <HashRegistry />
-            <StampRegistry />
-            <TagRegistry />
-          </div>
-        </main>
-        <Footer />
-      </div>
-    </WalletProvider>
+    <ToastProvider>
+      <WalletProvider>
+        <div className="app">
+          <MeshGradient />
+          <ToastContainer />
+          <Header />
+          <main className="main">
+            <Hero />
+            <div className="cards-container">
+              <HashRegistry />
+              <StampRegistry />
+              <TagRegistry />
+            </div>
+          </main>
+          <Footer />
+        </div>
+      </WalletProvider>
+    </ToastProvider>
   );
 }
 

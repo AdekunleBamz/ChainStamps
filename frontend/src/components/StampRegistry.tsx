@@ -6,9 +6,11 @@ import { Stamp, Loader2, CheckCircle, AlertCircle } from 'lucide-react';
 import { Button } from './ui/Button';
 import { CardSkeleton } from './ui/Skeleton';
 import { useEffect } from 'react';
+import { useToast } from '../context/ToastContext';
 
 export function StampRegistry() {
   const { isConnected, userAddress } = useWallet();
+  const { addToast } = useToast();
   const [message, setMessage] = useState('');
   const [status, setStatus] = useState<'idle' | 'submitting' | 'success' | 'error'>('idle');
   const [txId, setTxId] = useState('');
@@ -36,9 +38,11 @@ export function StampRegistry() {
       setTxId(result.txid);
       setStatus('success');
       setMessage('');
+      addToast('Message stamped successfully!', 'success');
     } catch (error) {
       console.error('Transaction failed:', error);
       setStatus('error');
+      addToast('Failed to stamp message. Please try again.', 'error');
     }
   };
 

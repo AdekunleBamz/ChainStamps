@@ -6,9 +6,11 @@ import { Tag, Loader2, CheckCircle, AlertCircle } from 'lucide-react';
 import { Button } from './ui/Button';
 import { CardSkeleton } from './ui/Skeleton';
 import { useEffect } from 'react';
+import { useToast } from '../context/ToastContext';
 
 export function TagRegistry() {
   const { isConnected, userAddress } = useWallet();
+  const { addToast } = useToast();
   const [key, setKey] = useState('');
   const [value, setValue] = useState('');
   const [status, setStatus] = useState<'idle' | 'submitting' | 'success' | 'error'>('idle');
@@ -38,9 +40,11 @@ export function TagRegistry() {
       setStatus('success');
       setKey('');
       setValue('');
+      addToast('Tag stored successfully!', 'success');
     } catch (error) {
       console.error('Transaction failed:', error);
       setStatus('error');
+      addToast('Failed to store tag. Please try again.', 'error');
     }
   };
 
