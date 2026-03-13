@@ -1127,3 +1127,24 @@ body {
   position: relative;
   z-index: 50;
 }
+
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+    scroll-behavior: auto !important;
+  }
+
+  .hero-glow,
+  .registry-wrapper {
+    animation: none !important;
+  }
+
+  .card:hover,
+  .search-wrapper:focus-within {
+    transform: none;
+  }
+}
