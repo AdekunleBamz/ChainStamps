@@ -37,6 +37,28 @@ export function Header() {
     };
   }, []);
 
+  useEffect(() => {
+    if (!isMenuOpen) return;
+    const onKeyDown = (event: KeyboardEvent) => {
+      if (event.key === 'Escape') {
+        setIsMenuOpen(false);
+      }
+    };
+    window.addEventListener('keydown', onKeyDown);
+    return () => window.removeEventListener('keydown', onKeyDown);
+  }, [isMenuOpen]);
+
+  useEffect(() => {
+    if (!isMenuOpen) return undefined;
+    const mediaQuery = window.matchMedia('(max-width: 768px)');
+    if (!mediaQuery.matches) return undefined;
+    const previousOverflow = document.body.style.overflow;
+    document.body.style.overflow = 'hidden';
+    return () => {
+      document.body.style.overflow = previousOverflow;
+    };
+  }, [isMenuOpen]);
+
 
   return (
     <>
@@ -53,12 +75,18 @@ export function Header() {
           <button
             className="mobile-menu-toggle"
             onClick={() => setIsMenuOpen(!isMenuOpen)}
-            aria-label="Toggle menu"
+            aria-label={isMenuOpen ? 'Close navigation menu' : 'Open navigation menu'}
+            aria-expanded={isMenuOpen}
+            aria-controls="primary-navigation"
           >
             {isMenuOpen ? <X size={24} /> : <Menu size={24} />}
           </button>
 
-          <nav className={twMerge("nav-links", isMenuOpen && "mobile-open")}>
+          <nav
+            id="primary-navigation"
+            aria-label="Primary navigation"
+            className={twMerge("nav-links", isMenuOpen && "mobile-open")}
+          >
             <Tooltip content="Current Stacks network block height">
               <div className="network-heartbeat">
                 <Activity size={14} className="mr-1 text-primary animate-pulse" strokeWidth={2} />
