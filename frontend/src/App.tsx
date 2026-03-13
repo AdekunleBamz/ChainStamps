@@ -1,4 +1,5 @@
 import { useEffect, useState } from 'react';
+import { motion } from 'framer-motion';
 import { WalletProvider } from './context/WalletContext';
 import { Header } from './components/Header';
 import { Hero } from './components/Hero';
@@ -12,9 +13,8 @@ import { ToastProvider } from './context/ToastContext';
 import { ToastContainer } from './components/ui/Toast';
 import { updateFavicon } from './utils/favicon';
 import { useWallet } from './context/WalletContext';
-import { Search, Activity, Wallet, LogOut, Shield, Clock, Database, Menu, X, RefreshCw } from 'lucide-react';
+import { Search, X } from 'lucide-react';
 import { Button } from './components/ui/Button';
-import { CardSkeleton } from './components/ui/Skeleton';
 import { PullToRefresh } from './components/ui/PullToRefresh';
 import { EmptyState } from './components/ui/EmptyState';
 import { LogicErrorBoundary } from './components/ui/LogicErrorBoundary';
@@ -60,7 +60,7 @@ function App() {
             <MeshGradient />
             <ToastContainer />
             <Header />
-            <main id="main-content" className="main">
+            <main id="main-content" className="main" tabIndex={-1}>
               <Hero />
 
               <motion.div
@@ -76,10 +76,21 @@ function App() {
                     placeholder="Search registries (e.g., 'hash', 'tag')..."
                     value={searchQuery}
                     onChange={(e) => setSearchQuery(e.target.value)}
+                    onKeyDown={(event) => {
+                      if (event.key === 'Escape') {
+                        setSearchQuery('');
+                      }
+                    }}
                     className="search-input"
+                    aria-label="Search registry cards"
                   />
                   {searchQuery && (
-                    <button onClick={() => setSearchQuery('')} className="search-clear">
+                    <button
+                      type="button"
+                      onClick={() => setSearchQuery('')}
+                      className="search-clear"
+                      aria-label="Clear registry search"
+                    >
                       <X size={16} />
                     </button>
                   )}
@@ -126,7 +137,7 @@ function App() {
           </LogicErrorBoundary>
           <PerformanceOverlay />
         </div>
-        极      </WalletProvider>
+      </WalletProvider>
     </ToastProvider>
   );
 }
