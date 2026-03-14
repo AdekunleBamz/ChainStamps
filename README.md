@@ -74,6 +74,12 @@ npm test
 # Start Clarinet console
 clarinet console
 
+# Check contracts
+npm run clarinet:check
+
+# Run Clarinet tests
+npm run clarinet:test
+
 # Run all tests with coverage
 npm run test:report
 
