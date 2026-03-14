@@ -6,6 +6,8 @@ settings/
 history.txt
 .env
 .env.*
+!.env.example
+!frontend/.env.example
 
 logs
 *.log
