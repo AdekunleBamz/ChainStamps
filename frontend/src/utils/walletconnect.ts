@@ -1,11 +1,7 @@
 import UniversalProvider from '@walletconnect/universal-provider';
 
-const PROJECT_ID = import.meta.env.VITE_WALLETCONNECT_PROJECT_ID;
+const PROJECT_ID = (import.meta.env.VITE_WALLETCONNECT_PROJECT_ID || '').trim();
 const DEBUG = import.meta.env.VITE_DEBUG === 'true';
-
-if (!PROJECT_ID || PROJECT_ID === 'YOUR_PROJECT_ID_HERE') {
-  console.warn('⚠️ WalletConnect Project ID not set. Get one from https://cloud.walletconnect.com');
-}
 
 // Metadata for WalletConnect - icons array must be non-empty
 const metadata = {
@@ -59,6 +55,10 @@ export interface StxAddress {
  */
 export const initProvider = async (): Promise<UniversalProvider> => {
   if (provider) return provider;
+
+  if (!PROJECT_ID || PROJECT_ID.toLowerCase() === 'your_project_id_here') {
+    throw new Error('Set VITE_WALLETCONNECT_PROJECT_ID before connecting a wallet');
+  }
 
   if (DEBUG) console.log('🔧 Initializing WalletConnect provider...');
 
