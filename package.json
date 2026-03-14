@@ -5,6 +5,11 @@
   "type": "module",
   "private": true,
   "scripts": {
+    "check": "clarinet check",
+    "console": "clarinet console",
+    "frontend:dev": "npm --prefix frontend run dev",
+    "frontend:build": "npm --prefix frontend run build",
+    "frontend:lint": "npm --prefix frontend run lint",
     "test": "vitest run",
     "test:report": "vitest run -- --coverage --costs",
     "test:ci": "vitest run --coverage --costs",
