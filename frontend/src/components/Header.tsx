@@ -99,9 +99,9 @@ export function Header() {
                 </span>
               </div>
             </Tooltip>
-            <a href="#hash" onClick={() => setIsMenuOpen(false)}>Hash</a>
-            <a href="#stamp" onClick={() => setIsMenuOpen(false)}>Stamp</a>
-            <a href="#tag" onClick={() => setIsMenuOpen(false)}>Tag</a>
+            <a href="#hash" onClick={() => setIsMenuOpen(false)} aria-label="Navigate to Hash Registry section">Hash</a>
+            <a href="#stamp" onClick={() => setIsMenuOpen(false)} aria-label="Navigate to Stamp Registry section">Stamp</a>
+            <a href="#tag" onClick={() => setIsMenuOpen(false)} aria-label="Navigate to Tag Registry section">Tag</a>
           </nav>
 
           <div className="wallet-section">
@@ -128,13 +128,14 @@ export function Header() {
                 </Button>
               </div>
             ) : (
-              <Button
-                variant="primary"
-                size="md"
-                className="connect-btn"
-                onClick={connect}
-                disabled={isConnecting}
-              >
+                <Button
+                  variant="primary"
+                  size="md"
+                  className="connect-btn"
+                  onClick={connect}
+                  disabled={isConnecting}
+                  aria-label={isConnecting ? "Connecting to wallet" : "Connect Stacks wallet"}
+                >
                 {isConnecting ? (
                   <>
                     <Loader2 size={18} className="spinning mr-2" strokeWidth={1.5} />
