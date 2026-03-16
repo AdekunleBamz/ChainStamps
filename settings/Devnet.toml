@@ -1,0 +1,15 @@
+[network]
+name = "devnet"
+deployment_fee_rate = 10
+
+[accounts.deployer]
+mnemonic = "zoo zoo zoo zoo zoo zoo zoo zoo zoo zoo zoo wrong"
+balance = 10_000_000_000_000
+
+[accounts.wallet_1]
+mnemonic = "abandon abandon abandon abandon abandon abandon abandon abandon abandon abandon abandon cactus"
+balance = 10_000_000_000_000
+
+[accounts.wallet_2]
+mnemonic = "legal winner thank year wave sausage worth useful legal winner thank yellow"
+balance = 10_000_000_000_000
