@@ -139,8 +139,14 @@
     )
 )
 
-;; Check if a stamp exists and has not been revoked
-;; Returns: true if stamp exists and is valid, false otherwise
+;; Get sender of a stamp if it exists
+(define-read-only (get-stamp-sender (stamp-id uint))
+    (match (map-get? stamps stamp-id)
+        stamp-data (some (get sender stamp-data))
+        none
+    )
+)
+
 (define-read-only (is-stamp-valid (stamp-id uint))
     (match (map-get? stamps stamp-id)
         stamp-data (not (get revoked stamp-data))
