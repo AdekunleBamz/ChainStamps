@@ -5,17 +5,17 @@ export const CONTRACTS = {
   hashRegistry: {
     name: "hash-registry",
     address: `${CONTRACT_ADDRESS}.hash-registry`,
-    fee: 20000, // 0.02 STX in microSTX
+    fee: 30000, // 0.03 STX in microSTX (HASH-FEE)
   },
   stampRegistry: {
     name: "stamp-registry",
     address: `${CONTRACT_ADDRESS}.stamp-registry`,
-    fee: 20000, // 0.02 STX in microSTX
+    fee: 50000, // 0.05 STX in microSTX (STAMP-FEE)
   },
   tagRegistry: {
     name: "tag-registry",
     address: `${CONTRACT_ADDRESS}.tag-registry`,
-    fee: 20000, // 0.02 STX in microSTX
+    fee: 40000, // 0.04 STX in microSTX (TAG-FEE)
   },
 };
 
