@@ -37,19 +37,19 @@ export interface RegistryConfig {
  */
 export const CONTRACTS: Record<string, RegistryConfig> = {
   hashRegistry: {
-    name: DEFAULT_CONTRACT_NAMES.hash,
-    address: `${CONTRACT_ADDRESS}.${DEFAULT_CONTRACT_NAMES.hash}`,
-    fee: microStxToStx(CHAINSTAMP_FEES.hash.store),
+    name: "hash-registry",
+    address: `${CONTRACT_ADDRESS}.hash-registry`,
+    fee: 30000, // 0.03 STX in microSTX (HASH-FEE)
   },
   stampRegistry: {
     name: "stamp-registry",
     address: `${CONTRACT_ADDRESS}.stamp-registry`,
-    fee: 50000, // 0.05 STX in microSTX
+    fee: 50000, // 0.05 STX in microSTX (STAMP-FEE)
   },
   tagRegistry: {
     name: "tag-registry",
     address: `${CONTRACT_ADDRESS}.tag-registry`,
-    fee: 40000, // 0.04 STX in microSTX
+    fee: 40000, // 0.04 STX in microSTX (TAG-FEE)
   },
 };
 
