@@ -76,7 +76,7 @@ export function Footer() {
         </div>
 
         <p className="footer-copyright">
-          © 2025 ChainStamp. Built on Stacks.
+          © {new Date().getFullYear()} ChainStamp. Built on Stacks.
         </p>
       </div>
     </footer>
