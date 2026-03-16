@@ -37,11 +37,20 @@ All data is secured by Bitcoin's proof-of-work, providing the highest level of s
 | Stamp Registry | Record permanent messages on-chain | 0.05 STX |
 | Tag Registry | Store key-value pairs | 0.04 STX |
 
+### Technical Stack
+
+- **Blockchain**: [Stacks (L2)](https://stacks.co) - Enabling smart contracts on Bitcoin
+- **Smart Contracts**: [Clarity](https://docs.stacks.co/clarity) - A predictable, decidable language for secure contracts
+- **Security Layer**: **Bitcoin** - All data and transactions are secured by Bitcoin's hash power
+- **Frontend**: React + TypeScript + Vite
+- **Styling**: Tailwind CSS + Framer Motion
+- **Tooling**: Clarinet, Vitest
+
 ### Key Capabilities
 
-- ✅ **Immutable Records** - Once stored, data cannot be altered
-- ✅ **Ownership Verification** - Only owners can manage their records
-- ✅ **Timestamp Proof** - Automatic block height and timestamp recording
+- ✅ **Immutable Records** - Once stored, data cannot be altered, inheriting Bitcoin's immutability
+- ✅ **Ownership Verification** - Only owners can manage their records through cryptographic signatures
+- ✅ **Timestamp Proof** - Automatic block height recording on the Bitcoin-secured Stacks layer
 - ✅ **User Tracking** - Query all records by user address
 - ✅ **Low Fees** - Minimal STX cost per operation
 - ✅ **Bitcoin Security** - Inherits Bitcoin's security through Stacks
