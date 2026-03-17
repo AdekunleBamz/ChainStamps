@@ -81,6 +81,14 @@
     )
 )
 
+;; Get sender of a stamp if it exists
+(define-read-only (get-stamp-sender (stamp-id uint))
+    (match (map-get? stamps stamp-id)
+        stamp-data (some (get sender stamp-data))
+        none
+    )
+)
+
 (define-read-only (is-stamp-valid (stamp-id uint))
     (match (map-get? stamps stamp-id)
         stamp-data (not (get revoked stamp-data))
@@ -153,13 +161,6 @@
 (define-public (stamp-message-with-category (message (string-utf8 256)) (category uint))
     (let
         (
-;; Get sender of a stamp if it exists
-(define-read-only (get-stamp-sender (stamp-id uint))
-     (match (map-get? stamps stamp-id)
-          stamp-data (some (get sender stamp-data))
-          none
-     )
-)
             (new-stamp-id (+ (var-get stamp-counter) u1))
             (current-user-stamps (default-to (list) (map-get? user-stamps tx-sender)))
             (current-category-stamps (default-to (list) (map-get? category-stamps category)))
