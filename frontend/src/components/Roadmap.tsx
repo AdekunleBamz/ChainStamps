@@ -24,7 +24,7 @@ interface RoadmapPhaseProps {
     index: number;
 }
 
-function RoadmapPhase({ phase, index }: RoadmapPhaseProps) {
+const RoadmapPhase = ({ phase, index }: RoadmapPhaseProps) => {
     return (
         <motion.div
             initial={{ opacity: 0, x: index % 2 === 0 ? -20 : 20 }}
