@@ -353,6 +353,12 @@ This project is licensed under the MIT License - see the [LICENSE](LICENSE) file
 
 ChainStamps aims to bridge the gap between complex blockchain protocols and everyday document security. Our goal is to provide a user-friendly interface for Bitcoin's most powerful security features, making on-chain verification accessible to everyone.
 
+## 🛡️ Data Privacy
+
+-   **Public Data**: All data stored via ChainStamps is public and permanent on the Stacks blockchain.
+-   **No PII**: Avoid storing Personally Identifiable Information (PII) on-chain.
+-   **Hashing**: For sensitive documents, only store the SHA-256 hash to prove existence without revealing content.
+
 ---
 
 <div align="center">
