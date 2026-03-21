@@ -39,6 +39,9 @@ All data is secured by Bitcoin's proof-of-work, providing the highest level of s
 | Stamp Registry | Record permanent messages on-chain | 0.05 STX |
 | Tag Registry | Store key-value pairs | 0.04 STX |
 
+> [!NOTE]
+> All fees are paid in micro-STX (uSTX). 1 STX = 1,000,000 uSTX. Fees are collected by the contract and secured on-chain.
+
 ### Technical Stack
 
 - **Blockchain**: [Stacks (L2)](https://stacks.co) - Enabling smart contracts on Bitcoin
