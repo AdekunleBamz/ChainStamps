@@ -156,7 +156,13 @@ export async function wcDisconnect(): Promise<void> {
   wcUri = null;
 }
 
-// Sign a transaction via WalletConnect
+/**
+ * Sign a transaction via WalletConnect.
+ * 
+ * @param {string} txHex - The raw transaction hex to sign.
+ * @param {boolean} [broadcast=true] - Whether to broadcast the transaction after signing.
+ * @returns {Promise<{ txid?: string; signedTxHex?: string }>} A promise resolving to the signature result.
+ */
 export async function wcSignTransaction(
   txHex: string,
   broadcast = true
