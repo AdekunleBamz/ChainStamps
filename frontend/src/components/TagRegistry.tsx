@@ -65,10 +65,11 @@ export const TagRegistry = () => {
       setValue('');
       addToast('Tag stored successfully!', 'success');
       triggerSuccessConfetti();
-    } catch (error) {
+    } catch (error: any) {
       console.error('Transaction failed:', error);
       setStatus('error');
-      addToast('Failed to store tag. Please try again.', 'error');
+      const errorMessage = error.message || 'Failed to store tag. Please try again.';
+      addToast(errorMessage, 'error');
     }
   };
 
