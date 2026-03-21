@@ -18,7 +18,7 @@ import { triggerSuccessConfetti } from '../utils/confetti';
  * 
  * @returns {JSX.Element} The rendered hash registry component.
  */
-export function HashRegistry() {
+export const HashRegistry = () => {
   const { isConnected, userAddress } = useWallet();
   const { addToast } = useToast();
   const [file, setFile] = useState<File | null>(null);
