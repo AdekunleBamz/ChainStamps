@@ -13,7 +13,7 @@ import { AnimatedNumber } from './ui/AnimatedNumber';
  * 
  * @returns {JSX.Element} The rendered header component.
  */
-export function Header() {
+export const Header = () => {
   const { isConnected, isConnecting, userAddress, connect, disconnect, wcUri, showQRModal, setShowQRModal } = useWallet();
   const [isScrolled, setIsScrolled] = useState(false);
   const [blockHeight, setBlockHeight] = useState<number | null>(null);
