@@ -30,6 +30,13 @@ const WalletContext = createContext<WalletContextType | undefined>(undefined);
 
 const DEBUG = import.meta.env.VITE_DEBUG === 'true';
 
+/**
+ * Provides wallet connection state and methods to the application.
+ * 
+ * @param {Object} props - The component properties.
+ * @param {ReactNode} props.children - The child components to be wrapped by the provider.
+ * @returns {JSX.Element} The rendered provider component.
+ */
 export function WalletProvider({ children }: { children: ReactNode }) {
   const [isConnected, setIsConnected] = useState(false);
   const [isConnecting, setIsConnecting] = useState(false);
