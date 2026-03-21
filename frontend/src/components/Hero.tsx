@@ -49,7 +49,7 @@ export function Hero() {
           <p>Data secured by Bitcoin's proof-of-work</p>
         </motion.div>
 
-        <motion.div className="feature group" variants={itemVariants}>
+        <motion.div className="feature group" variants={itemVariants} aria-label="Feature: Timestamped - Permanent proof of existence">
           <div className="feature-icon-wrapper">
             <Clock className="feature-icon" size={40} strokeWidth={1.5} aria-label="Timestamp Clock Icon" />
           </div>
