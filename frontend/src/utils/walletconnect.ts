@@ -57,7 +57,7 @@ export interface StxAddress {
  * 
  * @returns {Promise<UniversalProvider>} A promise resolving to the initialized provider.
  */
-export async function initProvider(): Promise<UniversalProvider> {
+export const initProvider = async (): Promise<UniversalProvider> => {
   if (provider) return provider;
 
   if (DEBUG) console.log('🔧 Initializing WalletConnect provider...');
@@ -83,7 +83,7 @@ export async function initProvider(): Promise<UniversalProvider> {
  * 
  * @returns {UniversalProvider | null} The provider instance or null if not initialized.
  */
-export function getProvider(): UniversalProvider | null {
+export const getProvider = (): UniversalProvider | null => {
   return provider;
 }
 
