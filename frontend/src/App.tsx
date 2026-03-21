@@ -26,7 +26,7 @@ import './App.css';
  * 
  * @returns {null} Renders nothing to the DOM.
  */
-function FaviconManager() {
+const FaviconManager = () => {
   const { isConnected, isConnecting } = useWallet();
 
   useEffect(() => {
