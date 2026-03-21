@@ -59,7 +59,7 @@ export function Hero() {
 
         <motion.div className="feature group" variants={itemVariants}>
           <div className="feature-icon-wrapper">
-            <Database className="feature-icon" size={40} strokeWidth={1.5} />
+            <Database className="feature-icon" size={40} strokeWidth={1.5} aria-label="Database Storage Icon" />
           </div>
           <h3>Verifiable</h3>
           <p>Anyone can verify your data</p>
