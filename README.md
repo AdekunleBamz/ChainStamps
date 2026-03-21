@@ -306,6 +306,13 @@ clarinet deployments apply --testnet
 clarinet deployments apply --mainnet
 ```
 
+## 🗺️ Roadmap
+
+-   [ ] **Q2 2026**: Multi-signature support for Tag Registry.
+-   [ ] **Q3 2026**: Integration with Hiro Wallet mobile.
+-   [ ] **Q4 2026**: decentralized storage integration (IPFS/Arweave).
+-   [ ] **Q1 2027**: Cross-chain verification bridge.
+
 ## 📁 Project Structure
 
 ```
