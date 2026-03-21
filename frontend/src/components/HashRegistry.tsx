@@ -166,6 +166,7 @@ export const HashRegistry = () => {
           maxLength={128}
           className="input"
           onKeyDown={handleKeyDown}
+          aria-label="Optional description for the document hash"
         />
       </div>
 
