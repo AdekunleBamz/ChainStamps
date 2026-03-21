@@ -129,6 +129,12 @@ export function WalletProvider({ children }: { children: ReactNode }) {
   );
 }
 
+/**
+ * Custom hook to access the wallet context.
+ * 
+ * @returns {WalletContextType} The current wallet context value.
+ * @throws {Error} If used outside of a WalletProvider.
+ */
 export function useWallet() {
   const context = useContext(WalletContext);
   if (context === undefined) {
