@@ -1,5 +1,7 @@
 /**
  * Dynamically updates the site's favicon with a status indicator.
+ * 
+ * @param {'connected' | 'connecting' | 'disconnected'} status - The current wallet connection status.
  */
 export const updateFavicon = (status: 'connected' | 'connecting' | 'disconnected') => {
     const canvas = document.createElement('canvas');
