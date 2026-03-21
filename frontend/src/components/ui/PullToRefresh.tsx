@@ -16,7 +16,7 @@ interface PullToRefreshProps {
  * @param {PullToRefreshProps} props - The component properties.
  * @returns {JSX.Element} The rendered pull-to-refresh indicator.
  */
-export function PullToRefresh({ onRefresh }: PullToRefreshProps) {
+export const PullToRefresh = ({ onRefresh }: PullToRefreshProps) => {
     const [isRefreshing, setIsRefreshing] = useState(false);
     const [pullDistance, setPullDistance] = useState(0);
     const controls = useAnimation();
