@@ -13,6 +13,11 @@ import { AnimatedNumber } from './ui/AnimatedNumber';
 import { useToast } from '../context/ToastContext';
 import { triggerSuccessConfetti } from '../utils/confetti';
 
+/**
+ * A registry component for storing and verifying document hashes on the Stacks blockchain.
+ * 
+ * @returns {JSX.Element} The rendered hash registry component.
+ */
 export function HashRegistry() {
   const { isConnected, userAddress } = useWallet();
   const { addToast } = useToast();
