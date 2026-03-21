@@ -20,7 +20,7 @@ interface EmptyStateProps {
  * @param {EmptyStateProps} props - The component properties.
  * @returns {JSX.Element} The rendered empty state view.
  */
-export function EmptyState({ title, description, action }: EmptyStateProps) {
+export const EmptyState = ({ title, description, action }: EmptyStateProps) => {
     return (
         <div className="flex flex-col items-center justify-center py-12 px-4 text-center">
             <motion.div
