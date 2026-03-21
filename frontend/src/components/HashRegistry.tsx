@@ -142,6 +142,7 @@ export const HashRegistry = () => {
             onChange={handleFileChange}
             className="file-input"
             onKeyDown={handleKeyDown}
+            aria-label="Choose a file to generate its SHA-256 hash"
           />
         </label>
       </div>
