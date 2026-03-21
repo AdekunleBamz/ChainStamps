@@ -21,7 +21,7 @@ interface CopyButtonProps {
  * @param {CopyButtonProps} props - The component properties.
  * @returns {JSX.Element} The rendered copy button.
  */
-export function CopyButton({ value, className, size = 14 }: CopyButtonProps) {
+export const CopyButton = ({ value, className, size = 14 }: CopyButtonProps) => {
     const [copied, setCopied] = useState(false);
 
     const handleCopy = async () => {
