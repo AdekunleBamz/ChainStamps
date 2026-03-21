@@ -120,6 +120,7 @@ export const TagRegistry = () => {
           onKeyDown={handleKeyDown}
           maxLength={64}
           className="input"
+          aria-label="Tag key name"
         />
         <span className="char-count">{key.length}/64</span>
       </div>
@@ -133,6 +134,7 @@ export const TagRegistry = () => {
           maxLength={256}
           rows={3}
           className="textarea"
+          aria-label="Tag value content"
         />
         <span className="char-count">{value.length}/256</span>
       </div>
