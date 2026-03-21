@@ -2,15 +2,27 @@ import { createContext, useContext, useState, useCallback, type ReactNode } from
 
 type ToastType = 'success' | 'error' | 'info' | 'warning';
 
+/**
+ * Represents a single toast notification.
+ */
 interface Toast {
+    /** Unique identifier for the toast. */
     id: string;
+    /** The message to display. */
     message: string;
+    /** The type of notification (success, error, etc.). */
     type: ToastType;
 }
 
+/**
+ * The structure of the toast context, providing methods to add and remove notifications.
+ */
 interface ToastContextType {
+    /** Array of currently active toast notifications. */
     toasts: Toast[];
+    /** Function to add a new toast notification. */
     addToast: (message: string, type?: ToastType) => void;
+    /** Function to remove a specific toast notification by its ID. */
     removeToast: (id: string) => void;
 }
 
