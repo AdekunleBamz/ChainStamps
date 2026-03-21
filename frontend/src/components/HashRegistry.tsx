@@ -167,6 +167,7 @@ export const HashRegistry = () => {
           className="input"
           onKeyDown={handleKeyDown}
           aria-label="Optional description for the document hash"
+          aria-required="false"
         />
       </div>
 
