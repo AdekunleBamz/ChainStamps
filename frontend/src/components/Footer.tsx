@@ -16,7 +16,7 @@ export function Footer() {
         </p>
 
         <div className="footer-metrics">
-          <div className="metrics-title">
+          <div className="metrics-title" aria-label="System Performance Heartbeat">
             <Zap size={14} className="text-yellow-500 fill-yellow-500" />
             <span>Live System Metrics</span>
           </div>
