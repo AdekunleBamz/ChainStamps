@@ -1,6 +1,11 @@
 import { Shield, Clock, Database } from 'lucide-react';
 import { motion } from 'framer-motion';
 
+/**
+ * The Hero section of the application, introducing ChainStamps features.
+ * 
+ * @returns {JSX.Element} The rendered hero section.
+ */
 export function Hero() {
   const containerVariants = {
     hidden: { opacity: 0 },
