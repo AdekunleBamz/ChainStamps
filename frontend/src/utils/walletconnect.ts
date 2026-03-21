@@ -41,7 +41,11 @@ export interface StxAddress {
   symbol?: string;
 }
 
-// Initialize the Universal Provider
+/**
+ * Initializes the WalletConnect Universal Provider with project metadata and relay URL.
+ * 
+ * @returns {Promise<UniversalProvider>} A promise resolving to the initialized provider.
+ */
 export async function initProvider(): Promise<UniversalProvider> {
   if (provider) return provider;
 
