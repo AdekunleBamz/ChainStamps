@@ -52,6 +52,7 @@ export function Footer() {
             href="https://github.com/AdekunleBamz/ChainStamps"
             target="_blank"
             rel="noopener noreferrer"
+            aria-label="View ChainStamps source code on GitHub"
           >
             <Github size={20} strokeWidth={1.5} />
           </motion.a>
