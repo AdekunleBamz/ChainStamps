@@ -7,7 +7,7 @@ import { twMerge } from 'tailwind-merge';
  * A container component that renders active toast notifications in a fixed position.
  * Listens to the toast context for updates.
  */
-export function ToastContainer() {
+export const ToastContainer = () => {
     const { toasts, removeToast } = useToast();
 
     const icons = {
