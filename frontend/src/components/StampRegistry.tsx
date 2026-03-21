@@ -125,6 +125,7 @@ export const StampRegistry = () => {
       <Button
         onClick={stampMessage}
         disabled={!message || !isConnected || status === 'submitting'}
+        aria-busy={status === 'submitting'}
         variant="primary"
         size="lg"
         className="submit-btn w-full"
