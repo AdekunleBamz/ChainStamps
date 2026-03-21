@@ -171,6 +171,7 @@ export const HashRegistry = () => {
       <Button
         onClick={storeHash}
         disabled={!hash || !isConnected || status === 'submitting'}
+        aria-busy={status === 'submitting' || status === 'hashing'}
         variant="primary"
         size="lg"
         className="submit-btn w-full"
