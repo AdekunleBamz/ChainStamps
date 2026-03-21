@@ -120,7 +120,7 @@ export const StampRegistry = () => {
           className="textarea"
           aria-label="Message to be stamped on the Stacks blockchain"
         />
-        <span className="char-count">{message.length}/256</span>
+        <span className="char-count" aria-live="polite">{message.length}/256</span>
       </div>
 
       <Button

@@ -122,7 +122,7 @@ export const TagRegistry = () => {
           className="input"
           aria-label="Tag key name"
         />
-        <span className="char-count">{key.length}/64</span>
+        <span className="char-count" aria-live="polite">{key.length}/64</span>
       </div>
 
       <div className="form-group">
@@ -136,7 +136,7 @@ export const TagRegistry = () => {
           className="textarea"
           aria-label="Tag value content"
         />
-        <span className="char-count">{value.length}/256</span>
+        <span className="char-count" aria-live="polite">{value.length}/256</span>
       </div>
 
       <Button
