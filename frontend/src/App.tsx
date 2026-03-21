@@ -68,6 +68,7 @@ function App() {
                 whileInView={{ opacity: 1, y: 0 }}
                 viewport={{ once: true, margin: "-100px" }}
                 className="filter-container"
+                aria-label="Registry filtering and search tools"
               >
                 <div className="search-wrapper">
                   <Search className="search-icon" size={18} />
