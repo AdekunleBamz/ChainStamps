@@ -342,6 +342,10 @@ This project is licensed under the MIT License - see the [LICENSE](LICENSE) file
 - [Clarity Language Reference](https://docs.stacks.co/clarity)
 - [Clarinet Documentation](https://docs.hiro.so/clarinet)
 
+## 🎯 Project Vision
+
+ChainStamps aims to bridge the gap between complex blockchain protocols and everyday document security. Our goal is to provide a user-friendly interface for Bitcoin's most powerful security features, making on-chain verification accessible to everyone.
+
 ---
 
 <div align="center">
