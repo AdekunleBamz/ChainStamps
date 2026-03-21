@@ -19,6 +19,11 @@ const phases = [
     }
 ];
 
+/**
+ * A component that displays the project's development roadmap in a timeline-like fashion.
+ * 
+ * @returns {JSX.Element} The rendered roadmap section.
+ */
 export function Roadmap() {
     return (
         <section className="roadmap-section py-20 px-6 max-w-4xl mx-auto">
