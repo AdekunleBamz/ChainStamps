@@ -18,7 +18,7 @@ interface BreadcrumbsProps {
  * @param {BreadcrumbsProps} props - The component properties.
  * @returns {JSX.Element} The rendered breadcrumbs navigation.
  */
-export function Breadcrumbs({ items }: BreadcrumbsProps) {
+export const Breadcrumbs = ({ items }: BreadcrumbsProps) => {
     return (
         <nav className="breadcrumbs-container px-1 mb-6" aria-label="Breadcrumb">
             <ol className="flex items-center space-x-2 text-xs font-medium text-muted-foreground">
