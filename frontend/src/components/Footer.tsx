@@ -7,7 +7,7 @@ import { useState, useEffect } from 'react';
  * 
  * @returns {JSX.Element} The rendered footer.
  */
-export function Footer() {
+export const Footer = () => {
   return (
     <footer className="footer" aria-label="Site Footer">
       <div className="footer-content">
