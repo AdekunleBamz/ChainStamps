@@ -1,5 +1,7 @@
 /**
  * Triggers a subtle haptic vibration on supported devices.
+ * 
+ * @param {'light' | 'medium' | 'heavy' | 'error' | 'success'} type - The intensity or pattern of haptic feedback.
  */
 export const triggerHaptic = (type: 'light' | 'medium' | 'heavy' | 'error' | 'success' = 'light') => {
     if (typeof window !== 'undefined' && 'vibrate' in navigator) {
