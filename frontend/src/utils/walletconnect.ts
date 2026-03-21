@@ -191,10 +191,10 @@ export const wcDisconnect = async (): Promise<void> => {
  * @param {boolean} [broadcast=true] - Whether to broadcast the transaction after signing.
  * @returns {Promise<{ txid?: string; signedTxHex?: string }>} A promise resolving to the signature result.
  */
-export async function wcSignTransaction(
+export const wcSignTransaction = async (
   txHex: string,
   broadcast = true
-): Promise<{ txid?: string; signedTxHex?: string }> {
+): Promise<{ txid?: string; signedTxHex?: string }> => {
   if (!provider || !provider.session) {
     throw new Error('WalletConnect not connected');
   }
@@ -226,14 +226,14 @@ export async function wcSignTransaction(
  * @param {number} [params.stxAmount] - Optional STX amount to send with the call.
  * @returns {Promise<{ txid: string }>} A promise resolving to the transaction ID.
  */
-export async function wcCallContract(params: {
+export const wcCallContract = async (params: {
   contractAddress: string;
   contractName: string;
   functionName: string;
   functionArgs: string[];
   postConditions?: string[];
   stxAmount?: number;
-}): Promise<{ txid: string }> {
+}): Promise<{ txid: string }> => {
   if (!provider || !provider.session) {
     throw new Error('WalletConnect not connected');
   }
@@ -255,16 +255,16 @@ export async function wcCallContract(params: {
 }
 
 // Get the current WC URI (for QR display)
-export function getWcUri(): string | null {
+export const getWcUri = (): string | null => {
   return wcUri;
 }
 
 // Check if there's an active session
-export function hasActiveSession(): boolean {
+export const hasActiveSession = (): boolean => {
   return !!provider?.session;
 }
 
 // Get the current session
-export function getSession(): WCSession | null {
+export const getSession = (): WCSession | null => {
   return provider?.session as WCSession | null;
 }
