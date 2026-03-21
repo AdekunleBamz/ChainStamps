@@ -116,6 +116,12 @@ Store and verify document hashes on-chain.
 ;; Returns: true/false
 ```
 
+#### Technical Format
+- **Algorithm**: SHA-256.
+- **Input**: 32-byte hash (prefixed with `0x`).
+- **Storage**: Maps uniquely to `tx-sender`.
+- **Integrity**: Verified via block height on-chain.
+
 ### 2. Stamp Registry (`stamp-registry.clar`)
 
 Permanently stamp messages on the blockchain.
