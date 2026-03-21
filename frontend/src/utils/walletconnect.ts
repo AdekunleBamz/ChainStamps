@@ -180,7 +180,18 @@ export async function wcSignTransaction(
   return result;
 }
 
-// Call a contract method via WalletConnect (alternative to building tx locally)
+/**
+ * Call a contract method via WalletConnect.
+ * 
+ * @param {Object} params - The contract call parameters.
+ * @param {string} params.contractAddress - The address of the contract.
+ * @param {string} params.contractName - The name of the contract.
+ * @param {string} params.functionName - The name of the function to call.
+ * @param {string[]} params.functionArgs - The arguments to pass to the function.
+ * @param {string[]} [params.postConditions] - Optional post-conditions for the transaction.
+ * @param {number} [params.stxAmount] - Optional STX amount to send with the call.
+ * @returns {Promise<{ txid: string }>} A promise resolving to the transaction ID.
+ */
 export async function wcCallContract(params: {
   contractAddress: string;
   contractName: string;
