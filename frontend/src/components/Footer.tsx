@@ -78,7 +78,7 @@ export function Footer() {
           </motion.a>
         </div>
 
-        <p className="footer-copyright">
+        <p className="footer-copyright" aria-label={`Copyright ${new Date().getFullYear()} ChainStamp - Built on Stacks`}>
           © {new Date().getFullYear()} ChainStamp. Built on Stacks.
         </p>
       </div>
