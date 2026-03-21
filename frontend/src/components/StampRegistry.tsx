@@ -12,6 +12,11 @@ import { AnimatedNumber } from './ui/AnimatedNumber';
 import { useToast } from '../context/ToastContext';
 import { triggerSuccessConfetti } from '../utils/confetti';
 
+/**
+ * A registry component for creating and managing verifiable stamps on the Stacks blockchain.
+ * 
+ * @returns {JSX.Element} The rendered stamp registry component.
+ */
 export function StampRegistry() {
   const { isConnected, userAddress } = useWallet();
   const { addToast } = useToast();
