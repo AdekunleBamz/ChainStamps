@@ -5,7 +5,7 @@ import { motion } from 'framer-motion';
  * 
  * @returns {JSX.Element} The rendered mesh gradient component.
  */
-export function MeshGradient() {
+export const MeshGradient = () => {
     return (
         <div className="fixed inset-0 -z-10 overflow-hidden pointer-events-none">
             <motion.div
