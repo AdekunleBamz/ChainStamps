@@ -60,7 +60,7 @@ function App() {
             <MeshGradient />
             <ToastContainer />
             <Header />
-            <main id="main-content" className="main" tabIndex={-1}>
+            <main id="main-content" className="main" tabIndex={-1} aria-label="Main Application Content">
               <Hero />
 
               <motion.div
