@@ -395,6 +395,14 @@ ChainStamps is committed to inclusive design:
 -   **Focus Management**: Clear focus indicators and logical tab order.
 -   **Semantic HTML**: Header hierarchy and landmark roles for better navigation.
 
+## ⚡ Performance Optimization
+
+ChainStamps is built for speed and efficiency:
+-   **Vite**: Lightning-fast build and hot module replacement.
+-   **Code Splitting**: Dynamic imports for heavy components like `TransactionHistory`.
+-   **Asset Optimization**: Minified CSS and optimized SVG icons for minimal payload.
+-   **Caching**: Service worker caching for PWA reliability.
+
 ---
 
 <div align="center">
