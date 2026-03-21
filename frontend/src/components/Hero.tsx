@@ -41,7 +41,7 @@ export function Hero() {
         Bitcoin's most secure layer through the Stacks blockchain.
       </motion.p>
       <motion.div className="features" variants={containerVariants}>
-        <motion.div className="feature group" variants={itemVariants}>
+        <motion.div className="feature group" variants={itemVariants} aria-label="Feature: Immutable - Data secured by Bitcoin's proof-of-work">
           <div className="feature-icon-wrapper">
             <Shield className="feature-icon" size={40} strokeWidth={1.5} aria-label="Security Shield Icon" />
           </div>
