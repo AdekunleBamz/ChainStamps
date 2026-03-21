@@ -32,7 +32,7 @@ export function Hero() {
         <span className="gradient-text">ChainStamp</span>
       </motion.h1>
 
-      <motion.p className="hero-subtitle" variants={itemVariants}>
+      <motion.p className="hero-subtitle" variants={itemVariants} aria-label="Subtitle: Permanent on-chain verification">
         Permanent on-chain verification for documents, messages, and data
       </motion.p>
 
