@@ -42,7 +42,7 @@ All data is secured by Bitcoin's proof-of-work, providing the highest level of s
 ### Technical Stack
 
 - **Blockchain**: [Stacks (L2)](https://stacks.co) - Enabling smart contracts on Bitcoin
-- **Smart Contracts**: [Clarity](https://docs.stacks.co/clarity) - A predictable, decidable language for secure contracts
+- **Smart Contracts**: [Clarity](https://docs.stacks.co/clarity) - A LISP-like, interpreted language that is decidable and prevents common smart contract vulnerabilities like re-entrancy.
 - **Security Layer**: **Bitcoin** - All data and transactions are secured by Bitcoin's hash power
 - **Frontend**: React + TypeScript + Vite
 - **Styling**: Tailwind CSS + Framer Motion
@@ -240,7 +240,15 @@ await openContractCall({
 });
 ```
 
-## 🧪 Testing
+### Wallet Integration
+
+ChainStamps uses the `@stacks/connect` library for seamless wallet integration. It supports both Hiro and Xverse wallets across browser extensions and mobile apps.
+
+#### Connection Flow
+1. User clicks **Connect Wallet**.
+2. Application requests authentication via `showConnect`.
+3. User signs the authentication request.
+4. Application stores the session for subsequent contract calls.
 
 ```bash
 # Run all tests
