@@ -121,6 +121,7 @@ export const TagRegistry = () => {
           maxLength={64}
           className="input"
           aria-label="Tag key name"
+          aria-required="true"
         />
         <span className="char-count" aria-live="polite">{key.length}/64</span>
       </div>
@@ -135,6 +136,7 @@ export const TagRegistry = () => {
           rows={3}
           className="textarea"
           aria-label="Tag value content"
+          aria-required="true"
         />
         <span className="char-count" aria-live="polite">{value.length}/256</span>
       </div>
