@@ -8,7 +8,7 @@ interface WalletConnectQRModalProps {
   onClose: () => void;
 }
 
-export function WalletConnectQRModal({ uri, onClose }: WalletConnectQRModalProps) {
+export const WalletConnectQRModal = ({ uri, onClose }: WalletConnectQRModalProps) => {
   // Create a camera-friendly link for mobile users
   const mobileLink = `https://walletconnect.com/wc?uri=${encodeURIComponent(uri)}`;
 
