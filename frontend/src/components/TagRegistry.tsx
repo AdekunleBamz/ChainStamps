@@ -17,7 +17,7 @@ import { triggerSuccessConfetti } from '../utils/confetti';
  * 
  * @returns {JSX.Element} The rendered tag registry component.
  */
-export function TagRegistry() {
+export const TagRegistry = () => {
   const { isConnected, userAddress } = useWallet();
   const { addToast } = useToast();
   const [key, setKey] = useState('');
