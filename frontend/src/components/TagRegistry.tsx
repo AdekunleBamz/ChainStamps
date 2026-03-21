@@ -140,6 +140,7 @@ export const TagRegistry = () => {
       <Button
         onClick={storeTag}
         disabled={!key || !value || !isConnected || status === 'submitting'}
+        aria-busy={status === 'submitting'}
         variant="primary"
         size="lg"
         className="submit-btn w-full"
