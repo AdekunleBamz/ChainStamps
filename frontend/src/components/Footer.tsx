@@ -28,7 +28,7 @@ export function Footer() {
                 <span className="metric-value">~10 min</span>
               </div>
             </div>
-            <div className="metric-item">
+            <div className="metric-item" aria-label="Network Status: Operational">
               <ShieldCheck size={16} className="text-muted-foreground" />
               <div className="metric-info">
                 <span className="metric-label">Network Status</span>
