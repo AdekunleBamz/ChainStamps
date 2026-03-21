@@ -15,7 +15,7 @@ interface SkeletonProps {
  * @param {SkeletonProps} props - The component properties.
  * @returns {JSX.Element} The rendered skeleton element.
  */
-export function Skeleton({ className }: SkeletonProps) {
+export const Skeleton = ({ className }: SkeletonProps) => {
     return (
         <motion.div
             initial={{ opacity: 0.5 }}
@@ -33,7 +33,7 @@ export function Skeleton({ className }: SkeletonProps) {
     );
 }
 
-export function CardSkeleton() {
+export const CardSkeleton = () => {
     return (
         <div className="card space-y-4">
             <div className="flex items-center gap-4">
