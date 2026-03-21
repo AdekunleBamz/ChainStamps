@@ -156,13 +156,14 @@ export const TagRegistry = () => {
       </Button>
 
       {status === 'success' && txId && (
-        <div className="success-message">
+        <div className="success-message" role="status" aria-live="polite">
           <CheckCircle size={18} />
           <span>Tag stored! </span>
           <a
             href={`https://explorer.stacks.co/txid/${txId}?chain=mainnet`}
             target="_blank"
             rel="noopener noreferrer"
+            aria-label="View tag storage transaction on Stacks Explorer"
           >
             View transaction
           </a>
