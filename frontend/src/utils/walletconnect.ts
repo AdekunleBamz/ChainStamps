@@ -30,14 +30,25 @@ const requiredNamespaces = {
 let provider: UniversalProvider | null = null;
 let wcUri: string | null = null;
 
+/**
+ * Structure of a WalletConnect session, documenting the topic and namespaces.
+ */
 export interface WCSession {
+  /** Unique session topic. */
   topic: string;
+  /** Namespaces provided by the wallet (e.g., stacks). */
   namespaces: Record<string, { accounts: string[]; methods: string[]; events: string[] }>;
 }
 
+/**
+ * Structure of a Stacks address returned by the wallet.
+ */
 export interface StxAddress {
+  /** The Stacks address (e.g., "SP..."). */
   address: string;
+  /** The public key associated with the address. */
   publicKey?: string;
+  /** The symbol of the token (e.g., "STX"). */
   symbol?: string;
 }
 
