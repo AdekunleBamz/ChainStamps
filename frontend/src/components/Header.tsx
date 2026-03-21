@@ -67,10 +67,10 @@ export function Header() {
         isScrolled && "scrolled"
       )}>
         <div className="header-content">
-          <div className="logo">
+          <a className="logo" href="#top">
             <img src="/logo.png" alt="ChainStamps Logo" className="logo-img" />
             <span className="logo-text">ChainStamps</span>
-          </div>
+          </a>
 
           <button
             className="mobile-menu-toggle"
