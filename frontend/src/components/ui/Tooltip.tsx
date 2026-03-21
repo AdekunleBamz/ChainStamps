@@ -21,7 +21,7 @@ interface TooltipProps {
  * @param {TooltipProps} props - The component properties.
  * @returns {JSX.Element} The rendered tooltip container and popover.
  */
-export function Tooltip({ content, children, className }: TooltipProps) {
+export const Tooltip = ({ content, children, className }: TooltipProps) => {
     const [isVisible, setIsVisible] = useState(false);
 
     return (
