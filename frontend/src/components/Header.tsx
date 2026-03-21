@@ -8,6 +8,11 @@ import { Tooltip } from './ui/Tooltip';
 import { CopyButton } from './ui/CopyButton';
 import { AnimatedNumber } from './ui/AnimatedNumber';
 
+/**
+ * The main header component containing navigation, branding, and wallet connection status.
+ * 
+ * @returns {JSX.Element} The rendered header component.
+ */
 export function Header() {
   const { isConnected, isConnecting, userAddress, connect, disconnect, wcUri, showQRModal, setShowQRModal } = useWallet();
   const [isScrolled, setIsScrolled] = useState(false);
