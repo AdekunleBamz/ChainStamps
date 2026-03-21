@@ -1,6 +1,13 @@
-// ChainStamp Contract Configuration
+/**
+ * The base Stacks address for the ChainStamp contracts.
+ * @constant {string}
+ */
 export const CONTRACT_ADDRESS = "SP5K2RHMSBH4PAP4PGX77MCVNK1ZEED07CWX9TJT";
 
+/**
+ * Configuration for the various ChainStamp registries, including names, full addresses, and fees.
+ * @constant {Object}
+ */
 export const CONTRACTS = {
   hashRegistry: {
     name: "hash-registry",
