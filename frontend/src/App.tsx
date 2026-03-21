@@ -21,6 +21,11 @@ import { LogicErrorBoundary } from './components/ui/LogicErrorBoundary';
 import { PerformanceOverlay } from './components/ui/PerformanceOverlay';
 import './App.css';
 
+/**
+ * A purely logic component that updates the site's favicon based on wallet connection status.
+ * 
+ * @returns {null} Renders nothing to the DOM.
+ */
 function FaviconManager() {
   const { isConnected, isConnecting } = useWallet();
 
@@ -32,6 +37,12 @@ function FaviconManager() {
   return null;
 }
 
+/**
+ * The root component of the application.
+ * Manages the top-level providers, layout, and global registry filtering.
+ * 
+ * @returns {JSX.Element} The rendered application.
+ */
 function App() {
   const [searchQuery, setSearchQuery] = useState('');
 
