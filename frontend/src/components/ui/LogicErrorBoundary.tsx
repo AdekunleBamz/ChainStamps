@@ -37,11 +37,12 @@ export class LogicErrorBoundary extends Component<Props, State> {
     public render() {
         if (this.state.hasError) {
             return (
-                <div className="min-h-[400px] flex items-center justify-center p-6">
-                    <div className="card glass max-w-md w-full text-center p-8 space-y-6">
+                <div className="min-h-screen bg-[#0a0a0a] flex items-center justify-center p-6 bg-[radial-gradient(circle_at_center,rgba(99,102,241,0.05)_0%,transparent_70%)]">
+                    <div className="card glass border-white/5 max-w-md w-full text-center p-12 space-y-8 shadow-2xl relative overflow-hidden">
+                        <div className="absolute top-0 left-0 w-full h-1 bg-gradient-to-r from-transparent via-red-500/50 to-transparent" />
                         <div className="flex justify-center">
-                            <div className="p-4 bg-red-500/10 rounded-full text-red-500">
-                                <AlertTriangle size={48} strokeWidth={1.5} />
+                            <div className="p-6 bg-red-500/10 rounded-3xl text-red-500 backdrop-blur-3xl border border-red-500/20 shadow-[0_0_40px_rgba(239,68,68,0.1)]">
+                                <AlertTriangle size={56} strokeWidth={1} />
                             </div>
                         </div>
 
