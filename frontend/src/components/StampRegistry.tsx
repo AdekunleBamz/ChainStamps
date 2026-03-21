@@ -17,7 +17,7 @@ import { triggerSuccessConfetti } from '../utils/confetti';
  * 
  * @returns {JSX.Element} The rendered stamp registry component.
  */
-export function StampRegistry() {
+export const StampRegistry = () => {
   const { isConnected, userAddress } = useWallet();
   const { addToast } = useToast();
   const [message, setMessage] = useState('');
