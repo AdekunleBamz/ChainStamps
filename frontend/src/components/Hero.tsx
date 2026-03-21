@@ -36,7 +36,7 @@ export function Hero() {
         Permanent on-chain verification for documents, messages, and data
       </motion.p>
 
-      <motion.p className="hero-description" variants={itemVariants}>
+      <motion.p className="hero-description" variants={itemVariants} aria-label="Description: Detailed explanation of ChainStamps and Stacks blockchain integration">
         Store SHA-256 hashes, timestamps, and metadata immutably on
         Bitcoin's most secure layer through the Stacks blockchain.
       </motion.p>
