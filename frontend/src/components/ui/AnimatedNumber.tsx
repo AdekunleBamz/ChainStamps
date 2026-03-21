@@ -37,7 +37,11 @@ export function AnimatedNumber({ value, className, prefix = '', suffix = '', dec
     }, [value]);
 
     return (
-        <span className={className}>
+        <span 
+            className={className}
+            aria-live="polite"
+            aria-atomic="true"
+        >
             {prefix}
             {displayValue.toLocaleString(undefined, {
                 minimumFractionDigits: decimals,
