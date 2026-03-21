@@ -57,7 +57,7 @@ export function Hero() {
           <p>Permanent proof of existence</p>
         </motion.div>
 
-        <motion.div className="feature group" variants={itemVariants}>
+        <motion.div className="feature group" variants={itemVariants} aria-label="Feature: Verifiable - Anyone can verify your data">
           <div className="feature-icon-wrapper">
             <Database className="feature-icon" size={40} strokeWidth={1.5} aria-label="Database Storage Icon" />
           </div>
