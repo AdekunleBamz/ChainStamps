@@ -337,6 +337,13 @@ ChainStamps/
 └── README.md
 ```
 
+### Frontend Architecture
+
+-   **State Management**: React Context for Wallet and Toast states.
+-   **Routing**: Client-side routing for seamless navigation.
+-   **Animations**: Framer Motion for smooth transitions and state changes.
+-   **Styling**: Modern CSS with Tailwind-like utility patterns for consistent UI.
+
 ## 🤝 Contributing
 
 Contributions are welcome! Please feel free to submit a Pull Request.
