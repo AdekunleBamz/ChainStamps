@@ -23,7 +23,7 @@ export function Button({
 }: ButtonProps) {
     const handleClick = (e: React.MouseEvent<HTMLButtonElement>) => {
         triggerHaptic(haptic);
-        if (onClick) onClick(e as any);
+        if (onClick) onClick(e);
     };
     const variants = {
         primary: "bg-primary text-primary-foreground hover:opacity-90 shadow-lg shadow-primary/20",
