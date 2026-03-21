@@ -82,10 +82,11 @@ export const HashRegistry = () => {
       setDescription('');
       addToast('Hash stored successfully!', 'success');
       triggerSuccessConfetti();
-    } catch (error) {
+    } catch (error: any) {
       console.error('Transaction failed:', error);
       setStatus('error');
-      addToast('Failed to store hash. Please try again.', 'error');
+      const errorMessage = error.message || 'Failed to store hash. Please try again.';
+      addToast(errorMessage, 'error');
     }
   };
 
