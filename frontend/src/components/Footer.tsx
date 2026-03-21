@@ -72,6 +72,7 @@ export function Footer() {
             href="https://explorer.stacks.co/address/SP5K2RHMSBH4PAP4PGX77MCVNK1ZEED07CWX9TJT?chain=mainnet"
             target="_blank"
             rel="noopener noreferrer"
+            aria-label="View ChainStamps contract on Stacks Explorer"
           >
             <Globe size={20} strokeWidth={1.5} />
           </motion.a>
