@@ -281,7 +281,11 @@ npm run test:watch
 All contracts include comprehensive tests for:
 - ✅ Access control
 
-### Testing Strategies
+### Troubleshooting
+
+-   **Transaction Pending**: Stacks transactions can take 10-20 minutes to settle on Bitcoin. Check the [Explorer](https://explorer.stacks.co/) for status.
+-   **Contract Not Found**: Ensure you are on the correct network (Mainnet vs Testnet) in your wallet.
+-   **Insufficient Fees**: Ensure you have enough STX to cover the contract fee + network tip.
 
 1.  **Unit Tests**: Logic verification with `clarinet test`.
 2.  **Integration Tests**: Contract calling via `stacks-transactions`.
