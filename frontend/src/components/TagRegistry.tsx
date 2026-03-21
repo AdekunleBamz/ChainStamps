@@ -12,6 +12,11 @@ import { AnimatedNumber } from './ui/AnimatedNumber';
 import { useToast } from '../context/ToastContext';
 import { triggerSuccessConfetti } from '../utils/confetti';
 
+/**
+ * A registry component for storing and managing key-value tags on the Stacks blockchain.
+ * 
+ * @returns {JSX.Element} The rendered tag registry component.
+ */
 export function TagRegistry() {
   const { isConnected, userAddress } = useWallet();
   const { addToast } = useToast();
