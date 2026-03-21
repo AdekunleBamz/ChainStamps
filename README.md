@@ -387,6 +387,14 @@ ChainStamps aims to bridge the gap between complex blockchain protocols and ever
 -   **No PII**: Avoid storing Personally Identifiable Information (PII) on-chain.
 -   **Hashing**: For sensitive documents, only store the SHA-256 hash to prove existence without revealing content.
 
+## ♿ Accessibility
+
+ChainStamps is committed to inclusive design:
+-   **ARIA Labels**: All interactive elements include descriptive ARIA labels.
+-   **Live Regions**: Dynamic updates (e.g., character counts) use `aria-live` for screen readers.
+-   **Focus Management**: Clear focus indicators and logical tab order.
+-   **Semantic HTML**: Header hierarchy and landmark roles for better navigation.
+
 ---
 
 <div align="center">
