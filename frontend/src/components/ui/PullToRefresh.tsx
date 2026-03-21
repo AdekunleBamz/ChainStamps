@@ -1,6 +1,7 @@
 import { useScroll, useMotionValue, useTransform, motion, useAnimation } from 'framer-motion';
 import { RefreshCw } from 'lucide-react';
 import { useEffect, useState } from 'react';
+import { useToast } from '../../context/ToastContext';
 
 /**
  * Properties for the PullToRefresh component.
@@ -48,8 +49,15 @@ export const PullToRefresh = ({ onRefresh }: PullToRefreshProps) => {
             if (pullDistance > threshold && !isRefreshing) {
                 setIsRefreshing(true);
                 setPullDistance(threshold);
-                await onRefresh();
-                setIsRefreshing(false);
+                try {
+                    await onRefresh();
+                    showToast('Accounts refreshed successfully', 'success');
+                } catch (err) {
+                    console.error('Refresh failed:', err);
+                    showToast('Failed to refresh accounts', 'error');
+                } finally {
+                    setIsRefreshing(false);
+                }
             }
 
             setPullDistance(0);
