@@ -11,6 +11,10 @@ interface State {
     error: Error | null;
 }
 
+/**
+ * A specialized error boundary for catching and displaying logic errors in the UI.
+ * Provides a fallback UI with reload and reset options.
+ */
 export class LogicErrorBoundary extends Component<Props, State> {
     public state: State = {
         hasError: false,
