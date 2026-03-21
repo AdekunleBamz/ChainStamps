@@ -4,7 +4,7 @@ import { useState, useEffect } from 'react';
 
 export function Footer() {
   return (
-    <footer className="footer">
+    <footer className="footer" aria-label="Site Footer">
       <div className="footer-content">
         <div className="footer-brand">
           <img src="/logo.png" alt="ChainStamps Logo" className="logo-img" />
