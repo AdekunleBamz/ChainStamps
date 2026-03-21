@@ -35,7 +35,7 @@ const ToastContext = createContext<ToastContextType | undefined>(undefined);
  * @param {ReactNode} props.children - The child components to be wrapped by the provider.
  * @returns {JSX.Element} The rendered provider component.
  */
-export function ToastProvider({ children }: { children: ReactNode }) {
+export const ToastProvider = ({ children }: { children: ReactNode }) => {
     const [toasts, setToasts] = useState<Toast[]>([]);
 
     const addToast = useCallback((message: string, type: ToastType = 'info') => {
@@ -59,7 +59,7 @@ export function ToastProvider({ children }: { children: ReactNode }) {
     );
 }
 
-export function useToast() {
+export const useToast = () => {
     const context = useContext(ToastContext);
     if (context === undefined) {
         throw new Error('useToast must be used within a ToastProvider');
