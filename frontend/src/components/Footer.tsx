@@ -62,6 +62,7 @@ export function Footer() {
             href="https://twitter.com"
             target="_blank"
             rel="noopener noreferrer"
+            aria-label="Follow ChainStamps on X (formerly Twitter)"
           >
             <Twitter size={20} strokeWidth={1.5} />
           </motion.a>
