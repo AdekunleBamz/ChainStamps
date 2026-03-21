@@ -1,5 +1,8 @@
 import confetti from 'canvas-confetti';
 
+/**
+ * Triggers a side-burst confetti effect that lasts for 3 seconds.
+ */
 export const triggerConfetti = () => {
     const duration = 3 * 1000;
     const animationEnd = Date.now() + duration;
