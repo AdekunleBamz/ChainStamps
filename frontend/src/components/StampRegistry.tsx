@@ -63,10 +63,11 @@ export const StampRegistry = () => {
       setMessage('');
       addToast('Message stamped successfully!', 'success');
       triggerSuccessConfetti();
-    } catch (error) {
+    } catch (error: any) {
       console.error('Transaction failed:', error);
       setStatus('error');
-      addToast('Failed to stamp message. Please try again.', 'error');
+      const errorMessage = error.message || 'Failed to stamp message. Please try again.';
+      addToast(errorMessage, 'error');
     }
   };
 
