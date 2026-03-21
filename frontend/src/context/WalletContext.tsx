@@ -2,15 +2,27 @@ import { createContext, useContext, useState, useEffect } from 'react';
 import type { ReactNode } from 'react';
 import { wcConnect, wcDisconnect, hasActiveSession, getSession, STACKS_MAINNET, getProvider } from '../utils/walletconnect';
 
+/**
+ * The structure of the wallet context, providing state and methods for wallet interaction.
+ */
 interface WalletContextType {
+  /** Whether a wallet is currently connected. */
   isConnected: boolean;
+  /** Whether a connection is currently being established. */
   isConnecting: boolean;
+  /** The current user's Stacks address, or null if not connected. */
   userAddress: string | null;
+  /** The current user's public key, if available. */
   publicKey: string | null;
+  /** Function to initiate a WalletConnect connection. */
   connect: () => Promise<void>;
+  /** Function to disconnect the current wallet session. */
   disconnect: () => Promise<void>;
+  /** The current WalletConnect pairing URI for QR code display. */
   wcUri: string | null;
+  /** Whether the WalletConnect QR modal should be visible. */
   showQRModal: boolean;
+  /** Function to toggle the visibility of the QR modal. */
   setShowQRModal: (show: boolean) => void;
 }
 
