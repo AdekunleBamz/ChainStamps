@@ -124,6 +124,12 @@ Store and verify document hashes on-chain.
 - **Storage**: Maps uniquely to `tx-sender`.
 - **Integrity**: Verified via block height on-chain.
 
+#### Data Integrity
+ChainStamps ensures data integrity by:
+1.  **Client-side Hashing**: Files never leave your browser; only their SHA-256 fingerprint is sent on-chain.
+2.  **Consensus Verification**: Stacks miners verify transaction validity before committing to a block.
+3.  **Bitcoin Settlement**: Once confirmed, the data is anchored to the Bitcoin blockchain, making it virtually impossible to reverse.
+
 ### 2. Stamp Registry (`stamp-registry.clar`)
 
 Permanently stamp messages on the blockchain.
