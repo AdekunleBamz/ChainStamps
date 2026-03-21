@@ -43,7 +43,7 @@ All data is secured by Bitcoin's proof-of-work, providing the highest level of s
 
 - **Blockchain**: [Stacks (L2)](https://stacks.co) - Enabling smart contracts on Bitcoin
 - **Smart Contracts**: [Clarity](https://docs.stacks.co/clarity) - A LISP-like, interpreted language that is decidable and prevents common smart contract vulnerabilities like re-entrancy.
-- **Security Layer**: **Bitcoin** - All data and transactions are secured by Bitcoin's hash power
+- **Security Layer**: **Bitcoin** - All transactions are settled on Bitcoin via the [Proof-of-Transfer (PoX)](https://docs.stacks.co/concepts/proof-of-transfer) consensus mechanism.
 - **Frontend**: React + TypeScript + Vite
 - **Styling**: Tailwind CSS + Framer Motion
 - **Tooling**: Clarinet, Vitest
@@ -151,7 +151,11 @@ Store updateable key-value pairs on-chain.
 (contract-call? .tag-registry get-tag-by-key tx-sender u"version")
 ```
 
-## 📚 API Reference
+#### Common Use Cases for Tags
+-   `profile-name`: Decentralized identity naming.
+-   `app-version`: On-chain version tracking.
+-   `metadata-url`: Links to off-chain assets (e.g., IPFS).
+-   `verification-status`: Dynamic proof of status.
 
 ### Hash Registry
 
@@ -264,11 +268,14 @@ npm run test:watch
 ### Test Coverage
 
 All contracts include comprehensive tests for:
-- ✅ Basic functionality
-- ✅ Fee collection
-- ✅ User tracking
-- ✅ Error handling
 - ✅ Access control
+
+### Testing Strategies
+
+1.  **Unit Tests**: Logic verification with `clarinet test`.
+2.  **Integration Tests**: Contract calling via `stacks-transactions`.
+3.  **UI Testing**: Component-level tests with Vitest + React Testing Library.
+4.  **Coverage**: Target 100% logic coverage for Clarity contracts.
 
 ## 🗺️ Deployment
 
