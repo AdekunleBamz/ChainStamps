@@ -67,7 +67,11 @@ export async function initProvider(): Promise<UniversalProvider> {
   return provider;
 }
 
-// Get the current provider instance
+/**
+ * Returns the current WalletConnect Universal Provider instance.
+ * 
+ * @returns {UniversalProvider | null} The provider instance or null if not initialized.
+ */
 export function getProvider(): UniversalProvider | null {
   return provider;
 }
