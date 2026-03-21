@@ -43,7 +43,7 @@ const FaviconManager = () => {
  * 
  * @returns {JSX.Element} The rendered application.
  */
-function App() {
+const App = () => {
   const [searchQuery, setSearchQuery] = useState('');
 
   const registries = [
