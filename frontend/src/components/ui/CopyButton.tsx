@@ -24,17 +24,17 @@ interface CopyButtonProps {
  */
 export const CopyButton = ({ value, className, size = 14 }: CopyButtonProps) => {
     const [copied, setCopied] = useState(false);
-    const { showToast } = useToast();
+    const { addToast } = useToast();
 
     const handleCopy = async () => {
         try {
             await navigator.clipboard.writeText(value);
             setCopied(true);
-            showToast('Copied to clipboard', 'success');
+            addToast('Copied to clipboard', 'success');
             setTimeout(() => setCopied(false), 2000);
         } catch (err) {
             console.error('Failed to copy text: ', err);
-            showToast('Failed to copy to clipboard', 'error');
+            addToast('Failed to copy to clipboard', 'error');
         }
     };
 
