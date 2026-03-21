@@ -41,9 +41,6 @@ All data is secured by Bitcoin's proof-of-work, providing the highest level of s
 > [!NOTE]
 > All fees are paid in micro-STX (uSTX). 1 STX = 1,000,000 uSTX. Fees are collected by the contract and secured on-chain.
 
-> [!NOTE]
-> All fees are paid in micro-STX (uSTX). 1 STX = 1,000,000 uSTX. Fees are collected by the contract and secured on-chain.
-
 ### Technical Stack
 
 - **Blockchain**: [Stacks (L2)](https://stacks.co) - Enabling smart contracts on Bitcoin
@@ -140,6 +137,13 @@ Permanently stamp messages on the blockchain.
 ;; Retrieve a stamp
 (contract-call? .stamp-registry get-stamp u1)
 ```
+
+### 🛡️ Smart Contract Security
+
+All Clarity contracts have been designed with security as a priority:
+-   **Post-conditions**: Every transaction uses post-conditions to ensure STX only leaves the wallet if the action succeeds.
+-   **Overflow Protection**: Clarity's built-in overflow checks prevent common integer vulnerabilities.
+-   **Decidability**: The language structure allows for formal verification of contract behavior.
 
 ### 3. Tag Registry (`tag-registry.clar`)
 
