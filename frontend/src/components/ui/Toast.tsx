@@ -3,6 +3,10 @@ import { useToast } from '../context/ToastContext';
 import { CheckCircle, AlertCircle, X, Info, AlertTriangle } from 'lucide-react';
 import { twMerge } from 'tailwind-merge';
 
+/**
+ * A container component that renders active toast notifications in a fixed position.
+ * Listens to the toast context for updates.
+ */
 export function ToastContainer() {
     const { toasts, removeToast } = useToast();
 
