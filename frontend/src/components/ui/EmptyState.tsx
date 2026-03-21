@@ -2,12 +2,24 @@ import { motion } from 'framer-motion';
 import { type ReactNode } from 'react';
 import { Search } from 'lucide-react';
 
+/**
+ * Properties for the EmptyState component.
+ */
 interface EmptyStateProps {
+    /** The title to display. */
     title: string;
+    /** The descriptive text to display. */
     description: string;
+    /** Optional action element (e.g., a button) to display. */
     action?: ReactNode;
 }
 
+/**
+ * A component that displays a visually appealing empty state with an icon, title, and description.
+ * 
+ * @param {EmptyStateProps} props - The component properties.
+ * @returns {JSX.Element} The rendered empty state view.
+ */
 export function EmptyState({ title, description, action }: EmptyStateProps) {
     return (
         <div className="flex flex-col items-center justify-center py-12 px-4 text-center">
