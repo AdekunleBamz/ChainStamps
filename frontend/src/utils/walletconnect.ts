@@ -93,9 +93,9 @@ export const getProvider = (): UniversalProvider | null => {
  * @param {Function} [onDisplayUri] - Optional callback to handle the WalletConnect URI (e.g., for QR display).
  * @returns {Promise<{ session: WCSession; address: string; publicKey?: string }>} A promise resolving to the session and address details.
  */
-export async function wcConnect(
+export const wcConnect = async (
   onDisplayUri?: (uri: string) => void
-): Promise<{ session: WCSession; address: string; publicKey?: string }> {
+): Promise<{ session: WCSession; address: string; publicKey?: string }> => {
   const prov = await initProvider();
 
   // Subscribe to display_uri BEFORE calling connect
@@ -169,7 +169,7 @@ export async function wcConnect(
  * 
  * @returns {Promise<void>} A promise resolving when disconnection is complete.
  */
-export async function wcDisconnect(): Promise<void> {
+export const wcDisconnect = async (): Promise<void> => {
   if (!provider) return;
 
   try {
