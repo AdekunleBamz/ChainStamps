@@ -88,9 +88,13 @@ clarinet console
 # Run all tests with coverage
 npm run test:report
 
-# Watch mode for development
-npm run test:watch
-```
+### Development Workflow
+
+1.  **Code**: Write Clarity contracts in `contracts/`.
+2.  **Test**: Run `clarinet test` to verify logic.
+3.  **Frontend**: Update React components in `frontend/src/`.
+4.  **Verify**: Run `npm test` for frontend units.
+5.  **Deploy**: Use `clarinet deployments apply`.
 
 ## 📜 Smart Contracts
 
