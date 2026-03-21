@@ -2,10 +2,20 @@ import { useScroll, useMotionValue, useTransform, motion, useAnimation } from 'f
 import { RefreshCw } from 'lucide-react';
 import { useEffect, useState } from 'react';
 
+/**
+ * Properties for the PullToRefresh component.
+ */
 interface PullToRefreshProps {
+    /** Async function to call when a refresh is triggered. */
     onRefresh: () => Promise<void>;
 }
 
+/**
+ * A mobile-friendly pull-to-refresh container that triggers an action when pulled down.
+ * 
+ * @param {PullToRefreshProps} props - The component properties.
+ * @returns {JSX.Element} The rendered pull-to-refresh indicator.
+ */
 export function PullToRefresh({ onRefresh }: PullToRefreshProps) {
     const [isRefreshing, setIsRefreshing] = useState(false);
     const [pullDistance, setPullDistance] = useState(0);
