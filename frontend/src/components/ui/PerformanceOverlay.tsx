@@ -6,7 +6,7 @@ import { motion, AnimatePresence } from 'framer-motion';
  * A floating overlay that displays real-time frame rate (FPS) and performance status.
  * Can be toggled on and off.
  */
-export function PerformanceOverlay() {
+export const PerformanceOverlay = () => {
     const [fps, setFps] = useState(0);
     const [isVisible, setIsVisible] = useState(false);
     const frameCount = useRef(0);
