@@ -37,7 +37,7 @@ const DEBUG = import.meta.env.VITE_DEBUG === 'true';
  * @param {ReactNode} props.children - The child components to be wrapped by the provider.
  * @returns {JSX.Element} The rendered provider component.
  */
-export function WalletProvider({ children }: { children: ReactNode }) {
+export const WalletProvider = ({ children }: { children: ReactNode }) => {
   const [isConnected, setIsConnected] = useState(false);
   const [isConnecting, setIsConnecting] = useState(false);
   const [userAddress, setUserAddress] = useState<string | null>(null);
@@ -135,7 +135,7 @@ export function WalletProvider({ children }: { children: ReactNode }) {
  * @returns {WalletContextType} The current wallet context value.
  * @throws {Error} If used outside of a WalletProvider.
  */
-export function useWallet() {
+export const useWallet = () => {
   const context = useContext(WalletContext);
   if (context === undefined) {
     throw new Error('useWallet must be used within a WalletProvider');
