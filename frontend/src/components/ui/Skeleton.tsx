@@ -1,10 +1,20 @@
 import { motion } from 'framer-motion';
 import { twMerge } from 'tailwind-merge';
 
+/**
+ * Properties for the Skeleton component.
+ */
 interface SkeletonProps {
+    /** Additional CSS classes for the skeleton element. */
     className?: string;
 }
 
+/**
+ * A placeholder component that displays an animated pulse effect for loading states.
+ * 
+ * @param {SkeletonProps} props - The component properties.
+ * @returns {JSX.Element} The rendered skeleton element.
+ */
 export function Skeleton({ className }: SkeletonProps) {
     return (
         <motion.div
