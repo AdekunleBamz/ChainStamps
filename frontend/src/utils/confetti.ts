@@ -34,6 +34,9 @@ export const triggerConfetti = () => {
     }, 250);
 };
 
+/**
+ * Triggers a one-time burst of success confetti at the bottom of the screen.
+ */
 export const triggerSuccessConfetti = () => {
     confetti({
         particleCount: 150,
