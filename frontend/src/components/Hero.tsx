@@ -51,7 +51,7 @@ export function Hero() {
 
         <motion.div className="feature group" variants={itemVariants}>
           <div className="feature-icon-wrapper">
-            <Clock className="feature-icon" size={40} strokeWidth={1.5} />
+            <Clock className="feature-icon" size={40} strokeWidth={1.5} aria-label="Timestamp Clock Icon" />
           </div>
           <h3>Timestamped</h3>
           <p>Permanent proof of existence</p>
