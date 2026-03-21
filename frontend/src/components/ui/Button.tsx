@@ -10,6 +10,8 @@ interface ButtonProps extends HTMLMotionProps<'button'> {
     className?: string;
     haptic?: 'light' | 'medium' | 'heavy' | 'error' | 'success';
     onClick?: (e: React.MouseEvent<HTMLButtonElement>) => void;
+    title?: string;
+    disabled?: boolean;
 }
 
 export function Button({
