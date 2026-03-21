@@ -2,6 +2,11 @@ import { Github, Twitter, Globe, Zap, Clock, ShieldCheck } from 'lucide-react';
 import { motion } from 'framer-motion';
 import { useState, useEffect } from 'react';
 
+/**
+ * The application footer with social links, metrics, and copyright information.
+ * 
+ * @returns {JSX.Element} The rendered footer.
+ */
 export function Footer() {
   return (
     <footer className="footer" aria-label="Site Footer">
