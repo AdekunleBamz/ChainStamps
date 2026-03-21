@@ -153,7 +153,11 @@ export async function wcConnect(
   return { session, address, publicKey };
 }
 
-// Disconnect the current session
+/**
+ * Disconnects the current WalletConnect session and clears local state.
+ * 
+ * @returns {Promise<void>} A promise resolving when disconnection is complete.
+ */
 export async function wcDisconnect(): Promise<void> {
   if (!provider) return;
 
