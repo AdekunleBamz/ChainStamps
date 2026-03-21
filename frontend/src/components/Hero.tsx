@@ -26,7 +26,7 @@ export function Hero() {
       variants={containerVariants}
     >
       {/* Radial Glow Effect */}
-      <div className="hero-glow" />
+      <div className="hero-glow" aria-hidden="true" />
 
       <motion.h1 className="hero-title" variants={itemVariants}>
         <span className="gradient-text">ChainStamp</span>
