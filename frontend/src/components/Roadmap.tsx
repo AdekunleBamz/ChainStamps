@@ -1,7 +1,7 @@
 import { motion } from 'framer-motion';
 import { CheckCircle2, Circle, Clock } from 'lucide-react';
 
-const phases = [
+const ROADMAP_PHASES = [
     {
         title: "Phase 1: Foundation",
         status: "completed",
@@ -20,7 +20,7 @@ const phases = [
 ];
 
 interface RoadmapPhaseProps {
-    phase: typeof phases[0];
+    phase: typeof ROADMAP_PHASES[0];
     index: number;
 }
 
@@ -83,7 +83,7 @@ export function Roadmap() {
             </div>
 
             <div className="space-y-8">
-                {phases.map((phase, index) => (
+                {ROADMAP_PHASES.map((phase, index) => (
                     <RoadmapPhase key={index} phase={phase} index={index} />
                 ))}
             </div>
