@@ -74,7 +74,7 @@ function RoadmapPhase({ phase, index }: RoadmapPhaseProps) {
  * 
  * @returns {JSX.Element} The rendered roadmap section.
  */
-export function Roadmap() {
+export const Roadmap = () => {
     return (
         <section className="roadmap-section py-20 px-6 max-w-4xl mx-auto">
             <div className="text-center mb-12">
@@ -89,4 +89,4 @@ export function Roadmap() {
             </div>
         </section>
     );
-}
+};
