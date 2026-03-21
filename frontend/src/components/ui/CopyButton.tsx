@@ -3,12 +3,24 @@ import { motion, AnimatePresence } from 'framer-motion';
 import { Copy, Check } from 'lucide-react';
 import { twMerge } from 'tailwind-merge';
 
+/**
+ * Properties for the CopyButton component.
+ */
 interface CopyButtonProps {
+    /** The string value to be copied to the clipboard. */
     value: string;
+    /** Additional CSS classes for the button element. */
     className?: string;
+    /** The size of the icon in pixels. Defaults to 14. */
     size?: number;
 }
 
+/**
+ * A utility button that copies a given value to the clipboard and provides visual feedback.
+ * 
+ * @param {CopyButtonProps} props - The component properties.
+ * @returns {JSX.Element} The rendered copy button.
+ */
 export function CopyButton({ value, className, size = 14 }: CopyButtonProps) {
     const [copied, setCopied] = useState(false);
 
