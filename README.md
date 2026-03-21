@@ -1,5 +1,7 @@
 # ChainStamps 🔗📜
 
+ChainStamps is a decentralized application for permanent on-chain document verification, message stamping, and key-value storage. Built on the Stacks blockchain and secured by Bitcoin, it provides an immutable and trustworthy way to store and verify information.
+
 <div align="center">
 
 ![Clarity](https://img.shields.io/badge/Clarity-Smart%20Contracts-blue?style=for-the-badge)
