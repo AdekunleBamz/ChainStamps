@@ -3,14 +3,26 @@ import { type ReactNode } from 'react';
 import { twMerge } from 'tailwind-merge';
 import { triggerHaptic } from '../../utils/haptics';
 
+/**
+ * Properties for the Button component.
+ * @extends {HTMLMotionProps<'button'>}
+ */
 interface ButtonProps extends HTMLMotionProps<'button'> {
+    /** The content to be rendered inside the button. */
     children: ReactNode;
+    /** The visual style variant of the button. Defaults to 'primary'. */
     variant?: 'primary' | 'secondary' | 'outline' | 'ghost' | 'destructive';
+    /** The size of the button. Defaults to 'md'. */
     size?: 'sm' | 'md' | 'lg' | 'icon';
+    /** Additional CSS classes for the button. */
     className?: string;
+    /** The type of haptic feedback to trigger on click. Defaults to 'light'. */
     haptic?: 'light' | 'medium' | 'heavy' | 'error' | 'success';
+    /** Optional click handler. */
     onClick?: (e: React.MouseEvent<HTMLButtonElement>) => void;
+    /** Optional title for the button. */
     title?: string;
+    /** Whether the button is disabled. */
     disabled?: boolean;
 }
 
