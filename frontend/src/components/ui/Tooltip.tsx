@@ -3,12 +3,24 @@ import { motion, AnimatePresence } from 'framer-motion';
 import { type ReactNode } from 'react';
 import { twMerge } from 'tailwind-merge';
 
+/**
+ * Properties for the Tooltip component.
+ */
 interface TooltipProps {
+    /** The text content to display inside the tooltip. */
     content: string;
+    /** The element that triggers the tooltip on hover. */
     children: ReactNode;
+    /** Additional CSS classes for the tooltip trigger container. */
     className?: string;
 }
 
+/**
+ * A floating tooltip component that appears on hover.
+ * 
+ * @param {TooltipProps} props - The component properties.
+ * @returns {JSX.Element} The rendered tooltip container and popover.
+ */
 export function Tooltip({ content, children, className }: TooltipProps) {
     const [isVisible, setIsVisible] = useState(false);
 
