@@ -1,11 +1,18 @@
 {
     "short_name": "ChainStamps",
-    "name": "ChainStamps: Permanent On-Chain Registry",
+    "name": "ChainStamps | Immutable Document Verification on Bitcoin",
+    "description": "Secure, permanent on-chain document verification and message stamping on the Stacks blockchain, secured by Bitcoin.",
     "icons": [
         {
             "src": "favicon.png",
             "sizes": "64x64 32x32 24x24 16x16",
             "type": "image/png"
+        },
+        {
+            "src": "logo.png",
+            "type": "image/png",
+            "sizes": "192x192",
+            "purpose": "any maskable"
         },
         {
             "src": "logo.png",
