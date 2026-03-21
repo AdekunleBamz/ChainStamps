@@ -84,7 +84,7 @@ export function Header() {
 
           <nav
             id="primary-navigation"
-            aria-label="Primary navigation"
+            aria-label="Main navigation links"
             className={twMerge("nav-links", isMenuOpen && "mobile-open")}
           >
             <Tooltip content="Current Stacks network block height">
