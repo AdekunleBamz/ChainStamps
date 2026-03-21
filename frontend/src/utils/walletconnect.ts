@@ -68,7 +68,12 @@ export function getProvider(): UniversalProvider | null {
   return provider;
 }
 
-// Connect to wallet and return session
+/**
+ * Connect to a wallet via WalletConnect and establish a session.
+ * 
+ * @param {Function} [onDisplayUri] - Optional callback to handle the WalletConnect URI (e.g., for QR display).
+ * @returns {Promise<{ session: WCSession; address: string; publicKey?: string }>} A promise resolving to the session and address details.
+ */
 export async function wcConnect(
   onDisplayUri?: (uri: string) => void
 ): Promise<{ session: WCSession; address: string; publicKey?: string }> {
