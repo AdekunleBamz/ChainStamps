@@ -332,6 +332,13 @@ Contributions are welcome! Please feel free to submit a Pull Request.
 4. Push to the branch (`git push origin feature/amazing-feature`)
 5. Open a Pull Request
 
+## 📧 Contact
+
+For support, questions, or collaboration, please reach out to the project maintainer:
+-   **Maintainer**: Adekunle Bamz
+-   **GitHub**: [@AdekunleBamz](https://github.com/AdekunleBamz)
+-   **Website**: [ChainStamps Live](https://chainstamp.vercel.app/)
+
 ## 📄 License
 
 This project is licensed under the MIT License - see the [LICENSE](LICENSE) file for details.
