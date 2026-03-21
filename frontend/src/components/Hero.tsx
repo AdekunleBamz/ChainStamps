@@ -6,7 +6,7 @@ import { motion } from 'framer-motion';
  * 
  * @returns {JSX.Element} The rendered hero section.
  */
-export function Hero() {
+export const Hero = () => {
   const containerVariants = {
     hidden: { opacity: 0 },
     visible: {
