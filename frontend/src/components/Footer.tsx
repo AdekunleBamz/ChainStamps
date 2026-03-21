@@ -6,7 +6,7 @@ export function Footer() {
   return (
     <footer className="footer" aria-label="Site Footer">
       <div className="footer-content">
-        <div className="footer-brand">
+        <div className="footer-brand" aria-label="ChainStamps Branding">
           <img src="/logo.png" alt="ChainStamps Logo" className="logo-img" />
           <span>ChainStamps</span>
         </div>
