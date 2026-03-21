@@ -1,5 +1,10 @@
 import { motion } from 'framer-motion';
 
+/**
+ * A decorative mesh gradient background component with smooth animations.
+ * 
+ * @returns {JSX.Element} The rendered mesh gradient component.
+ */
 export function MeshGradient() {
     return (
         <div className="fixed inset-0 -z-10 overflow-hidden pointer-events-none">
