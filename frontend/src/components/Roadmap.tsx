@@ -29,13 +29,16 @@ const RoadmapPhase = ({ phase, index }: RoadmapPhaseProps) => {
         <motion.div
             initial={{ opacity: 0, x: index % 2 === 0 ? -20 : 20 }}
             whileInView={{ opacity: 1, x: 0 }}
+            whileHover={{ y: -4, scale: 1.01 }}
             viewport={{ once: true }}
-            className={`roadmap-phase card glass p-6 border-l-4 ${phase.status === 'completed' ? 'border-primary' :
+            role="article"
+            aria-label={`Roadmap phase: ${phase.title}`}
+            className={`roadmap-phase card glass p-6 border-l-4 transition-base shadow-md ${phase.status === 'completed' ? 'border-primary' :
                     phase.status === 'current' ? 'border-yellow-500' : 'border-muted'
                 }`}
         >
             <div className="flex items-start gap-4">
-                <div className="mt-1">
+                <div className="mt-1 flex-center">
                     {phase.status === 'completed' ? (
                         <CheckCircle2 className="text-primary" size={24} />
                     ) : phase.status === 'current' ? (
@@ -46,9 +49,9 @@ const RoadmapPhase = ({ phase, index }: RoadmapPhaseProps) => {
                 </div>
 
                 <div className="flex-1">
-                    <div className="flex items-center justify-between mb-2">
+                    <div className="flex-between mb-2">
                         <h3 className="text-xl font-bold">{phase.title}</h3>
-                        <span className={`text-xs px-2 py-1 rounded-full uppercase font-bold tracking-wider ${phase.status === 'completed' ? 'bg-primary/20 text-primary' :
+                        <span className={`text-xs px-2 py-1 rounded-full uppercase font-bold tracking-wider shadow-sm ${phase.status === 'completed' ? 'bg-primary/20 text-primary' :
                                 phase.status === 'current' ? 'bg-yellow-500/20 text-yellow-500' : 'bg-muted text-muted-foreground'
                             }`}>
                             {phase.status}
