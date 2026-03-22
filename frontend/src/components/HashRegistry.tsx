@@ -24,6 +24,11 @@ import { triggerSuccessConfetti } from '../utils/confetti';
 import { useHashing } from '../hooks/useHashing';
 import { useContractCall } from '../hooks/useContractCall';
 
+const SHAKE_ANIMATION = {
+  x: [0, -10, 10, -10, 10, 0],
+  transition: { duration: 0.4 }
+};
+
 export const HashRegistry = () => {
   const { isConnected, userAddress } = useWallet();
   const { addToast } = useToast();
@@ -39,6 +44,12 @@ export const HashRegistry = () => {
     const timer = setTimeout(() => setIsLoading(false), 1200);
     return () => clearTimeout(timer);
   }, []);
+
+  const handleError = (msg: string) => {
+    addToast(msg, 'error');
+    controls.start(SHAKE_ANIMATION);
+    triggerHaptic('error');
+  };
 
   /**
    * Triggers a visual 'shake' animation on the card.
