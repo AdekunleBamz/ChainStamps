@@ -32,6 +32,10 @@ export class LogicErrorBoundary extends Component<Props, State> {
         console.error('Uncaught error:', error, errorInfo);
     }
 
+    /**
+     * Resets the error state and redirects the user to the home page.
+     * Used as a last-resort recovery mechanism from fatal logic errors.
+     */
     private handleReset = () => {
         this.setState({ hasError: false, error: null });
         window.location.href = '/';
