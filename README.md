@@ -2,6 +2,13 @@
 
 ChainStamps is a decentralized application for permanent on-chain document verification, message stamping, and key-value storage. Built on the Stacks blockchain and secured by Bitcoin, it provides an immutable and trustworthy way to store and verify information.
 
+## 🏗️ System Architecture
+
+ChainStamps follows a modular architecture:
+- **Smart Contracts**: Written in Clarity, running on Stacks.
+- **Frontend**: React-based SPA with Stacks.js integration.
+- **Security**: Anchored to Bitcoin for finality.
+
 <div align="center">
 
 ![Clarity](https://img.shields.io/badge/Clarity-Smart%20Contracts-blue?style=for-the-badge)
