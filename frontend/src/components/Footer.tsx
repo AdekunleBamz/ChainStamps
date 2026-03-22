@@ -8,7 +8,7 @@ import { motion } from 'framer-motion';
  */
 export const Footer = () => {
   return (
-    <footer className="footer" aria-label="Site Footer">
+    <footer className="footer" aria-label="Site Footer" role="contentinfo">
       <div className="footer-content">
         <div className="footer-brand flex-center" aria-label="ChainStamps Branding">
           <img src="/logo.png" alt="ChainStamps Logo" className="logo-img" aria-label="ChainStamps Brand Logo" />
