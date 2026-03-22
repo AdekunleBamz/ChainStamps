@@ -17,7 +17,11 @@ export interface RegistryConfig {
 }
 
 /**
- * Configuration for the various ChainStamp registries, including names, full addresses, and fees.
+ * Central configuration for the various ChainStamp registries.
+ * This object maps registry keys to their respective names, full addresses, 
+ * and current transaction fees in microSTX.
+ * 
+ * @constant {Record<string, RegistryConfig>}
  */
 export const CONTRACTS: Record<string, RegistryConfig> = {
   hashRegistry: {
