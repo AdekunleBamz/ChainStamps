@@ -38,10 +38,13 @@ const FaviconManager = () => {
 }
 
 /**
- * The root component of the application.
- * Manages the top-level providers, layout, and global registry filtering.
+ * Main Application component.
+ * Acts as the root coordinator for the ChainStamp frontend, managing:
+ * - Global layout structure (Hero, Search, Roadmap)
+ * - Integration with Wallet and Toast providers
+ * - Registry filtering and search logic
  * 
- * @returns {JSX.Element} The rendered application.
+ * @component
  */
 const App = () => {
   const [searchQuery, setSearchQuery] = useState('');
