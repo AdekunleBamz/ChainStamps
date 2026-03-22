@@ -26,6 +26,10 @@ export const CopyButton = ({ value, className, size = 14 }: CopyButtonProps) => 
     const [copied, setCopied] = useState(false);
     const { addToast } = useToast();
 
+    /**
+     * Executes the copy-to-clipboard action using the Navigator API.
+     * Triggers success/error toasts and haptic feedback.
+     */
     const handleCopy = async () => {
         try {
             await navigator.clipboard.writeText(value);
