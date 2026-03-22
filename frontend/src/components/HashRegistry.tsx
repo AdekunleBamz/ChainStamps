@@ -40,6 +40,10 @@ export const HashRegistry = () => {
     return () => clearTimeout(timer);
   }, []);
 
+  /**
+   * Triggers a visual 'shake' animation on the card.
+   * Used to indicate validation errors or missing required state.
+   */
   const shake = async () => {
     await controls.start({
       x: [-10, 10, -10, 10, 0],
@@ -47,6 +51,10 @@ export const HashRegistry = () => {
     });
   };
 
+  /**
+   * Captures file selection from the input, computes its SHA-256 hash,
+   * and resets the contract interaction state.
+   */
   const handleFileChange = async (e: React.ChangeEvent<HTMLInputElement>) => {
     const selectedFile = e.target.files?.[0];
     if (selectedFile) {
