@@ -1,6 +1,9 @@
 import { motion } from 'framer-motion';
 import { CheckCircle2, Circle, Clock } from 'lucide-react';
 
+/**
+ * Static metadata for the project roadmap phases.
+ */
 const ROADMAP_PHASES = [
     {
         title: "Phase 1: Foundation",
@@ -24,6 +27,11 @@ interface RoadmapPhaseProps {
     index: number;
 }
 
+/**
+ * Individual roadmap phase card component.
+ * 
+ * @param {RoadmapPhaseProps} props - Component properties.
+ */
 const RoadmapPhase = ({ phase, index }: RoadmapPhaseProps) => {
     return (
         <motion.div
