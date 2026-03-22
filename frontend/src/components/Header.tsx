@@ -9,16 +9,13 @@ import { CopyButton } from './ui/CopyButton';
 import { AnimatedNumber } from './ui/AnimatedNumber';
 
 /**
- * Header component that serves as the primary navigation and wallet interaction hub.
+ * Global Header component that serves as the primary navigation and wallet interaction hub.
+ * Provides site-wide navigation, logo, and wallet connection status.
  * Features:
  * - Responsive navigation links
  * - Real-time Stacks block height display
  * - Stacks wallet connection/disconnection management
  * - Scrolled state background transformation
- */
-/**
- * Global Header component.
- * Provides site-wide navigation, logo, and wallet connection status.
  * Handles mobile menu toggle and sticky scroll behavior.
  * 
  * @component
