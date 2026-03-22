@@ -216,15 +216,17 @@ export const wcSignTransaction = async (
 
 /**
  * Call a contract method via WalletConnect.
+ * This is the primary method for interacting with the ChainStamp smart contracts.
  * 
  * @param {Object} params - The contract call parameters.
- * @param {string} params.contractAddress - The address of the contract.
- * @param {string} params.contractName - The name of the contract.
- * @param {string} params.functionName - The name of the function to call.
- * @param {string[]} params.functionArgs - The arguments to pass to the function.
- * @param {string[]} [params.postConditions] - Optional post-conditions for the transaction.
- * @param {number} [params.stxAmount] - Optional STX amount to send with the call.
- * @returns {Promise<{ txid: string }>} A promise resolving to the transaction ID.
+ * @param {string} params.contractAddress - The Stacks address of the contract.
+ * @param {string} params.contractName - The human-readable name of the contract.
+ * @param {string} params.functionName - The name of the function to invoke (e.g., 'store-hash').
+ * @param {any[]} params.functionArgs - The arguments to pass to the function (Clarity value types).
+ * @param {string[]} [params.postConditions] - Optional post-conditions to secure the transaction.
+ * @param {number} [params.stxAmount] - Optional STX amount (in microSTX) to transfer during the call.
+ * @returns {Promise<{ txid: string }>} A promise resolving to the broadcasted transaction ID.
+ * @throws {Error} If the provider is not connected or the request is rejected.
  */
 export const wcCallContract = async (params: {
   contractAddress: string;
