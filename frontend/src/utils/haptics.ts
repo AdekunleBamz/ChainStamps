@@ -1,9 +1,10 @@
 /**
- * Triggers a subtle haptic vibration on supported devices.
+ * Triggers haptic feedback on supported devices.
+ * Uses the Web Vibration API to provide sensory cues for user interactions.
  * 
- * @param {'light' | 'medium' | 'heavy' | 'error' | 'success'} type - The intensity or pattern of haptic feedback.
+ * @param {'light' | 'medium' | 'heavy' | 'error' | 'success'} type - The intensity/pattern of the vibration.
  */
-export const triggerHaptic = (type: 'light' | 'medium' | 'heavy' | 'error' | 'success' = 'light') => {
+export const triggerHaptic = (type: 'light' | 'medium' | 'heavy' | 'error' | 'success') => {
     if (typeof window !== 'undefined' && 'vibrate' in navigator) {
         switch (type) {
             case 'light':
