@@ -15,10 +15,11 @@ interface EmptyStateProps {
 }
 
 /**
- * A component that displays a visually appealing empty state with an icon, title, and description.
+ * A component that displays a visually stunning empty state with an abstract SVG illustration.
+ * Used when search results are empty or a category has no items.
  * 
- * @param {EmptyStateProps} props - The component properties.
- * @returns {JSX.Element} The rendered empty state view.
+ * @param {EmptyStateProps} props - Component properties.
+ * @component
  */
 export const EmptyState = ({ title, description, action }: EmptyStateProps) => {
     return (
