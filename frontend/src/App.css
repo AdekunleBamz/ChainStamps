@@ -60,6 +60,11 @@
   
   --success: #22c55e;
   --warning: #f59e0b;
+  
+  /* Input Constants */
+  --input-transition: all 0.2s ease;
+  --input-focus-glow: 0 0 0 2px rgba(99, 102, 241, 0.2);
+  
   --error: #ef4444;
   --border: #2a2a3a;
   --gradient: linear-gradient(135deg, #6366f1 0%, #8b5cf6 50%, #a855f7 100%);
