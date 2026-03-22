@@ -2,6 +2,21 @@
 
 ChainStamps is a decentralized application for permanent on-chain document verification, message stamping, and key-value storage. Built on the Stacks blockchain and secured by Bitcoin, it provides an immutable and trustworthy way to store and verify information.
 
+## Getting Started
+
+### Installation
+
+```bash
+# Clone the repository
+git clone https://github.com/AdekunleBamz/ChainStamps.git
+
+# Install dependencies
+npm install
+
+# Start the development server
+npm run dev
+```
+
 <div align="center">
 
 ![Clarity](https://img.shields.io/badge/Clarity-Smart%20Contracts-blue?style=for-the-badge)
