@@ -5,10 +5,21 @@
 export const CONTRACT_ADDRESS = "SP5K2RHMSBH4PAP4PGX77MCVNK1ZEED07CWX9TJT";
 
 /**
- * Configuration for the various ChainStamp registries, including names, full addresses, and fees.
- * @constant {Object}
+ * Interface for ChainStamp registry contract configuration.
  */
-export const CONTRACTS = {
+export interface RegistryConfig {
+  /** The human-readable name of the contract. */
+  name: string;
+  /** The fully qualified principal address and contract name. */
+  address: string;
+  /** The transaction fee in microSTX. */
+  fee: number;
+}
+
+/**
+ * Configuration for the various ChainStamp registries, including names, full addresses, and fees.
+ */
+export const CONTRACTS: Record<string, RegistryConfig> = {
   hashRegistry: {
     name: "hash-registry",
     address: `${CONTRACT_ADDRESS}.hash-registry`,
