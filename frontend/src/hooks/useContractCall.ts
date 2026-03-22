@@ -13,9 +13,18 @@ interface ContractCallParams {
 
 /**
  * Custom hook for making Stacks contract calls via WalletConnect.
- * Manages loading state, transaction ID, and provides toast notifications.
+ * Manages the full transaction lifecycle including:
+ * - Loading/submission state
+ * - Transaction ID tracking
+ * - Success/Error toast notifications
+ * - Triggering success animations (confetti)
  * 
  * @returns {Object} Call state and execute function.
+ * @property {boolean} isSubmitting - True when a transaction is pending.
+ * @property {string|null} txId - The Stacks transaction ID after successful broadcast.
+ * @property {string|null} error - Error message if the call fails.
+ * @property {function} execute - Function to trigger the contract call.
+ * @property {function} reset - Function to clear the hook's state.
  */
 export const useContractCall = () => {
   const [isSubmitting, setIsSubmitting] = useState(false);
