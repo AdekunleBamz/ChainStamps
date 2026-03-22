@@ -32,7 +32,9 @@ ChainStamps is a Clarity smart contract suite for the Stacks blockchain that ena
 
 All data is secured by Bitcoin's proof-of-work, providing the highest level of security for your on-chain records.
 
-## ChainStamps follows a modern React architecture with:
+## Architecture & DX
+
+ChainStamps follows a modern React architecture with:
 - **Shared UI Layer**: Decoupled, reusable components (Button, SuccessMessage, etc.).
 - **Logic Hooks**: Isolated state management for hashing and contract calls.
 - **Strict Documentation**: Comprehensive JSDoc coverage for all core features.
