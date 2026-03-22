@@ -9,7 +9,11 @@ interface SuccessMessageProps {
 }
 
 /**
- * Shared component for displaying successful transaction feedback.
+ * SuccessMessage component for displaying transaction feedback.
+ * 
+ * @param {Object} props - Component properties.
+ * @param {string} props.message - The success message to display.
+ * @param {string|null} props.txId - The Stacks transaction ID to link to the explorer.
  */
 export const SuccessMessage: React.FC<SuccessMessageProps> = ({ 
   message, 
