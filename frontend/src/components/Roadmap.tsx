@@ -1,5 +1,6 @@
 import { motion } from 'framer-motion';
 import { CheckCircle2, Circle, Clock } from 'lucide-react';
+import { memo } from 'react';
 
 /**
  * Static metadata for the project roadmap phases.
@@ -34,7 +35,7 @@ interface RoadmapPhaseProps {
  * 
  * @param {RoadmapPhaseProps} props - Component properties.
  */
-const RoadmapPhase = ({ phase, index }: RoadmapPhaseProps) => {
+const RoadmapPhase = memo(({ phase, index }: RoadmapPhaseProps) => {
     return (
         <motion.div
             initial={{ opacity: 0, x: index % 2 === 0 ? -20 : 20 }}
@@ -86,7 +87,7 @@ const RoadmapPhase = ({ phase, index }: RoadmapPhaseProps) => {
             </div>
         </motion.div>
     );
-}
+});
 
 /**
  * Main Roadmap section displaying the project's evolution and future plans.
