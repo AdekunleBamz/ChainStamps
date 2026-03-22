@@ -58,15 +58,21 @@ const RoadmapPhase = ({ phase, index }: RoadmapPhaseProps) => {
 
                 <div className="flex-1">
                     <div className="flex-between mb-2">
-                        <h3 className="text-xl font-bold">{phase.title}</h3>
-                        <span className={`text-xs px-2 py-1 rounded-full uppercase font-bold tracking-wider shadow-sm ${phase.status === 'completed' ? 'bg-primary/20 text-primary' :
+                        <h3 className="text-xl font-bold" id={`phase-title-${index}`}>{phase.title}</h3>
+                        <span 
+                            className={`text-xs px-2 py-1 rounded-full uppercase font-bold tracking-wider shadow-sm ${phase.status === 'completed' ? 'bg-primary/20 text-primary' :
                                 phase.status === 'current' ? 'bg-yellow-500/20 text-yellow-500' : 'bg-muted text-muted-foreground'
-                            }`}>
+                            }`}
+                            aria-current={phase.status === 'current' ? 'step' : undefined}
+                        >
                             {phase.status}
                         </span>
                     </div>
 
-                    <ul className="grid grid-cols-1 md:grid-cols-2 gap-2">
+                    <ul 
+                        className="grid grid-cols-1 md:grid-cols-2 gap-2"
+                        aria-labelledby={`phase-title-${index}`}
+                    >
                         {phase.items.map((item, i) => (
                             <li key={i} className="text-sm text-muted-foreground flex items-center gap-2">
                                 <div className="w-1.5 h-1.5 rounded-full bg-primary/40" />
