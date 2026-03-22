@@ -73,6 +73,7 @@ const App = () => {
             <ToastContainer />
             <Header />
             <main id="main-content" className="main" tabIndex={-1} aria-label="Main Application Content">
+              <h1 className="sr-only">ChainStamps: Secure and Permanent On-Chain Document Verification on Bitcoin via Stacks</h1>
               <Hero />
 
               <motion.div
