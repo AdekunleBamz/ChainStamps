@@ -27,8 +27,18 @@ export const Header = () => {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
 
   useEffect(() => {
-    const handleScroll = () => setIsScrolled(window.scrollY > 20);
-    window.addEventListener('scroll', handleScroll);
+    let ticking = false;
+    const handleScroll = () => {
+      if (!ticking) {
+        window.requestAnimationFrame(() => {
+          setIsScrolled(window.scrollY > 20);
+          ticking = false;
+        });
+        ticking = true;
+      }
+    };
+    
+    window.addEventListener('scroll', handleScroll, { passive: true });
 
     const fetchBlockHeight = async () => {
       try {
@@ -80,7 +90,7 @@ export const Header = () => {
       )}>
         <div className="header-content flex-between">
           <a className="logo flex-center" href="#top" aria-label="ChainStamps - Back to top" rel="home">
-            <img src="/logo.png" alt="ChainStamps Logo" className="logo-img" width="32" height="32" />
+            <img src="/logo.png" alt="ChainStamps Logo" className="logo-img" width="32" height="32" decoding="async" />
             <span className="logo-text">ChainStamps</span>
           </a>
 
