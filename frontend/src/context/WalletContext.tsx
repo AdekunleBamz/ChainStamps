@@ -31,11 +31,11 @@ const WalletContext = createContext<WalletContextType | undefined>(undefined);
 const DEBUG = import.meta.env.VITE_DEBUG === 'true';
 
 /**
- * Provides wallet connection state and methods to the application.
+ * Provider component for managing Stacks wallet connection state.
+ * Handles WalletConnect sessions, QR modal visibility, and account metadata.
  * 
- * @param {Object} props - The component properties.
- * @param {ReactNode} props.children - The child components to be wrapped by the provider.
- * @returns {JSX.Element} The rendered provider component.
+ * @param {Object} props - Component properties.
+ * @param {React.ReactNode} props.children - The child components to render within the provider.
  */
 export const WalletProvider = ({ children }: { children: ReactNode }) => {
   const [isConnected, setIsConnected] = useState(false);
