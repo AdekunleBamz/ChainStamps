@@ -35,7 +35,8 @@ export const Hero = () => {
       <div className="hero-glow" aria-hidden="true" />
 
       <motion.h1 className="hero-title" variants={itemVariants}>
-        <span className="gradient-text from-primary to-accent-hover">ChainStamp</span>
+        <span className="gradient-text from-primary to-accent-hover">ChainStamps</span>
+        <span className="sr-only">: Secure Blockchain Document Verification</span>
       </motion.h1>
 
       <motion.p className="hero-subtitle" variants={itemVariants} aria-label="Subtitle: Permanent on-chain verification">
