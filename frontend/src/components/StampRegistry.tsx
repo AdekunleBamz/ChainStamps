@@ -97,8 +97,10 @@ export const StampRegistry = () => {
       animate={controls}
     >
       <Breadcrumbs items={[{ label: 'Stamp Registry' }]} />
-      <div className="card-header">
-        <Stamp className="card-icon" size={24} strokeWidth={1.5} />
+      <div className="card-header flex-between mb-2">
+        <div className="flex items-center gap-2">
+          <Stamp className="card-icon" size={24} strokeWidth={1.5} />
+        </div>
         <h2>Stamp Registry</h2>
         <Tooltip content="Stacks network transaction fee (paid in STX)">
           <span className="fee-badge">
