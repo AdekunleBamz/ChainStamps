@@ -6,6 +6,12 @@ import { motion } from 'framer-motion';
  * 
  * @returns {JSX.Element} The rendered footer.
  */
+/**
+ * Global Footer component.
+ * Displays copyright information, social links, and site-wide navigation landmarks.
+ * 
+ * @component
+ */
 export const Footer = () => {
   return (
     <footer className="footer" aria-label="Site Footer" role="contentinfo">
