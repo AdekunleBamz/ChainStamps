@@ -118,7 +118,7 @@ export const Header = () => {
               isConnected ? "connected" : isConnecting ? "connecting" : "disconnected"
             )} style={{ marginRight: '12px' }} title={isConnected ? "Connected" : isConnecting ? "Connecting..." : "Disconnected"} />
             {isConnected ? (
-              <div className="wallet-connected flex items-center gap-2">
+              <div className="wallet-connected flex-center gap-2">
                 <div className="flex items-center gap-2 rounded-xl border border-border bg-background/50 pl-3 pr-1 py-1 shadow-inner">
                   <span className="text-sm font-mono text-muted-foreground mr-1">
                     {userAddress?.slice(0, 6)}...{userAddress?.slice(-4)}
