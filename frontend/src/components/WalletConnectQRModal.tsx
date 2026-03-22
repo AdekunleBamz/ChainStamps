@@ -3,20 +3,22 @@ import { QRCodeSVG } from 'qrcode.react';
 import { Button } from './ui/Button';
 import { motion } from 'framer-motion';
 
-interface WalletConnectQRModalProps {
-  uri: string;
-  onClose: () => void;
-}
-
+/**
+ * Modal component for displaying a WalletConnect QR code.
+ * 
+ * @param {WalletConnectQRModalProps} props - Component properties.
+ * @param {string} props.uri - The WalletConnect pairing URI.
+ * @param {() => void} props.onClose - Callback when the modal is closed.
+ */
 export const WalletConnectQRModal = ({ uri, onClose }: WalletConnectQRModalProps) => {
   // Create a camera-friendly link for mobile users
   const mobileLink = `https://walletconnect.com/wc?uri=${encodeURIComponent(uri)}`;
 
   return (
-    <div className="qr-modal-overlay" onClick={onClose}>
-      <div className="qr-modal" onClick={(e) => e.stopPropagation()}>
-        <div className="qr-modal-header">
-          <h3>Connect Wallet</h3>
+    <div className="qr-modal-overlay flex-center" onClick={onClose} role="dialog" aria-modal="true" aria-labelledby="qr-modal-title">
+      <div className="qr-modal glass shadow-lg" onClick={(e) => e.stopPropagation()}>
+        <div className="qr-modal-header flex-between mb-4">
+          <h3 id="qr-modal-title">Connect Wallet</h3>
           <Button
             variant="ghost"
             size="icon"
