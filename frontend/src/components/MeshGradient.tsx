@@ -1,3 +1,5 @@
+import { motion } from 'framer-motion';
+
 const ANIMATIONS = {
   blob1: {
     animate: {
