@@ -28,7 +28,10 @@ const ANIMATIONS = {
 };
 
 /**
- * A decorative mesh gradient background component with smooth animations.
+ * MeshGradient background component.
+ * Provides a visually rich, animated background with glassmorphism effects.
+ * 
+ * @component
  */
 export const MeshGradient = () => {
     return (
