@@ -23,10 +23,10 @@ export const StampRegistry = () => {
   const { isConnected, userAddress } = useWallet();
   const { addToast } = useToast();
   const [message, setMessage] = useState('');
-  const [status, setStatus] = useState<'idle' | 'submitting' | 'success' | 'error'>('idle');
-  const [txId, setTxId] = useState('');
   const [isLoading, setIsLoading] = useState(true);
   const controls = useAnimation();
+
+  const { isSubmitting, txId, execute } = useContractCall();
 
   useEffect(() => {
     const timer = setTimeout(() => setIsLoading(false), 1200);
@@ -49,33 +49,23 @@ export const StampRegistry = () => {
       return;
     }
 
-    setStatus('submitting');
-
     try {
-      const result = await wcCallContract({
+      await execute({
         contractAddress: CONTRACT_ADDRESS,
         contractName: CONTRACTS.stampRegistry.name,
         functionName: 'stamp-message',
         functionArgs: [message],
         stxAmount: CONTRACTS.stampRegistry.fee,
-      });
-
-      setTxId(result.txid);
-      setStatus('success');
+      }, 'Message stamped successfully!');
       setMessage('');
-      addToast('Message stamped successfully!', 'success');
-      triggerSuccessConfetti();
-    } catch (error: any) {
-      console.error('Transaction failed:', error);
-      setStatus('error');
-      const errorMessage = error.message || 'Failed to stamp message. Please try again.';
-      addToast(errorMessage, 'error');
+    } catch (error) {
+      // Error handled by hook
     }
   };
 
   const handleKeyDown = (e: React.KeyboardEvent) => {
     if ((e.metaKey || e.ctrlKey) && e.key === 'Enter') {
-      if (message && isConnected && status !== 'submitting') {
+      if (message && isConnected && !isSubmitting) {
         stampMessage();
       }
     }
