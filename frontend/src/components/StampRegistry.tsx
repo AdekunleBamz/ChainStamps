@@ -134,7 +134,7 @@ export const StampRegistry = () => {
         aria-busy={status === 'submitting'}
         variant="primary"
         size="lg"
-        className="submit-btn w-full"
+        className="submit-btn w-full flex-center"
       >
         {status === 'submitting' ? (
           <>
