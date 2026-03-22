@@ -46,14 +46,10 @@ const FaviconManager = () => {
 const App = () => {
   const [searchQuery, setSearchQuery] = useState('');
 
-  const registries = [
+  const registries = useMemo(() => [
     { id: 'hash', name: 'Hash Registry', component: <HashRegistry /> },
     { id: 'stamp', name: 'Stamp Registry', component: <StampRegistry /> },
     { id: 'tag', name: 'Tag Registry', component: <TagRegistry /> },
-  ];
-
-  const filteredRegistries = registries.filter(reg =>
-    reg.name.toLowerCase().includes(searchQuery.toLowerCase())
   ], []);
 
   const filteredRegistries = useMemo(() =>
