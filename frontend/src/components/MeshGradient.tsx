@@ -38,11 +38,11 @@ export const MeshGradient = () => {
         <div className="fixed inset-0 -z-10 overflow-hidden pointer-events-none" aria-hidden="true">
             <motion.div
                 {...ANIMATIONS.blob1}
-                className="absolute top-[-10%] left-[-10%] w-[50%] h-[50%] rounded-full bg-primary/20 blur-[120px] will-change-transform"
+                className="absolute top-[-10%] left-[-10%] w-[50%] h-[50%] aspect-square rounded-full bg-primary/20 blur-[120px] will-change-transform"
             />
             <motion.div
                 {...ANIMATIONS.blob2}
-                className="absolute bottom-[-20%] right-[-10%] w-[60%] h-[60%] rounded-full bg-primary/10 blur-[150px] will-change-transform"
+                className="absolute bottom-[-20%] right-[-10%] w-[60%] h-[60%] aspect-square rounded-full bg-primary/10 blur-[150px] will-change-transform"
             />
             <div className="absolute inset-0 bg-background/40 backdrop-blur-[1px]" />
         </div>
