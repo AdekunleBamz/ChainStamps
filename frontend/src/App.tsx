@@ -109,7 +109,7 @@ const App = () => {
                     </button>
                   )}
                 </div>
-                <div className="search-meta" role="status" aria-live="polite">
+                <div className="search-meta" id="search-metadata" role="status" aria-live="polite">
                   <span>
                     Showing {filteredRegistries.length} of {registries.length} registries
                   </span>
