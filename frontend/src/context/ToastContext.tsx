@@ -18,11 +18,18 @@ interface Toast {
  * The structure of the toast context, providing methods to add and remove notifications.
  */
 interface ToastContextType {
-    /** Array of currently active toast notifications. */
+    /** Array of currently active toast notifications visible on the screen. */
     toasts: Toast[];
-    /** Function to add a new toast notification. */
+    /** 
+     * Adds a new toast notification.
+     * @param {string} message - The text to display in the toast.
+     * @param {ToastType} [type] - The visual style (success, error, info, warning).
+     */
     addToast: (message: string, type?: ToastType) => void;
-    /** Function to remove a specific toast notification by its ID. */
+    /** 
+     * Manually removes a toast by its ID.
+     * @param {string} id - The unique identifier of the toast to remove.
+     */
     removeToast: (id: string) => void;
 }
 
