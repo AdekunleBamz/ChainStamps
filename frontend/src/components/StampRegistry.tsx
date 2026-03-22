@@ -72,7 +72,7 @@ export const StampRegistry = () => {
   const handleKeyDown = (e: React.KeyboardEvent) => {
     if ((e.metaKey || e.ctrlKey) && e.key === 'Enter') {
       if (message && isConnected && !isSubmitting) {
-        stampMessage();
+        storeStamp();
       }
     }
   };
