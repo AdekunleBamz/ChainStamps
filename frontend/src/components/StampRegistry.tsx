@@ -2,7 +2,7 @@ import { useState, useEffect } from 'react';
 import { motion, useAnimation } from 'framer-motion';
 import { useWallet } from '../context/WalletContext';
 import { CONTRACT_ADDRESS, CONTRACTS } from '../config/contracts';
-import { Stamp, CheckCircle, AlertCircle } from 'lucide-react';
+import { Stamp } from 'lucide-react';
 import { CardSkeleton } from './ui/Skeleton';
 import { Tooltip } from './ui/Tooltip';
 import { Breadcrumbs } from './ui/Breadcrumbs';
