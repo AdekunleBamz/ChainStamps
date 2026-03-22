@@ -13,9 +13,12 @@ import { useToast } from '../context/ToastContext';
 import { triggerSuccessConfetti } from '../utils/confetti';
 
 /**
- * A registry component for storing and managing key-value tags on the Stacks blockchain.
- * 
- * @returns {JSX.Element} The rendered tag registry component.
+ * TagRegistry component for managing key-value metadata on the Stacks blockchain.
+ * Features:
+ * - Arbitrary key-value pair storage
+ * - Real-time character count tracking
+ * - Transaction feedback with explorer integration
+ * - Stacks wallet authentication integration
  */
 export const TagRegistry = () => {
   const { isConnected, userAddress } = useWallet();
