@@ -1,83 +1,83 @@
 import { Shield, Clock, Database } from 'lucide-react';
 import { motion } from 'framer-motion';
+import { memo } from 'react';
+
+const CONTAINER_VARIANTS = {
+  hidden: { opacity: 0 },
+  visible: {
+    opacity: 1,
+    transition: {
+      staggerChildren: 0.1,
+      delayChildren: 0.2,
+    },
+  },
+};
+
+const ITEM_VARIANTS = {
+  hidden: { opacity: 0, y: 20 },
+  visible: { opacity: 1, y: 0 },
+};
+
+const FeatureItem = memo(({ icon: Icon, title, description, ariaLabel }: { icon: any, title: string, description: string, ariaLabel: string }) => (
+  <motion.div className="feature group will-change-transform" variants={ITEM_VARIANTS} aria-label={ariaLabel}>
+    <div className="feature-icon-wrapper flex-center shadow-md">
+      <Icon className="feature-icon" size={40} strokeWidth={1.5} />
+    </div>
+    <h3>{title}</h3>
+    <p>{description}</p>
+  </motion.div>
+));
 
 /**
- * Hero section of the landing page.
- * Displays the main value proposition, a visual glow effect, 
- * and a grid of core features (Immutable, Timestamped, Verifiable) 
- * with framer-motion animations.
- */
-/**
  * Hero section component.
- * Displays the main value proposition, primary brand messaging, 
- * and core feature highlights (Immutable, Timestamped, Verifiable).
+ * Displays the main value proposition and core feature highlights.
+ * Optimized with component memoization and GPU-accelerated animations.
  * 
  * @component
  */
 export const Hero = () => {
-  const containerVariants = {
-    hidden: { opacity: 0 },
-    visible: {
-      opacity: 1,
-      transition: {
-        staggerChildren: 0.1,
-        delayChildren: 0.2,
-      },
-    },
-  };
-
-  const itemVariants = {
-    hidden: { opacity: 0, y: 20 },
-    visible: { opacity: 1, y: 0 },
-  };
-
   return (
     <motion.section
       className="hero relative overflow-hidden"
       initial="hidden"
       animate="visible"
-      variants={containerVariants}
+      variants={CONTAINER_VARIANTS}
     >
-      {/* Radial Glow Effect */}
       <div className="hero-glow" aria-hidden="true" />
 
-      <motion.h1 className="hero-title will-change-transform" variants={itemVariants}>
+      <motion.h1 className="hero-title will-change-transform" variants={ITEM_VARIANTS}>
         <span className="gradient-text from-primary to-accent-hover">ChainStamps</span>
         <span className="sr-only">: Secure Blockchain Document Verification</span>
       </motion.h1>
 
-      <motion.p className="hero-subtitle will-change-transform" variants={itemVariants} aria-label="Subtitle: Permanent on-chain verification">
+      <motion.p className="hero-subtitle will-change-transform" variants={ITEM_VARIANTS} aria-label="Subtitle: Permanent on-chain verification">
         Permanent on-chain verification for documents, messages, and data
       </motion.p>
 
-      <motion.p className="hero-description will-change-transform" variants={itemVariants} aria-label="Description: Detailed explanation of ChainStamps and Stacks blockchain integration">
+      <motion.p className="hero-description will-change-transform" variants={ITEM_VARIANTS} aria-label="Description: Detailed explanation of ChainStamps and Stacks blockchain integration">
         Store SHA-256 hashes, timestamps, and metadata immutably on
         Bitcoin's most secure layer through the Stacks blockchain.
       </motion.p>
-      <motion.div className="features" variants={containerVariants}>
-        <motion.div className="feature group will-change-transform" variants={itemVariants} aria-label="Feature: Immutable - Data secured by Bitcoin's proof-of-work">
-          <div className="feature-icon-wrapper flex-center shadow-md">
-            <Shield className="feature-icon" size={40} strokeWidth={1.5} aria-label="Security Shield Icon" />
-          </div>
-          <h3>Immutable</h3>
-          <p>Data secured by Bitcoin's proof-of-work</p>
-        </motion.div>
 
-        <motion.div className="feature group will-change-transform" variants={itemVariants} aria-label="Feature: Timestamped - Permanent proof of existence">
-          <div className="feature-icon-wrapper flex-center shadow-md">
-            <Clock className="feature-icon" size={40} strokeWidth={1.5} aria-label="Timestamp Clock Icon" />
-          </div>
-          <h3>Timestamped</h3>
-          <p>Permanent proof of existence</p>
-        </motion.div>
-
-        <motion.div className="feature group will-change-transform" variants={itemVariants} aria-label="Feature: Verifiable - Anyone can verify your data">
-          <div className="feature-icon-wrapper flex-center shadow-md">
-            <Database className="feature-icon" size={40} strokeWidth={1.5} aria-label="Database Storage Icon" />
-          </div>
-          <h3>Verifiable</h3>
-          <p>Anyone can verify your data</p>
-        </motion.div>
+      <motion.div className="features" variants={CONTAINER_VARIANTS}>
+        <FeatureItem 
+          icon={Shield} 
+          title="Immutable" 
+          description="Data secured by Bitcoin's proof-of-work" 
+          ariaLabel="Feature: Immutable" 
+        />
+        <FeatureItem 
+          icon={Clock} 
+          title="Timestamped" 
+          description="Permanent proof of existence" 
+          ariaLabel="Feature: Timestamped" 
+        />
+        <FeatureItem 
+          icon={Database} 
+          title="Verifiable" 
+          description="Anyone can verify your data" 
+          ariaLabel="Feature: Verifiable" 
+        />
       </motion.div>
     </motion.section>
   );
