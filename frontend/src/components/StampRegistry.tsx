@@ -12,6 +12,12 @@ import { useContractCall } from '../hooks/useContractCall';
 import { SuccessMessage } from './ui/SuccessMessage';
 import { WarningMessage } from './ui/WarningMessage';
 import { SubmitButton } from './ui/SubmitButton';
+import { triggerHaptic } from '../utils/haptics';
+
+const SHAKE_ANIMATION = {
+  x: [0, -10, 10, -10, 10, 0],
+  transition: { duration: 0.4 }
+};
 
 export const StampRegistry = () => {
   const { isConnected, userAddress } = useWallet();
