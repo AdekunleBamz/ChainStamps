@@ -27,6 +27,8 @@ export function AnimatedNumber({ value, className, prefix = '', suffix = '', dec
     const [displayValue, setDisplayValue] = useState(value);
 
     useEffect(() => {
+        if (displayValue === value) return;
+
         const controls = animate(displayValue, value, {
             duration: 1.5,
             ease: "easeOut",
@@ -35,7 +37,7 @@ export function AnimatedNumber({ value, className, prefix = '', suffix = '', dec
 
         return () => controls.stop();
     }, [value]);
-
+ Riverside
     return (
         <span 
             className={className}
