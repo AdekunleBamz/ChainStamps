@@ -14,9 +14,12 @@ import { useToast } from '../context/ToastContext';
 import { triggerSuccessConfetti } from '../utils/confetti';
 
 /**
- * A registry component for storing and verifying document hashes on the Stacks blockchain.
- * 
- * @returns {JSX.Element} The rendered hash registry component.
+ * HashRegistry component for anchoring document fingerprints to the Stacks blockchain.
+ * Supports:
+ * - Client-side SHA-256 hashing of files
+ * - Immutable storage of hashes with optional descriptions
+ * - Real-time transaction status feedback
+ * - Deep linking to the Stacks Explorer for verification
  */
 export const HashRegistry = () => {
   const { isConnected, userAddress } = useWallet();
@@ -148,10 +151,10 @@ export const HashRegistry = () => {
       </div>
 
       {hash && (
-        <div className="hash-display flex items-center justify-between">
+        <div className="hash-display flex-between gap-4">
           <div className="flex-1 overflow-hidden">
-            <label>SHA-256 Hash:</label>
-            <code className="block truncate">{hash}</code>
+            <label className="text-xs text-muted-foreground uppercase font-bold mb-1 block">SHA-256 Hash:</label>
+            <code className="block truncate text-primary/80">{hash}</code>
           </div>
           <CopyButton value={hash} size={16} className="ml-2 h-8 w-8" />
         </div>
