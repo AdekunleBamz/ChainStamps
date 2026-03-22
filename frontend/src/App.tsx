@@ -97,6 +97,7 @@ const App = () => {
                     className="search-input"
                     aria-label="Search registry cards"
                     aria-controls="registry-results"
+                    aria-keyshortcuts="Esc"
                   />
                   {searchQuery && (
                     <button
