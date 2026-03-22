@@ -18,6 +18,11 @@ export const StampRegistry = () => {
   const { addToast } = useToast();
   const [message, setMessage] = useState('');
   const [isLoading, setIsLoading] = useState(true);
+  /**
+   * Registry configuration for the Stamp features.
+   * Lists all available stamp-based contracts and their metadata.
+   */
+  const registries = [
   const controls = useAnimation();
 
   const { isSubmitting, txId, execute } = useContractCall();
