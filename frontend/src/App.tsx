@@ -100,7 +100,6 @@ const App = () => {
                     aria-controls="registry-results"
                     aria-keyshortcuts="Esc"
                   />
-                  {searchQuery && (
                     <button
                       type="button"
                       onClick={() => setSearchQuery('')}
@@ -109,7 +108,6 @@ const App = () => {
                     >
                       <X size={16} />
                     </button>
-                  )}
                 </div>
                 <div className="search-meta" id="search-metadata" role="status" aria-live="polite">
                   <span>
