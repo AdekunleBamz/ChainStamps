@@ -123,10 +123,16 @@ export const Header = () => {
           </nav>
 
           <div className="wallet-section">
-            <div className={twMerge(
-              "status-pulse",
-              isConnected ? "connected" : isConnecting ? "connecting" : "disconnected"
-            )} style={{ marginRight: '12px' }} title={isConnected ? "Connected" : isConnecting ? "Connecting..." : "Disconnected"} />
+            <div 
+              className={twMerge(
+                "status-pulse",
+                isConnected ? "connected" : isConnecting ? "connecting" : "disconnected"
+              )} 
+              style={{ marginRight: '12px' }} 
+              role="status"
+              aria-live="polite"
+              aria-label={`Wallet connection status: ${isConnected ? "Connected" : isConnecting ? "Connecting" : "Disconnected"}`}
+            />
             {isConnected ? (
               <div className="wallet-connected flex-center gap-2">
                 <div className="flex items-center gap-2 rounded-xl border border-border bg-background/50 pl-3 pr-1 py-1 shadow-inner">
