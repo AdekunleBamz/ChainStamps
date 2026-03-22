@@ -162,54 +162,24 @@ export const HashRegistry = () => {
         />
       </div>
 
-      <Button
-        onClick={storeHash}
-        disabled={!hash || !isConnected || isSubmitting}
-        aria-busy={isSubmitting || isHashing}
-        variant="primary"
-        size="lg"
-        className="submit-btn w-full flex-center"
-      >
-        {isSubmitting ? (
-          <>
-            <Loader2 className="spinning mr-2" size={18} strokeWidth={1.5} />
-            Storing...
-          </>
-        ) : isHashing ? (
-          <>
-            <Loader2 className="spinning mr-2" size={18} strokeWidth={1.5} />
-            Hashing...
-          </>
-        ) : (
-          'Store Hash On-Chain'
-        )}
-      </Button>
+import { SuccessMessage } from './ui/SuccessMessage';
+import { WarningMessage } from './ui/WarningMessage';
+import { SubmitButton } from './ui/SubmitButton';
 
-      {
-        status === 'success' && txId && (
-          <div className="success-message flex-center gap-2" role="status" aria-live="polite">
-            <CheckCircle size={18} />
-            <span>Hash stored! </span>
-            <a
-              href={`https://explorer.stacks.co/txid/${txId}?chain=mainnet`}
-              target="_blank"
-              rel="noopener noreferrer"
-              aria-label="View transaction on Stacks Explorer"
-            >
-              View transaction
-            </a>
-          </div>
-        )
-      }
- 
-      {
-        !isConnected && (
-          <div className="warning-message flex-center gap-2">
-            <AlertCircle size={18} />
-            Connect your wallet to store hashes
-          </div>
-        )
-      }
+// ... existing code ...
+
+      <SubmitButton
+        onClick={storeHash}
+        isLoading={isSubmitting}
+        disabled={!hash || !isConnected}
+        loadingText="Storing..."
+        idleText={isHashing ? 'Hashing...' : 'Store Hash On-Chain'}
+        ariaBusy={isSubmitting || isHashing}
+      />
+
+      <SuccessMessage message="Hash stored!" txId={txId} />
+      
+      {!isConnected && <WarningMessage />}
     </motion.section >
   );
 }
