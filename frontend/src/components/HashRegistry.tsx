@@ -56,10 +56,7 @@ export const HashRegistry = () => {
    * Used to indicate validation errors or missing required state.
    */
   const shake = async () => {
-    await controls.start({
-      x: [-10, 10, -10, 10, 0],
-      transition: { duration: 0.4 }
-    });
+    await controls.start(SHAKE_ANIMATION);
   };
 
   /**
@@ -74,15 +71,14 @@ export const HashRegistry = () => {
         await computeHash(selectedFile);
         resetContract();
       } catch (err) {
-        addToast('Failed to hash file', 'error');
+        handleError('Failed to hash file');
       }
     }
   };
 
   const storeHash = async () => {
     if (!hash || !isConnected || !userAddress) {
-      addToast('Please select a file first.', 'warning');
-      shake();
+      handleError('Please select a file first.');
       return;
     }
 
