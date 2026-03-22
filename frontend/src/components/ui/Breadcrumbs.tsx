@@ -5,9 +5,14 @@ import { ChevronRight, Home } from 'lucide-react';
  * Properties for the Breadcrumbs component.
  */
 interface BreadcrumbsProps {
-    /** An array of breadcrumb items, each with a label and optional link. */
+    /** 
+     * An array of navigation levels to display.
+     * Each item represents a step in the hierarchy.
+     */
     items: {
+        /** The display name for the breadcrumb step. */
         label: string;
+        /** Optional destination URL. If omitted, the label is rendered as plain text. */
         href?: string;
     }[];
 }
