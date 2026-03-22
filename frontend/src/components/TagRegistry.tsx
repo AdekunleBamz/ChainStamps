@@ -138,47 +138,18 @@ export const TagRegistry = () => {
         <span className="char-count" aria-live="polite">{value.length}/256</span>
       </div>
 
-      <Button
+      <SubmitButton
         onClick={storeTag}
-        disabled={!key || !value || !isConnected || isSubmitting}
-        aria-busy={isSubmitting}
-        variant="primary"
-        size="lg"
-        className="submit-btn w-full"
-      >
-        {isSubmitting ? (
-          <>
-            <Loader2 className="spinning mr-2" size={18} strokeWidth={1.5} />
-            Storing...
-          </>
-        ) : (
-          'Store Tag On-Chain'
-        )}
-      </Button>
+        isLoading={isSubmitting}
+        disabled={!key || !value || !isConnected}
+        loadingText="Storing..."
+        idleText="Store Tag On-Chain"
+        ariaBusy={isSubmitting}
+      />
 
-      {status === 'success' && txId && (
-        <div className="success-message flex-center gap-2" role="status" aria-live="polite">
-          <CheckCircle size={18} />
-          <span>Tag stored! </span>
-          <a
-            href={`https://explorer.stacks.co/txid/${txId}?chain=mainnet`}
-            target="_blank"
-            rel="noopener noreferrer"
-            aria-label="View tag storage transaction on Stacks Explorer"
-          >
-            View transaction
-          </a>
-        </div>
-      )}
+      <SuccessMessage message="Tag stored!" txId={txId} />
 
-      {
-        !isConnected && (
-          <div className="warning-message flex-center gap-2">
-            <AlertCircle size={18} />
-            Connect your wallet to store tags
-          </div>
-        )
-      }
+      {!isConnected && <WarningMessage />}
     </motion.section>
   );
 }
