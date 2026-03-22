@@ -104,9 +104,9 @@ export const Header = () => {
                 </span>
               </div>
             </Tooltip>
-            <a href="#hash" onClick={() => setIsMenuOpen(false)} aria-label="Navigate to Hash Registry section">Hash</a>
-            <a href="#stamp" onClick={() => setIsMenuOpen(false)} aria-label="Navigate to Stamp Registry section">Stamp</a>
-            <a href="#tag" onClick={() => setIsMenuOpen(false)} aria-label="Navigate to Tag Registry section">Tag</a>
+            <a href="#hash" className="transition-base" onClick={() => setIsMenuOpen(false)} aria-label="Navigate to Hash Registry section">Hash</a>
+            <a href="#stamp" className="transition-base" onClick={() => setIsMenuOpen(false)} aria-label="Navigate to Stamp Registry section">Stamp</a>
+            <a href="#tag" className="transition-base" onClick={() => setIsMenuOpen(false)} aria-label="Navigate to Tag Registry section">Tag</a>
           </nav>
 
           <div className="wallet-section">
