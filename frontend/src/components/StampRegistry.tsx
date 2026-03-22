@@ -22,8 +22,11 @@ export const StampRegistry = () => {
    * Registry configuration for the Stamp features.
    * Lists all available stamp-based contracts and their metadata.
    */
-  const registries = [
   const controls = useAnimation();
+  const SHAKE_ANIMATION = {
+    x: [0, -10, 10, -10, 10, 0],
+    transition: { duration: 0.4 }
+  };
 
   const { isSubmitting, txId, execute } = useContractCall();
 
@@ -39,7 +42,9 @@ export const StampRegistry = () => {
     controls.start(SHAKE_ANIMATION);
     triggerHaptic('error');
   };
- Riversides the message stamping process by executing the 'store-stamp'
+
+  /**
+   * Finalizes the message stamping process by executing the 'store-stamp'
    * contract call on the Stacks blockchain.
    */
   const storeStamp = async () => {
