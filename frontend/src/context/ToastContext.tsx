@@ -29,11 +29,10 @@ interface ToastContextType {
 const ToastContext = createContext<ToastContextType | undefined>(undefined);
 
 /**
- * Provides toast notification state and methods to the application.
+ * Provider component for managing global toast notifications.
  * 
- * @param {Object} props - The component properties.
- * @param {ReactNode} props.children - The child components to be wrapped by the provider.
- * @returns {JSX.Element} The rendered provider component.
+ * @param {Object} props - Component properties.
+ * @param {React.ReactNode} props.children - The child components to render within the provider.
  */
 export const ToastProvider = ({ children }: { children: ReactNode }) => {
     const [toasts, setToasts] = useState<Toast[]>([]);
