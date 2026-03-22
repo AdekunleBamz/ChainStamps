@@ -32,6 +32,9 @@ export const StampRegistry = () => {
     return () => clearTimeout(timer);
   }, []);
 
+  /**
+   * Triggers a visual 'shake' animation on the card to indicate validation errors.
+   */
   const shake = async () => {
     await controls.start({
       x: [-10, 10, -10, 10, 0],
@@ -39,7 +42,11 @@ export const StampRegistry = () => {
     });
   };
 
-  const stampMessage = async () => {
+  /**
+   * Finalizes the message stamping process by executing the 'store-stamp'
+   * contract call on the Stacks blockchain.
+   */
+  const storeStamp = async () => {
     if (!message || !isConnected || !userAddress) {
       if (!message) {
         addToast('Please enter a message to stamp.', 'warning');
