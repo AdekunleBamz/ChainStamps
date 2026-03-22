@@ -8,21 +8,21 @@ import { triggerHaptic } from '../../utils/haptics';
  * @extends {HTMLMotionProps<'button'>}
  */
 interface ButtonProps extends HTMLMotionProps<'button'> {
-    /** The content to be rendered inside the button. */
+    /** The content to be rendered inside the button (text, icons, etc.). */
     children: ReactNode;
-    /** The visual style variant of the button. Defaults to 'primary'. */
+    /** The visual style variant. primary: solid, secondary: muted, outline: bordered, ghost: no background. */
     variant?: 'primary' | 'secondary' | 'outline' | 'ghost' | 'destructive';
-    /** The size of the button. Defaults to 'md'. */
+    /** The size of the button box and text. Defaults to 'md'. */
     size?: 'sm' | 'md' | 'lg' | 'icon';
-    /** Additional CSS classes for the button. */
+    /** Additional CSS classes for custom styling. */
     className?: string;
-    /** The type of haptic feedback to trigger on click. Defaults to 'light'. */
+    /** The intensity of haptic feedback triggered on click. Defaults to 'light'. */
     haptic?: 'light' | 'medium' | 'heavy' | 'error' | 'success';
-    /** Optional click handler. */
+    /** Click event handler with haptic feedback integration. */
     onClick?: (e: React.MouseEvent<HTMLButtonElement>) => void;
-    /** Optional title for the button. */
+    /** Accessible title for the button used by screen readers. */
     title?: string;
-    /** Whether the button is disabled. */
+    /** Disables the button and prevents interaction. */
     disabled?: boolean;
 }
 
