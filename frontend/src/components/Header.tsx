@@ -95,21 +95,31 @@ export const Header = () => {
             aria-label="Main navigation links"
             className={twMerge("nav-links", isMenuOpen && "mobile-open")}
           >
-            <Tooltip content="Current Stacks network block height">
-              <div className="network-heartbeat">
-                <Activity size={14} className="mr-1 text-primary animate-pulse" strokeWidth={2} />
-                <span className="text-xs font-mono text-muted-foreground">
-                  {blockHeight ? (
-                    <AnimatedNumber value={blockHeight} prefix="#" />
-                  ) : (
-                    '---'
-                  )}
-                </span>
-              </div>
-            </Tooltip>
-            <a href="#hash" className="transition-base" onClick={() => setIsMenuOpen(false)} aria-label="Navigate to Hash Registry section">Hash</a>
-            <a href="#stamp" className="transition-base" onClick={() => setIsMenuOpen(false)} aria-label="Navigate to Stamp Registry section">Stamp</a>
-            <a href="#tag" className="transition-base" onClick={() => setIsMenuOpen(false)} aria-label="Navigate to Tag Registry section">Tag</a>
+            <ul className="flex items-center gap-6 list-none p-0 m-0">
+              <li>
+                <Tooltip content="Current Stacks network block height">
+                  <div className="network-heartbeat" aria-live="polite">
+                    <Activity size={14} className="mr-1 text-primary animate-pulse" strokeWidth={2} aria-hidden="true" />
+                    <span className="text-xs font-mono text-muted-foreground">
+                      {blockHeight ? (
+                        <AnimatedNumber value={blockHeight} prefix="#" />
+                      ) : (
+                        '---'
+                      )}
+                    </span>
+                  </div>
+                </Tooltip>
+              </li>
+              <li>
+                <a href="#hash" className="transition-base" onClick={() => setIsMenuOpen(false)} aria-label="Navigate to Hash Registry section">Hash</a>
+              </li>
+              <li>
+                <a href="#stamp" className="transition-base" onClick={() => setIsMenuOpen(false)} aria-label="Navigate to Stamp Registry section">Stamp</a>
+              </li>
+              <li>
+                <a href="#tag" className="transition-base" onClick={() => setIsMenuOpen(false)} aria-label="Navigate to Tag Registry section">Tag</a>
+              </li>
+            </ul>
           </nav>
 
           <div className="wallet-section">
