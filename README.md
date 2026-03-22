@@ -32,6 +32,18 @@ ChainStamps is a Clarity smart contract suite for the Stacks blockchain that ena
 
 All data is secured by Bitcoin's proof-of-work, providing the highest level of security for your on-chain records.
 
+## ChainStamps follows a modern React architecture with:
+- **Shared UI Layer**: Decoupled, reusable components (Button, SuccessMessage, etc.).
+- **Logic Hooks**: Isolated state management for hashing and contract calls.
+- **Strict Documentation**: Comprehensive JSDoc coverage for all core features.
+- **Performance Optimized**: GPU-accelerated animations, throttled event listeners, and memoized components.
+
+### Developer Flow
+1. **Connect**: WalletConnect integration for Stacks mainnet.
+2. **Interact**: Declarative hooks handle transaction lifecycles.
+3. **Verify**: Direct links to Stacks Explorer for all on-chain actions.
+4. **Audit**: Real-time performance monitoring via `PerformanceOverlay`.
+
 ## ✨ Features
 
 | Feature | Description | Fee |
