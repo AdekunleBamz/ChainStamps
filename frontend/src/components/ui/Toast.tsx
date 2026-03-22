@@ -10,6 +10,7 @@ import { twMerge } from 'tailwind-merge';
 export const ToastContainer = () => {
     const { toasts, removeToast } = useToast();
 
+    /** Mapping of notification types to their respective Lucide icons and colors. */
     const icons = {
         success: <CheckCircle className="text-green-500" size={20} />,
         error: <AlertCircle className="text-red-500" size={20} />,
@@ -17,6 +18,7 @@ export const ToastContainer = () => {
         warning: <AlertTriangle className="text-yellow-500" size={20} />,
     };
 
+    /** Mapping of notification types to their glassmorphic background styles. */
     const variants = {
         success: "border-green-500/20 bg-green-500/10",
         error: "border-red-500/20 bg-red-500/10",
