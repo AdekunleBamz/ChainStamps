@@ -118,39 +118,8 @@ export const StampRegistry = () => {
         <span className="char-count" aria-live="polite">{message.length}/256</span>
       </div>
 
-      <Button
+      <SubmitButton
         onClick={stampMessage}
-        disabled={!message || !isConnected || status === 'submitting'}
-        aria-busy={status === 'submitting'}
-        variant="primary"
-        size="lg"
-        className="submit-btn w-full flex-center"
-      >
-        {status === 'submitting' ? (
-          <>
-            <Loader2 className="spinning mr-2" size={18} strokeWidth={1.5} />
-            Stamping...
-          </>
-        ) : (
-          'Stamp Message On-Chain'
-        )}
-      </Button>
-
-      {status === 'success' && txId && (
-        <div className="success-message flex-center gap-2" role="status" aria-live="polite">
-          <CheckCircle size={18} />
-          <span>Message stamped! </span>
-          <a
-            href={`https://explorer.stacks.co/txid/${txId}?chain=mainnet`}
-            target="_blank"
-            rel="noopener noreferrer"
-            aria-label="View stamped message transaction on Stacks Explorer"
-          >
-            View transaction
-          </a>
-        </div>
-      )}
-
       {!isConnected && (
         <div className="warning-message flex-center gap-2">
           <AlertCircle size={18} />
