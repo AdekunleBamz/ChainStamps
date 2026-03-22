@@ -67,6 +67,11 @@
   
   --error: #ef4444;
   --border: #2a2a3a;
+  
+  /* Layout Constants */
+  --content-max-width: 1200px;
+  --section-gap: 6rem;
+  
   --gradient: linear-gradient(135deg, #6366f1 0%, #8b5cf6 50%, #a855f7 100%);
 }
 
