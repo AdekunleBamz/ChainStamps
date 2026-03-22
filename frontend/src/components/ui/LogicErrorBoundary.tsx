@@ -3,11 +3,14 @@ import { AlertTriangle, RefreshCw, Home } from 'lucide-react';
 import { Button } from './Button';
 
 interface Props {
+    /** The child components to be shielded by the error boundary. */
     children: ReactNode;
 }
 
 interface State {
+    /** Whether an error has been caught by the boundary. */
     hasError: boolean;
+    /** The actual error object if caught, used for development debugging. */
     error: Error | null;
 }
 
