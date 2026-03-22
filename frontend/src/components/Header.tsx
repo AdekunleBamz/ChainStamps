@@ -139,7 +139,7 @@ export const Header = () => {
                 <Button
                   variant="primary"
                   size="md"
-                  className="connect-btn"
+                  className="connect-btn flex-center"
                   onClick={connect}
                   disabled={isConnecting}
                   aria-label={isConnecting ? "Connecting to wallet" : "Connect Stacks wallet"}
