@@ -20,15 +20,17 @@ import { triggerSuccessConfetti } from '../utils/confetti';
  * - Transaction feedback with explorer integration
  * - Stacks wallet authentication integration
  */
+import { useContractCall } from '../hooks/useContractCall';
+
 export const TagRegistry = () => {
   const { isConnected, userAddress } = useWallet();
   const { addToast } = useToast();
   const [key, setKey] = useState('');
   const [value, setValue] = useState('');
-  const [status, setStatus] = useState<'idle' | 'submitting' | 'success' | 'error'>('idle');
-  const [txId, setTxId] = useState('');
   const [isLoading, setIsLoading] = useState(true);
   const controls = useAnimation();
+
+  const { isSubmitting, txId, execute } = useContractCall();
 
   useEffect(() => {
     const timer = setTimeout(() => setIsLoading(false), 1200);
@@ -51,28 +53,18 @@ export const TagRegistry = () => {
       return;
     }
 
-    setStatus('submitting');
-
     try {
-      const result = await wcCallContract({
+      await execute({
         contractAddress: CONTRACT_ADDRESS,
         contractName: CONTRACTS.tagRegistry.name,
         functionName: 'store-tag',
         functionArgs: [key, value],
         stxAmount: CONTRACTS.tagRegistry.fee,
-      });
-
-      setTxId(result.txid);
-      setStatus('success');
+      }, 'Tag stored successfully!');
       setKey('');
       setValue('');
-      addToast('Tag stored successfully!', 'success');
-      triggerSuccessConfetti();
-    } catch (error: any) {
-      console.error('Transaction failed:', error);
-      setStatus('error');
-      const errorMessage = error.message || 'Failed to store tag. Please try again.';
-      addToast(errorMessage, 'error');
+    } catch (error) {
+      // Error handled by hook
     }
   };
 
@@ -148,13 +140,13 @@ export const TagRegistry = () => {
 
       <Button
         onClick={storeTag}
-        disabled={!key || !value || !isConnected || status === 'submitting'}
-        aria-busy={status === 'submitting'}
+        disabled={!key || !value || !isConnected || isSubmitting}
+        aria-busy={isSubmitting}
         variant="primary"
         size="lg"
         className="submit-btn w-full"
       >
-        {status === 'submitting' ? (
+        {isSubmitting ? (
           <>
             <Loader2 className="spinning mr-2" size={18} strokeWidth={1.5} />
             Storing...
