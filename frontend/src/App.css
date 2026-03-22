@@ -51,6 +51,13 @@
   
   --accent: #6366f1;
   --accent-hover: #818cf8;
+  
+  /* Button Constants */
+  --btn-padding-sm: 0.5rem 1rem;
+  --btn-padding-md: 0.75rem 1.5rem;
+  --btn-padding-lg: 1rem 2rem;
+  --btn-radius: 12px;
+  
   --success: #22c55e;
   --warning: #f59e0b;
   --error: #ef4444;
