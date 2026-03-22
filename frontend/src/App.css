@@ -289,7 +289,7 @@ section[id] {
 .cards-container {
   display: grid;
   grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
-  gap: 2.5rem;
+  gap: 3rem;
   margin-top: 3rem;
 }
 
