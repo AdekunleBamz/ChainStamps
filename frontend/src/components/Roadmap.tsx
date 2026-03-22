@@ -23,7 +23,9 @@ const ROADMAP_PHASES = [
 ];
 
 interface RoadmapPhaseProps {
+    /** The metadata object for the phase, containing title, status, and items. */
     phase: typeof ROADMAP_PHASES[0];
+    /** The index of the phase in the list, used for staggered animations. */
     index: number;
 }
 
