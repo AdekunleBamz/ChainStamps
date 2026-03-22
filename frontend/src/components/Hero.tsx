@@ -7,6 +7,13 @@ import { motion } from 'framer-motion';
  * and a grid of core features (Immutable, Timestamped, Verifiable) 
  * with framer-motion animations.
  */
+/**
+ * Hero section component.
+ * Displays the main value proposition, primary brand messaging, 
+ * and core feature highlights (Immutable, Timestamped, Verifiable).
+ * 
+ * @component
+ */
 export const Hero = () => {
   const containerVariants = {
     hidden: { opacity: 0 },
