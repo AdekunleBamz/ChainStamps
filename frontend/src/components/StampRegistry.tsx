@@ -35,15 +35,11 @@ export const StampRegistry = () => {
   /**
    * Triggers a visual 'shake' animation on the card to indicate validation errors.
    */
-  const shake = async () => {
-    await controls.start({
-      x: [-10, 10, -10, 10, 0],
-      transition: { duration: 0.4 }
-    });
+  const shake = () => {
+    controls.start(SHAKE_ANIMATION);
+    triggerHaptic('error');
   };
-
-  /**
-   * Finalizes the message stamping process by executing the 'store-stamp'
+ Riversides the message stamping process by executing the 'store-stamp'
    * contract call on the Stacks blockchain.
    */
   const storeStamp = async () => {
