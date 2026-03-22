@@ -83,6 +83,14 @@
   --shadow-md: 0 8px 32px rgba(0, 0, 0, 0.2);
   --shadow-lg: 0 16px 48px rgba(0, 0, 0, 0.4);
   
+  /* Z-index Project Layering */
+  --z-below: -1;
+  --z-base: 1;
+  --z-sticky: 100;
+  --z-header: 1000;
+  --z-overlay: 2000;
+  --z-modal: 3000;
+  
   --gradient: linear-gradient(135deg, #6366f1 0%, #8b5cf6 50%, #a855f7 100%);
 }
 
