@@ -20,7 +20,7 @@ const ITEM_VARIANTS = {
 
 const FeatureItem = memo(({ icon: Icon, title, description, ariaLabel }: { icon: any, title: string, description: string, ariaLabel: string }) => (
   <motion.div className="feature group will-change-transform" variants={ITEM_VARIANTS} aria-label={ariaLabel}>
-    <div className="feature-icon-wrapper flex-center shadow-md">
+    <div className="feature-icon-wrapper flex-center shadow-md aspect-square w-16 h-16 mx-auto">
       <Icon className="feature-icon" size={40} strokeWidth={1.5} />
     </div>
     <h3>{title}</h3>
