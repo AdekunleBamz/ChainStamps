@@ -158,6 +158,7 @@ export const Header = () => {
                   className="connect-btn flex-center"
                   onClick={connect}
                   disabled={isConnecting}
+                  aria-haspopup="dialog"
                   aria-label={isConnecting ? "Connecting to wallet" : "Connect Stacks wallet"}
                 >
                 {isConnecting ? (
