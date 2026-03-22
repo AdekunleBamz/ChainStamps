@@ -1,24 +1,18 @@
 import { useState, useEffect } from 'react';
 import { motion, useAnimation } from 'framer-motion';
 import { useWallet } from '../context/WalletContext';
-import { wcCallContract } from '../utils/walletconnect';
 import { CONTRACT_ADDRESS, CONTRACTS } from '../config/contracts';
-import { Stamp, Loader2, CheckCircle, AlertCircle } from 'lucide-react';
-import { Button } from './ui/Button';
+import { Stamp, CheckCircle, AlertCircle } from 'lucide-react';
 import { CardSkeleton } from './ui/Skeleton';
 import { Tooltip } from './ui/Tooltip';
 import { Breadcrumbs } from './ui/Breadcrumbs';
 import { AnimatedNumber } from './ui/AnimatedNumber';
 import { useToast } from '../context/ToastContext';
-import { triggerSuccessConfetti } from '../utils/confetti';
+import { useContractCall } from '../hooks/useContractCall';
+import { SuccessMessage } from './ui/SuccessMessage';
+import { WarningMessage } from './ui/WarningMessage';
+import { SubmitButton } from './ui/SubmitButton';
 
-/**
- * StampRegistry component for anchoring short messages and timestamps to the Stacks blockchain.
- * Ideal for:
- * - Proof of existence for short messages
- * - Time-stamping critical data points
- * - Permanent record keeping on the Bitcoin layer
- */
 export const StampRegistry = () => {
   const { isConnected, userAddress } = useWallet();
   const { addToast } = useToast();
@@ -120,12 +114,16 @@ export const StampRegistry = () => {
 
       <SubmitButton
         onClick={stampMessage}
-      {!isConnected && (
-        <div className="warning-message flex-center gap-2">
-          <AlertCircle size={18} />
-          Connect your wallet to stamp messages
-        </div>
-      )}
+        isLoading={isSubmitting}
+        disabled={!message || !isConnected}
+        loadingText="Stamping..."
+        idleText="Stamp Message On-Chain"
+        ariaBusy={isSubmitting}
+      />
+
+      <SuccessMessage message="Message stamped!" txId={txId} />
+
+      {!isConnected && <WarningMessage />}
     </motion.section>
   );
 }
