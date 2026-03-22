@@ -1,6 +1,6 @@
 import { Github, Twitter, Globe, Zap, Clock, ShieldCheck } from 'lucide-react';
 import { motion } from 'framer-motion';
-import { useState, useEffect } from 'react';
+import { ReactNode } from 'react';
 
 /**
  * The application footer with social links, metrics, and copyright information.
