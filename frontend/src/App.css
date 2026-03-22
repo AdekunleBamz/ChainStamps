@@ -42,6 +42,13 @@
   
   --text-primary: #ffffff;
   --text-secondary: #a0a0b0;
+  
+  /* Transitions */
+  --transition-fast: 0.2s ease;
+  --transition-normal: 0.3s ease;
+  --transition-slow: 0.5s ease;
+  --modal-entrance: fadeIn 0.3s ease-out;
+  
   --accent: #6366f1;
   --accent-hover: #818cf8;
   --success: #22c55e;
