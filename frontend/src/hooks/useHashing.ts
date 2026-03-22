@@ -2,9 +2,12 @@ import { useState, useCallback } from 'react';
 
 /**
  * Custom hook for computing SHA-256 hashes of files.
- * Handles the async hashing process and provides status, hash, and error state.
  * 
- * @returns {Object} Hashing state and compute function.
+ * @returns {Object} Hashing state and the computeHash function.
+ * @property {string|null} hash - The computed hex string of the file.
+ * @property {boolean} isHashing - Loading state during computation.
+ * @property {string|null} error - Error message if hashing fails.
+ * @property {function} computeHash - Function to start hashing a File object.
  */
 export const useHashing = () => {
   const [hash, setHash] = useState<string | null>(null);
