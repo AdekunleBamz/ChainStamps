@@ -375,6 +375,8 @@ section[id] {
 .textarea:focus {
   outline: none;
   border-color: var(--accent);
+  box-shadow: 0 0 0 4px rgba(99, 102, 241, 0.1);
+  background: var(--bg-secondary);
 }
 
 .input::placeholder,
