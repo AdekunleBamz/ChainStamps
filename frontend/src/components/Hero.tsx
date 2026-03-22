@@ -47,7 +47,7 @@ export const Hero = () => {
       </motion.p>
       <motion.div className="features" variants={containerVariants}>
         <motion.div className="feature group" variants={itemVariants} aria-label="Feature: Immutable - Data secured by Bitcoin's proof-of-work">
-          <div className="feature-icon-wrapper">
+          <div className="feature-icon-wrapper flex-center shadow-md">
             <Shield className="feature-icon" size={40} strokeWidth={1.5} aria-label="Security Shield Icon" />
           </div>
           <h3>Immutable</h3>
