@@ -1,4 +1,3 @@
-```typescript
 import { useEffect, useState } from 'react';
 import { animate } from 'framer-motion';
 
