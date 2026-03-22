@@ -45,7 +45,10 @@ export const WalletProvider = ({ children }: { children: ReactNode }) => {
   const [wcUri, setWcUri] = useState<string | null>(null);
   const [showQRModal, setShowQRModal] = useState(false);
 
-  // Check for existing session on mount
+  /**
+   * Effect hook to check for and restore any existing WalletConnect sessions
+   * on component mount. This ensures persistence across page reloads.
+   */
   useEffect(() => {
     const checkExistingSession = async () => {
       if (hasActiveSession()) {
