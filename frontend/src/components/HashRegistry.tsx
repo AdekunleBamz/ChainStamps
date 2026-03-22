@@ -180,7 +180,7 @@ export const HashRegistry = () => {
         aria-busy={status === 'submitting' || status === 'hashing'}
         variant="primary"
         size="lg"
-        className="submit-btn w-full"
+        className="submit-btn w-full flex-center"
       >
         {status === 'submitting' ? (
           <>
