@@ -55,7 +55,7 @@ export const Hero = () => {
         </motion.div>
 
         <motion.div className="feature group" variants={itemVariants} aria-label="Feature: Timestamped - Permanent proof of existence">
-          <div className="feature-icon-wrapper">
+          <div className="feature-icon-wrapper flex-center shadow-md">
             <Clock className="feature-icon" size={40} strokeWidth={1.5} aria-label="Timestamp Clock Icon" />
           </div>
           <h3>Timestamped</h3>
@@ -63,7 +63,7 @@ export const Hero = () => {
         </motion.div>
 
         <motion.div className="feature group" variants={itemVariants} aria-label="Feature: Verifiable - Anyone can verify your data">
-          <div className="feature-icon-wrapper">
+          <div className="feature-icon-wrapper flex-center shadow-md">
             <Database className="feature-icon" size={40} strokeWidth={1.5} aria-label="Database Storage Icon" />
           </div>
           <h3>Verifiable</h3>
