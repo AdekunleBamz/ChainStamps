@@ -249,9 +249,9 @@ body {
 }
 
 .card:hover {
-  border-color: hsla(var(--primary-h), var(--primary-s), var(--primary-l), 0.5);
-  transform: translateY(-8px) scale(1.01);
-  box-shadow: 0 12px 40px 0 rgba(0, 0, 0, 0.4);
+  border-color: rgba(99, 102, 241, 0.3);
+  transform: translateY(-6px);
+  box-shadow: 0 20px 40px 0 rgba(0, 0, 0, 0.3);
 }
 
 .card-header {
