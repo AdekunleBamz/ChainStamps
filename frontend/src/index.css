@@ -52,6 +52,8 @@ body {
   min-height: 100vh;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
+  text-rendering: optimizeLegibility;
+  scroll-behavior: smooth;
 }
 
 h1,
@@ -107,6 +109,8 @@ h6 {
   -webkit-backdrop-filter: blur(var(--glass-blur));
   border: 1px solid var(--glass-border);
   border-radius: var(--radius);
+  box-shadow: 0 4px 12px 0 rgba(0, 0, 0, 0.2);
+  transition: all 0.3s ease;
 }
 
 .gradient-text {
