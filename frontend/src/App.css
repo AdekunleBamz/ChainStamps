@@ -18,6 +18,18 @@
 }
 
 :root {
+  /* Brand Colors */
+  --primary: #6366f1;
+  --primary-hover: #4f46e5;
+  --secondary: #8b5cf6;
+  --accent: #f43f5e;
+  
+  /* UI Variants */
+  --card-bg: rgba(26, 26, 36, 0.4);
+  --card-border: rgba(255, 255, 255, 0.08);
+  --card-blur: 24px;
+  --card-shadow: 0 8px 32px 0 rgba(0, 0, 0, 0.3);
+  
   --bg-primary: #0a0a0f;
   --bg-secondary: #12121a;
   --bg-card: #1a1a24;
