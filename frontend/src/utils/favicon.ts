@@ -1,9 +1,9 @@
 /**
- * Dynamically updates the site's favicon with a status indicator.
+ * Dynamically updates the site's favicon based on the current application state.
  * 
- * @param {'connected' | 'connecting' | 'disconnected'} status - The current wallet connection status.
+ * @param {string} emoji - The emoji character to use as the icon.
  */
-export const updateFavicon = (status: 'connected' | 'connecting' | 'disconnected') => {
+export const updateFavicon = (emoji: string) => {
     const canvas = document.createElement('canvas');
     canvas.width = 32;
     canvas.height = 32;
