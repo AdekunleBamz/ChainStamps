@@ -147,7 +147,7 @@ export const StampRegistry = () => {
       </Button>
 
       {status === 'success' && txId && (
-        <div className="success-message" role="status" aria-live="polite">
+        <div className="success-message flex-center gap-2" role="status" aria-live="polite">
           <CheckCircle size={18} />
           <span>Message stamped! </span>
           <a
@@ -162,7 +162,7 @@ export const StampRegistry = () => {
       )}
 
       {!isConnected && (
-        <div className="warning-message">
+        <div className="warning-message flex-center gap-2">
           <AlertCircle size={18} />
           Connect your wallet to stamp messages
         </div>
