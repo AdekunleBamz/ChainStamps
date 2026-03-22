@@ -9,9 +9,12 @@ import { CopyButton } from './ui/CopyButton';
 import { AnimatedNumber } from './ui/AnimatedNumber';
 
 /**
- * The main header component containing navigation, branding, and wallet connection status.
- * 
- * @returns {JSX.Element} The rendered header component.
+ * Header component that serves as the primary navigation and wallet interaction hub.
+ * Features:
+ * - Responsive navigation links
+ * - Real-time Stacks block height display
+ * - Stacks wallet connection/disconnection management
+ * - Scrolled state background transformation
  */
 export const Header = () => {
   const { isConnected, isConnecting, userAddress, connect, disconnect, wcUri, showQRModal, setShowQRModal } = useWallet();
