@@ -20,6 +20,12 @@ import { triggerSuccessConfetti } from '../utils/confetti';
  * - Stacks wallet authentication integration
  */
 import { useContractCall } from '../hooks/useContractCall';
+import { triggerHaptic } from '../utils/haptics';
+
+const SHAKE_ANIMATION = {
+  x: [0, -10, 10, -10, 10, 0],
+  transition: { duration: 0.4 }
+};
 
 export const TagRegistry = () => {
   const { isConnected, userAddress } = useWallet();
@@ -31,6 +37,12 @@ export const TagRegistry = () => {
 
   const { isSubmitting, txId, execute } = useContractCall();
 
+  const handleError = (msg: string) => {
+    addToast(msg, 'error');
+    controls.start(SHAKE_ANIMATION);
+    triggerHaptic('error');
+  };
+
   useEffect(() => {
     const timer = setTimeout(() => setIsLoading(false), 1200);
     return () => clearTimeout(timer);
@@ -40,10 +52,7 @@ export const TagRegistry = () => {
    * Triggers a visual 'shake' animation on the card to indicate validation errors.
    */
   const shake = async () => {
-    await controls.start({
-      x: [-10, 10, -10, 10, 0],
-      transition: { duration: 0.4 }
-    });
+    await controls.start(SHAKE_ANIMATION);
   };
 
   /**
@@ -53,8 +62,7 @@ export const TagRegistry = () => {
   const storeTag = async () => {
     if (!key || !value || !isConnected || !userAddress) {
       if (!key || !value) {
-        addToast('Please enter both key and value for the tag.', 'warning');
-        shake();
+        handleError('Please enter both key and value for the tag.');
       }
       return;
     }
