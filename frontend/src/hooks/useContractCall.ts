@@ -58,6 +58,10 @@ export const useContractCall = () => {
     txId,
     error,
     execute,
+    /**
+     * Resets the hook state, clearing any previous transaction ID or errors.
+     * Useful when switching between different contract features or retrying.
+     */
     reset: () => {
       setTxId(null);
       setError(null);
