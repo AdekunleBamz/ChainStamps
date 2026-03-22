@@ -9,8 +9,15 @@
   --primary: hsl(var(--primary-h), var(--primary-s), var(--primary-l));
   --primary-foreground: hsl(210, 40%, 98%);
 
-  --background: hsl(224, 71%, 4%);
-  --foreground: hsl(213, 31%, 91%);
+  --background-h: 224;
+  --background-s: 71%;
+  --background-l: 4%;
+  --background: hsl(var(--background-h), var(--background-s), var(--background-l));
+  
+  --foreground-h: 213;
+  --foreground-s: 31%;
+  --foreground-l: 91%;
+  --foreground: hsl(var(--foreground-h), var(--foreground-s), var(--foreground-l));
 
   --card: hsla(224, 71%, 4%, 0.8);
   --card-foreground: hsl(213, 31%, 91%);
