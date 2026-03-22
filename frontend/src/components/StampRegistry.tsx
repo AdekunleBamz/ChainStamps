@@ -13,9 +13,11 @@ import { useToast } from '../context/ToastContext';
 import { triggerSuccessConfetti } from '../utils/confetti';
 
 /**
- * A registry component for creating and managing verifiable stamps on the Stacks blockchain.
- * 
- * @returns {JSX.Element} The rendered stamp registry component.
+ * StampRegistry component for anchoring short messages and timestamps to the Stacks blockchain.
+ * Ideal for:
+ * - Proof of existence for short messages
+ * - Time-stamping critical data points
+ * - Permanent record keeping on the Bitcoin layer
  */
 export const StampRegistry = () => {
   const { isConnected, userAddress } = useWallet();
