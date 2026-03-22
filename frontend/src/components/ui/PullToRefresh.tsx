@@ -45,6 +45,10 @@ export const PullToRefresh = ({ onRefresh }: PullToRefreshProps) => {
             }
         };
 
+        /**
+         * Finalizes the pull interaction. If the pull distance exceeds the threshold,
+         * triggers the onRefresh callback and provides visual/toast feedback.
+         */
         const handleTouchEnd = async () => {
             if (pullDistance > threshold && !isRefreshing) {
                 setIsRefreshing(true);
