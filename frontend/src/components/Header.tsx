@@ -98,9 +98,9 @@ export const Header = () => {
             <ul className="flex items-center gap-6 list-none p-0 m-0">
               <li>
                 <Tooltip content="Current Stacks network block height">
-                  <div className="network-heartbeat" aria-live="polite">
+                <div className="network-heartbeat" aria-live="polite" aria-label={`Current Stacks block height: ${blockHeight || 'Loading'}`}>
                     <Activity size={14} className="mr-1 text-primary animate-pulse" strokeWidth={2} aria-hidden="true" />
-                    <span className="text-xs font-mono text-muted-foreground">
+                    <span className="text-xs font-mono text-muted-foreground" aria-hidden="true">
                       {blockHeight ? (
                         <AnimatedNumber value={blockHeight} prefix="#" />
                       ) : (
