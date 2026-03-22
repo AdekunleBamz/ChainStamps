@@ -41,7 +41,7 @@ export const ToastContainer = () => {
                         animate={{ opacity: 1, y: 0, scale: 1 }}
                         exit={{ opacity: 0, scale: 0.9, transition: { duration: 0.2 } }}
                         className={twMerge(
-                            "pointer-events-auto flex items-center gap-3 rounded-2xl border p-4 shadow-2xl backdrop-blur-xl min-w-[300px] max-w-md",
+                            "pointer-events-auto flex items-center gap-3 rounded-2xl border p-4 shadow-2xl backdrop-blur-xl min-w-[300px] max-w-md will-change-transform will-change-opacity",
                             variants[toast.type]
                         )}
                     >
