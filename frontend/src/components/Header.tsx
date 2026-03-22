@@ -16,6 +16,13 @@ import { AnimatedNumber } from './ui/AnimatedNumber';
  * - Stacks wallet connection/disconnection management
  * - Scrolled state background transformation
  */
+/**
+ * Global Header component.
+ * Provides site-wide navigation, logo, and wallet connection status.
+ * Handles mobile menu toggle and sticky scroll behavior.
+ * 
+ * @component
+ */
 export const Header = () => {
   const { isConnected, isConnecting, userAddress, connect, disconnect, wcUri, showQRModal, setShowQRModal } = useWallet();
   const [isScrolled, setIsScrolled] = useState(false);
