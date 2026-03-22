@@ -3,7 +3,7 @@ import { motion, useAnimation } from 'framer-motion';
 import { useWallet } from '../context/WalletContext';
 import { wcCallContract } from '../utils/walletconnect';
 import { CONTRACT_ADDRESS, CONTRACTS } from '../config/contracts';
-import { FileText, Hash, Loader2, CheckCircle, AlertCircle } from 'lucide-react';
+import { FileText, Hash } from 'lucide-react';
 import { Button } from './ui/Button';
 import { CardSkeleton } from './ui/Skeleton';
 import { Tooltip } from './ui/Tooltip';
