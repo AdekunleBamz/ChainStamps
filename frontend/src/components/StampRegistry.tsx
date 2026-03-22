@@ -28,12 +28,6 @@ export const StampRegistry = () => {
    * Registry configuration for the Stamp features.
    * Lists all available stamp-based contracts and their metadata.
    */
-  const controls = useAnimation();
-  const SHAKE_ANIMATION = {
-    x: [0, -10, 10, -10, 10, 0],
-    transition: { duration: 0.4 }
-  };
-
   const { isSubmitting, txId, execute } = useContractCall();
 
   useEffect(() => {
