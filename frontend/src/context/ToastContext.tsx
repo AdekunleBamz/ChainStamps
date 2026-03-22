@@ -37,6 +37,12 @@ const ToastContext = createContext<ToastContextType | undefined>(undefined);
 export const ToastProvider = ({ children }: { children: ReactNode }) => {
     const [toasts, setToasts] = useState<Toast[]>([]);
 
+    /**
+     * Adds a new toast notification and schedules its automatic removal.
+     * 
+     * @param {string} message - The message to display.
+     * @param {ToastType} [type='info'] - The severity/type of the toast.
+     */
     const addToast = useCallback((message: string, type: ToastType = 'info') => {
         const id = Math.random().toString(36).substr(2, 9);
         setToasts((prev) => [...prev, { id, message, type }]);
