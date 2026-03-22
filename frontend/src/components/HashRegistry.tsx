@@ -114,7 +114,7 @@ export const HashRegistry = () => {
       animate={controls}
     >
       <Breadcrumbs items={[{ label: 'Hash Registry' }]} />
-      <div className="card-header">
+      <div className="card-header flex-between mb-2">
         <div className="flex items-center gap-2">
           <Hash className="card-icon" size={24} strokeWidth={1.5} />
           <Tooltip content="Secure cryptographic identifier for your document">
@@ -134,7 +134,7 @@ export const HashRegistry = () => {
       </p>
 
       <div className="form-group">
-        <label className="file-input-label">
+        <label className="file-input-label flex-center">
           <FileText size={20} strokeWidth={1.5} />
           {file ? file.name : 'Choose a file to hash'}
           <input
