@@ -12,6 +12,10 @@ export const PerformanceOverlay = () => {
     const frameCount = useRef(0);
     const lastTime = useRef(performance.now());
 
+    /**
+     * Effect hook that calculates the current frames per second (FPS)
+     * using requestAnimationFrame for high-precision measurement.
+     */
     useEffect(() => {
         let animationId: number;
 
