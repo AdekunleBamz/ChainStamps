@@ -11,7 +11,7 @@ export const Footer = () => {
   return (
     <footer className="footer" aria-label="Site Footer">
       <div className="footer-content">
-        <div className="footer-brand" aria-label="ChainStamps Branding">
+        <div className="footer-brand flex-center" aria-label="ChainStamps Branding">
           <img src="/logo.png" alt="ChainStamps Logo" className="logo-img" aria-label="ChainStamps Brand Logo" />
           <span>ChainStamps</span>
         </div>
