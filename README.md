@@ -32,6 +32,13 @@ ChainStamps is a Clarity smart contract suite for the Stacks blockchain that ena
 
 All data is secured by Bitcoin's proof-of-work, providing the highest level of security for your on-chain records.
 
+## ✨ Key Features
+
+- **🔐 Secure Stamping**: Permanent on-chain document verification secured by Bitcoin.
+- **🏷️ Tag Registry**: flexible key-value storage for decentralized metadata.
+- **⚡ Low Cost**: Optimized Clarity contracts for minimal micro-STX (uSTX) fees.
+- **🌐 Open API**: Easy integration for developers and external dApps.
+
 ## ✨ Features
 
 | Feature | Description | Fee |
