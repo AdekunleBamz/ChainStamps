@@ -33,6 +33,9 @@ export const useHashing = () => {
     }
   }, []);
 
+  /**
+   * Resets the hashing state, clearing any computed hash or error.
+   */
   const resetHash = useCallback(() => {
     setHash(null);
     setError(null);
