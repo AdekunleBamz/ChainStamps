@@ -70,7 +70,7 @@ export const Header = () => {
 
   return (
     <>
-      <header className={twMerge(
+      <header role="banner" className={twMerge(
         "header",
         isScrolled && "scrolled"
       )}>
