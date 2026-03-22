@@ -18,10 +18,10 @@ interface AnimatedNumberProps {
 }
 
 /**
- * A component that animates numeric value transitions using Framer Motion.
+ * AnimatedNumber component for smooth numerical transitions.
+ * Uses framer-motion to animate value changes.
  * 
- * @param {AnimatedNumberProps} props - The component properties.
- * @returns {JSX.Element} The rendered animated number.
+ * @param {AnimatedNumberProps} props - Component properties.
  */
 export function AnimatedNumber({ value, className, prefix = '', suffix = '', decimals = 0 }: AnimatedNumberProps) {
     const [displayValue, setDisplayValue] = useState(value);
