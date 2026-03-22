@@ -196,7 +196,7 @@ export const HashRegistry = () => {
 
       {
         status === 'success' && txId && (
-          <div className="success-message" role="status" aria-live="polite">
+          <div className="success-message flex-center gap-2" role="status" aria-live="polite">
             <CheckCircle size={18} />
             <span>Hash stored! </span>
             <a
@@ -210,10 +210,10 @@ export const HashRegistry = () => {
           </div>
         )
       }
-
+ 
       {
         !isConnected && (
-          <div className="warning-message">
+          <div className="warning-message flex-center gap-2">
             <AlertCircle size={18} />
             Connect your wallet to store hashes
           </div>
