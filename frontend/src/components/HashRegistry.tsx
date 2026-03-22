@@ -21,16 +21,19 @@ import { triggerSuccessConfetti } from '../utils/confetti';
  * - Real-time transaction status feedback
  * - Deep linking to the Stacks Explorer for verification
  */
+import { useHashing } from '../hooks/useHashing';
+import { useContractCall } from '../hooks/useContractCall';
+
 export const HashRegistry = () => {
   const { isConnected, userAddress } = useWallet();
   const { addToast } = useToast();
   const [file, setFile] = useState<File | null>(null);
   const [description, setDescription] = useState('');
-  const [hash, setHash] = useState('');
-  const [status, setStatus] = useState<'idle' | 'hashing' | 'submitting' | 'success' | 'error'>('idle');
-  const [txId, setTxId] = useState('');
   const [isLoading, setIsLoading] = useState(true);
   const controls = useAnimation();
+
+  const { hash, isHashing, computeHash, resetHash } = useHashing();
+  const { isSubmitting, txId, execute, reset: resetContract } = useContractCall();
 
   useEffect(() => {
     const timer = setTimeout(() => setIsLoading(false), 1200);
@@ -43,53 +46,38 @@ export const HashRegistry = () => {
       transition: { duration: 0.4 }
     });
   };
+
   const handleFileChange = async (e: React.ChangeEvent<HTMLInputElement>) => {
     const selectedFile = e.target.files?.[0];
     if (selectedFile) {
       setFile(selectedFile);
-      setStatus('hashing');
-
-      const buffer = await selectedFile.arrayBuffer();
-      const hashBuffer = await crypto.subtle.digest('SHA-256', buffer);
-      const hashArray = Array.from(new Uint8Array(hashBuffer));
-      const hashHex = hashArray.map(b => b.toString(16).padStart(2, '0')).join('');
-
-      setHash(hashHex);
-      setStatus('idle');
+      try {
+        await computeHash(selectedFile);
+        resetContract();
+      } catch (err) {
+        addToast('Failed to hash file', 'error');
+      }
     }
   };
 
   const storeHash = async () => {
     if (!hash || !isConnected || !userAddress) {
-      addToast('Please select a file or enter a hash first.', 'warning');
+      addToast('Please select a file first.', 'warning');
       shake();
       return;
     }
 
-    setStatus('submitting');
-
     try {
-      const result = await wcCallContract({
+      await execute({
         contractAddress: CONTRACT_ADDRESS,
         contractName: CONTRACTS.hashRegistry.name,
         functionName: 'store-hash',
-        functionArgs: [
-          `0x${hash}`,
-          description || 'Document hash',
-        ],
+        functionArgs: [`0x${hash}`, description || 'Document hash'],
         stxAmount: CONTRACTS.hashRegistry.fee,
-      });
-
-      setTxId(result.txid);
-      setStatus('success');
+      }, 'Hash stored successfully!');
       setDescription('');
-      addToast('Hash stored successfully!', 'success');
-      triggerSuccessConfetti();
-    } catch (error: any) {
-      console.error('Transaction failed:', error);
-      setStatus('error');
-      const errorMessage = error.message || 'Failed to store hash. Please try again.';
-      addToast(errorMessage, 'error');
+    } catch (error) {
+      // Error handled by hook
     }
   };
 
