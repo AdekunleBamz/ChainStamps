@@ -3,6 +3,11 @@ import { QRCodeSVG } from 'qrcode.react';
 import { Button } from './ui/Button';
 import { motion } from 'framer-motion';
 
+interface WalletConnectQRModalProps {
+  uri: string;
+  onClose: () => void;
+}
+
 /**
  * Modal component for displaying a WalletConnect QR code.
  * 
@@ -24,13 +29,14 @@ export const WalletConnectQRModal = ({ uri, onClose }: WalletConnectQRModalProps
             size="icon"
             className="qr-close-btn"
             onClick={onClose}
+            aria-label="Close modal"
           >
             <X size={20} strokeWidth={1.5} />
           </Button>
         </div>
 
-        <div className="qr-modal-content">
-          <div className="qr-code-container">
+        <div className="qr-modal-content flex-center flex-col gap-4">
+          <div className="qr-code-container shadow-md">
             <QRCodeSVG
               value={uri}
               size={240}
@@ -41,12 +47,12 @@ export const WalletConnectQRModal = ({ uri, onClose }: WalletConnectQRModalProps
             />
           </div>
 
-          <p className="qr-instructions">
+          <p className="qr-instructions flex-center gap-2">
             <Smartphone size={18} strokeWidth={1.5} />
             Scan with your Stacks wallet app
           </p>
 
-          <p className="qr-subtext">
+          <p className="qr-subtext text-center">
             Open <strong>Xverse</strong> or <strong>Leather</strong> mobile wallet and scan this QR code
           </p>
 
@@ -56,7 +62,7 @@ export const WalletConnectQRModal = ({ uri, onClose }: WalletConnectQRModalProps
             href={mobileLink}
             target="_blank"
             rel="noopener noreferrer"
-            className="qr-mobile-link"
+            className="qr-mobile-link flex-center gap-2"
           >
             <ExternalLink size={16} strokeWidth={1.5} />
             Open in wallet app (mobile)
