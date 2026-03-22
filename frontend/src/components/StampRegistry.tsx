@@ -27,8 +27,8 @@ export const StampRegistry = () => {
   /**
    * Registry configuration for the Stamp features.
    * Lists all available stamp-based contracts and their metadata.
-   const controls = useAnimation();
-  
+   */
+  const controls = useAnimation();
   const { isSubmitting, txId, execute } = useContractCall();
 
   useEffect(() => {
