@@ -71,7 +71,7 @@ export const Header = () => {
         "header",
         isScrolled && "scrolled"
       )}>
-        <div className="header-content">
+        <div className="header-content flex-between">
           <a className="logo" href="#top" aria-label="ChainStamps - Back to top">
             <img src="/logo.png" alt="ChainStamps Logo" className="logo-img" />
             <span className="logo-text">ChainStamps</span>
