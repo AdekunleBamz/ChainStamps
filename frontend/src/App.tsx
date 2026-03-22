@@ -54,7 +54,12 @@ const App = () => {
 
   const filteredRegistries = registries.filter(reg =>
     reg.name.toLowerCase().includes(searchQuery.toLowerCase())
-  );
+  ], []);
+
+  const filteredRegistries = useMemo(() =>
+    registries.filter(reg =>
+      reg.name.toLowerCase().includes(searchQuery.toLowerCase())
+    ), [searchQuery, registries]);
 
   return (
     <ToastProvider>
@@ -81,7 +86,7 @@ const App = () => {
                 className="filter-container"
                 aria-label="Registry filtering and search tools"
               >
-                <div className="search-wrapper">
+                <div className="search-wrapper" role="search">
                   <Search className="search-icon" size={18} />
                   <input
                     type="text"
@@ -95,6 +100,7 @@ const App = () => {
                     }}
                     className="search-input"
                     aria-label="Search registry cards"
+                    aria-controls="registry-results"
                   />
                   {searchQuery && (
                     <button
