@@ -72,7 +72,7 @@ export const Header = () => {
         isScrolled && "scrolled"
       )}>
         <div className="header-content flex-between">
-          <a className="logo" href="#top" aria-label="ChainStamps - Back to top">
+          <a className="logo flex-center" href="#top" aria-label="ChainStamps - Back to top">
             <img src="/logo.png" alt="ChainStamps Logo" className="logo-img" />
             <span className="logo-text">ChainStamps</span>
           </a>
