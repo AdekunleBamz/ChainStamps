@@ -1,4 +1,15 @@
 :root {
+  /* Functional Color Tokens */
+  --surface-1: #0a0a0f;
+  --surface-2: #12121a;
+  --surface-3: #1a1a24;
+  
+  --text-main: #ffffff;
+  --text-muted: #a0a0b0;
+  
+  --brand-primary: #6366f1;
+  --brand-secondary: #8b5cf6;
+  
   --bg-primary: #0a0a0f;
   --bg-secondary: #12121a;
   --bg-card: #1a1a24;
