@@ -37,7 +37,7 @@ export function AnimatedNumber({ value, className, prefix = '', suffix = '', dec
 
         return () => controls.stop();
     }, [value]);
- Riverside
+
     return (
         <span 
             className={className}
