@@ -1,4 +1,4 @@
-import { useEffect, useState } from 'react';
+import { useEffect, useState, useMemo, memo } from 'react';
 import { motion } from 'framer-motion';
 import { WalletProvider } from './context/WalletContext';
 import { Header } from './components/Header';
@@ -36,6 +36,18 @@ const FaviconManager = () => {
 
   return null;
 }
+
+const RegistryItem = memo(({ component, index }: { component: React.ReactNode, index: number }) => (
+  <motion.div
+    initial={{ opacity: 0, y: 30 }}
+    whileInView={{ opacity: 1, y: 0 }}
+    viewport={{ once: true }}
+    transition={{ delay: index * 0.1 }}
+    className="registry-wrapper"
+  >
+    {component}
+  </motion.div>
+));
 
 /**
  * Main Application component.
@@ -152,16 +164,11 @@ const App = () => {
               >
                 {filteredRegistries.length > 0 ? (
                   filteredRegistries.map((reg, index) => (
-                    <motion.div
-                      key={reg.id}
-                      initial={{ opacity: 0, y: 30 }}
-                      whileInView={{ opacity: 1, y: 0 }}
-                      viewport={{ once: true }}
-                      transition={{ delay: index * 0.1 }}
-                      className="registry-wrapper"
-                    >
-                      {reg.component}
-                    </motion.div>
+                    <RegistryItem 
+                      key={reg.id} 
+                      component={reg.component} 
+                      index={index} 
+                    />
                   ))
                 ) : (
                   <div className="col-span-full">
