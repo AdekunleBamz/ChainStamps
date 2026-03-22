@@ -164,18 +164,18 @@ export const HashRegistry = () => {
 
       <Button
         onClick={storeHash}
-        disabled={!hash || !isConnected || status === 'submitting'}
-        aria-busy={status === 'submitting' || status === 'hashing'}
+        disabled={!hash || !isConnected || isSubmitting}
+        aria-busy={isSubmitting || isHashing}
         variant="primary"
         size="lg"
         className="submit-btn w-full flex-center"
       >
-        {status === 'submitting' ? (
+        {isSubmitting ? (
           <>
             <Loader2 className="spinning mr-2" size={18} strokeWidth={1.5} />
             Storing...
           </>
-        ) : status === 'hashing' ? (
+        ) : isHashing ? (
           <>
             <Loader2 className="spinning mr-2" size={18} strokeWidth={1.5} />
             Hashing...
