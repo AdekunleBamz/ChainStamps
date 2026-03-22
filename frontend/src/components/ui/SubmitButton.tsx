@@ -15,7 +15,19 @@ interface SubmitButtonProps {
 }
 
 /**
- * Shared submit button component for registry transactions.
+ * SubmitButton component with integrated loading state and icons.
+ * This button is designed for form submissions, handling loading states and accessibility.
+ *
+ * @param {Object} props - Component properties.
+ * @param {function} props.onClick - Function to call on click.
+ * @param {boolean} props.isLoading - Controls the loading state of the button.
+ * @param {boolean} [props.disabled] - Optional disabled state for the button.
+ * @param {string} props.loadingText - Text to display when the button is in a loading state.
+ * @param {string} props.idleText - Text to display when the button is in an idle state.
+ * @param {boolean} [props.ariaBusy] - Optional ARIA busy state for accessibility.
+ * @param {string} [props.className] - Optional CSS classes to apply to the button.
+ * @param {'primary' | 'secondary' | 'ghost'} [props.variant] - Visual variant of the button.
+ * @param {'sm' | 'md' | 'lg' | 'icon'} [props.size] - Size of the button.
  */
 export const SubmitButton: React.FC<SubmitButtonProps> = ({
   onClick,
