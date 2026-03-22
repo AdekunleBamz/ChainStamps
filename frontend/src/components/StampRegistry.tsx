@@ -125,7 +125,7 @@ export const StampRegistry = () => {
       </div>
 
       <SubmitButton
-        onClick={stampMessage}
+        onClick={storeStamp}
         isLoading={isSubmitting}
         disabled={!message || !isConnected}
         loadingText="Stamping..."
