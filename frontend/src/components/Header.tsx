@@ -112,13 +112,31 @@ export const Header = () => {
                 </Tooltip>
               </li>
               <li>
-                <a href="#hash" className="transition-base" onClick={() => setIsMenuOpen(false)} aria-label="Navigate to Hash Registry section">Hash</a>
+                <a 
+                  href="#hash" 
+                  className="transition-base" 
+                  onClick={() => setIsMenuOpen(false)} 
+                  aria-label="Navigate to Hash Registry section"
+                  aria-current={window.location.hash === '#hash' ? 'page' : undefined}
+                >Hash</a>
               </li>
               <li>
-                <a href="#stamp" className="transition-base" onClick={() => setIsMenuOpen(false)} aria-label="Navigate to Stamp Registry section">Stamp</a>
+                <a 
+                  href="#stamp" 
+                  className="transition-base" 
+                  onClick={() => setIsMenuOpen(false)} 
+                  aria-label="Navigate to Stamp Registry section"
+                  aria-current={window.location.hash === '#stamp' ? 'page' : undefined}
+                >Stamp</a>
               </li>
               <li>
-                <a href="#tag" className="transition-base" onClick={() => setIsMenuOpen(false)} aria-label="Navigate to Tag Registry section">Tag</a>
+                <a 
+                  href="#tag" 
+                  className="transition-base" 
+                  onClick={() => setIsMenuOpen(false)} 
+                  aria-label="Navigate to Tag Registry section"
+                  aria-current={window.location.hash === '#tag' ? 'page' : undefined}
+                >Tag</a>
               </li>
             </ul>
           </nav>
