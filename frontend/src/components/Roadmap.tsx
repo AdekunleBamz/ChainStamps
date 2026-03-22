@@ -87,9 +87,10 @@ const RoadmapPhase = ({ phase, index }: RoadmapPhaseProps) => {
 }
 
 /**
- * A component that displays the project's development roadmap in a timeline-like fashion.
- * 
- * @returns {JSX.Element} The rendered roadmap section.
+ * Main Roadmap section displaying the project's evolution and future plans.
+ * Provides a structured overview of development milestones.
+ *
+ * @component
  */
 export const Roadmap = () => {
     return (
