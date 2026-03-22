@@ -35,7 +35,8 @@ export const triggerConfetti = () => {
 };
 
 /**
- * Triggers a one-time burst of success confetti at the bottom of the screen.
+ * Triggers a celebratory confetti animation on the screen.
+ * Used to provide visual feedback for successful transactions.
  */
 export const triggerSuccessConfetti = () => {
     confetti({
