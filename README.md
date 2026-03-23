@@ -121,7 +121,7 @@ npm --prefix frontend run dev
 1.  **Code**: Write Clarity contracts in `contracts/`.
 2.  **Test**: Run `clarinet test` to verify logic.
 3.  **Frontend**: Update React components in `frontend/src/`.
-4.  **Verify**: Run `npm test` for frontend units.
+4.  **Verify**: Run `npm --prefix frontend run lint` and `npm test`.
 5.  **Deploy**: Use `clarinet deployments apply`.
 
 ## 📜 Smart Contracts
