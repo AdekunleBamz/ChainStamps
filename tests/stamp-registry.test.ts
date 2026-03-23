@@ -320,6 +320,6 @@ describe("stamp-registry", () => {
       wallet1
     );
 
-    expect(stampResult).toBeSome();
+    expect(stampResult).not.toBeNone();
   });
 });
