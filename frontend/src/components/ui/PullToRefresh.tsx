@@ -19,7 +19,6 @@ interface PullToRefreshProps {
 export const PullToRefresh = ({ onRefresh }: PullToRefreshProps) => {
     const [isRefreshing, setIsRefreshing] = useState(false);
     const [pullDistance, setPullDistance] = useState(0);
-    const controls = useAnimation();
 
     useEffect(() => {
         let startY = 0;
