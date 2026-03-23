@@ -97,6 +97,18 @@ Get full metadata for a hash.
 
 ---
 
+#### `get-hash-owner`
+
+Get current owner for a stored hash.
+
+```clarity
+(define-read-only (get-hash-owner (hash (buff 32))))
+```
+
+**Returns:** `(optional principal)`
+
+---
+
 #### `verify-hash`
 
 Check if a hash exists.
