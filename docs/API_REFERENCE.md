@@ -297,6 +297,18 @@ Stamp a message on-chain.
 
 ---
 
+#### `stamp-message-with-category`
+
+Stamp a message while selecting a category code.
+
+```clarity
+(define-public (stamp-message-with-category (message (string-utf8 256)) (category uint)))
+```
+
+**Returns:** `(response uint uint)` - Stamp ID on success
+
+---
+
 ### Read-Only Functions
 
 #### `get-stamp`
