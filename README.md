@@ -351,7 +351,7 @@ clarinet deployments apply --mainnet
 ### 📋 Deployment Checklist
 
 Before deploying to mainnet, ensure:
-1.  **Tests**: All `clarinet test` and `npm test` suites pass.
+1.  **Tests**: All `npm test` and `npm --prefix frontend run lint` checks pass.
 2.  **Fees**: Wallet has sufficient STX (approx. 0.1 STX recommended).
 3.  **Network**: Stacks node is synced and reachable.
 4.  **Metadata**: `package.json` and `Clarinet.toml` versions are aligned.
