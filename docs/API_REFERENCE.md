@@ -157,6 +157,18 @@ Get current hash storage fee.
 
 ---
 
+#### `get-batch-hash-fee`
+
+Get discounted per-item fee used by batch hash storage.
+
+```clarity
+(define-read-only (get-batch-hash-fee))
+```
+
+**Returns:** `uint` (25000)
+
+---
+
 ## Stamp Registry
 
 Contract for permanently stamping messages on-chain.
