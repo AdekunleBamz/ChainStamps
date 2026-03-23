@@ -407,6 +407,18 @@ Get all stamps by a user.
 
 ---
 
+#### `get-stamps-by-category`
+
+Get stamp IDs grouped under a category code.
+
+```clarity
+(define-read-only (get-stamps-by-category (category uint)))
+```
+
+**Returns:** `(list 100 uint)`
+
+---
+
 #### `get-stamp-sender`
 
 Get original sender for a stamp.
