@@ -63,7 +63,7 @@ describe("tag-registry", () => {
       wallet1
     );
 
-    expect(result).toBeSome();
+    expect(result).not.toBeNone();
   });
 
   it("should retrieve tag by key", () => {
