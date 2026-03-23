@@ -321,6 +321,18 @@ Revoke a stamp created by the caller.
 
 ---
 
+#### `batch-stamp-messages`
+
+Stamp multiple messages in a single transaction.
+
+```clarity
+(define-public (batch-stamp-messages (messages (list 5 (string-utf8 256)))))
+```
+
+**Returns:** `(response (list 5 (response uint uint)) uint)`
+
+---
+
 ### Read-Only Functions
 
 #### `get-stamp`
