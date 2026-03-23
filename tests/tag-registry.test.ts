@@ -359,6 +359,6 @@ describe("tag-registry", () => {
       [Cl.principal(wallet2), Cl.stringUtf8(key)],
       wallet2
     );
-    expect(user2Email).toBeSome();
+    expect(user2Email).not.toBeNone();
   });
 });
