@@ -8,7 +8,6 @@ import { Tooltip } from './ui/Tooltip';
 import { Breadcrumbs } from './ui/Breadcrumbs';
 import { AnimatedNumber } from './ui/AnimatedNumber';
 import { useToast } from '../context/ToastContext';
-import { triggerSuccessConfetti } from '../utils/confetti';
 
 /**
  * TagRegistry component for managing key-value metadata on the Stacks blockchain.
