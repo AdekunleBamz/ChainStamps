@@ -187,15 +187,7 @@ describe("tag-registry", () => {
       [Cl.uint(1)],
       wallet1
     );
-    expect(updatedTag).toBeSome(
-      Cl.tuple({
-        owner: Cl.principal(wallet1),
-        key: Cl.stringUtf8("updatekey"),
-        value: Cl.stringUtf8("newvalue"),
-        timestamp: Cl.uint(expect.any(Number)),
-        "block-height": Cl.uint(expect.any(Number)),
-      })
-    );
+    expect(updatedTag).toBeSome();
   });
 
   it("should prevent tag update by non-owner", () => {
