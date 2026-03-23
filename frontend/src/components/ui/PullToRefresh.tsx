@@ -1,6 +1,7 @@
 import { motion } from 'framer-motion';
 import { RefreshCw } from 'lucide-react';
 import { useEffect, useState } from 'react';
+import { useToast } from '../../context/ToastContext';
 
 /**
  * Properties for the PullToRefresh component.
@@ -19,6 +20,7 @@ interface PullToRefreshProps {
 export const PullToRefresh = ({ onRefresh }: PullToRefreshProps) => {
     const [isRefreshing, setIsRefreshing] = useState(false);
     const [pullDistance, setPullDistance] = useState(0);
+    const { addToast } = useToast();
 
     useEffect(() => {
         let startY = 0;
