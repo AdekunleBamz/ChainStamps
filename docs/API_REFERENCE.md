@@ -133,6 +133,18 @@ Check if a hash exists.
 
 ---
 
+#### `get-hash-block-height`
+
+Get block height recorded for a stored hash.
+
+```clarity
+(define-read-only (get-hash-block-height (hash (buff 32))))
+```
+
+**Returns:** `(optional uint)`
+
+---
+
 #### `get-hash-count`
 
 Get total number of stored hashes.
