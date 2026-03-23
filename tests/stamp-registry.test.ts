@@ -300,7 +300,7 @@ describe("stamp-registry", () => {
       [Cl.uint(1)],
       wallet1
     );
-    expect(result).toBeSome();
+    expect(result).not.toBeNone();
   });
 
   it("should handle unicode characters in messages", () => {
