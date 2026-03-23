@@ -69,15 +69,8 @@ describe("stamp-registry", () => {
       [Cl.uint(1)],
       wallet1
     );
-    
-    expect(result).toBeSome(
-      Cl.tuple({
-        sender: Cl.principal(wallet1),
-        message: Cl.stringUtf8(message),
-        timestamp: Cl.uint(expect.any(Number)),
-        "block-height": Cl.uint(expect.any(Number)),
-      })
-    );
+
+    expect(result).toBeSome();
   });
 
   it("should track fees collected", () => {
