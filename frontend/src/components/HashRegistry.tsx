@@ -53,14 +53,6 @@ export const HashRegistry = () => {
   };
 
   /**
-   * Triggers a visual 'shake' animation on the card.
-   * Used to indicate validation errors or missing required state.
-   */
-  const shake = async () => {
-    await controls.start(SHAKE_ANIMATION);
-  };
-
-  /**
    * Captures file selection from the input, computes its SHA-256 hash,
    * and resets the contract interaction state.
    */
