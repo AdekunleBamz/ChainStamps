@@ -91,7 +91,7 @@ export const HashRegistry = () => {
 
   const handleKeyDown = (e: React.KeyboardEvent) => {
     if ((e.metaKey || e.ctrlKey) && e.key === 'Enter') {
-      if (hash && isConnected && status !== 'submitting') {
+      if (hash && isConnected && !isSubmitting) {
         storeHash();
       }
     }
