@@ -47,13 +47,6 @@ export const TagRegistry = () => {
   }, []);
 
   /**
-   * Triggers a visual 'shake' animation on the card to indicate validation errors.
-   */
-  const shake = async () => {
-    await controls.start(SHAKE_ANIMATION);
-  };
-
-  /**
    * Finalizes the dynamic tag storage process by executing the 'store-tag'
    * contract call on the Stacks blockchain.
    */
