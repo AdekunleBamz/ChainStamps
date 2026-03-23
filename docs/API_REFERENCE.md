@@ -359,6 +359,18 @@ Get message payload for a given stamp ID.
 
 ---
 
+#### `get-stamp-timestamp`
+
+Get timestamp recorded for a given stamp ID.
+
+```clarity
+(define-read-only (get-stamp-timestamp (stamp-id uint)))
+```
+
+**Returns:** `(optional uint)`
+
+---
+
 #### `get-stamp-count`
 
 Get total number of stamps.
