@@ -1,5 +1,8 @@
 import { useState, useCallback } from 'react';
 
+const getErrorMessage = (err: unknown) =>
+  err instanceof Error ? err.message : 'Failed to compute file hash';
+
 /**
  * Custom hook for computing SHA-256 hashes of files.
  * 
@@ -24,8 +27,8 @@ export const useHashing = () => {
       const hashHex = hashArray.map(b => b.toString(16).padStart(2, '0')).join('');
       setHash(hashHex);
       return hashHex;
-    } catch (err: any) {
-      const msg = err.message || 'Failed to compute file hash';
+    } catch (err: unknown) {
+      const msg = getErrorMessage(err);
       setError(msg);
       throw err;
     } finally {
