@@ -516,6 +516,18 @@ Update an existing tag's value.
 
 ---
 
+#### `update-tag-with-namespace`
+
+Update value for a key within a specific namespace.
+
+```clarity
+(define-public (update-tag-with-namespace (namespace (string-utf8 32)) (key (string-utf8 64)) (new-value (string-utf8 256))))
+```
+
+**Returns:** `(response uint uint)` - Tag ID on success
+
+---
+
 ### Read-Only Functions
 
 #### `get-tag`
