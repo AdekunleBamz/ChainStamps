@@ -25,6 +25,7 @@ costs-reports.json
 # Tooling
 node_modules
 .cache/**
+.npm_cache/
 history.txt
 
 # IDE
