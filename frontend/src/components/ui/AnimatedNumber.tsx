@@ -33,7 +33,7 @@ export function AnimatedNumber({ value, className, prefix = '', suffix = '', dec
         const controls = animate(latestValueRef.current, value, {
             duration: 1.5,
             ease: "easeOut",
-            onUpdate: (latest) => {
+            onUpdate: (latest: number) => {
                 latestValueRef.current = latest;
                 setDisplayValue(latest);
             }
