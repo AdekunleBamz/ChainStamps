@@ -145,7 +145,7 @@ export const wcConnect = async (
       address = stxEntry.address;
       publicKey = stxEntry.publicKey;
     }
-  } catch (err) {
+  } catch {
     if (DEBUG) console.warn('⚠️ stx_getAddresses failed/timeout, falling back to session accounts');
     
     // Fallback: parse from session namespaces
