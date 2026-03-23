@@ -7,7 +7,7 @@ ChainStamps is a decentralized application for permanent on-chain document verif
 ![Clarity](https://img.shields.io/badge/Clarity-Smart%20Contracts-blue?style=for-the-badge)
 ![Stacks](https://img.shields.io/badge/Stacks-Blockchain-orange?style=for-the-badge)
 ![Bitcoin](https://img.shields.io/badge/Bitcoin-Secured-yellow?style=for-the-badge)
-![Commits](https://img.shields.io/badge/Mission-179%20Commits-red?style=for-the-badge)
+![Mission](https://img.shields.io/badge/Mission-Open%20Source-red?style=for-the-badge)
 ![License](https://img.shields.io/badge/License-MIT-green?style=for-the-badge)
 
 **Permanent on-chain document verification, message stamping, and key-value storage on Bitcoin's most secure layer.**
