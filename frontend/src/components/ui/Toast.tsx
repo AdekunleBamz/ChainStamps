@@ -1,5 +1,5 @@
 import { motion, AnimatePresence } from 'framer-motion';
-import { useToast } from '../context/ToastContext';
+import { useToast } from '../../context/ToastContext';
 import { CheckCircle, AlertCircle, X, Info, AlertTriangle } from 'lucide-react';
 import { twMerge } from 'tailwind-merge';
 
