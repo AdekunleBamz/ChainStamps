@@ -75,7 +75,7 @@ export const TagRegistry = () => {
 
   const handleKeyDown = (e: React.KeyboardEvent) => {
     if ((e.metaKey || e.ctrlKey) && e.key === 'Enter') {
-      if (key && value && isConnected && status !== 'submitting') {
+      if (key && value && isConnected && !isSubmitting) {
         storeTag();
       }
     }
