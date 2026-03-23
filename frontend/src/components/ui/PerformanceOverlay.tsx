@@ -10,7 +10,7 @@ export const PerformanceOverlay = () => {
     const [fps, setFps] = useState(0);
     const [isVisible, setIsVisible] = useState(false);
     const frameCount = useRef(0);
-    const lastTime = useRef(performance.now());
+    const lastTime = useRef(0);
 
     /**
      * Effect hook that calculates the current frames per second (FPS)
@@ -18,6 +18,7 @@ export const PerformanceOverlay = () => {
      */
     useEffect(() => {
         let animationId: number;
+        lastTime.current = performance.now();
 
         const update = () => {
             frameCount.current++;
