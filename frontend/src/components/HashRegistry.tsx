@@ -38,7 +38,7 @@ export const HashRegistry = () => {
   const [isLoading, setIsLoading] = useState(true);
   const controls = useAnimation();
 
-  const { hash, isHashing, computeHash, resetHash } = useHashing();
+  const { hash, isHashing, computeHash } = useHashing();
   const { isSubmitting, txId, execute, reset: resetContract } = useContractCall();
 
   useEffect(() => {
