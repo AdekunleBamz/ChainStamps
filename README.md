@@ -51,6 +51,7 @@ ChainStamps follows a modern React architecture with:
 | Feature | Description | Fee |
 |---------|-------------|-----|
 | Hash Registry | Store document hashes with descriptions | 0.03 STX |
+| Stamp Registry | Stamp short messages with on-chain timestamps | 0.05 STX |
 | Tag Registry | Store key-value pairs | 0.04 STX |
 
 > [!NOTE]
