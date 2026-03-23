@@ -78,6 +78,9 @@ ChainStamps follows a modern React architecture with:
 ## 🚀 Getting Started
 
 ### Prerequisites
+- Node.js 20+
+- npm 10+
+- Clarinet CLI
 
 ### Environment Setup
 
