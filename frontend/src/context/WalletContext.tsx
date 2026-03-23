@@ -138,6 +138,7 @@ export const WalletProvider = ({ children }: { children: ReactNode }) => {
  * @returns {WalletContextType} The current wallet context value.
  * @throws {Error} If used outside of a WalletProvider.
  */
+// eslint-disable-next-line react-refresh/only-export-components
 export const useWallet = () => {
   const context = useContext(WalletContext);
   if (context === undefined) {
