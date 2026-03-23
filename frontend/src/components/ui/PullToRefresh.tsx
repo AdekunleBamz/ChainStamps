@@ -55,10 +55,10 @@ export const PullToRefresh = ({ onRefresh }: PullToRefreshProps) => {
                 setPullDistance(threshold);
                 try {
                     await onRefresh();
-                    showToast('Accounts refreshed successfully', 'success');
+                    addToast('Accounts refreshed successfully', 'success');
                 } catch (err) {
                     console.error('Refresh failed:', err);
-                    showToast('Failed to refresh accounts', 'error');
+                    addToast('Failed to refresh accounts', 'error');
                 } finally {
                     setIsRefreshing(false);
                 }
@@ -77,7 +77,7 @@ export const PullToRefresh = ({ onRefresh }: PullToRefreshProps) => {
             window.removeEventListener('touchmove', handleTouchMove);
             window.removeEventListener('touchend', handleTouchEnd);
         };
-    }, [pullDistance, isRefreshing, onRefresh]);
+    }, [pullDistance, isRefreshing, onRefresh, addToast]);
 
     return (
         <motion.div
