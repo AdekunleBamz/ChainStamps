@@ -1,5 +1,6 @@
 import { Shield, Clock, Database } from 'lucide-react';
 import { motion } from 'framer-motion';
+import type { ComponentType } from 'react';
 import { memo } from 'react';
 
 const CONTAINER_VARIANTS = {
@@ -18,7 +19,7 @@ const ITEM_VARIANTS = {
   visible: { opacity: 1, y: 0 },
 };
 
-const FeatureItem = memo(({ icon: Icon, title, description, ariaLabel }: { icon: any, title: string, description: string, ariaLabel: string }) => (
+const FeatureItem = memo(({ icon: Icon, title, description, ariaLabel }: { icon: ComponentType<{ className?: string; size?: number; strokeWidth?: number }>, title: string, description: string, ariaLabel: string }) => (
   <motion.div className="feature group will-change-transform" variants={ITEM_VARIANTS} aria-label={ariaLabel}>
     <div className="feature-icon-wrapper flex-center shadow-md aspect-square w-16 h-16 mx-auto">
       <Icon className="feature-icon" size={40} strokeWidth={1.5} />
