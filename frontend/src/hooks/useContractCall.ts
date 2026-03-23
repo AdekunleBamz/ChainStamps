@@ -11,6 +11,9 @@ interface ContractCallParams {
   stxAmount: number;
 }
 
+const getErrorMessage = (err: unknown) =>
+  err instanceof Error ? err.message : 'Transaction failed. Please try again.';
+
 /**
  * Custom hook for making Stacks contract calls via WalletConnect.
  * Manages the full transaction lifecycle including:
@@ -43,8 +46,8 @@ export const useContractCall = () => {
       addToast(successMessage, 'success');
       triggerSuccessConfetti();
       return result;
-    } catch (err: any) {
-      const msg = err.message || 'Transaction failed. Please try again.';
+    } catch (err: unknown) {
+      const msg = getErrorMessage(err);
       setError(msg);
       addToast(msg, 'error');
       throw err;
