@@ -44,6 +44,10 @@ const ToastContext = createContext<ToastContextType | undefined>(undefined);
 export const ToastProvider = ({ children }: { children: ReactNode }) => {
     const [toasts, setToasts] = useState<Toast[]>([]);
 
+    const removeToast = useCallback((id: string) => {
+        setToasts((prev) => prev.filter((toast) => toast.id !== id));
+    }, []);
+
     /**
      * Adds a new toast notification and schedules its automatic removal.
      * 
@@ -58,11 +62,7 @@ export const ToastProvider = ({ children }: { children: ReactNode }) => {
         setTimeout(() => {
             removeToast(id);
         }, 5000);
-    }, []);
-
-    const removeToast = useCallback((id: string) => {
-        setToasts((prev) => prev.filter((toast) => toast.id !== id));
-    }, []);
+    }, [removeToast]);
 
     return (
         <ToastContext.Provider value={{ toasts, addToast, removeToast }}>
