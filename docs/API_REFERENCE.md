@@ -217,7 +217,7 @@ Get current stamp fee.
 
 ## Tag Registry
 
-Contract for storing updateable key-value pairs.
+Contract for storing updatable key-value pairs.
 
 ### Constants
 
