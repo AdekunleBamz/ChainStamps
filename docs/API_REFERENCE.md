@@ -383,6 +383,18 @@ Get all stamps by a user.
 
 ---
 
+#### `get-stamp-sender`
+
+Get original sender for a stamp.
+
+```clarity
+(define-read-only (get-stamp-sender (stamp-id uint)))
+```
+
+**Returns:** `(optional principal)`
+
+---
+
 #### `get-stamp-fee`
 
 Get current stamp fee.
