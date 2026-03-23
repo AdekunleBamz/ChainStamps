@@ -209,10 +209,10 @@ describe("tag-registry", () => {
     const { result } = simnet.callPublicFn(
       "tag-registry",
       "update-tag",
-      [Cl.uint(1), Cl.stringUtf8("hacked")],
+      [Cl.stringUtf8("protected"), Cl.stringUtf8("hacked")],
       wallet2
     );
-    expect(result).toBeErr(Cl.uint(101));
+    expect(result).toBeErr(Cl.uint(103));
   });
 
   it("should return none for non-existent tag", () => {
