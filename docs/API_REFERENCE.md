@@ -528,6 +528,18 @@ Update value for a key within a specific namespace.
 
 ---
 
+#### `delete-tag`
+
+Mark an owned tag as deleted.
+
+```clarity
+(define-public (delete-tag (tag-id uint)))
+```
+
+**Returns:** `(response bool uint)`
+
+---
+
 ### Read-Only Functions
 
 #### `get-tag`
