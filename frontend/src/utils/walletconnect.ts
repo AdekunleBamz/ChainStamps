@@ -112,7 +112,7 @@ export const wcConnect = async (
   // Connect with REQUIRED namespaces (critical for non-blank QR)
   const session = await prov.connect({
     namespaces: requiredNamespaces,
-  } as any);
+  });
 
   if (!session) {
     throw new Error('Failed to establish WalletConnect session');
