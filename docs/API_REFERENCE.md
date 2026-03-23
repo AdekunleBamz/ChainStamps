@@ -44,6 +44,18 @@ Store a document hash on-chain.
 
 ---
 
+#### `update-description`
+
+Update the description for an existing hash owned by the caller.
+
+```clarity
+(define-public (update-description (hash (buff 32)) (new-description (string-utf8 128))))
+```
+
+**Returns:** `(response bool uint)`
+
+---
+
 #### `verify-owner`
 
 Verify caller is contract owner.
