@@ -307,6 +307,9 @@ npm test
 # Run with coverage report
 npm run test:report
 
+# Build frontend bundle
+npm --prefix frontend run build
+
 # Watch mode
 npm run test:watch
 ```
