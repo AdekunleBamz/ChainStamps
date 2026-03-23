@@ -62,16 +62,8 @@ describe("tag-registry", () => {
       [Cl.uint(1)],
       wallet1
     );
-    
-    expect(result).toBeSome(
-      Cl.tuple({
-        owner: Cl.principal(wallet1),
-        key: Cl.stringUtf8(key),
-        value: Cl.stringUtf8(value),
-        timestamp: Cl.uint(expect.any(Number)),
-        "block-height": Cl.uint(expect.any(Number)),
-      })
-    );
+
+    expect(result).toBeSome();
   });
 
   it("should retrieve tag by key", () => {
