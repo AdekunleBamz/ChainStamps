@@ -76,6 +76,6 @@ plan:
         - emulated-contract-publish:
             contract-name: tag-registry
             emulated-sender: ST1PQHQKV0RJXZFY1DGX8MNSNYVE3VGZJSRTPGZGM
-            path: ontracts/tag-registry.clar
+            path: contracts/tag-registry.clar
             clarity-version: 4
       epoch: "3.3"
