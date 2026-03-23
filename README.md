@@ -187,6 +187,7 @@ Store updatable key-value pairs on-chain.
 )
 
 ;; Update a tag
+;; Note: update-tag expects the existing key (not a numeric tag ID)
 (contract-call? .tag-registry update-tag 
     u"version"
     u"2.0.0"
