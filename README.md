@@ -325,6 +325,7 @@ All contracts include comprehensive tests for:
 -   **Contract Not Found**: Ensure you are on the correct network (Mainnet vs Testnet) in your wallet.
 -   **Insufficient Fees**: Ensure you have enough STX to cover the contract fee + network tip.
 
+Testing layers:
 1.  **Unit Tests**: Logic verification with `clarinet test`.
 2.  **Integration Tests**: Contract calling via `stacks-transactions`.
 3.  **UI Testing**: Component-level tests with Vitest + React Testing Library.
