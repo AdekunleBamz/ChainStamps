@@ -309,6 +309,18 @@ Stamp a message while selecting a category code.
 
 ---
 
+#### `revoke-stamp`
+
+Revoke a stamp created by the caller.
+
+```clarity
+(define-public (revoke-stamp (stamp-id uint)))
+```
+
+**Returns:** `(response bool uint)`
+
+---
+
 ### Read-Only Functions
 
 #### `get-stamp`
