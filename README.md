@@ -315,6 +315,9 @@ npm run test:watch
 
 All contracts include comprehensive tests for:
 - ✅ Access control
+- ✅ Fee accounting
+- ✅ Optional read-only lookups
+- ✅ Multi-user isolation
 
 ### Troubleshooting
 
