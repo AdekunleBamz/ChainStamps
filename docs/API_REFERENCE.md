@@ -347,6 +347,18 @@ Get stamp by ID.
 
 ---
 
+#### `is-stamp-valid`
+
+Check whether a stamp exists and has not been revoked.
+
+```clarity
+(define-read-only (is-stamp-valid (stamp-id uint)))
+```
+
+**Returns:** `bool`
+
+---
+
 #### `get-stamp-message`
 
 Get message payload for a given stamp ID.
