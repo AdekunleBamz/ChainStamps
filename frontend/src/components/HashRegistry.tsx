@@ -9,7 +9,6 @@ import { CopyButton } from './ui/CopyButton';
 import { Breadcrumbs } from './ui/Breadcrumbs';
 import { AnimatedNumber } from './ui/AnimatedNumber';
 import { useToast } from '../context/ToastContext';
-import { triggerSuccessConfetti } from '../utils/confetti';
 
 /**
  * HashRegistry component for anchoring document fingerprints to the Stacks blockchain.
