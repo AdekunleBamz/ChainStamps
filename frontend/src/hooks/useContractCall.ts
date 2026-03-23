@@ -7,7 +7,7 @@ interface ContractCallParams {
   contractAddress: string;
   contractName: string;
   functionName: string;
-  functionArgs: any[];
+  functionArgs: unknown[];
   stxAmount: number;
 }
 
