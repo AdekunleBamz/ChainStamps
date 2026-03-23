@@ -1,4 +1,4 @@
-import { useEffect, useState } from 'react';
+import { useEffect, useRef, useState } from 'react';
 import { animate } from 'framer-motion';
 
 /**
@@ -25,14 +25,18 @@ interface AnimatedNumberProps {
  */
 export function AnimatedNumber({ value, className, prefix = '', suffix = '', decimals = 0 }: AnimatedNumberProps) {
     const [displayValue, setDisplayValue] = useState(value);
+    const latestValueRef = useRef(value);
 
     useEffect(() => {
-        if (displayValue === value) return;
+        if (latestValueRef.current === value) return;
 
-        const controls = animate(displayValue, value, {
+        const controls = animate(latestValueRef.current, value, {
             duration: 1.5,
             ease: "easeOut",
-            onUpdate: (latest) => setDisplayValue(latest)
+            onUpdate: (latest) => {
+                latestValueRef.current = latest;
+                setDisplayValue(latest);
+            }
         });
 
         return () => controls.stop();
