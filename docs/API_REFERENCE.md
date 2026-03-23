@@ -485,6 +485,18 @@ Store a new key-value tag.
 
 ---
 
+#### `store-tag-with-namespace`
+
+Store a key-value tag under a custom namespace.
+
+```clarity
+(define-public (store-tag-with-namespace (namespace (string-utf8 32)) (key (string-utf8 64)) (value (string-utf8 256))))
+```
+
+**Returns:** `(response uint uint)` - Tag ID on success
+
+---
+
 #### `update-tag`
 
 Update an existing tag's value.
