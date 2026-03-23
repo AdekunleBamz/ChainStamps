@@ -3,7 +3,6 @@ import { motion, useAnimation } from 'framer-motion';
 import { useWallet } from '../context/WalletContext';
 import { CONTRACT_ADDRESS, CONTRACTS } from '../config/contracts';
 import { FileText, Hash } from 'lucide-react';
-import { Button } from './ui/Button';
 import { CardSkeleton } from './ui/Skeleton';
 import { Tooltip } from './ui/Tooltip';
 import { CopyButton } from './ui/CopyButton';
