@@ -8,7 +8,11 @@ import { Tooltip } from './ui/Tooltip';
 import { CopyButton } from './ui/CopyButton';
 import { Breadcrumbs } from './ui/Breadcrumbs';
 import { AnimatedNumber } from './ui/AnimatedNumber';
+import { SuccessMessage } from './ui/SuccessMessage';
+import { WarningMessage } from './ui/WarningMessage';
+import { SubmitButton } from './ui/SubmitButton';
 import { useToast } from '../context/ToastContext';
+import { triggerHaptic } from '../utils/haptics';
 
 /**
  * HashRegistry component for anchoring document fingerprints to the Stacks blockchain.
