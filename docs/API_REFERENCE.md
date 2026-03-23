@@ -56,6 +56,18 @@ Update the description for an existing hash owned by the caller.
 
 ---
 
+#### `transfer-hash`
+
+Transfer ownership of a stored hash to another principal.
+
+```clarity
+(define-public (transfer-hash (hash (buff 32)) (new-owner principal)))
+```
+
+**Returns:** `(response bool uint)`
+
+---
+
 #### `verify-owner`
 
 Verify caller is contract owner.
