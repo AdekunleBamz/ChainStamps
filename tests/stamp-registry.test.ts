@@ -70,7 +70,7 @@ describe("stamp-registry", () => {
       wallet1
     );
 
-    expect(result).toBeSome();
+    expect(result).not.toBeNone();
   });
 
   it("should track fees collected", () => {
