@@ -68,7 +68,7 @@ export const TagRegistry = () => {
       }, 'Tag stored successfully!');
       setKey('');
       setValue('');
-    } catch (error) {
+    } catch {
       // Error handled by hook
     }
   };
