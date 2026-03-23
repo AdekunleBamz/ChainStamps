@@ -84,7 +84,7 @@ export const HashRegistry = () => {
         stxAmount: CONTRACTS.hashRegistry.fee,
       }, 'Hash stored successfully!');
       setDescription('');
-    } catch (error) {
+    } catch {
       // Error handled by hook
     }
   };
