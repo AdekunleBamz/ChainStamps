@@ -1,7 +1,6 @@
 import { motion } from 'framer-motion';
 import { RefreshCw } from 'lucide-react';
 import { useEffect, useState } from 'react';
-import { useToast } from '../../context/ToastContext';
 
 /**
  * Properties for the PullToRefresh component.
