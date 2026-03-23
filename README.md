@@ -230,7 +230,7 @@ Store updatable key-value pairs on-chain.
 | `store-tag` | Public | Store a new key-value tag |
 | `update-tag` | Public | Update existing tag value |
 | `get-tag` | Read-only | Get tag by ID |
-| `get-tag-by-key` | Read-only | Get tag by owner + key |
+| `get-tag-by-key` | Read-only | Get full tag tuple by owner + key |
 | `get-tag-count` | Read-only | Total tags stored |
 | `get-user-tags` | Read-only | Get all tags by user |
 | `get-tag-fee` | Read-only | Current fee (40000 µSTX) |
