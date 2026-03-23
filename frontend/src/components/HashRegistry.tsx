@@ -1,7 +1,6 @@
 import { useState, useEffect } from 'react';
 import { motion, useAnimation } from 'framer-motion';
 import { useWallet } from '../context/WalletContext';
-import { wcCallContract } from '../utils/walletconnect';
 import { CONTRACT_ADDRESS, CONTRACTS } from '../config/contracts';
 import { FileText, Hash } from 'lucide-react';
 import { Button } from './ui/Button';
