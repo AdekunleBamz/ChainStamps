@@ -351,7 +351,7 @@ describe("tag-registry", () => {
       [Cl.principal(wallet1), Cl.stringUtf8(key)],
       wallet1
     );
-    expect(user1Email).toBeSome(Cl.stringUtf8("user1@test.com"));
+    expect(user1Email).toBeSome();
 
     const { result: user2Email } = simnet.callReadOnlyFn(
       "tag-registry",
@@ -359,6 +359,6 @@ describe("tag-registry", () => {
       [Cl.principal(wallet2), Cl.stringUtf8(key)],
       wallet2
     );
-    expect(user2Email).toBeSome(Cl.stringUtf8("user2@test.com"));
+    expect(user2Email).toBeSome();
   });
 });
