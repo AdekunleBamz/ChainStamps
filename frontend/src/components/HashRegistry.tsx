@@ -63,7 +63,7 @@ export const HashRegistry = () => {
       try {
         await computeHash(selectedFile);
         resetContract();
-      } catch (err) {
+      } catch {
         handleError('Failed to hash file');
       }
     }
