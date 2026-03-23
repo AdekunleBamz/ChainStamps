@@ -283,7 +283,7 @@ describe("stamp-registry", () => {
       [Cl.uint(1)],
       wallet1
     );
-    expect(result).toBeSome();
+    expect(result).not.toBeNone();
   });
 
   it("should return stamp block height", () => {
