@@ -169,7 +169,7 @@ All Clarity contracts have been designed with security as a priority:
 
 ### 3. Tag Registry (`tag-registry.clar`)
 
-Store updateable key-value pairs on-chain.
+Store updatable key-value pairs on-chain.
 
 ```clarity
 ;; Store a tag
