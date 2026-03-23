@@ -94,6 +94,7 @@ cd ChainStamps
 
 # Install dependencies
 npm install
+npm --prefix frontend install
 
 # Run tests
 npm test
