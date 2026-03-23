@@ -107,6 +107,7 @@ clarinet console
 
 # Run all tests with coverage
 npm run test:report
+```
 
 ### Development Workflow
 
