@@ -347,6 +347,18 @@ Get stamp by ID.
 
 ---
 
+#### `get-stamp-message`
+
+Get message payload for a given stamp ID.
+
+```clarity
+(define-read-only (get-stamp-message (stamp-id uint)))
+```
+
+**Returns:** `(optional (string-utf8 256))`
+
+---
+
 #### `get-stamp-count`
 
 Get total number of stamps.
