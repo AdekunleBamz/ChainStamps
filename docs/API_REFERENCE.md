@@ -181,6 +181,18 @@ Get maximum number of hashes accepted in one batch call.
 
 ---
 
+#### `get-update-fee`
+
+Get fee charged for description-only updates.
+
+```clarity
+(define-read-only (get-update-fee))
+```
+
+**Returns:** `uint` (10000)
+
+---
+
 ## Stamp Registry
 
 Contract for permanently stamping messages on-chain.
