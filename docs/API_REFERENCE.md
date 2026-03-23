@@ -193,6 +193,18 @@ Get hash by its ID.
 
 ---
 
+#### `get-hash-info-by-id`
+
+Get full hash metadata using its numeric ID.
+
+```clarity
+(define-read-only (get-hash-info-by-id (id uint)))
+```
+
+**Returns:** `(optional {owner, description, timestamp, block-height, hash-id})`
+
+---
+
 #### `get-hash-fee`
 
 Get current hash storage fee.
