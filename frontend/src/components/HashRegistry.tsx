@@ -178,12 +178,6 @@ export const HashRegistry = () => {
         />
       </div>
 
-import { SuccessMessage } from './ui/SuccessMessage';
-import { WarningMessage } from './ui/WarningMessage';
-import { SubmitButton } from './ui/SubmitButton';
-
-// ... existing code ...
-
       <SubmitButton
         onClick={storeHash}
         isLoading={isSubmitting}
