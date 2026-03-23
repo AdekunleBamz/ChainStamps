@@ -371,6 +371,18 @@ Get timestamp recorded for a given stamp ID.
 
 ---
 
+#### `get-stamp-block-height`
+
+Get block height recorded for a given stamp ID.
+
+```clarity
+(define-read-only (get-stamp-block-height (stamp-id uint)))
+```
+
+**Returns:** `(optional uint)`
+
+---
+
 #### `get-stamp-count`
 
 Get total number of stamps.
