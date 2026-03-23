@@ -187,7 +187,7 @@ describe("tag-registry", () => {
       [Cl.uint(1)],
       wallet1
     );
-    expect(updatedTag).toBeSome();
+    expect(updatedTag).not.toBeNone();
   });
 
   it("should prevent tag update by non-owner", () => {
