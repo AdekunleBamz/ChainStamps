@@ -109,6 +109,18 @@ Get current owner for a stored hash.
 
 ---
 
+#### `get-hash-description`
+
+Get description text associated with a stored hash.
+
+```clarity
+(define-read-only (get-hash-description (hash (buff 32))))
+```
+
+**Returns:** `(optional (string-utf8 128))`
+
+---
+
 #### `verify-hash`
 
 Check if a hash exists.
