@@ -176,10 +176,10 @@ describe("tag-registry", () => {
     const { result } = simnet.callPublicFn(
       "tag-registry",
       "update-tag",
-      [Cl.uint(1), Cl.stringUtf8("newvalue")],
+      [Cl.stringUtf8("updatekey"), Cl.stringUtf8("newvalue")],
       wallet1
     );
-    expect(result).toBeOk(Cl.bool(true));
+    expect(result).toBeOk(Cl.uint(1));
 
     const { result: updatedTag } = simnet.callReadOnlyFn(
       "tag-registry",
