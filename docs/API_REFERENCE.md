@@ -169,6 +169,18 @@ Get discounted per-item fee used by batch hash storage.
 
 ---
 
+#### `get-max-batch-size`
+
+Get maximum number of hashes accepted in one batch call.
+
+```clarity
+(define-read-only (get-max-batch-size))
+```
+
+**Returns:** `uint` (10)
+
+---
+
 ## Stamp Registry
 
 Contract for permanently stamping messages on-chain.
