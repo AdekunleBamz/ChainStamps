@@ -148,4 +148,5 @@ export const useWallet = () => {
 }
 
 // Export for use in contract components
+// eslint-disable-next-line react-refresh/only-export-components
 export { getProvider, STACKS_MAINNET };
