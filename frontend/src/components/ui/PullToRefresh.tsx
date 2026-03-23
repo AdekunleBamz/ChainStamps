@@ -1,4 +1,4 @@
-import { useScroll, useMotionValue, useTransform, motion, useAnimation } from 'framer-motion';
+import { motion } from 'framer-motion';
 import { RefreshCw } from 'lucide-react';
 import { useEffect, useState } from 'react';
 import { useToast } from '../../context/ToastContext';
