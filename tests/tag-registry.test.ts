@@ -82,7 +82,7 @@ describe("tag-registry", () => {
       [Cl.principal(wallet1), Cl.stringUtf8(key)],
       wallet1
     );
-    expect(result).toBeSome();
+    expect(result).not.toBeNone();
   });
 
   it("should track fees collected", () => {
