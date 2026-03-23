@@ -66,7 +66,7 @@ export const StampRegistry = () => {
         stxAmount: CONTRACTS.stampRegistry.fee,
       }, 'Message stamped successfully!');
       setMessage('');
-    } catch (error) {
+    } catch {
       // Error handled by hook
     }
   };
