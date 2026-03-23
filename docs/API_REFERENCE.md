@@ -133,6 +133,18 @@ Get all hashes stored by a user.
 
 ---
 
+#### `get-user-hash-count`
+
+Get number of hashes stored by a user.
+
+```clarity
+(define-read-only (get-user-hash-count (user principal)))
+```
+
+**Returns:** `uint`
+
+---
+
 #### `get-hash-by-id`
 
 Get hash by its ID.
