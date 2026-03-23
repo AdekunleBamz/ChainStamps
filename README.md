@@ -108,6 +108,9 @@ clarinet console
 
 # Run all tests with coverage
 npm run test:report
+
+# Start frontend dev server
+npm --prefix frontend run dev
 ```
 
 ### Development Workflow
