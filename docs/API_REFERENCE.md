@@ -68,6 +68,18 @@ Transfer ownership of a stored hash to another principal.
 
 ---
 
+#### `revoke-hash`
+
+Mark an owned hash as revoked so verification returns false.
+
+```clarity
+(define-public (revoke-hash (hash (buff 32))))
+```
+
+**Returns:** `(response bool uint)`
+
+---
+
 #### `verify-owner`
 
 Verify caller is contract owner.
