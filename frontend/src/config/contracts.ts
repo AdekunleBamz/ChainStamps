@@ -32,7 +32,7 @@ export const CONTRACTS: Record<string, RegistryConfig> = {
   stampRegistry: {
     name: "stamp-registry",
     address: `${CONTRACT_ADDRESS}.stamp-registry`,
-    fee: 20000, // 0.02 STX in microSTX
+    fee: 50000, // 0.05 STX in microSTX
   },
   tagRegistry: {
     name: "tag-registry",
