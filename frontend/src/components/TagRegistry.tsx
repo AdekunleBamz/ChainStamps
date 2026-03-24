@@ -133,7 +133,7 @@ export const TagRegistry = () => {
 
       <div className="form-group">
         <textarea
-          placeholder="Value (e.g., 'ChainStamp v1.0')"
+          placeholder="Value (e.g., 'ChainStamps v1.0')"
           value={value}
           onChange={(e) => setValue(e.target.value)}
           onKeyDown={handleKeyDown}
