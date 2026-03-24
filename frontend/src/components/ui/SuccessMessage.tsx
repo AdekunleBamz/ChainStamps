@@ -1,5 +1,6 @@
 import React from 'react';
 import { CheckCircle } from 'lucide-react';
+import { NETWORK } from '../../config/contracts';
 
 interface SuccessMessageProps {
   message: string;
@@ -29,7 +30,7 @@ export const SuccessMessage: React.FC<SuccessMessageProps> = ({
       <span>{message} </span>
       {txId && (
         <a
-          href={`${explorerUrl}/${txId}?chain=mainnet`}
+          href={`${explorerUrl}/${txId}?chain=${NETWORK}`}
           target="_blank"
           rel="noopener noreferrer"
           aria-label="View transaction on Stacks Explorer"
