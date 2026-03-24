@@ -46,10 +46,29 @@ const FaviconManager = () => {
   return null;
 }
 
-/** Animation stagger delay multiplier for registry items (seconds per index step). */
-const REGISTRY_STAGGER_DELAY = 0.1;
-/** Minimum skeleton height for lazy-loaded registry cards. */
-const REGISTRY_SKELETON_HEIGHT = 400;
+const RegistryItem = memo(({ component, index }: { component: React.ReactNode, index: number }) => (
+  <motion.div
+    initial={{ opacity: 0, y: 30 }}
+    whileInView={{ opacity: 1, y: 0 }}
+    viewport={{ once: true }}
+    transition={{ delay: index * 0.1 }}
+    className="registry-wrapper"
+  >
+    {component}
+  </motion.div>
+));
+
+/**
+ * Main Application component.
+ * Acts as the root coordinator for the ChainStamps frontend, managing:
+ * - Global layout structure (Hero, Search, Roadmap)
+ * - Integration with Wallet and Toast providers
+ * - Registry filtering and search logic
+ * 
+ * @component
+ */
+const App = () => {
+  const [searchQuery, setSearchQuery] = useState('');
 
   const registries = useMemo(() => [
     { id: 'hash', name: 'Hash Registry', component: <HashRegistry /> },
