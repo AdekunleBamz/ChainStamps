@@ -47,9 +47,9 @@ export const CONTRACTS: Record<string, RegistryConfig> = {
     fee: 50000, // 0.05 STX in microSTX
   },
   tagRegistry: {
-    name: DEFAULT_CONTRACT_NAMES.tag,
-    address: `${CONTRACT_ADDRESS}.${DEFAULT_CONTRACT_NAMES.tag}`,
-    fee: microStxToStx(CHAINSTAMP_FEES.tag.store),
+    name: "tag-registry",
+    address: `${CONTRACT_ADDRESS}.tag-registry`,
+    fee: 40000, // 0.04 STX in microSTX
   },
 };
 
