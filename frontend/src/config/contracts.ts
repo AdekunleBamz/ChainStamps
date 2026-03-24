@@ -27,7 +27,7 @@ export const CONTRACTS: Record<string, RegistryConfig> = {
   hashRegistry: {
     name: "hash-registry",
     address: `${CONTRACT_ADDRESS}.hash-registry`,
-    fee: 20000, // 0.02 STX in microSTX
+    fee: 30000, // 0.03 STX in microSTX
   },
   stampRegistry: {
     name: "stamp-registry",
