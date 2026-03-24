@@ -51,7 +51,7 @@ const RegistryItem = memo(({ component, index }: { component: React.ReactNode, i
 
 /**
  * Main Application component.
- * Acts as the root coordinator for the ChainStamp frontend, managing:
+ * Acts as the root coordinator for the ChainStamps frontend, managing:
  * - Global layout structure (Hero, Search, Roadmap)
  * - Integration with Wallet and Toast providers
  * - Registry filtering and search logic
