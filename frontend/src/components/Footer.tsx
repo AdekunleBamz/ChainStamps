@@ -1,6 +1,7 @@
 import { Github, Twitter, Globe, Zap, Clock, ShieldCheck } from 'lucide-react';
 import { motion } from 'framer-motion';
 import { memo } from 'react';
+import { CONTRACT_ADDRESS, NETWORK } from '../config/contracts';
 
 /**
  * Global Footer component.
@@ -76,7 +77,7 @@ export const Footer = memo(() => {
           <motion.a
             whileHover={{ scale: 1.1, y: -2 }}
             whileTap={{ scale: 0.9 }}
-            href="https://explorer.stacks.co/address/SP5K2RHMSBH4PAP4PGX77MCVNK1ZEED07CWX9TJT?chain=mainnet"
+            href={`https://explorer.stacks.co/address/${CONTRACT_ADDRESS}?chain=${NETWORK}`}
             target="_blank"
             rel="noopener noreferrer"
             aria-label="View ChainStamps contract on Stacks Explorer"
