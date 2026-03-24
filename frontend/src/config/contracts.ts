@@ -1,11 +1,11 @@
 /**
- * The base Stacks address for the ChainStamp contracts.
+ * The base Stacks address for the ChainStamps contracts.
  * @constant {string}
  */
 export const CONTRACT_ADDRESS = "SP5K2RHMSBH4PAP4PGX77MCVNK1ZEED07CWX9TJT";
 
 /**
- * Interface for ChainStamp registry contract configuration.
+ * Interface for ChainStamps registry contract configuration.
  */
 export interface RegistryConfig {
   /** The human-readable name of the contract. */
@@ -17,7 +17,7 @@ export interface RegistryConfig {
 }
 
 /**
- * Central configuration for the various ChainStamp registries.
+ * Central configuration for the various ChainStamps registries.
  * This object maps registry keys to their respective names, full addresses, 
  * and current transaction fees in microSTX.
  * 
