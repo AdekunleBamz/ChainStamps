@@ -231,7 +231,7 @@ export const wcSignTransaction = async (
 
 /**
  * Call a contract method via WalletConnect.
- * This is the primary method for interacting with the ChainStamp smart contracts.
+ * This is the primary method for interacting with the ChainStamps smart contracts.
  * 
  * @param {Object} params - The contract call parameters.
  * @param {string} params.contractAddress - The Stacks address of the contract.
