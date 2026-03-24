@@ -2,7 +2,7 @@
  * The base Stacks address for the ChainStamp contracts.
  * @constant {string}
  */
-export const CONTRACT_ADDRESS = "SP5K2RHMSBH4PAP4PGX77MCVNK1ZEED07CWX9TJT";
+export const CONTRACT_ADDRESS = (import.meta.env.VITE_CONTRACT_ADDRESS || "SP5K2RHMSBH4PAP4PGX77MCVNK1ZEED07CWX9TJT").trim();
 
 /**
  * Interface for ChainStamp registry contract configuration.
