@@ -41,5 +41,5 @@ export const CONTRACTS: Record<string, RegistryConfig> = {
   },
 };
 
-export const NETWORK = "mainnet";
+export const NETWORK = (import.meta.env.VITE_STACKS_NETWORK || "mainnet").trim().toLowerCase();
 export const STACKS_API_URL = "https://api.hiro.so";
