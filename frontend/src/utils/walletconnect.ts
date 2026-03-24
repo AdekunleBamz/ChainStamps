@@ -9,7 +9,7 @@ if (!PROJECT_ID || PROJECT_ID === 'YOUR_PROJECT_ID_HERE') {
 
 // Metadata for WalletConnect - icons array must be non-empty
 const metadata = {
-  name: 'ChainStamp',
+  name: 'ChainStamps',
   description: 'Immutable timestamping on Bitcoin via Stacks',
   url: typeof window !== 'undefined' ? window.location.origin : 'https://chainstamp.app',
   icons: [typeof window !== 'undefined' ? new URL('/logo.svg', window.location.origin).toString() : 'https://chainstamp.app/logo.svg'],
@@ -216,7 +216,7 @@ export const wcSignTransaction = async (
 
 /**
  * Call a contract method via WalletConnect.
- * This is the primary method for interacting with the ChainStamp smart contracts.
+ * This is the primary method for interacting with the ChainStamps smart contracts.
  * 
  * @param {Object} params - The contract call parameters.
  * @param {string} params.contractAddress - The Stacks address of the contract.
