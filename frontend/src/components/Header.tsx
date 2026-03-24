@@ -7,6 +7,7 @@ import { Button } from './ui/Button';
 import { Tooltip } from './ui/Tooltip';
 import { CopyButton } from './ui/CopyButton';
 import { AnimatedNumber } from './ui/AnimatedNumber';
+import { STACKS_API_URL } from '../config/contracts';
 
 /**
  * Global Header component that serves as the primary navigation and wallet interaction hub.
@@ -42,7 +43,7 @@ export const Header = () => {
 
     const fetchBlockHeight = async () => {
       try {
-        const response = await fetch('https://api.mainnet.hiro.so/v2/info');
+        const response = await fetch(`${STACKS_API_URL}/v2/info`);
         const data = await response.json();
         setBlockHeight(data.stacks_tip_height);
       } catch (error) {
