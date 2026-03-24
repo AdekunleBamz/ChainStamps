@@ -18,7 +18,7 @@ The process of submitting a signed transaction to the Stacks network.
 
 ## C
 
-**ChainStamp**
+**ChainStamps**
 A timestamped record stored on the Stacks blockchain via the stamp-registry contract.
 
 **Clarity**
