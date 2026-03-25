@@ -120,6 +120,7 @@ export const Header = () => {
                     onClick={() => setIsMenuOpen(!isMenuOpen)}
                     aria-label={isMenuOpen ? 'Close navigation menu' : 'Open navigation menu'}
                     aria-expanded={isMenuOpen}
+                    aria-haspopup="true"
                     aria-controls="primary-navigation"
                   >
                     {isMenuOpen ? <X size={24} /> : <Menu size={24} />}
