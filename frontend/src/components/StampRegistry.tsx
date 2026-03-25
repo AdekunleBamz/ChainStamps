@@ -3,6 +3,7 @@ import { motion, useAnimation } from 'framer-motion';
 import { useWallet } from '../context/WalletContext';
 import { CONTRACT_ADDRESS, CONTRACTS } from '../config/contracts';
 import { Stamp, Share2 } from 'lucide-react';
+import { twMerge } from 'tailwind-merge';
 import { CardSkeleton } from './ui/Skeleton';
 import { Tooltip } from './ui/Tooltip';
 import { Button } from './ui/Button';
@@ -135,7 +136,24 @@ export const StampRegistry = () => {
               <Share2 size={16} strokeWidth={1.5} />
             </Button>
           </Tooltip>
-          <Tooltip content="Stacks network transaction fee (paid in STX) to secure your message on the Bitcoin blockchain.">
+          <Tooltip 
+            content={
+              <div className="flex flex-col gap-1 p-1">
+                <div className="flex-between gap-4">
+                  <span>Base Network Fee:</span>
+                  <span className="font-mono">0.0010 STX</span>
+                </div>
+                <div className="flex-between gap-4">
+                  <span>Message Storage:</span>
+                  <span className="font-mono">{(estimateFee(message) - 0.001).toFixed(4)} STX</span>
+                </div>
+                <div className="border-t border-white/10 mt-1 pt-1 flex-between gap-4 font-bold text-primary">
+                  <span>Total Estimated:</span>
+                  <span className="font-mono">{(estimateFee(message)).toFixed(4)} STX</span>
+                </div>
+              </div>
+            }
+          >
             <span className="fee-badge bg-primary/10 text-primary border border-primary/20 px-3 py-1 rounded-full text-xs font-bold">
               <AnimatedNumber value={estimateFee(message)} decimals={4} suffix=" STX" />
             </span>
@@ -147,19 +165,49 @@ export const StampRegistry = () => {
         Permanently stamp messages on the Stacks blockchain with timestamps
       </p>
 
-      <div className="form-group">
-        <textarea
-          placeholder="Enter your message to stamp on-chain..."
-          value={message}
-          onChange={(e) => setMessage(e.target.value)}
-          onKeyDown={handleKeyDown}
-          maxLength={256}
-          rows={4}
-          className="textarea"
-          aria-label="Message to be stamped on the Stacks blockchain"
-          aria-required="true"
-        />
-        <span className="char-count" aria-live="polite">{message.length}/256</span>
+      <div className={twMerge("relative", isSubmitting && "pointer-events-none")}>
+        <div className="form-group mb-6">
+          <textarea
+            placeholder="Enter your message to stamp on-chain..."
+            value={message}
+            onChange={(e) => {
+              setMessage(e.target.value);
+              e.target.style.height = 'auto';
+              e.target.style.height = `${e.target.scrollHeight}px`;
+            }}
+            onKeyDown={handleKeyDown}
+            maxLength={256}
+            rows={4}
+            className={twMerge(
+              "textarea min-h-[120px] transition-all duration-200 resize-none",
+              isSubmitting && "opacity-50"
+            )}
+            style={{ height: 'auto' }}
+            aria-label="Message to be stamped on the Stacks blockchain"
+            aria-required="true"
+          />
+          <span 
+            className={twMerge(
+              "char-count text-[10px] mt-2 block text-right font-bold uppercase tracking-wider",
+              message.length >= 256 ? "text-destructive" : message.length >= 230 ? "text-orange-500" : "text-muted-foreground/40"
+            )} 
+            aria-live="polite"
+          >
+            {message.length}/256
+          </span>
+        </div>
+
+        {isSubmitting && (
+          <div className="absolute inset-0 z-10 flex-center bg-background/20 backdrop-blur-[1px] rounded-2xl pointer-events-none">
+            <motion.div 
+              initial={{ opacity: 0, scale: 0.9 }}
+              animate={{ opacity: 1, scale: 1 }}
+              className="px-4 py-2 bg-primary text-white text-xs font-bold rounded-full shadow-lg"
+            >
+              Confirm in Wallet
+            </motion.div>
+          </div>
+        )}
       </div>
 
       <SubmitButton
