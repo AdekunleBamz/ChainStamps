@@ -146,7 +146,24 @@ export const HashRegistry = () => {
               <Share2 size={16} strokeWidth={1.5} />
             </Button>
           </Tooltip>
-          <Tooltip content="Stacks network transaction fee (paid in STX) to secure your document fingerprints on the Bitcoin blockchain.">
+          <Tooltip 
+            content={
+              <div className="flex flex-col gap-1 p-1">
+                <div className="flex-between gap-4">
+                  <span>Base Network Fee:</span>
+                  <span className="font-mono">0.0010 STX</span>
+                </div>
+                <div className="flex-between gap-4">
+                  <span>Data Storage Cost:</span>
+                  <span className="font-mono">{(estimateFee(hash ? 32 : 0) - 0.001).toFixed(4)} STX</span>
+                </div>
+                <div className="border-t border-white/10 mt-1 pt-1 flex-between gap-4 font-bold text-primary">
+                  <span>Total Estimated:</span>
+                  <span className="font-mono">{(estimateFee(hash ? 32 : 0)).toFixed(4)} STX</span>
+                </div>
+              </div>
+            }
+          >
             <span className="fee-badge bg-primary/10 text-primary border border-primary/20 px-3 py-1 rounded-full text-xs font-bold">
               <AnimatedNumber value={estimateFee(hash ? 32 : 0)} decimals={4} suffix=" STX" />
             </span>
