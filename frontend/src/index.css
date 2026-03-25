@@ -44,10 +44,21 @@
   --glass-blur: 12px;
 }
 
+  /* Fluid Typography */
+  --text-xs: clamp(0.7rem, 0.65rem + 0.25vw, 0.8rem);
+  --text-sm: clamp(0.8rem, 0.75rem + 0.25vw, 0.9rem);
+  --text-base: clamp(0.9rem, 0.85rem + 0.25vw, 1rem);
+  --text-lg: clamp(1.1rem, 1rem + 0.5vw, 1.25rem);
+  --text-xl: clamp(1.4rem, 1.2rem + 1vw, 1.75rem);
+  --text-2xl: clamp(1.8rem, 1.5rem + 1.5vw, 2.25rem);
+  --text-3xl: clamp(2.2rem, 1.8rem + 2vw, 3rem);
+}
+
 body {
   background-color: var(--background);
   color: var(--foreground);
   font-family: var(--font-sans);
+  font-size: var(--text-base);
   margin: 0;
   min-height: 100vh;
   -webkit-font-smoothing: antialiased;
@@ -55,6 +66,11 @@ body {
   text-rendering: optimizeLegibility;
   scroll-behavior: smooth;
 }
+
+h1 { font-size: var(--text-3xl); line-height: 1.1; }
+h2 { font-size: var(--text-2xl); line-height: 1.2; }
+h3 { font-size: var(--text-xl); line-height: 1.3; }
+h4 { font-size: var(--text-lg); line-height: 1.4; }
 
 h1,
 h2,
