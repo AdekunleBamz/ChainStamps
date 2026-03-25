@@ -74,13 +74,24 @@ const App = () => {
       reg.name.toLowerCase().includes(searchQuery.toLowerCase())
     ), [searchQuery, registries]);
 
+  useEffect(() => {
+    const handleKeyDown = (e: KeyboardEvent) => {
+      if ((e.metaKey || e.ctrlKey) && e.key === 'k') {
+        e.preventDefault();
+        document.querySelector<HTMLInputElement>('.search-input')?.focus();
+      }
+    };
+    window.addEventListener('keydown', handleKeyDown);
+    return () => window.removeEventListener('keydown', handleKeyDown);
+  }, []);
+
   return (
     <ToastProvider>
       <WalletProvider>
         <FaviconManager />
         <div id="top" className="app">
           <LogicErrorBoundary>
-            <a href="#main-content" className="skip-to-content">
+            <a href="#main-content" className="skip-to-content focus:top-0 fixed -top-20 left-1/2 -translate-x-1/2 bg-primary text-white px-4 py-2 z-[1000] rounded-b-xl font-bold transition-all">
               Skip to content
             </a>
             <PullToRefresh onRefresh={async () => {
@@ -104,18 +115,19 @@ const App = () => {
                   <Search className="search-icon" size={18} />
                   <input
                     type="text"
-                    placeholder="Search registries (e.g., 'hash', 'tag')..."
+                    placeholder="Search registries (Cmd+K)..."
                     value={searchQuery}
                     onChange={(e) => setSearchQuery(e.target.value)}
                     onKeyDown={(event) => {
                       if (event.key === 'Escape') {
                         setSearchQuery('');
+                        (event.target as HTMLInputElement).blur();
                       }
                     }}
                     className="search-input"
                     aria-label="Search registry cards"
                     aria-controls="registry-results"
-                    aria-keyshortcuts="Esc"
+                    aria-keyshortcuts="Esc, Cmd+K"
                   />
                   {searchQuery && (
                     <button
