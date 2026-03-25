@@ -1,8 +1,8 @@
 import { useState, useEffect } from 'react';
-import { motion, useAnimation } from 'framer-motion';
+import { motion, useAnimation, AnimatePresence } from 'framer-motion';
 import { useWallet } from '../context/WalletContext';
 import { CONTRACT_ADDRESS, CONTRACTS } from '../config/contracts';
-import { Stamp, Share2, Shield, ExternalLink, Clock, HelpCircle } from 'lucide-react';
+import { Stamp, Share2, Shield, ExternalLink, Clock, HelpCircle, CheckCircle2, AlertCircle } from 'lucide-react';
 import { twMerge } from 'tailwind-merge';
 import { CardSkeleton } from './ui/Skeleton';
 import { Tooltip } from './ui/Tooltip';
@@ -82,6 +82,8 @@ export const StampRegistry = ({ searchQuery = '' }: { searchQuery?: string }) =>
     initial: { opacity: 0, y: 20 },
     animate: { opacity: 1, y: 0, transition: { duration: 0.5 } },
   };
+
+  const isMessageValid = message.length > 0 && message.length <= 256;
 
   return (
     <motion.section
@@ -166,13 +168,35 @@ export const StampRegistry = ({ searchQuery = '' }: { searchQuery?: string }) =>
 
       <div className={twMerge("relative", isSubmitting && "pointer-events-none")}>
         <div className="form-group mb-6">
-          <div className="flex items-center gap-1.5 mb-2 text-[10px] text-muted-foreground uppercase font-bold">
-            <label>Message Content</label>
-            <Tooltip content="Maximum 256 characters. This message will be stored in the transaction metadata.">
-              <div className="cursor-help opacity-40 hover:opacity-100 transition-opacity">
-                <HelpCircle size={10} />
-              </div>
-            </Tooltip>
+          <div className="flex flex-between items-center mb-2">
+            <div className="flex items-center gap-1.5 text-[10px] text-muted-foreground uppercase font-bold">
+              <label>Message Content</label>
+              <Tooltip content="Maximum 256 characters. This message will be stored in the transaction metadata.">
+                <div className="cursor-help opacity-40 hover:opacity-100 transition-opacity">
+                  <HelpCircle size={10} />
+                </div>
+              </Tooltip>
+            </div>
+            <AnimatePresence>
+              {message.length > 0 && (
+                <motion.div
+                  initial={{ opacity: 0, x: 5 }}
+                  animate={{ opacity: 1, x: 0 }}
+                  exit={{ opacity: 0, x: 5 }}
+                  className="flex items-center gap-1"
+                >
+                  {isMessageValid ? (
+                    <span className="text-[10px] text-success font-bold flex items-center gap-1">
+                      <CheckCircle2 size={10} /> Valid
+                    </span>
+                  ) : (
+                    <span className="text-[10px] text-destructive font-bold flex items-center gap-1">
+                      <AlertCircle size={10} /> Too long
+                    </span>
+                  )}
+                </motion.div>
+              )}
+            </AnimatePresence>
           </div>
           <textarea
             placeholder="Enter your message to stamp on-chain..."
@@ -187,7 +211,9 @@ export const StampRegistry = ({ searchQuery = '' }: { searchQuery?: string }) =>
             rows={4}
             className={twMerge(
               "textarea min-h-[120px] transition-all duration-200 resize-none",
-              isSubmitting && "opacity-50"
+              isSubmitting && "opacity-50",
+              message.length > 0 && isMessageValid && "border-success/30 bg-success/5",
+              message.length > 256 && "border-destructive/30 bg-destructive/5"
             )}
             style={{ height: 'auto' }}
             aria-label="Message to be stamped on the Stacks blockchain"

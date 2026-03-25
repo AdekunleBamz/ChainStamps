@@ -1,8 +1,8 @@
 import { useState, useEffect } from 'react';
-import { motion, useAnimation } from 'framer-motion';
+import { motion, useAnimation, AnimatePresence } from 'framer-motion';
 import { useWallet } from '../context/WalletContext';
 import { CONTRACT_ADDRESS, CONTRACTS } from '../config/contracts';
-import { Tag, Share2, Shield, Info, ExternalLink, HelpCircle } from 'lucide-react';
+import { Tag, Share2, Shield, Info, ExternalLink, HelpCircle, CheckCircle2, AlertCircle } from 'lucide-react';
 import { twMerge } from 'tailwind-merge';
 import { CardSkeleton } from './ui/Skeleton';
 import { Tooltip } from './ui/Tooltip';
@@ -84,6 +84,9 @@ export const TagRegistry = ({ searchQuery = '' }: { searchQuery?: string }) => {
     initial: { opacity: 0, y: 20 },
     animate: { opacity: 1, y: 0, transition: { duration: 0.5 } }
   };
+
+  const isKeyValid = key.length > 0 && /^[a-z0-9-]+$/.test(key);
+  const isValueValid = value.length > 0 && value.length <= 256;
 
   return (
     <motion.section
@@ -168,13 +171,35 @@ export const TagRegistry = ({ searchQuery = '' }: { searchQuery?: string }) => {
 
       <div className={twMerge("relative", isSubmitting && "pointer-events-none")}>
         <div className="form-group mb-4">
-          <div className="flex items-center gap-2 mb-1">
-            <label className="text-[10px] text-muted-foreground uppercase font-bold">Key Name</label>
-            <Tooltip content="Keys are automatically formatted as kebab-case (e.g., 'my-tag-name'). Maximum 64 characters.">
-              <div className="cursor-help opacity-40 hover:opacity-100 transition-opacity">
-                <HelpCircle size={10} />
-              </div>
-            </Tooltip>
+          <div className="flex flex-between items-center mb-1">
+            <div className="flex items-center gap-2">
+              <label className="text-[10px] text-muted-foreground uppercase font-bold">Key Name</label>
+              <Tooltip content="Keys are automatically formatted as kebab-case (e.g., 'my-tag-name'). Maximum 64 characters.">
+                <div className="cursor-help opacity-40 hover:opacity-100 transition-opacity">
+                  <HelpCircle size={10} />
+                </div>
+              </Tooltip>
+            </div>
+            <AnimatePresence>
+              {key.length > 0 && (
+                <motion.div
+                  initial={{ opacity: 0, x: 5 }}
+                  animate={{ opacity: 1, x: 0 }}
+                  exit={{ opacity: 0, x: 5 }}
+                  className="flex items-center gap-1"
+                >
+                  {isKeyValid ? (
+                    <span className="text-[10px] text-success font-bold flex items-center gap-1">
+                      <CheckCircle2 size={10} /> Perfect
+                    </span>
+                  ) : (
+                    <span className="text-[10px] text-destructive font-bold flex items-center gap-1">
+                      <AlertCircle size={10} /> Invalid format
+                    </span>
+                  )}
+                </motion.div>
+              )}
+            </AnimatePresence>
           </div>
           <input
             type="text"
@@ -183,7 +208,12 @@ export const TagRegistry = ({ searchQuery = '' }: { searchQuery?: string }) => {
             onChange={(e) => setKey(e.target.value.toLowerCase().replace(/\s+/g, '-').replace(/[^a-z0-9-]/g, ''))}
             onKeyDown={handleKeyDown}
             maxLength={64}
-            className={twMerge("input font-mono", isSubmitting && "opacity-50")}
+            className={twMerge(
+              "input font-mono transition-all duration-200", 
+              isSubmitting && "opacity-50",
+              key.length > 0 && isKeyValid && "border-success/30 bg-success/5",
+              key.length > 0 && !isKeyValid && "border-destructive/30 bg-destructive/5"
+            )}
             aria-label="Tag key name"
             aria-required="true"
           />
@@ -191,13 +221,35 @@ export const TagRegistry = ({ searchQuery = '' }: { searchQuery?: string }) => {
         </div>
 
         <div className="form-group mb-6">
-          <div className="flex items-center gap-2 mb-1">
-            <label className="text-[10px] text-muted-foreground uppercase font-bold">Value Content</label>
-            <Tooltip content="The data you want to associate with this key. Maximum 256 characters.">
-              <div className="cursor-help opacity-40 hover:opacity-100 transition-opacity">
-                <HelpCircle size={10} />
-              </div>
-            </Tooltip>
+          <div className="flex flex-between items-center mb-1">
+            <div className="flex items-center gap-2">
+              <label className="text-[10px] text-muted-foreground uppercase font-bold">Value Content</label>
+              <Tooltip content="The data you want to associate with this key. Maximum 256 characters.">
+                <div className="cursor-help opacity-40 hover:opacity-100 transition-opacity">
+                  <HelpCircle size={10} />
+                </div>
+              </Tooltip>
+            </div>
+            <AnimatePresence>
+              {value.length > 0 && (
+                <motion.div
+                  initial={{ opacity: 0, x: 5 }}
+                  animate={{ opacity: 1, x: 0 }}
+                  exit={{ opacity: 0, x: 5 }}
+                  className="flex items-center gap-1"
+                >
+                  {isValueValid ? (
+                    <span className="text-[10px] text-success font-bold flex items-center gap-1">
+                      <CheckCircle2 size={10} /> Valid
+                    </span>
+                  ) : (
+                    <span className="text-[10px] text-destructive font-bold flex items-center gap-1">
+                      <AlertCircle size={10} /> Too long
+                    </span>
+                  )}
+                </motion.div>
+              )}
+            </AnimatePresence>
           </div>
           <textarea
             placeholder="e.g., 'ChainStamp v1.0'"
@@ -206,7 +258,12 @@ export const TagRegistry = ({ searchQuery = '' }: { searchQuery?: string }) => {
             onKeyDown={handleKeyDown}
             maxLength={256}
             rows={3}
-            className={twMerge("textarea resize-none", isSubmitting && "opacity-50")}
+            className={twMerge(
+              "textarea resize-none transition-all duration-200", 
+              isSubmitting && "opacity-50",
+              value.length > 0 && isValueValid && "border-success/30 bg-success/5",
+              value.length > 256 && "border-destructive/30 bg-destructive/5"
+            )}
             aria-label="Tag value content"
             aria-required="true"
           />

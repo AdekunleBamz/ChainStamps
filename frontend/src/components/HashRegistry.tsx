@@ -1,9 +1,9 @@
 import { useState, useEffect } from 'react';
-import { motion, useAnimation } from 'framer-motion';
+import { motion, useAnimation, AnimatePresence } from 'framer-motion';
 import { useWallet } from '../context/WalletContext';
 import { CONTRACT_ADDRESS, CONTRACTS } from '../config/contracts';
 import { twMerge } from 'tailwind-merge';
-import { FileText, Hash, Share2, ExternalLink, HelpCircle } from 'lucide-react';
+import { FileText, Hash, Share2, ExternalLink, HelpCircle, CheckCircle2, AlertCircle } from 'lucide-react';
 import { CardSkeleton } from './ui/Skeleton';
 import { Tooltip } from './ui/Tooltip';
 import { CopyButton } from './ui/CopyButton';
@@ -17,67 +17,46 @@ import { useToast } from '../context/ToastContext';
 import { triggerHaptic } from '../utils/haptics';
 import { estimateFee } from '../utils/fee';
 import { RecentActivity } from './ui/RecentActivity';
-
-/**
- * HashRegistry component for anchoring document fingerprints to the Stacks blockchain.
- * Supports:
- * - Client-side SHA-256 hashing of files
- * - Immutable storage of hashes with optional descriptions
- * - Real-time transaction status feedback
- * - Deep linking to the Stacks Explorer for verification
- */
-import { useHashing } from '../hooks/useHashing';
-import { useContractCall } from '../hooks/useContractCall';
+import { HighlightText } from './ui/HighlightText';
 
 const SHAKE_ANIMATION = {
   x: [0, -10, 10, -10, 10, 0],
   transition: { duration: 0.4 }
 };
 
-import { HighlightText } from './ui/HighlightText';
-
+/**
+ * HashRegistry component for storing and verifying SHA-256 hashes on the Stacks blockchain.
+ */
 export const HashRegistry = ({ searchQuery = '' }: { searchQuery?: string }) => {
   const { isConnected, userAddress } = useWallet();
   const { addToast } = useToast();
-  const [file, setFile] = useState<File | null>(null);
-  const [description, setDescription] = useState('');
+  const [hash, setHash] = useState('');
   const [isLoading, setIsLoading] = useState(true);
   const controls = useAnimation();
-
-  const { hash, isHashing, computeHash } = useHashing();
-  const { isSubmitting, txId, execute, reset: resetContract, history } = useContractCall();
+  const { isSubmitting, txId, execute, history } = useContractCall();
 
   useEffect(() => {
     const timer = setTimeout(() => setIsLoading(false), 1200);
     return () => clearTimeout(timer);
   }, []);
 
-  const handleError = (msg: string) => {
-    addToast(msg, 'error');
+  const shake = () => {
     controls.start(SHAKE_ANIMATION);
     triggerHaptic('error');
   };
 
-  /**
-   * Captures file selection from the input, computes its SHA-256 hash,
-   * and resets the contract interaction state.
-   */
-  const handleFileChange = async (e: React.ChangeEvent<HTMLInputElement>) => {
-    const selectedFile = e.target.files?.[0];
-    if (selectedFile) {
-      setFile(selectedFile);
-      try {
-        await computeHash(selectedFile);
-        resetContract();
-      } catch {
-        handleError('Failed to hash file');
-      }
-    }
-  };
-
   const storeHash = async () => {
     if (!hash || !isConnected || !userAddress) {
-      handleError('Please select a file first.');
+      if (!hash) {
+        addToast('Please enter a SHA-256 hash to register.', 'warning');
+        shake();
+      }
+      return;
+    }
+
+    if (!/^[a-fA-F0-9]{64}$/.test(hash)) {
+      addToast('Invalid SHA-256 hash format.', 'error');
+      shake();
       return;
     }
 
@@ -85,13 +64,31 @@ export const HashRegistry = ({ searchQuery = '' }: { searchQuery?: string }) => 
       await execute({
         contractAddress: CONTRACT_ADDRESS,
         contractName: CONTRACTS.hashRegistry.name,
-        functionName: 'store-hash',
-        functionArgs: [`0x${hash}`, description || 'Document hash'],
+        functionName: 'register-hash',
+        functionArgs: [hash],
         stxAmount: CONTRACTS.hashRegistry.fee,
-      }, 'Hash stored successfully!', file?.name || 'Document Hash');
-      setDescription('');
+      }, 'Hash registered successfully!', hash.slice(0, 16) + '...');
+      setHash('');
     } catch {
       // Error handled by hook
+    }
+  };
+
+  const handleFileUpload = async (e: React.ChangeEvent<HTMLInputElement>) => {
+    const file = e.target.files?.[0];
+    if (!file) return;
+
+    try {
+      const arrayBuffer = await file.arrayBuffer();
+      const hashBuffer = await crypto.subtle.digest('SHA-256', arrayBuffer);
+      const hashArray = Array.from(new Uint8Array(hashBuffer));
+      const hashHex = hashArray.map(b => b.toString(16).padStart(2, '0')).join('');
+      setHash(hashHex);
+      addToast('File hashed successfully!', 'success');
+      triggerHaptic('success');
+    } catch (error) {
+      addToast('Failed to hash file.', 'error');
+      triggerHaptic('error');
     }
   };
 
@@ -103,12 +100,14 @@ export const HashRegistry = ({ searchQuery = '' }: { searchQuery?: string }) => 
     }
   };
 
+  if (isLoading) return <CardSkeleton />;
+
   const cardVariants = {
     initial: { opacity: 0, y: 20 },
-    animate: { opacity: 1, y: 0, transition: { duration: 0.5 } }
+    animate: { opacity: 1, y: 0, transition: { duration: 0.5 } },
   };
 
-  if (isLoading) return <CardSkeleton />;
+  const isHashValid = /^[a-fA-F0-9]{64}$/.test(hash);
 
   return (
     <motion.section
@@ -128,8 +127,8 @@ export const HashRegistry = ({ searchQuery = '' }: { searchQuery?: string }) => 
             <h2 className="text-xl font-bold m-0 p-0 leading-none">
               <HighlightText text="Hash Registry" query={searchQuery} />
             </h2>
-            <Tooltip content="Secure cryptographic identifier for your document">
-              <span className="text-[10px] uppercase tracking-wider text-muted-foreground font-bold mt-1">SHA-256 Anchoring</span>
+            <Tooltip content="Register SHA-256 hashes to create a permanent, verifiable proof of existence for any digital file.">
+              <span className="text-[10px] uppercase tracking-wider text-muted-foreground font-bold mt-1">Immutable Verification</span>
             </Tooltip>
           </div>
         </div>
@@ -170,110 +169,92 @@ export const HashRegistry = ({ searchQuery = '' }: { searchQuery?: string }) => 
                   <span className="font-mono">0.0010 STX</span>
                 </div>
                 <div className="flex-between gap-4">
-                  <span>Data Storage Cost:</span>
-                  <span className="font-mono">{(estimateFee(hash ? 32 : 0) - 0.001).toFixed(4)} STX</span>
+                  <span>Registration Fee:</span>
+                  <span className="font-mono">{(CONTRACTS.hashRegistry.fee - 0.001).toFixed(4)} STX</span>
                 </div>
                 <div className="border-t border-white/10 mt-1 pt-1 flex-between gap-4 font-bold text-primary">
-                  <span>Total Estimated:</span>
-                  <span className="font-mono">{(estimateFee(hash ? 32 : 0)).toFixed(4)} STX</span>
+                  <span>Total Due:</span>
+                  <span className="font-mono">{CONTRACTS.hashRegistry.fee.toFixed(4)} STX</span>
                 </div>
               </div>
             }
           >
             <span className="fee-badge bg-primary/10 text-primary border border-primary/20 px-3 py-1 rounded-full text-xs font-bold">
-              <AnimatedNumber value={estimateFee(hash ? 32 : 0)} decimals={4} suffix=" STX" />
+              <AnimatedNumber value={CONTRACTS.hashRegistry.fee} decimals={4} suffix=" STX" />
             </span>
           </Tooltip>
         </div>
       </div>
 
       <p className="card-description">
-        <HighlightText text="Store SHA-256 document hashes on-chain for permanent verification" query={searchQuery} />
+        <HighlightText text="Store and verify SHA-256 hashes for files and data on the blockchain" query={searchQuery} />
       </p>
 
       <div className={twMerge("relative", isSubmitting && "pointer-events-none")}>
-        <div className="form-group">
-          <label 
-            className={twMerge(
-              "file-input-label flex-center flex-col gap-3 p-8 border-2 border-dashed rounded-2xl transition-all cursor-pointer",
-              file ? "border-primary bg-primary/5" : "border-border hover:border-primary/50 hover:bg-white/5",
-              isSubmitting && "opacity-50"
-            )}
-          >
-            <div className="p-4 bg-primary/10 rounded-full">
-              <FileText size={32} className="text-primary" strokeWidth={1.5} />
-            </div>
-            <div className="text-center">
-              <p className="font-bold text-sm mb-1">{file ? file.name : 'Click to upload or drag & drop'}</p>
-              <p className="text-xs text-muted-foreground">{file ? `${(file.size / 1024).toFixed(1)} KB` : 'SHA-256 Hashing happens locally'}</p>
-            </div>
-            <input
-              type="file"
-              onChange={handleFileChange}
-              className="file-input"
-              onKeyDown={handleKeyDown}
-              aria-label="Choose a file to generate its SHA-256 hash"
-            />
-          </label>
-        </div>
-
-        {(isHashing || hash) && (
-          <div className={twMerge("hash-status-container p-4 bg-white/5 rounded-xl border border-white/10 mb-6", isSubmitting && "opacity-50")}>
-            {isHashing ? (
-              <div className="flex flex-col gap-2">
-                <div className="flex-between text-xs font-bold uppercase tracking-wider text-primary">
-                  <span>Computing Hash...</span>
-                  <span>Wait</span>
-                </div>
-                <div className="h-1.5 w-full bg-primary/10 rounded-full overflow-hidden">
-                  <motion.div 
-                    initial={{ x: "-100%" }}
-                    animate={{ x: "0%" }}
-                    transition={{ duration: 1.5, repeat: Infinity, ease: "linear" }}
-                    className="h-full w-full bg-gradient-to-r from-transparent via-primary to-transparent"
-                  />
-                </div>
-              </div>
-            ) : (
-              <div className="hash-display flex-between gap-4">
-                <div className="flex-1 overflow-hidden text-left">
-                  <div className="flex items-center gap-1.5 mb-1 text-[10px] text-muted-foreground uppercase font-bold">
-                    <label>SHA-256 Fingerprint</label>
-                    <Tooltip content="A unique digital fingerprint of your file. Even a 1-bit change results in a completely different hash.">
-                      <div className="cursor-help opacity-40 hover:opacity-100 transition-opacity">
-                        <HelpCircle size={10} />
-                      </div>
-                    </Tooltip>
-                  </div>
-                  <code className="block truncate text-primary/80 font-mono text-sm">{hash}</code>
-                </div>
-                <CopyButton value={hash || ''} size={16} className="ml-2 h-8 w-8 rounded-lg bg-primary/10" />
-              </div>
-            )}
-          </div>
-        )}
-
         <div className="form-group mb-6">
-          <input
-            type="text"
-            placeholder="Description (optional)"
-            value={description}
-            onChange={(e) => setDescription(e.target.value)}
-            maxLength={128}
-            className={twMerge("input", isSubmitting && "opacity-50")}
-            onKeyDown={handleKeyDown}
-            aria-label="Optional description for the document hash"
-            aria-required="false"
-          />
-          <span 
-            className={twMerge(
-              "char-count text-[10px] mt-1 block text-right",
-              description.length >= 128 ? "text-destructive" : description.length >= 115 ? "text-orange-500" : "text-muted-foreground/50"
-            )} 
-            aria-live="polite"
-          >
-            {description.length}/128
-          </span>
+          <div className="flex flex-between items-center mb-2">
+            <div className="flex items-center gap-1.5 text-[10px] text-muted-foreground uppercase font-bold">
+              <label>SHA-256 Hash</label>
+              <Tooltip content="A 64-character hexadecimal string representing a SHA-256 hash.">
+                <div className="cursor-help opacity-40 hover:opacity-100 transition-opacity">
+                  <HelpCircle size={10} />
+                </div>
+              </Tooltip>
+            </div>
+            <AnimatePresence>
+              {hash.length > 0 && (
+                <motion.div
+                  initial={{ opacity: 0, x: 5 }}
+                  animate={{ opacity: 1, x: 0 }}
+                  exit={{ opacity: 0, x: 5 }}
+                  className="flex items-center gap-1"
+                >
+                  {isHashValid ? (
+                    <span className="text-[10px] text-success font-bold flex items-center gap-1">
+                      <CheckCircle2 size={10} /> Valid Hash
+                    </span>
+                  ) : (
+                    <span className="text-[10px] text-destructive font-bold flex items-center gap-1">
+                      <AlertCircle size={10} /> Invalid Length ({hash.length}/64)
+                    </span>
+                  )}
+                </motion.div>
+              )}
+            </AnimatePresence>
+          </div>
+          <div className="flex gap-2">
+            <div className="relative flex-1">
+              <input
+                type="text"
+                placeholder="Enter 64-char hex hash..."
+                value={hash}
+                onChange={(e) => setHash(e.target.value)}
+                onKeyDown={handleKeyDown}
+                maxLength={64}
+                className={twMerge(
+                  "input font-mono transition-all duration-200", 
+                  isSubmitting && "opacity-50",
+                  hash.length > 0 && isHashValid && "border-success/30 bg-success/5",
+                  hash.length > 0 && !isHashValid && "border-destructive/30 bg-destructive/5"
+                )}
+                aria-label="SHA-256 hash to register"
+                aria-required="true"
+              />
+            </div>
+            <label className="cursor-pointer">
+              <input
+                type="file"
+                className="hidden"
+                onChange={handleFileUpload}
+                accept="*"
+                aria-label="Upload file to hash"
+              />
+              <div className="h-full px-4 flex-center bg-white/5 border border-white/10 rounded-xl hover:bg-white/10 transition-all text-xs font-bold text-muted-foreground whitespace-nowrap gap-2">
+                <FileText size={14} />
+                Hash File
+              </div>
+            </label>
+          </div>
         </div>
 
         {isSubmitting && (
@@ -292,10 +273,10 @@ export const HashRegistry = ({ searchQuery = '' }: { searchQuery?: string }) => 
       <SubmitButton
         onClick={storeHash}
         isLoading={isSubmitting}
-        disabled={!hash || !isConnected}
-        loadingText="Storing..."
-        idleText={isHashing ? 'Hashing...' : 'Store Hash On-Chain'}
-        ariaBusy={isSubmitting || isHashing}
+        disabled={!hash || !isConnected || !isHashValid}
+        loadingText="Registering..."
+        idleText="Register Hash On-Chain"
+        ariaBusy={isSubmitting}
       />
 
       <RecentActivity 
@@ -303,9 +284,14 @@ export const HashRegistry = ({ searchQuery = '' }: { searchQuery?: string }) => 
         className="mt-6 pt-6 border-t border-white/5"
       />
 
-      <SuccessMessage message="Hash stored!" txId={txId} />
-      
+      <SuccessMessage message="Hash registered!" txId={txId} />
+
       {!isConnected && <WarningMessage />}
-    </motion.section >
+    </motion.section>
   );
 }
+
+/**
+ * Functional component hooks for managing registry logic.
+ */
+import { useContractCall } from '../hooks/useContractCall';
