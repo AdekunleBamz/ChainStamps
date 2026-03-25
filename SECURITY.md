@@ -12,13 +12,13 @@ We take security seriously. If you discover a security vulnerability in ChainSta
 
 ### How to Report
 
-1. **Do NOT** open a public GitHub issue for security vulnerabilities
-2. Email security concerns to the maintainers privately
+1. **Do NOT** open a public GitHub issue for security vulnerabilities.
+2. Email security concerns to **security@chainstamps.io** privately.
 3. Include detailed information about the vulnerability:
-   - Description of the issue
-   - Steps to reproduce
-   - Potential impact
-   - Suggested fix (if any)
+   - **Description**: A clear and concise description of the security issue.
+   - **Steps to Reproduce**: Detailed steps to reproduce the vulnerability (including code samples or screenshots if applicable).
+   - **Potential Impact**: Who would be affected and how?
+   - **Suggested Fix**: Any ideas on how to address the vulnerability.
 
 ### What to Expect
 
