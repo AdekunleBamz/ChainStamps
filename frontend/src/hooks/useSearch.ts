@@ -8,6 +8,14 @@ export interface SearchableItem {
   tags?: string[];
 }
 
+/**
+ * Custom hook for performing client-side searching and filtering of items.
+ * Supports URL synchronization, deferred updates for performance, and category filtering.
+ * 
+ * @template T - The type of items to search, must extend SearchableItem.
+ * @param {T[]} items - The initial list of items to filter.
+ * @returns {Object} Search state and utility functions.
+ */
 export const useSearch = <T extends SearchableItem>(items: T[]) => {
   const [searchQuery, setSearchQuery] = useState(new URLSearchParams(window.location.search).get('q') || '');
   const [selectedCategories, setSelectedCategories] = useState<string[]>(
