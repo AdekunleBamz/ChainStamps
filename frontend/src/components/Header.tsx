@@ -1,6 +1,6 @@
 import { useWallet } from '../context/WalletContext';
 import { Wallet, LogOut, Loader2, Activity, Menu, X } from 'lucide-react';
-import { useState, useEffect } from 'react';
+import { useState, useEffect, useRef } from 'react';
 import { WalletConnectQRModal } from './WalletConnectQRModal';
 import { twMerge } from 'tailwind-merge';
 import { Button } from './ui/Button';
@@ -26,15 +26,15 @@ export const Header = () => {
   const [blockHeight, setBlockHeight] = useState<number | null>(null);
   const [isMenuOpen, setIsMenuOpen] = useState(false);
 
+  const ticking = useRef(false);
   useEffect(() => {
-    let ticking = false;
     const handleScroll = () => {
-      if (!ticking) {
+      if (!ticking.current) {
         window.requestAnimationFrame(() => {
           setIsScrolled(window.scrollY > 20);
-          ticking = false;
+          ticking.current = false;
         });
-        ticking = true;
+        ticking.current = true;
       }
     };
     
