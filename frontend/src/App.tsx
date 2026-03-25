@@ -185,6 +185,9 @@ const App = () => {
                   )}
                 </div>
                 <div className="search-suggestions" role="group" aria-label="Search suggestions">
+                  <div className="flex items-center gap-2 mr-2">
+                    <span className="text-[10px] uppercase tracking-wider text-muted-foreground font-bold">Categories:</span>
+                  </div>
                   {['Hash', 'Stamp', 'Tag'].map(suggestion => (
                     <button
                       key={suggestion}
@@ -198,6 +201,21 @@ const App = () => {
                       aria-controls="registry-results"
                     >
                       {suggestion}
+                    </button>
+                  ))}
+                </div>
+                <div className="search-suggestions mt-2" role="group" aria-label="Suggested searches">
+                  <div className="flex items-center gap-2 mr-2">
+                    <span className="text-[10px] uppercase tracking-wider text-muted-foreground font-bold">Suggested:</span>
+                  </div>
+                  {['SHA-256', 'Immutable', 'Identity', 'Security'].map(tag => (
+                    <button
+                      key={tag}
+                      type="button"
+                      onClick={() => setSearchQuery(tag)}
+                      className="text-[10px] text-primary/60 hover:text-primary transition-colors border border-primary/10 px-2 py-0.5 rounded-full hover:bg-primary/5"
+                    >
+                      {tag}
                     </button>
                   ))}
                 </div>
