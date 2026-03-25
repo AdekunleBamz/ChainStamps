@@ -103,12 +103,13 @@ export const Header = () => {
           <a className="logo flex-center" href="#top" aria-label="ChainStamps - Back to top" rel="home">
             <img 
               src="/logo.png" 
-              alt="ChainStamps Logo" 
+              alt="" 
               className="logo-img will-change-transform" 
               width="32" 
               height="32" 
               loading="eager"
               decoding="async" 
+              aria-hidden="true"
             />
             <span className="logo-text">ChainStamps</span>
           </a>
