@@ -20,7 +20,7 @@ import { PullToRefresh } from './components/ui/PullToRefresh';
 import { EmptyState } from './components/ui/EmptyState';
 import { LogicErrorBoundary } from './components/ui/LogicErrorBoundary';
 import { PerformanceOverlay } from './components/ui/PerformanceOverlay';
-import { ScrollToTop } from './components/ui/ScrollToTop';
+import { QuickActions } from './components/ui/QuickActions';
 import './App.css';
 
 /**
@@ -202,7 +202,7 @@ const App = () => {
             <Footer />
           </LogicErrorBoundary>
           <PerformanceOverlay />
-          <ScrollToTop />
+          <QuickActions />
         </div>
       </WalletProvider>
     </ToastProvider>
