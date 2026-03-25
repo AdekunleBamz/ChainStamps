@@ -193,10 +193,28 @@ export const Header = () => {
           >
             <ul className="flex items-center gap-6 list-none p-0 m-0">
               <li>
-                <Tooltip content="Current Stacks network block height">
-                <div className="network-heartbeat" aria-live="polite" aria-label={`Current Stacks block height: ${blockHeight || 'Loading'}`}>
-                    <Activity size={14} className="mr-1 text-primary animate-pulse" strokeWidth={2} aria-hidden="true" />
-                    <span className="text-xs font-mono text-muted-foreground" aria-hidden="true">
+                <Tooltip content={
+                  <div className="flex flex-col gap-1 p-1">
+                    <div className="flex-between gap-4">
+                      <span>Network:</span>
+                      <span className="text-primary font-bold">Mainnet</span>
+                    </div>
+                    <div className="flex-between gap-4">
+                      <span>Block Height:</span>
+                      <span className="font-mono">{blockHeight || '---'}</span>
+                    </div>
+                    <div className="flex-between gap-4">
+                      <span>Status:</span>
+                      <span className="text-success font-bold">Operational</span>
+                    </div>
+                  </div>
+                }>
+                  <div className="network-heartbeat flex items-center bg-white/5 border border-white/10 px-3 py-1.5 rounded-full" aria-live="polite" aria-label={`Stacks Mainnet block height: ${blockHeight || 'Loading'}`}>
+                    <Activity size={12} className="mr-2 text-primary animate-pulse" strokeWidth={2.5} aria-hidden="true" />
+                    <span className="text-[10px] font-bold uppercase tracking-widest text-muted-foreground mr-2" aria-hidden="true">
+                      Mainnet
+                    </span>
+                    <span className="text-xs font-mono text-primary font-bold" aria-hidden="true">
                       {blockHeight ? (
                         <AnimatedNumber value={blockHeight} prefix="#" />
                       ) : (
