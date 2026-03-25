@@ -25,6 +25,7 @@ import { LogicErrorBoundary } from './components/ui/LogicErrorBoundary';
 import { PerformanceOverlay } from './components/ui/PerformanceOverlay';
 import { QuickActions } from './components/ui/QuickActions';
 import { FilterDrawer } from './components/ui/FilterDrawer';
+import { triggerHaptic } from './utils/haptics';
 import './App.css';
 
 /**
@@ -226,7 +227,10 @@ const App = () => {
                       <button
                         key={suggestion}
                         type="button"
-                        onClick={() => toggleCategory(suggestion)}
+                        onClick={() => {
+                          toggleCategory(suggestion);
+                          triggerHaptic('light');
+                        }}
                         className={twMerge(
                           "search-chip",
                           selectedCategories.includes(suggestion) && "search-chip-active"
@@ -246,7 +250,10 @@ const App = () => {
                       <button
                         key={tag}
                         type="button"
-                        onClick={() => setSearchQuery(tag)}
+                        onClick={() => {
+                          setSearchQuery(tag);
+                          triggerHaptic('light');
+                        }}
                         className="text-[10px] text-primary/60 hover:text-primary transition-colors border border-primary/10 px-2 py-0.5 rounded-full hover:bg-primary/5"
                       >
                         {tag}
