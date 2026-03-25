@@ -175,80 +175,95 @@ export const HashRegistry = () => {
         Store SHA-256 document hashes on-chain for permanent verification
       </p>
 
-      <div className="form-group">
-        <label 
-          className={twMerge(
-            "file-input-label flex-center flex-col gap-3 p-8 border-2 border-dashed rounded-2xl transition-all cursor-pointer",
-            file ? "border-primary bg-primary/5" : "border-border hover:border-primary/50 hover:bg-white/5"
-          )}
-        >
-          <div className="p-4 bg-primary/10 rounded-full">
-            <FileText size={32} className="text-primary" strokeWidth={1.5} />
-          </div>
-          <div className="text-center">
-            <p className="font-bold text-sm mb-1">{file ? file.name : 'Click to upload or drag & drop'}</p>
-            <p className="text-xs text-muted-foreground">{file ? `${(file.size / 1024).toFixed(1)} KB` : 'SHA-256 Hashing happens locally'}</p>
-          </div>
-          <input
-            type="file"
-            onChange={handleFileChange}
-            className="file-input"
-            onKeyDown={handleKeyDown}
-            aria-label="Choose a file to generate its SHA-256 hash"
-          />
-        </label>
-      </div>
-
-      {(isHashing || hash) && (
-        <div className="hash-status-container p-4 bg-white/5 rounded-xl border border-white/10 mb-6">
-          {isHashing ? (
-            <div className="flex flex-col gap-2">
-              <div className="flex-between text-xs font-bold uppercase tracking-wider text-primary">
-                <span>Computing Hash...</span>
-                <span>Wait</span>
-              </div>
-              <div className="h-1.5 w-full bg-primary/10 rounded-full overflow-hidden">
-                <motion.div 
-                  initial={{ x: "-100%" }}
-                  animate={{ x: "0%" }}
-                  transition={{ duration: 1.5, repeat: Infinity, ease: "linear" }}
-                  className="h-full w-full bg-gradient-to-r from-transparent via-primary to-transparent"
-                />
-              </div>
+      <div className={twMerge("relative", isSubmitting && "pointer-events-none")}>
+        <div className="form-group">
+          <label 
+            className={twMerge(
+              "file-input-label flex-center flex-col gap-3 p-8 border-2 border-dashed rounded-2xl transition-all cursor-pointer",
+              file ? "border-primary bg-primary/5" : "border-border hover:border-primary/50 hover:bg-white/5",
+              isSubmitting && "opacity-50"
+            )}
+          >
+            <div className="p-4 bg-primary/10 rounded-full">
+              <FileText size={32} className="text-primary" strokeWidth={1.5} />
             </div>
-          ) : (
-            <div className="hash-display flex-between gap-4">
-              <div className="flex-1 overflow-hidden text-left">
-                <label className="text-[10px] text-muted-foreground uppercase font-bold mb-1 block">SHA-256 Fingerprint:</label>
-                <code className="block truncate text-primary/80 font-mono text-sm">{hash}</code>
-              </div>
-              <CopyButton value={hash || ''} size={16} className="ml-2 h-8 w-8 rounded-lg bg-primary/10" />
+            <div className="text-center">
+              <p className="font-bold text-sm mb-1">{file ? file.name : 'Click to upload or drag & drop'}</p>
+              <p className="text-xs text-muted-foreground">{file ? `${(file.size / 1024).toFixed(1)} KB` : 'SHA-256 Hashing happens locally'}</p>
             </div>
-          )}
+            <input
+              type="file"
+              onChange={handleFileChange}
+              className="file-input"
+              onKeyDown={handleKeyDown}
+              aria-label="Choose a file to generate its SHA-256 hash"
+            />
+          </label>
         </div>
-      )}
 
-      <div className="form-group">
-        <input
-          type="text"
-          placeholder="Description (optional)"
-          value={description}
-          onChange={(e) => setDescription(e.target.value)}
-          maxLength={128}
-          className="input"
-          onKeyDown={handleKeyDown}
-          aria-label="Optional description for the document hash"
-          aria-required="false"
-        />
-        <span 
-          className={twMerge(
-            "char-count text-[10px] mt-1 block text-right",
-            description.length >= 128 ? "text-destructive" : description.length >= 115 ? "text-orange-500" : "text-muted-foreground/50"
-          )} 
-          aria-live="polite"
-        >
-          {description.length}/128
-        </span>
+        {(isHashing || hash) && (
+          <div className={twMerge("hash-status-container p-4 bg-white/5 rounded-xl border border-white/10 mb-6", isSubmitting && "opacity-50")}>
+            {isHashing ? (
+              <div className="flex flex-col gap-2">
+                <div className="flex-between text-xs font-bold uppercase tracking-wider text-primary">
+                  <span>Computing Hash...</span>
+                  <span>Wait</span>
+                </div>
+                <div className="h-1.5 w-full bg-primary/10 rounded-full overflow-hidden">
+                  <motion.div 
+                    initial={{ x: "-100%" }}
+                    animate={{ x: "0%" }}
+                    transition={{ duration: 1.5, repeat: Infinity, ease: "linear" }}
+                    className="h-full w-full bg-gradient-to-r from-transparent via-primary to-transparent"
+                  />
+                </div>
+              </div>
+            ) : (
+              <div className="hash-display flex-between gap-4">
+                <div className="flex-1 overflow-hidden text-left">
+                  <label className="text-[10px] text-muted-foreground uppercase font-bold mb-1 block">SHA-256 Fingerprint:</label>
+                  <code className="block truncate text-primary/80 font-mono text-sm">{hash}</code>
+                </div>
+                <CopyButton value={hash || ''} size={16} className="ml-2 h-8 w-8 rounded-lg bg-primary/10" />
+              </div>
+            )}
+          </div>
+        )}
+
+        <div className="form-group mb-6">
+          <input
+            type="text"
+            placeholder="Description (optional)"
+            value={description}
+            onChange={(e) => setDescription(e.target.value)}
+            maxLength={128}
+            className={twMerge("input", isSubmitting && "opacity-50")}
+            onKeyDown={handleKeyDown}
+            aria-label="Optional description for the document hash"
+            aria-required="false"
+          />
+          <span 
+            className={twMerge(
+              "char-count text-[10px] mt-1 block text-right",
+              description.length >= 128 ? "text-destructive" : description.length >= 115 ? "text-orange-500" : "text-muted-foreground/50"
+            )} 
+            aria-live="polite"
+          >
+            {description.length}/128
+          </span>
+        </div>
+
+        {isSubmitting && (
+          <div className="absolute inset-0 z-10 flex-center bg-background/20 backdrop-blur-[1px] rounded-2xl pointer-events-none">
+            <motion.div 
+              initial={{ opacity: 0, scale: 0.9 }}
+              animate={{ opacity: 1, scale: 1 }}
+              className="px-4 py-2 bg-primary text-white text-xs font-bold rounded-full shadow-lg"
+            >
+              Confirm in Wallet
+            </motion.div>
+          </div>
+        )}
       </div>
 
       <SubmitButton
