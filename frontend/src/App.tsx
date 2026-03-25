@@ -223,24 +223,35 @@ const App = () => {
                     <div className="flex items-center gap-2 mr-2">
                       <span className="text-[10px] uppercase tracking-wider text-muted-foreground font-bold">Categories:</span>
                     </div>
-                    {['Hash', 'Stamp', 'Tag'].map(suggestion => (
-                      <button
-                        key={suggestion}
-                        type="button"
-                        onClick={() => {
-                          toggleCategory(suggestion);
-                          triggerHaptic('light');
-                        }}
-                        className={twMerge(
-                          "search-chip",
-                          selectedCategories.includes(suggestion) && "search-chip-active"
-                        )}
-                        aria-pressed={selectedCategories.includes(suggestion)}
-                        aria-controls="registry-results"
-                      >
-                        {suggestion}
-                      </button>
-                    ))}
+                    <AnimatePresence mode="popLayout">
+                      {['Hash', 'Stamp', 'Tag'].map(suggestion => {
+                        const isSelected = selectedCategories.includes(suggestion);
+                        return (
+                          <motion.button
+                            key={suggestion}
+                            layout
+                            initial={{ opacity: 0, scale: 0.8 }}
+                            animate={{ opacity: 1, scale: 1 }}
+                            exit={{ opacity: 0, scale: 0.8 }}
+                            whileHover={{ scale: 1.05 }}
+                            whileTap={{ scale: 0.95 }}
+                            type="button"
+                            onClick={() => {
+                              toggleCategory(suggestion);
+                              triggerHaptic('light');
+                            }}
+                            className={twMerge(
+                              "search-chip",
+                              isSelected && "search-chip-active"
+                            )}
+                            aria-pressed={isSelected}
+                            aria-controls="registry-results"
+                          >
+                            {suggestion}
+                          </motion.button>
+                        );
+                      })}
+                    </AnimatePresence>
                   </div>
                   <div className="search-suggestions mt-2" role="group" aria-label="Suggested searches">
                     <div className="flex items-center gap-2 mr-2">
