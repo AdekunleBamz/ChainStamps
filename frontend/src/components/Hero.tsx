@@ -80,6 +80,29 @@ export const Hero = () => {
         Bitcoin's most secure layer through the Stacks blockchain.
       </motion.p>
 
+      <motion.div 
+        className="hero-cta flex-center gap-4" 
+        variants={ITEM_VARIANTS}
+      >
+        <button
+          onClick={() => {
+            const connectBtn = document.querySelector('.connect-btn') as HTMLButtonElement;
+            connectBtn?.click();
+          }}
+          className="cta-primary h-14 px-8 rounded-2xl bg-primary text-white font-bold flex items-center gap-2 hover:scale-105 active:scale-95 transition-all shadow-xl shadow-primary/20"
+          aria-label="Connect Stacks Wallet to get started"
+        >
+          Get Started
+          <Shield size={20} />
+        </button>
+        <a 
+          href="#hash" 
+          className="cta-secondary h-14 px-8 rounded-2xl border border-border bg-white/5 backdrop-blur-md text-primary font-bold flex items-center gap-2 hover:bg-white/10 transition-all"
+        >
+          Learn More
+        </a>
+      </motion.div>
+
       <motion.div className="features" variants={CONTAINER_VARIANTS}>
         <FeatureItem 
           icon={Shield} 
