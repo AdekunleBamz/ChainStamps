@@ -3,7 +3,7 @@ import { motion, useAnimation } from 'framer-motion';
 import { useWallet } from '../context/WalletContext';
 import { CONTRACT_ADDRESS, CONTRACTS } from '../config/contracts';
 import { twMerge } from 'tailwind-merge';
-import { FileText, Hash, Share2 } from 'lucide-react';
+import { FileText, Hash, Share2, ExternalLink } from 'lucide-react';
 import { CardSkeleton } from './ui/Skeleton';
 import { Tooltip } from './ui/Tooltip';
 import { CopyButton } from './ui/CopyButton';
@@ -130,6 +130,17 @@ export const HashRegistry = () => {
           </div>
         </div>
         <div className="flex items-center gap-3">
+          <Tooltip content="View contract on Stacks Explorer">
+            <a
+              href={`https://explorer.stacks.co/txid/${CONTRACT_ADDRESS}.${CONTRACTS.hashRegistry.name}?chain=mainnet`}
+              target="_blank"
+              rel="noopener noreferrer"
+              className="h-8 w-8 flex-center rounded-full opacity-40 hover:opacity-100 hover:bg-primary/10 transition-all text-muted-foreground hover:text-primary"
+              aria-label="View contract on Stacks Explorer"
+            >
+              <ExternalLink size={16} strokeWidth={1.5} />
+            </a>
+          </Tooltip>
           <Tooltip content="Copy link to this section">
             <Button
               variant="ghost"
