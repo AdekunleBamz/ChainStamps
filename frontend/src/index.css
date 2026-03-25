@@ -42,8 +42,6 @@
   --glass-bg: hsla(0, 0%, 100%, 0.03);
   --glass-border: hsla(0, 0%, 100%, 0.08);
   --glass-blur: 12px;
-}
-
   /* Fluid Typography */
   --text-xs: clamp(0.7rem, 0.65rem + 0.25vw, 0.8rem);
   --text-sm: clamp(0.8rem, 0.75rem + 0.25vw, 0.9rem);
