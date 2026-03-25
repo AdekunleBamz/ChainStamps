@@ -226,13 +226,11 @@
 )
 
 ;; Check if a principal is the contract owner
-;; Returns: true if user is contract deployer, false otherwise
 (define-read-only (is-contract-owner (user principal))
     (is-eq user CONTRACT-OWNER)
 )
 
-;; Get summary statistics for the contract
-;; Returns: {total-hashes, total-fees, fee-per-hash}
+;; Get contract stats summary
 (define-read-only (get-stats)
     {
         total-hashes: (var-get hash-counter),
