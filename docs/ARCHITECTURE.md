@@ -61,6 +61,23 @@ ChainStamps is a decentralized timestamping and data storage platform built on t
 ### Data Models
 
 #### Hash Registry
+The Hash Registry is designed for permanent, immutable storage of file fingerprints. Once a hash is stored, it cannot be modified or deleted, providing a "Proof of Existence" that is anchored to the Bitcoin blockchain.
+- **Key Feature**: Irreversible records.
+- **Use Case**: Legal documents, academic certificates, intellectual property.
+
+#### Stamp Registry
+The Stamp Registry allows users to record short text messages on-chain. Each message is automatically associated with a block height and a decentralized timestamp.
+- **Key Feature**: Immutable narrative records.
+- **Use Case**: Public announcements, official notices, on-chain journals.
+
+#### Tag Registry
+The Tag Registry provides a dynamic, updatable key-value store. Unlike the other registries, users can update the value associated with a specific key.
+- **Key Feature**: Updatable state.
+- **Use Case**: App configuration, profile metadata, version tracking.
+
+### Data Models
+
+#### Hash Registry
 ```clarity
 {
   owner: principal,
