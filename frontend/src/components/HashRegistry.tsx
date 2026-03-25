@@ -159,9 +159,19 @@ export const HashRegistry = () => {
       </p>
 
       <div className="form-group">
-        <label className="file-input-label flex-center">
-          <FileText size={20} strokeWidth={1.5} />
-          {file ? file.name : 'Choose a file to hash'}
+        <label 
+          className={twMerge(
+            "file-input-label flex-center flex-col gap-3 p-8 border-2 border-dashed rounded-2xl transition-all cursor-pointer",
+            file ? "border-primary bg-primary/5" : "border-border hover:border-primary/50 hover:bg-white/5"
+          )}
+        >
+          <div className="p-4 bg-primary/10 rounded-full">
+            <FileText size={32} className="text-primary" strokeWidth={1.5} />
+          </div>
+          <div className="text-center">
+            <p className="font-bold text-sm mb-1">{file ? file.name : 'Click to upload or drag & drop'}</p>
+            <p className="text-xs text-muted-foreground">{file ? `${(file.size / 1024).toFixed(1)} KB` : 'SHA-256 Hashing happens locally'}</p>
+          </div>
           <input
             type="file"
             onChange={handleFileChange}
@@ -172,13 +182,32 @@ export const HashRegistry = () => {
         </label>
       </div>
 
-      {hash && (
-        <div className="hash-display flex-between gap-4">
-          <div className="flex-1 overflow-hidden">
-            <label className="text-xs text-muted-foreground uppercase font-bold mb-1 block">SHA-256 Hash:</label>
-            <code className="block truncate text-primary/80">{hash}</code>
-          </div>
-          <CopyButton value={hash} size={16} className="ml-2 h-8 w-8" />
+      {(isHashing || hash) && (
+        <div className="hash-status-container p-4 bg-white/5 rounded-xl border border-white/10 mb-6">
+          {isHashing ? (
+            <div className="flex flex-col gap-2">
+              <div className="flex-between text-xs font-bold uppercase tracking-wider text-primary">
+                <span>Computing Hash...</span>
+                <span>Wait</span>
+              </div>
+              <div className="h-1.5 w-full bg-primary/10 rounded-full overflow-hidden">
+                <motion.div 
+                  initial={{ x: "-100%" }}
+                  animate={{ x: "0%" }}
+                  transition={{ duration: 1.5, repeat: Infinity, ease: "linear" }}
+                  className="h-full w-full bg-gradient-to-r from-transparent via-primary to-transparent"
+                />
+              </div>
+            </div>
+          ) : (
+            <div className="hash-display flex-between gap-4">
+              <div className="flex-1 overflow-hidden text-left">
+                <label className="text-[10px] text-muted-foreground uppercase font-bold mb-1 block">SHA-256 Fingerprint:</label>
+                <code className="block truncate text-primary/80 font-mono text-sm">{hash}</code>
+              </div>
+              <CopyButton value={hash || ''} size={16} className="ml-2 h-8 w-8 rounded-lg bg-primary/10" />
+            </div>
+          )}
         </div>
       )}
 
