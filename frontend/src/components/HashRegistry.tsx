@@ -122,7 +122,7 @@ export const HashRegistry = () => {
           </Tooltip>
         </div>
         <h2>Hash Registry</h2>
-        <Tooltip content="Stacks network transaction fee (paid in STX)">
+        <Tooltip content="Stacks network transaction fee (paid in STX) to secure your document fingerprints on the Bitcoin blockchain.">
           <span className="fee-badge">
             <AnimatedNumber value={0.03} decimals={2} suffix=" STX" />
           </span>
