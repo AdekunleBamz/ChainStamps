@@ -50,3 +50,5 @@ test-wallets.json
 
 # Scripts
 scripts/get-address.js
+scripts/
+test-wallets.json
