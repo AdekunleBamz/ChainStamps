@@ -1,28 +1,29 @@
 import { motion } from 'framer-motion';
+import { memo } from 'react';
 
 const ANIMATIONS = {
   blob1: {
     animate: {
-      scale: [1, 1.2, 1],
-      x: [0, 100, 0],
-      y: [0, 50, 0],
-    },
-    transition: {
-      duration: 20,
-      repeat: Infinity,
-      ease: "linear"
-    }
-  },
-  blob2: {
-    animate: {
-      scale: [1, 1.5, 1],
-      x: [0, -150, 0],
-      y: [0, 100, 0],
+      scale: [1, 1.1, 1],
+      x: [0, 50, 0],
+      y: [0, 30, 0],
     },
     transition: {
       duration: 25,
       repeat: Infinity,
-      ease: "linear"
+      ease: "easeInOut"
+    }
+  },
+  blob2: {
+    animate: {
+      scale: [1, 1.2, 1],
+      x: [0, -70, 0],
+      y: [0, 50, 0],
+    },
+    transition: {
+      duration: 35,
+      repeat: Infinity,
+      ease: "easeInOut"
     }
   }
 };
@@ -30,21 +31,23 @@ const ANIMATIONS = {
 /**
  * MeshGradient background component.
  * Provides a visually rich, animated background with glassmorphism effects.
+ * Optimized with memoization and hardware-accelerated transforms.
  * 
  * @component
  */
-export const MeshGradient = () => {
+export const MeshGradient = memo(() => {
     return (
         <div className="fixed inset-0 -z-10 overflow-hidden pointer-events-none" aria-hidden="true">
             <motion.div
                 {...ANIMATIONS.blob1}
-                className="absolute top-[-10%] left-[-10%] w-[50%] h-[50%] aspect-square rounded-full bg-primary/20 blur-[120px] will-change-transform"
+                className="absolute top-[-20%] left-[-10%] w-[60%] h-[60%] rounded-full bg-primary/15 blur-[120px] will-change-transform"
             />
             <motion.div
                 {...ANIMATIONS.blob2}
-                className="absolute bottom-[-20%] right-[-10%] w-[60%] h-[60%] aspect-square rounded-full bg-primary/10 blur-[150px] will-change-transform"
+                className="absolute bottom-[-30%] right-[-10%] w-[70%] h-[70%] rounded-full bg-accent/10 blur-[150px] will-change-transform"
             />
-            <div className="absolute inset-0 bg-background/40 backdrop-blur-[1px]" />
+            <div className="absolute inset-0 bg-background/60 backdrop-blur-[2px]" />
+            <div className="absolute inset-0 opacity-[0.03] mix-blend-overlay pointer-events-none noise-bg" />
         </div>
     );
-}
+});
