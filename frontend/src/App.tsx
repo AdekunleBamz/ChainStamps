@@ -61,6 +61,7 @@ const RegistryItem = memo(({ component, index }: { component: React.ReactNode, i
  */
 const App = () => {
   const [searchQuery, setSearchQuery] = useState('');
+  const [lastUpdated, setLastUpdated] = useState(new Date().toLocaleTimeString());
 
   const registries = useMemo(() => [
     { id: 'hash', name: 'Hash Registry', component: <HashRegistry /> },
