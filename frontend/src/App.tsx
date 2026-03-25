@@ -130,6 +130,7 @@ const App = () => {
                 </div>
                 <div className="search-meta" id="search-metadata" role="status" aria-live="polite">
                   <div className="flex flex-col gap-1">
+                    <span className="sr-only">Search results updated: </span>
                     <span>
                       Showing {filteredRegistries.length} of {registries.length} registries
                     </span>
