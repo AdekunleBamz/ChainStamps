@@ -57,13 +57,15 @@ export const TagRegistry = ({ searchQuery = '' }: { searchQuery?: string }) => {
     }
 
     try {
+      const sanitizedKey = key.trim();
+      const sanitizedValue = value.trim();
       await execute({
         contractAddress: CONTRACT_ADDRESS,
         contractName: CONTRACTS.tagRegistry.name,
         functionName: 'store-tag',
-        functionArgs: [key, value],
+        functionArgs: [sanitizedKey, sanitizedValue],
         stxAmount: CONTRACTS.tagRegistry.fee,
-      }, 'Tag stored successfully!', `Tag: ${key}`);
+      }, 'Tag stored successfully!', `Tag: ${sanitizedKey}`);
       setKey('');
       setValue('');
     } catch {

@@ -56,13 +56,14 @@ export const StampRegistry = ({ searchQuery = '' }: { searchQuery?: string }) =>
     }
 
     try {
+      const sanitizedMessage = message.trim();
       await execute({
         contractAddress: CONTRACT_ADDRESS,
         contractName: CONTRACTS.stampRegistry.name,
         functionName: 'stamp-message',
-        functionArgs: [message],
+        functionArgs: [sanitizedMessage],
         stxAmount: CONTRACTS.stampRegistry.fee,
-      }, 'Message stamped successfully!', message.slice(0, 32) + (message.length > 32 ? '...' : ''));
+      }, 'Message stamped successfully!', sanitizedMessage.slice(0, 32) + (sanitizedMessage.length > 32 ? '...' : ''));
       setMessage('');
     } catch {
       // Error handled by hook
