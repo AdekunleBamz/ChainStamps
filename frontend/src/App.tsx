@@ -162,20 +162,6 @@ const App = () => {
                     </button>
                   ))}
                 </div>
-                <div className="search-suggestions" aria-label="Quick registry filters">
-                  {['hash', 'stamp', 'tag'].map((term) => (
-                    <button
-                      key={term}
-                      type="button"
-                      className={`search-chip ${
-                        searchQuery.toLowerCase() === term ? 'search-chip-active' : ''
-                      }`}
-                      onClick={() => setSearchQuery(term)}
-                    >
-                      {term}
-                    </button>
-                  ))}
-                </div>
               </motion.div>
 
               <motion.div
