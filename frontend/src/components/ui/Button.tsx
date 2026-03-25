@@ -46,11 +46,11 @@ export function Button({
         if (onClick) onClick(e);
     };
     const variants = {
-        primary: "bg-primary text-primary-foreground hover:opacity-90 shadow-lg shadow-primary/20",
+        primary: "bg-primary text-primary-foreground hover:bg-primary/90 hover:shadow-[0_0_20px_rgba(var(--primary-rgb),0.3)] shadow-lg shadow-primary/20",
         secondary: "bg-secondary text-secondary-foreground hover:bg-secondary/80",
-        outline: "border border-input bg-transparent hover:bg-accent hover:text-accent-foreground",
+        outline: "border border-input bg-transparent hover:bg-accent hover:text-accent-foreground hover:border-accent",
         ghost: "bg-transparent hover:bg-accent hover:text-accent-foreground",
-        destructive: "bg-destructive text-destructive-foreground hover:bg-destructive/90",
+        destructive: "bg-destructive text-destructive-foreground hover:bg-destructive/90 hover:shadow-[0_0_15px_rgba(var(--destructive-rgb),0.3)]",
     };
 
     const sizes = {
