@@ -150,6 +150,11 @@
     CONTRACT-OWNER
 )
 
+;; Check if a principal is the contract owner
+(define-read-only (is-contract-owner (user principal))
+    (is-eq user CONTRACT-OWNER)
+)
+
 ;; Get contract stats summary
 (define-read-only (get-stats)
     {
