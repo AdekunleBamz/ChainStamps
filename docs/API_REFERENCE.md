@@ -33,14 +33,16 @@ Store a document hash on-chain.
 ```
 
 **Parameters:**
-- `hash` - 32-byte buffer (SHA-256 hash of document)
-- `description` - UTF-8 string up to 128 characters
+- `hash` - 32-byte buffer representing the SHA-256 hash of the document.
+- `description` - A UTF-8 string (max 128 characters) providing a human-readable title or description.
 
-**Returns:** `(response uint uint)` - Hash ID on success
+**Returns:** `(response uint uint)`
+- `ok`: The numeric `hash-id` assigned to this record.
+- `err`: An error code (e.g., `u101` if the hash already exists).
 
 **Errors:**
-- `u101` - Hash already exists
-- Transfer error if insufficient funds
+- `u101` - ERR-HASH-ALREADY-EXISTS: This exact hash has already been registered.
+- `u102` - ERR-INSUFFICIENT-PAYMENT: The caller's balance is lower than `HASH-FEE`.
 
 ---
 
