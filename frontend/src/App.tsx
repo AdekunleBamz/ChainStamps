@@ -162,7 +162,10 @@ const App = () => {
                   {searchQuery && (
                     <button
                       type="button"
-                      onClick={() => setSearchQuery('')}
+                      onClick={() => {
+                        setSearchQuery('');
+                        triggerHaptic('light');
+                      }}
                       className="search-clear"
                       aria-label="Clear registry search"
                     >
@@ -203,6 +206,7 @@ const App = () => {
                         onClick={() => {
                           setSearchQuery('');
                           setSelectedCategories([]);
+                          triggerHaptic('medium');
                         }}
                         aria-controls="registry-results"
                       >
