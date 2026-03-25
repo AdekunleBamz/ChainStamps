@@ -21,6 +21,14 @@ const SHAKE_ANIMATION = {
   transition: { duration: 0.4 }
 };
 
+/**
+ * StampRegistry component for permanently recording text messages on the Stacks blockchain.
+ * Supports:
+ * - Immutable message stamping with Stacks network timestamps
+ * - Character count validation (256 chars max)
+ * - Real-time fee estimation based on message weight
+ * - Integration with Stacks Explorer for verification
+ */
 export const StampRegistry = () => {
   const { isConnected, userAddress } = useWallet();
   const { addToast } = useToast();

@@ -30,6 +30,14 @@ const SHAKE_ANIMATION = {
   transition: { duration: 0.4 }
 };
 
+/**
+ * TagRegistry component for managing decentralized key-value metadata.
+ * Features:
+ * - Arbitrary metadata anchoring to Stacks namespaces
+ * - Dynamic fee calculation for variable-length tags
+ * - Real-time character count tracking for keys and values
+ * - Comprehensive transaction feedback and error handling
+ */
 export const TagRegistry = () => {
   const { isConnected, userAddress } = useWallet();
   const { addToast } = useToast();
