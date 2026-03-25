@@ -8,6 +8,9 @@ import { Tooltip } from './ui/Tooltip';
 import { CopyButton } from './ui/CopyButton';
 import { AnimatedNumber } from './ui/AnimatedNumber';
 
+const STACKS_INFO_API = 'https://api.mainnet.hiro.so/v2/info';
+const FETCH_INTERVAL = 30000; // 30 seconds
+
 /**
  * Global Header component that serves as the primary navigation and wallet interaction hub.
  * Provides site-wide navigation, logo, and wallet connection status.
@@ -42,7 +45,7 @@ export const Header = () => {
 
     const fetchBlockHeight = async () => {
       try {
-        const response = await fetch('https://api.mainnet.hiro.so/v2/info');
+        const response = await fetch(STACKS_INFO_API);
         const data = await response.json();
         setBlockHeight(data.stacks_tip_height);
       } catch (error) {
@@ -51,13 +54,14 @@ export const Header = () => {
     };
 
     fetchBlockHeight();
-    const interval = setInterval(fetchBlockHeight, 30000);
+    const interval = setInterval(fetchBlockHeight, FETCH_INTERVAL);
 
     return () => {
       window.removeEventListener('scroll', handleScroll);
       clearInterval(interval);
     };
   }, []);
+
 
   useEffect(() => {
     if (!isMenuOpen) return;
