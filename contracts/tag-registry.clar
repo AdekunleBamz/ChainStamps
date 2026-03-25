@@ -17,6 +17,7 @@
 (define-constant MAX-KEY-LENGTH u64)
 (define-constant MAX-VALUE-LENGTH u256)
 (define-constant MAX-NAMESPACE-LENGTH u32)
+(define-constant MAX-USER-TAGS u100)
 (define-constant DEFAULT-NAMESPACE u"default")
 
 ;; Data Variables
@@ -187,11 +188,11 @@
         
         ;; Update user tags list
         (map-set user-tags tx-sender 
-            (unwrap-panic (as-max-len? (append current-user-tags new-tag-id) u100)))
+            (unwrap-panic (as-max-len? (append current-user-tags new-tag-id) MAX-USER-TAGS)))
         
         ;; Update namespace tags list
         (map-set namespace-tags { owner: tx-sender, namespace: namespace }
-            (unwrap-panic (as-max-len? (append current-ns-tags new-tag-id) u100)))
+            (unwrap-panic (as-max-len? (append current-ns-tags new-tag-id) MAX-USER-TAGS)))
         
         ;; Increment counter and fees
         (var-set tag-counter new-tag-id)
