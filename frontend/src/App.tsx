@@ -14,7 +14,8 @@ import { ToastProvider } from './context/ToastContext';
 import { ToastContainer } from './components/ui/Toast';
 import { updateFavicon } from './utils/favicon';
 import { useWallet } from './context/WalletContext';
-import { Search, X } from 'lucide-react';
+import { useSearch, type SearchableItem } from './hooks/useSearch';
+import { Search, X, Loader2 } from 'lucide-react';
 import { Button } from './components/ui/Button';
 import { PullToRefresh } from './components/ui/PullToRefresh';
 import { EmptyState } from './components/ui/EmptyState';
@@ -25,8 +26,6 @@ import './App.css';
 
 /**
  * A purely logic component that updates the site's favicon based on wallet connection status.
- * 
- * @returns {null} Renders nothing to the DOM.
  */
 const FaviconManager = () => {
   const { isConnected, isConnecting } = useWallet();
@@ -51,28 +50,39 @@ const RegistryItem = memo(({ component, index }: { component: React.ReactNode, i
   </motion.div>
 ));
 
-/**
- * Main Application component.
- * Acts as the root coordinator for the ChainStamp frontend, managing:
- * - Global layout structure (Hero, Search, Roadmap)
- * - Integration with Wallet and Toast providers
- * - Registry filtering and search logic
- * 
- * @component
- */
+interface Registry extends SearchableItem {
+  component: React.ReactNode;
+}
+
 const App = () => {
-  const [searchQuery, setSearchQuery] = useState('');
+  const { isConnected, isConnecting } = useWallet();
   const [lastUpdated] = useState(new Date().toLocaleTimeString());
-  const registries = useMemo(() => [
-    { id: 'hash', name: 'Hash Registry', component: <HashRegistry /> },
-    { id: 'stamp', name: 'Stamp Registry', component: <StampRegistry /> },
-    { id: 'tag', name: 'Tag Registry', component: <TagRegistry /> },
+
+  const registries = useMemo<Registry[]>(() => [
+    { 
+      id: 'hash', 
+      name: 'Hash Registry', 
+      description: 'Store and verify SHA-256 hashes for files and data',
+      tags: ['security', 'verification', 'hashes'],
+      component: <HashRegistry /> 
+    },
+    { 
+      id: 'stamp', 
+      name: 'Stamp Registry', 
+      description: 'Permanent on-chain text stamps and messages',
+      tags: ['timestamp', 'content', 'identity'],
+      component: <StampRegistry /> 
+    },
+    { 
+      id: 'tag', 
+      name: 'Tag Registry', 
+      description: 'Key-value metadata storage for on-chain identity',
+      tags: ['metadata', 'tags', 'identity'],
+      component: <TagRegistry /> 
+    },
   ], []);
 
-  const filteredRegistries = useMemo(() =>
-    registries.filter(reg =>
-      reg.name.toLowerCase().includes(searchQuery.toLowerCase())
-    ), [searchQuery, registries]);
+  const { searchQuery, setSearchQuery, filteredItems, isStale } = useSearch(registries);
 
   useEffect(() => {
     const handleKeyDown = (e: KeyboardEvent) => {
@@ -95,7 +105,7 @@ const App = () => {
               Skip to content
             </a>
             <PullToRefresh onRefresh={async () => {
-              window.location.reload(); // Simple refresh for now
+              window.location.reload();
             }} />
             <MeshGradient />
             <ToastContainer />
@@ -111,8 +121,15 @@ const App = () => {
                 className="filter-container"
                 aria-label="Registry filtering and search tools"
               >
-                <div className="search-wrapper" role="search">
-                  <Search className="search-icon" size={18} />
+                <div className={twMerge(
+                  "search-wrapper",
+                  isStale && "opacity-50 grayscale transition-opacity"
+                )} role="search">
+                  {isStale ? (
+                    <Loader2 className="search-icon spinning text-primary" size={18} />
+                  ) : (
+                    <Search className="search-icon" size={18} />
+                  )}
                   <input
                     type="text"
                     placeholder="Search registries (Cmd+K)..."
@@ -144,7 +161,7 @@ const App = () => {
                   <div className="flex flex-col gap-1">
                     <span className="sr-only">Search results updated: </span>
                     <span>
-                      Showing {filteredRegistries.length} of {registries.length} registries
+                      Showing {filteredItems.length} of {registries.length} registries
                     </span>
                     <span className="text-[10px] opacity-70 animate-pulse-slow">
                       Last synchronized: {lastUpdated}
@@ -186,9 +203,11 @@ const App = () => {
                 viewport={{ once: true }}
                 className="cards-container"
                 id="registry-results"
+                role="region"
+                aria-label="Filtered registry results"
               >
-                {filteredRegistries.length > 0 ? (
-                  filteredRegistries.map((reg, index) => (
+                {filteredItems.length > 0 ? (
+                  filteredItems.map((reg, index) => (
                     <RegistryItem 
                       key={reg.id} 
                       component={reg.component} 
@@ -196,7 +215,7 @@ const App = () => {
                     />
                   ))
                 ) : (
-                  <div className="col-span-full">
+                  <div className="col-span-full py-12">
                     <EmptyState
                       title="No registries found"
                       description={`We couldn't find any results matching "${searchQuery}". Try a different search term or clear the filter.`}
