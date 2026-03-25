@@ -180,6 +180,7 @@ export const Header = () => {
                   className="disconnect-btn rounded-xl"
                   onClick={disconnect}
                   title="Disconnect Wallet"
+                  aria-label="Disconnect wallet"
                 >
                   <LogOut size={16} strokeWidth={1.5} />
                 </Button>

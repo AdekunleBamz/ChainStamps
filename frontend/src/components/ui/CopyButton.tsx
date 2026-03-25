@@ -50,6 +50,7 @@ export const CopyButton = ({ value, className, size = 14 }: CopyButtonProps) => 
                 className
             )}
             title="Copy to clipboard"
+            aria-label="Copy to clipboard"
         >
             <AnimatePresence mode="wait">
                 {copied ? (
