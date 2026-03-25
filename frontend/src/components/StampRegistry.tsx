@@ -97,20 +97,24 @@ export const StampRegistry = () => {
       animate={controls}
     >
       <Breadcrumbs items={[{ label: 'Stamp Registry' }]} />
-      <div className="card-header flex-between mb-2">
+      <div className="card-header flex-between mb-4">
         <div className="flex items-center gap-2">
-          <Stamp className="card-icon" size={24} strokeWidth={1.5} />
-          <Tooltip content="A message stamp permanently records your text and a timestamp on the blockchain, creating an immutable proof of existence.">
-            <span className="text-sm font-semibold text-muted-foreground mr-1">Proof of Existence</span>
-          </Tooltip>
+          <div className="p-2 bg-primary/10 rounded-lg">
+            <Stamp className="card-icon text-primary" size={24} strokeWidth={1.5} />
+          </div>
+          <div className="flex flex-col">
+            <h2 className="text-xl font-bold m-0 p-0 leading-none">Stamp Registry</h2>
+            <Tooltip content="A message stamp permanently records your text and a timestamp on the blockchain, creating an immutable proof of existence.">
+              <span className="text-[10px] uppercase tracking-wider text-muted-foreground font-bold mt-1">Proof of Existence</span>
+            </Tooltip>
+          </div>
         </div>
-        <div className="flex items-center gap-2">
-          <h2 className="m-0">Stamp Registry</h2>
+        <div className="flex items-center gap-3">
           <Tooltip content="Copy link to this section">
             <Button
               variant="ghost"
               size="icon"
-              className="h-8 w-8 rounded-full opacity-50 hover:opacity-100 transition-opacity"
+              className="h-8 w-8 rounded-full opacity-40 hover:opacity-100 hover:bg-primary/10 transition-all"
               onClick={() => {
                 const url = new URL(window.location.href);
                 url.hash = 'stamp';
@@ -123,12 +127,12 @@ export const StampRegistry = () => {
               <Share2 size={16} strokeWidth={1.5} />
             </Button>
           </Tooltip>
+          <Tooltip content="Stacks network transaction fee (paid in STX) to secure your message on the Bitcoin blockchain.">
+            <span className="fee-badge bg-primary/10 text-primary border border-primary/20 px-3 py-1 rounded-full text-xs font-bold">
+              <AnimatedNumber value={estimateFee(message)} decimals={4} suffix=" STX" />
+            </span>
+          </Tooltip>
         </div>
-        <Tooltip content="Stacks network transaction fee (paid in STX) to secure your message on the Bitcoin blockchain.">
-          <span className="fee-badge">
-            <AnimatedNumber value={estimateFee(message)} decimals={4} suffix=" STX" />
-          </span>
-        </Tooltip>
       </div>
 
       <p className="card-description">

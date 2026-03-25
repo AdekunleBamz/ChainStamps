@@ -116,20 +116,24 @@ export const HashRegistry = () => {
       animate={controls}
     >
       <Breadcrumbs items={[{ label: 'Hash Registry' }]} />
-      <div className="card-header flex-between mb-2">
+      <div className="card-header flex-between mb-4">
         <div className="flex items-center gap-2">
-          <Hash className="card-icon" size={24} strokeWidth={1.5} />
-          <Tooltip content="Secure cryptographic identifier for your document">
-            <span className="text-sm font-semibold text-muted-foreground mr-1">SHA-256</span>
-          </Tooltip>
+          <div className="p-2 bg-primary/10 rounded-lg">
+            <Hash className="card-icon text-primary" size={24} strokeWidth={1.5} />
+          </div>
+          <div className="flex flex-col">
+            <h2 className="text-xl font-bold m-0 p-0 leading-none">Hash Registry</h2>
+            <Tooltip content="Secure cryptographic identifier for your document">
+              <span className="text-[10px] uppercase tracking-wider text-muted-foreground font-bold mt-1">SHA-256 Anchoring</span>
+            </Tooltip>
+          </div>
         </div>
-        <div className="flex items-center gap-2">
-          <h2 className="m-0">Hash Registry</h2>
+        <div className="flex items-center gap-3">
           <Tooltip content="Copy link to this section">
             <Button
               variant="ghost"
               size="icon"
-              className="h-8 w-8 rounded-full opacity-50 hover:opacity-100 transition-opacity"
+              className="h-8 w-8 rounded-full opacity-40 hover:opacity-100 hover:bg-primary/10 transition-all"
               onClick={() => {
                 const url = new URL(window.location.href);
                 url.hash = 'hash';
@@ -142,12 +146,12 @@ export const HashRegistry = () => {
               <Share2 size={16} strokeWidth={1.5} />
             </Button>
           </Tooltip>
+          <Tooltip content="Stacks network transaction fee (paid in STX) to secure your document fingerprints on the Bitcoin blockchain.">
+            <span className="fee-badge bg-primary/10 text-primary border border-primary/20 px-3 py-1 rounded-full text-xs font-bold">
+              <AnimatedNumber value={estimateFee(hash ? 32 : 0)} decimals={4} suffix=" STX" />
+            </span>
+          </Tooltip>
         </div>
-        <Tooltip content="Stacks network transaction fee (paid in STX) to secure your document fingerprints on the Bitcoin blockchain.">
-          <span className="fee-badge">
-            <AnimatedNumber value={estimateFee(hash ? 32 : 0)} decimals={4} suffix=" STX" />
-          </span>
-        </Tooltip>
       </div>
 
       <p className="card-description">
