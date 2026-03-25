@@ -1,35 +1,35 @@
 @import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=Outfit:wght@400;500;600;700;800&display=swap');
 
 :root {
-  /* Core Palette (HSL) */
-  --primary-h: 222;
-  --primary-s: 89%;
+  /* Core Palette (HSL) - Deep Midnight & Electric Blue */
+  --primary-h: 217;
+  --primary-s: 91%;
   --primary-l: 60%;
 
   --primary: hsl(var(--primary-h), var(--primary-s), var(--primary-l));
   --primary-foreground: hsl(210, 40%, 98%);
 
-  --background-h: 224;
-  --background-s: 71%;
+  --background-h: 222;
+  --background-s: 47%;
   --background-l: 4%;
   --background: hsl(var(--background-h), var(--background-s), var(--background-l));
   
-  --foreground-h: 213;
-  --foreground-s: 31%;
+  --foreground-h: 214;
+  --foreground-s: 32%;
   --foreground-l: 91%;
   --foreground: hsl(var(--foreground-h), var(--foreground-s), var(--foreground-l));
 
-  --card: hsla(224, 71%, 4%, 0.8);
-  --card-foreground: hsl(213, 31%, 91%);
+  --card: hsla(222, 47%, 6%, 0.8);
+  --card-foreground: hsl(214, 32%, 91%);
 
-  --muted: hsl(223, 47%, 11%);
-  --muted-foreground: hsl(215.4, 16.3%, 56.9%);
+  --muted: hsl(217, 33%, 12%);
+  --muted-foreground: hsl(215, 16%, 65%);
 
-  --accent: hsl(216, 34%, 17%);
+  --accent: hsl(217, 33%, 17%);
   --accent-foreground: hsl(210, 40%, 98%);
 
-  --border: hsl(216, 34%, 17%);
-  --input: hsl(216, 34%, 17%);
+  --border: hsla(217, 33%, 17%, 0.5);
+  --input: hsl(217, 33%, 17%);
   --ring: hsla(var(--primary-h), var(--primary-s), var(--primary-l), 0.5);
 
   --radius: 0.75rem;
