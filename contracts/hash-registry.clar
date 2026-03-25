@@ -22,6 +22,8 @@
 ;; Smaller fee for description update only
 (define-constant UPDATE-FEE u10000)
 
+(define-constant MAX-USER-HASHES u100)
+
 ;; Data Variables
 (define-data-var hash-counter uint u0)
 (define-data-var total-fees-collected uint u0)
@@ -177,7 +179,7 @@
         
         ;; Update user hashes list
         (map-set user-hashes tx-sender 
-            (unwrap-panic (as-max-len? (append current-user-hashes hash) u100)))
+            (unwrap-panic (as-max-len? (append current-user-hashes hash) MAX-USER-HASHES)))
         
         ;; Increment counter
         (var-set hash-counter new-hash-id)
