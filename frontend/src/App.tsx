@@ -15,13 +15,14 @@ import { ToastContainer } from './components/ui/Toast';
 import { updateFavicon } from './utils/favicon';
 import { useWallet } from './context/WalletContext';
 import { useSearch, type SearchableItem } from './hooks/useSearch';
-import { Search, X, Loader2 } from 'lucide-react';
+import { Search, X, Loader2, Filter } from 'lucide-react';
 import { Button } from './components/ui/Button';
 import { PullToRefresh } from './components/ui/PullToRefresh';
 import { EmptyState } from './components/ui/EmptyState';
 import { LogicErrorBoundary } from './components/ui/LogicErrorBoundary';
 import { PerformanceOverlay } from './components/ui/PerformanceOverlay';
 import { QuickActions } from './components/ui/QuickActions';
+import { FilterDrawer } from './components/ui/FilterDrawer';
 import './App.css';
 
 /**
@@ -57,6 +58,7 @@ interface Registry extends SearchableItem {
 const App = () => {
   const { isConnected, isConnecting } = useWallet();
   const [lastUpdated] = useState(new Date().toLocaleTimeString());
+  const [isFilterDrawerOpen, setIsFilterDrawerOpen] = useState(false);
 
   const INITIAL_REGISTRIES: Registry[] = useMemo(() => [
     { 
@@ -177,56 +179,127 @@ const App = () => {
                       Last synchronized: {lastUpdated}
                     </span>
                   </div>
-                  {(searchQuery || selectedCategories.length > 0) && (
+                  <div className="flex items-center gap-3">
                     <button
                       type="button"
-                      className="search-meta-reset hover:text-primary transition-colors flex items-center gap-1 group"
+                      onClick={() => setIsFilterDrawerOpen(true)}
+                      className="md:hidden flex items-center gap-2 bg-white/5 border border-white/10 px-3 py-1.5 rounded-xl text-xs font-bold hover:bg-white/10 transition-all"
+                    >
+                      <Filter size={14} />
+                      Filters
+                    </button>
+                    {(searchQuery || selectedCategories.length > 0) && (
+                      <button
+                        type="button"
+                        className="search-meta-reset hover:text-primary transition-colors flex items-center gap-1 group"
+                        onClick={() => {
+                          setSearchQuery('');
+                          setSelectedCategories([]);
+                        }}
+                        aria-controls="registry-results"
+                      >
+                        <X size={10} className="group-hover:rotate-90 transition-transform" />
+                        Clear
+                      </button>
+                    )}
+                  </div>
+                </div>
+
+                <div className="hidden md:block">
+                  <div className="search-suggestions" role="group" aria-label="Search suggestions">
+                    <div className="flex items-center gap-2 mr-2">
+                      <span className="text-[10px] uppercase tracking-wider text-muted-foreground font-bold">Categories:</span>
+                    </div>
+                    {['Hash', 'Stamp', 'Tag'].map(suggestion => (
+                      <button
+                        key={suggestion}
+                        type="button"
+                        onClick={() => toggleCategory(suggestion)}
+                        className={twMerge(
+                          "search-chip",
+                          selectedCategories.includes(suggestion) && "search-chip-active"
+                        )}
+                        aria-pressed={selectedCategories.includes(suggestion)}
+                        aria-controls="registry-results"
+                      >
+                        {suggestion}
+                      </button>
+                    ))}
+                  </div>
+                  <div className="search-suggestions mt-2" role="group" aria-label="Suggested searches">
+                    <div className="flex items-center gap-2 mr-2">
+                      <span className="text-[10px] uppercase tracking-wider text-muted-foreground font-bold">Suggested:</span>
+                    </div>
+                    {['SHA-256', 'Immutable', 'Identity', 'Security'].map(tag => (
+                      <button
+                        key={tag}
+                        type="button"
+                        onClick={() => setSearchQuery(tag)}
+                        className="text-[10px] text-primary/60 hover:text-primary transition-colors border border-primary/10 px-2 py-0.5 rounded-full hover:bg-primary/5"
+                      >
+                        {tag}
+                      </button>
+                    ))}
+                  </div>
+                </div>
+
+                {/* Mobile Filter Drawer */}
+                <FilterDrawer
+                  isOpen={isFilterDrawerOpen}
+                  onClose={() => setIsFilterDrawerOpen(false)}
+                  activeFiltersCount={(searchQuery ? 1 : 0) + selectedCategories.length}
+                >
+                  <div className="space-y-6">
+                    <div>
+                      <h4 className="text-xs uppercase tracking-widest font-bold text-muted-foreground mb-4">Categories</h4>
+                      <div className="flex flex-wrap gap-2">
+                        {['Hash', 'Stamp', 'Tag'].map(suggestion => (
+                          <button
+                            key={suggestion}
+                            type="button"
+                            onClick={() => toggleCategory(suggestion)}
+                            className={twMerge(
+                              "search-chip",
+                              selectedCategories.includes(suggestion) && "search-chip-active"
+                            )}
+                            aria-pressed={selectedCategories.includes(suggestion)}
+                          >
+                            {suggestion}
+                          </button>
+                        ))}
+                      </div>
+                    </div>
+                    <div>
+                      <h4 className="text-xs uppercase tracking-widest font-bold text-muted-foreground mb-4">Suggested Searches</h4>
+                      <div className="flex flex-wrap gap-2">
+                        {['SHA-256', 'Immutable', 'Identity', 'Security'].map(tag => (
+                          <button
+                            key={tag}
+                            type="button"
+                            onClick={() => {
+                              setSearchQuery(tag);
+                              setIsFilterDrawerOpen(false);
+                            }}
+                            className="text-xs text-primary/60 hover:text-primary border border-primary/10 px-3 py-1.5 rounded-full hover:bg-primary/5 transition-all"
+                          >
+                            {tag}
+                          </button>
+                        ))}
+                      </div>
+                    </div>
+                    <Button 
+                      className="w-full mt-4" 
                       onClick={() => {
                         setSearchQuery('');
                         setSelectedCategories([]);
+                        setIsFilterDrawerOpen(false);
                       }}
-                      aria-controls="registry-results"
+                      variant="outline"
                     >
-                      <X size={10} className="group-hover:rotate-90 transition-transform" />
-                      Clear all filters
-                    </button>
-                  )}
-                </div>
-                <div className="search-suggestions" role="group" aria-label="Search suggestions">
-                  <div className="flex items-center gap-2 mr-2">
-                    <span className="text-[10px] uppercase tracking-wider text-muted-foreground font-bold">Categories:</span>
+                      Reset All Filters
+                    </Button>
                   </div>
-                  {['Hash', 'Stamp', 'Tag'].map(suggestion => (
-                    <button
-                      key={suggestion}
-                      type="button"
-                      onClick={() => toggleCategory(suggestion)}
-                      className={twMerge(
-                        "search-chip",
-                        selectedCategories.includes(suggestion) && "search-chip-active"
-                      )}
-                      aria-pressed={selectedCategories.includes(suggestion)}
-                      aria-controls="registry-results"
-                    >
-                      {suggestion}
-                    </button>
-                  ))}
-                </div>
-                <div className="search-suggestions mt-2" role="group" aria-label="Suggested searches">
-                  <div className="flex items-center gap-2 mr-2">
-                    <span className="text-[10px] uppercase tracking-wider text-muted-foreground font-bold">Suggested:</span>
-                  </div>
-                  {['SHA-256', 'Immutable', 'Identity', 'Security'].map(tag => (
-                    <button
-                      key={tag}
-                      type="button"
-                      onClick={() => setSearchQuery(tag)}
-                      className="text-[10px] text-primary/60 hover:text-primary transition-colors border border-primary/10 px-2 py-0.5 rounded-full hover:bg-primary/5"
-                    >
-                      {tag}
-                    </button>
-                  ))}
-                </div>
+                </FilterDrawer>
               </motion.div>
 
               <motion.div
