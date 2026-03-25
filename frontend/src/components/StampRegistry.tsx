@@ -1,4 +1,4 @@
-import { useState, useEffect } from 'react';
+import { useState, useEffect, memo } from 'react';
 import { motion, useAnimation } from 'framer-motion';
 import { useWallet } from '../context/WalletContext';
 import { CONTRACT_ADDRESS, CONTRACTS } from '../config/contracts';
@@ -19,7 +19,7 @@ const SHAKE_ANIMATION = {
   transition: { duration: 0.4 }
 };
 
-export const StampRegistry = () => {
+export const StampRegistry = memo(() => {
   const { isConnected, userAddress } = useWallet();
   const { addToast } = useToast();
   const [message, setMessage] = useState('');
@@ -140,4 +140,6 @@ export const StampRegistry = () => {
       {!isConnected && <WarningMessage />}
     </motion.section>
   );
-}
+});
+
+export default StampRegistry;

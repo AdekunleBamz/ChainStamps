@@ -1,4 +1,4 @@
-import { useState, useEffect } from 'react';
+import { useState, useEffect, memo } from 'react';
 import { motion, useAnimation } from 'framer-motion';
 import { useWallet } from '../context/WalletContext';
 import { CONTRACT_ADDRESS, CONTRACTS } from '../config/contracts';
@@ -28,7 +28,7 @@ const SHAKE_ANIMATION = {
   transition: { duration: 0.4 }
 };
 
-export const TagRegistry = () => {
+export const TagRegistry = memo(() => {
   const { isConnected, userAddress } = useWallet();
   const { addToast } = useToast();
   const [key, setKey] = useState('');
@@ -160,4 +160,6 @@ export const TagRegistry = () => {
       {!isConnected && <WarningMessage />}
     </motion.section>
   );
-}
+});
+
+export default TagRegistry;
