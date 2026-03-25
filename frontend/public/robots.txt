@@ -1,4 +1,8 @@
 User-agent: *
 Allow: /
+Disallow: /admin
+Disallow: /api
+Disallow: /build
+Disallow: /dist
 
 Sitemap: https://chainstamp.app/sitemap.xml
