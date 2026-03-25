@@ -1,12 +1,14 @@
-import { useEffect, useState, useMemo, memo } from 'react';
+import { useEffect, useState, useMemo, memo, Suspense, lazy } from 'react';
 import { twMerge } from 'tailwind-merge';
 import { motion } from 'framer-motion';
 import { WalletProvider } from './context/WalletContext';
 import { Header } from './components/Header';
 import { Hero } from './components/Hero';
-import { HashRegistry } from './components/HashRegistry';
-import { StampRegistry } from './components/StampRegistry';
-import { TagRegistry } from './components/TagRegistry';
+
+// Lazy load registries for performance
+const HashRegistry = lazy(() => import('./components/HashRegistry').then(module => ({ default: module.HashRegistry })));
+const StampRegistry = lazy(() => import('./components/StampRegistry').then(module => ({ default: module.StampRegistry })));
+const TagRegistry = lazy(() => import('./components/TagRegistry').then(module => ({ default: module.TagRegistry })));
 import { Roadmap } from './components/Roadmap';
 import { Footer } from './components/Footer';
 import { MeshGradient } from './components/MeshGradient';
@@ -47,7 +49,13 @@ const RegistryItem = memo(({ component, index }: { component: React.ReactNode, i
     transition={{ delay: index * 0.1 }}
     className="registry-wrapper"
   >
-    {component}
+    <Suspense fallback={
+      <div className="h-[400px] w-full bg-white/5 animate-pulse rounded-3xl border border-white/10 flex items-center justify-center">
+        <Loader2 className="spinning text-primary/20" size={32} />
+      </div>
+    }>
+      {component}
+    </Suspense>
   </motion.div>
 ));
 
