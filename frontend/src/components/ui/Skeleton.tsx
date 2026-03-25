@@ -49,3 +49,19 @@ export const CardSkeleton = () => {
         </div>
     );
 }
+export const ListSkeleton = ({ count = 3 }: { count?: number }) => {
+    return (
+        <div className="space-y-3">
+            {Array.from({ length: count }).map((_, i) => (
+                <div key={i} className="flex items-center gap-3 p-3 border border-border/50 rounded-lg">
+                    <Skeleton className="h-8 w-8 rounded-full shrink-0" />
+                    <div className="flex-1 space-y-2">
+                        <Skeleton className="h-4 w-[60%]" />
+                        <Skeleton className="h-3 w-[40%]" />
+                    </div>
+                    <Skeleton className="h-6 w-16" />
+                </div>
+            ))}
+        </div>
+    );
+}
