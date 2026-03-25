@@ -156,6 +156,7 @@ const App = () => {
                         "search-chip",
                         searchQuery.toLowerCase() === suggestion.toLowerCase() && "search-chip-active"
                       )}
+                      aria-pressed={searchQuery.toLowerCase() === suggestion.toLowerCase()}
                     >
                       {suggestion}
                     </button>
