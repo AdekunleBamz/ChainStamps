@@ -46,7 +46,12 @@ export const HashRegistry = ({ searchQuery = '' }: { searchQuery?: string }) => 
     triggerHaptic('error');
   };
 
+  const [lastSubmitTime, setLastSubmitTime] = useState(0);
+
   const storeHash = async () => {
+    const now = Date.now();
+    if (now - lastSubmitTime < 2000) return; // 2s rate limit
+    
     if (!hash || !isConnected || !userAddress) {
       if (!hash) {
         addToast('Please enter a SHA-256 hash to register.', 'warning');
@@ -70,6 +75,7 @@ export const HashRegistry = ({ searchQuery = '' }: { searchQuery?: string }) => 
         stxAmount: CONTRACTS.hashRegistry.fee,
       }, 'Hash registered successfully!', hash.slice(0, 16) + '...');
       setHash('');
+      setLastSubmitTime(Date.now());
     } catch {
       // Error handled by hook
     }

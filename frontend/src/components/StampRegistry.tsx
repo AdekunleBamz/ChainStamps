@@ -46,7 +46,12 @@ export const StampRegistry = ({ searchQuery = '' }: { searchQuery?: string }) =>
     triggerHaptic('error');
   };
 
+  const [lastSubmitTime, setLastSubmitTime] = useState(0);
+
   const storeStamp = async () => {
+    const now = Date.now();
+    if (now - lastSubmitTime < 2000) return; // 2s rate limit
+
     if (!message || !isConnected || !userAddress) {
       if (!message) {
         addToast('Please enter a message to stamp.', 'warning');
@@ -65,6 +70,7 @@ export const StampRegistry = ({ searchQuery = '' }: { searchQuery?: string }) =>
         stxAmount: CONTRACTS.stampRegistry.fee,
       }, 'Message stamped successfully!', sanitizedMessage.slice(0, 32) + (sanitizedMessage.length > 32 ? '...' : ''));
       setMessage('');
+      setLastSubmitTime(Date.now());
     } catch {
       // Error handled by hook
     }
