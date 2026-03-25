@@ -1,6 +1,7 @@
 import { Shield, Clock, Database } from 'lucide-react';
 import { motion, useScroll, useTransform } from 'framer-motion';
 import { useRef, memo, type ComponentType } from 'react';
+import { AnimatedNumber } from './ui/AnimatedNumber';
 
 const CONTAINER_VARIANTS = {
   hidden: { opacity: 0 },
@@ -136,6 +137,24 @@ export const Hero = () => {
           description="Anyone can verify your data" 
           ariaLabel="Feature: Verifiable" 
         />
+      </motion.div>
+
+      <motion.div 
+        className="hero-stats grid grid-cols-3 gap-8 mt-16 max-w-4xl mx-auto border-t border-border/50 pt-16"
+        variants={CONTAINER_VARIANTS}
+      >
+        <div className="stat flex flex-col gap-1">
+          <span className="text-3xl font-bold gradient-text"><AnimatedNumber value={25430} />+</span>
+          <span className="text-[10px] uppercase tracking-widest text-muted-foreground font-bold">Stamps Created</span>
+        </div>
+        <div className="stat flex flex-col gap-1 border-x border-border/50">
+          <span className="text-3xl font-bold gradient-text"><AnimatedNumber value={1200} />+</span>
+          <span className="text-[10px] uppercase tracking-widest text-muted-foreground font-bold">Unique Users</span>
+        </div>
+        <div className="stat flex flex-col gap-1">
+          <span className="text-3xl font-bold gradient-text"><AnimatedNumber value={100} />%</span>
+          <span className="text-[10px] uppercase tracking-widest text-muted-foreground font-bold">Verifiable</span>
+        </div>
       </motion.div>
 
       <motion.div 
