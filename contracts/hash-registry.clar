@@ -13,6 +13,9 @@
 (define-constant ERR-BATCH-TOO-LARGE (err u105))
 (define-constant ERR-EMPTY-BATCH (err u106))
 (define-constant ERR-TRANSFER-TO-SELF (err u107))
+(define-constant ERR-NOT-HASH-OWNER (err u108))
+(define-constant ERR-INSUFFICIENT-FEE (err u109))
+(define-constant ERR-INVALID-DESCRIPTION (err u110))
 
 ;; Fee in microSTX (0.03 STX = 30000 microSTX)
 (define-constant HASH-FEE u30000)
@@ -260,7 +263,7 @@
             (hash-data (unwrap! (map-get? hashes hash) ERR-HASH-NOT-FOUND))
         )
         ;; Only the owner can revoke
-        (asserts! (is-eq tx-sender (get owner hash-data)) ERR-NOT-AUTHORIZED)
+        (asserts! (is-eq tx-sender (get owner hash-data)) ERR-NOT-HASH-OWNER)
         ;; Cannot revoke if already revoked
         (asserts! (not (get revoked hash-data)) ERR-HASH-ALREADY-REVOKED)
         
@@ -278,7 +281,7 @@
             (hash-data (unwrap! (map-get? hashes hash) ERR-HASH-NOT-FOUND))
         )
         ;; Only owner can update
-        (asserts! (is-eq tx-sender (get owner hash-data)) ERR-NOT-AUTHORIZED)
+        (asserts! (is-eq tx-sender (get owner hash-data)) ERR-NOT-HASH-OWNER)
         ;; Check description length
         (asserts! (<= (len new-description) u128) ERR-DESCRIPTION-TOO-LONG)
         
@@ -319,7 +322,7 @@
             (hash-data (unwrap! (map-get? hashes hash) ERR-HASH-NOT-FOUND))
         )
         ;; Only current owner can transfer
-        (asserts! (is-eq tx-sender (get owner hash-data)) ERR-NOT-AUTHORIZED)
+        (asserts! (is-eq tx-sender (get owner hash-data)) ERR-NOT-HASH-OWNER)
         ;; Cannot transfer to self
         (asserts! (not (is-eq tx-sender new-owner)) ERR-TRANSFER-TO-SELF)
         
