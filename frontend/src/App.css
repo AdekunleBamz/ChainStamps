@@ -189,9 +189,11 @@ section[id] {
 }
 
 .hero-title {
-  font-size: 4rem;
+  font-size: clamp(2.5rem, 8vw, 4.5rem);
   font-weight: 800;
   margin-bottom: 1rem;
+  line-height: 1.1;
+  letter-spacing: -0.02em;
 }
 
 .gradient-text {
@@ -202,9 +204,12 @@ section[id] {
 }
 
 .hero-subtitle {
-  font-size: 1.5rem;
+  font-size: clamp(1.1rem, 3vw, 1.5rem);
   color: var(--text-secondary);
-  margin-bottom: 1rem;
+  margin-bottom: 1.5rem;
+  max-width: 800px;
+  margin-left: auto;
+  margin-right: auto;
 }
 
 .hero-description {
