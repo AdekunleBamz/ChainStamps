@@ -8,7 +8,7 @@ import { twMerge } from 'tailwind-merge';
  */
 interface TooltipProps {
     /** The static text or dynamic content to display inside the tooltip popover. */
-    content: string;
+    content: string | ReactNode;
     /** The trigger element (text, icon, button) that reveals the tooltip on hover/focus. */
     children: ReactNode;
     /** Additional CSS classes for styling the tooltip trigger container. */
