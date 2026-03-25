@@ -2,6 +2,7 @@ import { useState, useCallback, useEffect } from 'react';
 import { wcCallContract } from '../utils/walletconnect';
 import { useToast } from '../context/ToastContext';
 import { triggerSuccessConfetti } from '../utils/confetti';
+import { updateFavicon } from '../utils/favicon';
 
 export type TransactionStep = 'idle' | 'preparing' | 'signing' | 'pending' | 'confirmed' | 'error';
 
@@ -63,6 +64,7 @@ export const useContractCall = () => {
     setError(null);
 
     try {
+      updateFavicon('pending');
       // Simulate preparing state for a moment to show the step
       await new Promise(resolve => setTimeout(resolve, 800));
       setStep('signing');
@@ -86,18 +88,26 @@ export const useContractCall = () => {
 
       addToast(successMessage, 'success');
       triggerSuccessConfetti();
+      updateFavicon('confirmed');
       
       // Keep confirmed state for a few seconds
       setStep('confirmed');
-      setTimeout(() => setStep('idle'), 5000);
+      setTimeout(() => {
+        setStep('idle');
+        updateFavicon('connected');
+      }, 5000);
       
       return result;
     } catch (err: unknown) {
       const msg = getErrorMessage(err);
       setError(msg);
       setStep('error');
+      updateFavicon('error');
       addToast(msg, 'error');
-      setTimeout(() => setStep('idle'), 3000);
+      setTimeout(() => {
+        setStep('idle');
+        updateFavicon('connected');
+      }, 3000);
       throw err;
     } finally {
       setIsSubmitting(false);
