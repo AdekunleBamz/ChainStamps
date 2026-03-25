@@ -1,4 +1,4 @@
-import { useState, useEffect } from 'react';
+import { useState, useEffect, memo } from 'react';
 import { motion, useAnimation, AnimatePresence } from 'framer-motion';
 import { useWallet } from '../context/WalletContext';
 import { BASE_NETWORK_FEE_STX, CONTRACT_ADDRESS, CONTRACTS } from '../config/contracts';
@@ -29,7 +29,7 @@ const SHAKE_ANIMATION = {
 /**
  * TagRegistry component for managing decentralized key-value metadata.
  */
-export const TagRegistry = ({ searchQuery = '' }: { searchQuery?: string }) => {
+export const TagRegistry = memo(({ searchQuery = '' }: { searchQuery?: string }) => {
   const { isConnected, userAddress } = useWallet();
   const { addToast } = useToast();
   const [key, setKey] = useState('');
@@ -325,4 +325,6 @@ export const TagRegistry = ({ searchQuery = '' }: { searchQuery?: string }) => {
       {!isConnected && <WarningMessage />}
     </motion.section>
   );
-}
+});
+
+export default TagRegistry;

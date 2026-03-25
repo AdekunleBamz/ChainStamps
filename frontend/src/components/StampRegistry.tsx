@@ -1,4 +1,4 @@
-import { useState, useEffect } from 'react';
+import { useState, useEffect, memo } from 'react';
 import { motion, useAnimation, AnimatePresence } from 'framer-motion';
 import { useWallet } from '../context/WalletContext';
 import { BASE_NETWORK_FEE_STX, CONTRACT_ADDRESS, CONTRACTS } from '../config/contracts';
@@ -29,7 +29,7 @@ const SHAKE_ANIMATION = {
 /**
  * StampRegistry component for permanently recording text messages on the Stacks blockchain.
  */
-export const StampRegistry = ({ searchQuery = '' }: { searchQuery?: string }) => {
+export const StampRegistry = memo(({ searchQuery = '' }: { searchQuery?: string }) => {
   const { isConnected, userAddress } = useWallet();
   const { addToast } = useToast();
   const [message, setMessage] = useState('');
@@ -283,4 +283,6 @@ export const StampRegistry = ({ searchQuery = '' }: { searchQuery?: string }) =>
       {!isConnected && <WarningMessage />}
     </motion.section>
   );
-}
+});
+
+export default StampRegistry;
