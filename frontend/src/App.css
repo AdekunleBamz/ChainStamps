@@ -565,7 +565,45 @@ section[id] {
   }
 }
 
-/* QR Modal Styles */
+/* High Contrast Mode Support */
+@media (prefers-contrast: more) {
+  :root {
+    --bg-primary: #000000;
+    --bg-secondary: #000000;
+    --bg-card: #000000;
+    --text-primary: #ffffff;
+    --text-secondary: #ffffff;
+    --accent: #ffff00;
+    --accent-hover: #ffffff;
+    --border: #ffffff;
+  }
+
+  .card, .header.scrolled, .search-wrapper {
+    background: #000000 !important;
+    border: 2px solid #ffffff !important;
+  }
+
+  .text-muted-foreground {
+    color: #ffffff !important;
+    opacity: 1 !important;
+  }
+
+  .gradient-text {
+    background: none !important;
+    -webkit-text-fill-color: #ffffff !important;
+    color: #ffffff !important;
+  }
+
+  .fee-badge {
+    background: none !important;
+    border: 1px solid #ffff00 !important;
+    color: #ffff00 !important;
+  }
+
+  button:not(.cta-primary) {
+    border: 2px solid #ffffff !important;
+  }
+}
 .qr-modal-overlay {
   position: fixed;
   top: 0;
