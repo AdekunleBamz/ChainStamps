@@ -18,6 +18,7 @@ import { useContractCall } from '../hooks/useContractCall';
 import { triggerHaptic } from '../utils/haptics';
 import { estimateFee } from '../utils/fee';
 import { HighlightText } from './ui/HighlightText';
+import { TransactionStepper } from './ui/TransactionStepper';
 
 const SHAKE_ANIMATION = {
   x: [0, -10, 10, -10, 10, 0],
@@ -34,7 +35,7 @@ export const TagRegistry = ({ searchQuery = '' }: { searchQuery?: string }) => {
   const [value, setValue] = useState('');
   const [isLoading, setIsLoading] = useState(true);
   const controls = useAnimation();
-  const { isSubmitting, txId, execute, history } = useContractCall();
+  const { isSubmitting, step, txId, execute, history } = useContractCall();
 
   const handleError = (msg: string) => {
     addToast(msg, 'error');
@@ -276,6 +277,8 @@ export const TagRegistry = ({ searchQuery = '' }: { searchQuery?: string }) => {
             <span className="char-count text-[10px] ml-auto text-muted-foreground/40" aria-live="polite">{value.length}/256</span>
           </div>
         </div>
+
+        <TransactionStepper currentStep={step} />
 
         {isSubmitting && (
           <div className="absolute inset-0 z-10 flex-center bg-background/20 backdrop-blur-[1px] rounded-2xl pointer-events-none">

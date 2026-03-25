@@ -13,11 +13,12 @@ import { AnimatedNumber } from './ui/AnimatedNumber';
 import { SuccessMessage } from './ui/SuccessMessage';
 import { WarningMessage } from './ui/WarningMessage';
 import { SubmitButton } from './ui/SubmitButton';
-import { useToast } from '../context/ToastContext';
 import { triggerHaptic } from '../utils/haptics';
 import { estimateFee } from '../utils/fee';
 import { RecentActivity } from './ui/RecentActivity';
 import { HighlightText } from './ui/HighlightText';
+import { TransactionStepper } from './ui/TransactionStepper';
+import { useContractCall } from '../hooks/useContractCall';
 
 const SHAKE_ANIMATION = {
   x: [0, -10, 10, -10, 10, 0],
@@ -33,7 +34,7 @@ export const HashRegistry = ({ searchQuery = '' }: { searchQuery?: string }) => 
   const [hash, setHash] = useState('');
   const [isLoading, setIsLoading] = useState(true);
   const controls = useAnimation();
-  const { isSubmitting, txId, execute, history } = useContractCall();
+  const { isSubmitting, step, txId, execute, history } = useContractCall();
 
   useEffect(() => {
     const timer = setTimeout(() => setIsLoading(false), 1200);
@@ -257,6 +258,8 @@ export const HashRegistry = ({ searchQuery = '' }: { searchQuery?: string }) => 
           </div>
         </div>
 
+        <TransactionStepper currentStep={step} />
+
         {isSubmitting && (
           <div className="absolute inset-0 z-10 flex-center bg-background/20 backdrop-blur-[1px] rounded-2xl pointer-events-none">
             <motion.div 
@@ -291,7 +294,4 @@ export const HashRegistry = ({ searchQuery = '' }: { searchQuery?: string }) => 
   );
 }
 
-/**
- * Functional component hooks for managing registry logic.
- */
-import { useContractCall } from '../hooks/useContractCall';
+import { useToast } from '../context/ToastContext';

@@ -18,6 +18,7 @@ import { triggerHaptic } from '../utils/haptics';
 import { estimateFee } from '../utils/fee';
 import { RecentActivity } from './ui/RecentActivity';
 import { HighlightText } from './ui/HighlightText';
+import { TransactionStepper } from './ui/TransactionStepper';
 
 const SHAKE_ANIMATION = {
   x: [0, -10, 10, -10, 10, 0],
@@ -33,7 +34,7 @@ export const StampRegistry = ({ searchQuery = '' }: { searchQuery?: string }) =>
   const [message, setMessage] = useState('');
   const [isLoading, setIsLoading] = useState(true);
   const controls = useAnimation();
-  const { isSubmitting, txId, execute, history } = useContractCall();
+  const { isSubmitting, step, txId, execute, history } = useContractCall();
 
   useEffect(() => {
     const timer = setTimeout(() => setIsLoading(false), 1200);
@@ -238,6 +239,8 @@ export const StampRegistry = ({ searchQuery = '' }: { searchQuery?: string }) =>
             </motion.p>
           )}
         </div>
+
+        <TransactionStepper currentStep={step} />
 
         {isSubmitting && (
           <div className="absolute inset-0 z-10 flex-center bg-background/20 backdrop-blur-[1px] rounded-2xl pointer-events-none">

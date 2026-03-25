@@ -3,6 +3,8 @@ import { wcCallContract } from '../utils/walletconnect';
 import { useToast } from '../context/ToastContext';
 import { triggerSuccessConfetti } from '../utils/confetti';
 
+export type TransactionStep = 'idle' | 'preparing' | 'signing' | 'pending' | 'confirmed' | 'error';
+
 interface Activity {
   id: string;
   type: 'hash' | 'stamp' | 'tag';
@@ -30,6 +32,7 @@ const HISTORY_KEY = 'chainstamp_activity_history';
  */
 export const useContractCall = () => {
   const [isSubmitting, setIsSubmitting] = useState(false);
+  const [step, setStep] = useState<TransactionStep>('idle');
   const [txId, setTxId] = useState<string | null>(null);
   const [error, setError] = useState<string | null>(null);
   const [history, setHistory] = useState<Activity[]>([]);
@@ -48,13 +51,19 @@ export const useContractCall = () => {
 
   const execute = useCallback(async (params: ContractCallParams, successMessage = 'Transaction submitted successfully!', label = 'Unknown Action') => {
     setIsSubmitting(true);
+    setStep('preparing');
     setTxId(null);
     setError(null);
 
     try {
+      // Simulate preparing state for a moment to show the step
+      await new Promise(resolve => setTimeout(resolve, 800));
+      setStep('signing');
+
       const result = await wcCallContract(params);
       const newTxId = result.txid;
       setTxId(newTxId);
+      setStep('pending');
       
       const newActivity: Activity = {
         id: Math.random().toString(36).substr(2, 9),
@@ -70,11 +79,18 @@ export const useContractCall = () => {
 
       addToast(successMessage, 'success');
       triggerSuccessConfetti();
+      
+      // Keep confirmed state for a few seconds
+      setStep('confirmed');
+      setTimeout(() => setStep('idle'), 5000);
+      
       return result;
     } catch (err: unknown) {
       const msg = getErrorMessage(err);
       setError(msg);
+      setStep('error');
       addToast(msg, 'error');
+      setTimeout(() => setStep('idle'), 3000);
       throw err;
     } finally {
       setIsSubmitting(false);
@@ -83,6 +99,7 @@ export const useContractCall = () => {
 
   return {
     isSubmitting,
+    step,
     txId,
     error,
     history,
@@ -91,6 +108,7 @@ export const useContractCall = () => {
       setTxId(null);
       setError(null);
       setIsSubmitting(false);
+      setStep('idle');
     }
   };
 };
