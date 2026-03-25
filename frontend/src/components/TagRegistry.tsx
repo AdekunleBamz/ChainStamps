@@ -13,6 +13,7 @@ import { SuccessMessage } from './ui/SuccessMessage';
 import { WarningMessage } from './ui/WarningMessage';
 import { SubmitButton } from './ui/SubmitButton';
 import { useToast } from '../context/ToastContext';
+import { RecentActivity } from './ui/RecentActivity';
 
 /**
  * TagRegistry component for managing key-value metadata on the Stacks blockchain.
@@ -47,7 +48,7 @@ export const TagRegistry = () => {
   const [isLoading, setIsLoading] = useState(true);
   const controls = useAnimation();
 
-  const { isSubmitting, txId, execute } = useContractCall();
+  const { isSubmitting, txId, execute, history } = useContractCall();
 
   const handleError = (msg: string) => {
     addToast(msg, 'error');
@@ -79,7 +80,7 @@ export const TagRegistry = () => {
         functionName: 'store-tag',
         functionArgs: [key, value],
         stxAmount: CONTRACTS.tagRegistry.fee,
-      }, 'Tag stored successfully!');
+      }, 'Tag stored successfully!', `Tag: ${key}`);
       setKey('');
       setValue('');
     } catch {
@@ -235,6 +236,11 @@ export const TagRegistry = () => {
         loadingText="Storing..."
         idleText="Store Tag On-Chain"
         ariaBusy={isSubmitting}
+      />
+
+      <RecentActivity 
+        activities={history.filter(a => a.type === 'tag')} 
+        className="mt-6 pt-6 border-t border-white/5"
       />
 
       <SuccessMessage message="Tag stored!" txId={txId} />

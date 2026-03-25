@@ -1,48 +1,73 @@
-import { useState, useCallback } from 'react';
+import { useState, useCallback, useEffect } from 'react';
 import { wcCallContract } from '../utils/walletconnect';
 import { useToast } from '../context/ToastContext';
 import { triggerSuccessConfetti } from '../utils/confetti';
+
+interface Activity {
+  id: string;
+  type: 'hash' | 'stamp' | 'tag';
+  label: string;
+  txId: string;
+  timestamp: number;
+}
 
 interface ContractCallParams {
   contractAddress: string;
   contractName: string;
   functionName: string;
-  functionArgs: string[];
+  functionArgs: any[];
   stxAmount: number;
 }
 
 const getErrorMessage = (err: unknown) =>
   err instanceof Error ? err.message : 'Transaction failed. Please try again.';
 
+const HISTORY_KEY = 'chainstamp_activity_history';
+
 /**
  * Custom hook for making Stacks contract calls via WalletConnect.
- * Manages the full transaction lifecycle including:
- * - Loading/submission state
- * - Transaction ID tracking
- * - Success/Error toast notifications
- * - Triggering success animations (confetti)
- * 
- * @returns {Object} Call state and execute function.
- * @property {boolean} isSubmitting - True when a transaction is pending.
- * @property {string|null} txId - The Stacks transaction ID after successful broadcast.
- * @property {string|null} error - Error message if the call fails.
- * @property {function} execute - Function to trigger the contract call.
- * @property {function} reset - Function to clear the hook's state.
+ * Manages the full transaction lifecycle and local history persistence.
  */
 export const useContractCall = () => {
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [txId, setTxId] = useState<string | null>(null);
   const [error, setError] = useState<string | null>(null);
+  const [history, setHistory] = useState<Activity[]>([]);
   const { addToast } = useToast();
 
-  const execute = useCallback(async (params: ContractCallParams, successMessage = 'Transaction submitted successfully!') => {
+  useEffect(() => {
+    const saved = localStorage.getItem(HISTORY_KEY);
+    if (saved) {
+      try {
+        setHistory(JSON.parse(saved));
+      } catch (e) {
+        console.error('Failed to load history', e);
+      }
+    }
+  }, []);
+
+  const execute = useCallback(async (params: ContractCallParams, successMessage = 'Transaction submitted successfully!', label = 'Unknown Action') => {
     setIsSubmitting(true);
     setTxId(null);
     setError(null);
 
     try {
       const result = await wcCallContract(params);
-      setTxId(result.txid);
+      const newTxId = result.txid;
+      setTxId(newTxId);
+      
+      const newActivity: Activity = {
+        id: Math.random().toString(36).substr(2, 9),
+        type: params.contractName.includes('hash') ? 'hash' : params.contractName.includes('tag') ? 'tag' : 'stamp',
+        label: label,
+        txId: newTxId,
+        timestamp: Date.now(),
+      };
+
+      const updatedHistory = [newActivity, ...history].slice(0, 10);
+      setHistory(updatedHistory);
+      localStorage.setItem(HISTORY_KEY, JSON.stringify(updatedHistory));
+
       addToast(successMessage, 'success');
       triggerSuccessConfetti();
       return result;
@@ -54,17 +79,14 @@ export const useContractCall = () => {
     } finally {
       setIsSubmitting(false);
     }
-  }, [addToast]);
+  }, [addToast, history]);
 
   return {
     isSubmitting,
     txId,
     error,
+    history,
     execute,
-    /**
-     * Resets the hook state, clearing any previous transaction ID or errors.
-     * Useful when switching between different contract features or retrying.
-     */
     reset: () => {
       setTxId(null);
       setError(null);

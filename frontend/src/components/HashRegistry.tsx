@@ -16,6 +16,7 @@ import { SubmitButton } from './ui/SubmitButton';
 import { useToast } from '../context/ToastContext';
 import { triggerHaptic } from '../utils/haptics';
 import { estimateFee } from '../utils/fee';
+import { RecentActivity } from './ui/RecentActivity';
 
 /**
  * HashRegistry component for anchoring document fingerprints to the Stacks blockchain.
@@ -42,7 +43,7 @@ export const HashRegistry = () => {
   const controls = useAnimation();
 
   const { hash, isHashing, computeHash } = useHashing();
-  const { isSubmitting, txId, execute, reset: resetContract } = useContractCall();
+  const { isSubmitting, txId, execute, reset: resetContract, history } = useContractCall();
 
   useEffect(() => {
     const timer = setTimeout(() => setIsLoading(false), 1200);
@@ -85,7 +86,7 @@ export const HashRegistry = () => {
         functionName: 'store-hash',
         functionArgs: [`0x${hash}`, description || 'Document hash'],
         stxAmount: CONTRACTS.hashRegistry.fee,
-      }, 'Hash stored successfully!');
+      }, 'Hash stored successfully!', file?.name || 'Document Hash');
       setDescription('');
     } catch {
       // Error handled by hook
@@ -273,6 +274,11 @@ export const HashRegistry = () => {
         loadingText="Storing..."
         idleText={isHashing ? 'Hashing...' : 'Store Hash On-Chain'}
         ariaBusy={isSubmitting || isHashing}
+      />
+
+      <RecentActivity 
+        activities={history.filter(a => a.type === 'hash')} 
+        className="mt-6 pt-6 border-t border-white/5"
       />
 
       <SuccessMessage message="Hash stored!" txId={txId} />

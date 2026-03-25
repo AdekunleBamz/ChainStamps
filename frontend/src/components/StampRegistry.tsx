@@ -16,6 +16,7 @@ import { WarningMessage } from './ui/WarningMessage';
 import { SubmitButton } from './ui/SubmitButton';
 import { triggerHaptic } from '../utils/haptics';
 import { estimateFee } from '../utils/fee';
+import { RecentActivity } from './ui/RecentActivity';
 
 const SHAKE_ANIMATION = {
   x: [0, -10, 10, -10, 10, 0],
@@ -40,7 +41,7 @@ export const StampRegistry = () => {
    * Lists all available stamp-based contracts and their metadata.
    */
   const controls = useAnimation();
-  const { isSubmitting, txId, execute } = useContractCall();
+  const { isSubmitting, txId, execute, history } = useContractCall();
 
   useEffect(() => {
     const timer = setTimeout(() => setIsLoading(false), 1200);
@@ -75,7 +76,7 @@ export const StampRegistry = () => {
         functionName: 'stamp-message',
         functionArgs: [message],
         stxAmount: CONTRACTS.stampRegistry.fee,
-      }, 'Message stamped successfully!');
+      }, 'Message stamped successfully!', message.slice(0, 32) + (message.length > 32 ? '...' : ''));
       setMessage('');
     } catch {
       // Error handled by hook
@@ -226,6 +227,11 @@ export const StampRegistry = () => {
         loadingText="Stamping..."
         idleText="Stamp Message On-Chain"
         ariaBusy={isSubmitting}
+      />
+
+      <RecentActivity 
+        activities={history.filter(a => a.type === 'stamp')} 
+        className="mt-6 pt-6 border-t border-white/5"
       />
 
       <SuccessMessage message="Message stamped!" txId={txId} />
