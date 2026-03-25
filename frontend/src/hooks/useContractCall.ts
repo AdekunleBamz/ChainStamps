@@ -21,8 +21,15 @@ interface ContractCallParams {
   stxAmount: number;
 }
 
-const getErrorMessage = (err: unknown) =>
-  err instanceof Error ? err.message : 'Transaction failed. Please try again.';
+const getErrorMessage = (err: unknown) => {
+  if (err instanceof Error) {
+    if (err.message.includes('User rejected')) return 'Transaction cancelled by user. Feel free to try again when ready.';
+    if (err.message.includes('insufficient balance')) return 'Insufficient STX balance. Please add funds to your wallet and try again.';
+    if (err.message.includes('expired')) return 'Request timed out. Please ensure your wallet is open and try again.';
+    return err.message;
+  }
+  return 'Transaction failed. Please check your connection and try again.';
+};
 
 const HISTORY_KEY = 'chainstamp_activity_history';
 
