@@ -13,9 +13,23 @@ export const Footer = memo(() => {
   return (
     <footer className="footer" aria-label="Site Footer" role="contentinfo">
       <div className="footer-content">
-        <div className="footer-brand flex-center" aria-label="ChainStamps Branding">
-          <img src="/logo.png" alt="ChainStamps Logo" className="logo-img" aria-label="ChainStamps Brand Logo" />
-          <span>ChainStamps</span>
+        <div className="footer-brand flex items-center justify-center gap-2 mb-4" aria-label="ChainStamps Branding">
+          <div className="w-8 h-8 bg-primary rounded-lg flex items-center justify-center">
+            <svg
+              viewBox="0 0 24 24"
+              fill="none"
+              stroke="currentColor"
+              strokeWidth="2.5"
+              strokeLinecap="round"
+              strokeLinejoin="round"
+              className="w-5 h-5 text-white"
+            >
+              <path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z" />
+              <path d="M12 8v4" />
+              <path d="M12 16h.01" />
+            </svg>
+          </div>
+          <span className="text-xl font-bold tracking-tight">ChainStamps</span>
         </div>
 
         <p className="footer-tagline">
@@ -88,8 +102,8 @@ export const Footer = memo(() => {
           </motion.a>
         </div>
 
-        <p className="footer-copyright" aria-label={`Copyright ${new Date().getFullYear()} ChainStamp - Built on Stacks`}>
-          © {new Date().getFullYear()} ChainStamp. Built on Stacks.
+        <p className="footer-copyright" aria-label={`Copyright ${new Date().getFullYear()} ChainStamps - Built on Stacks`}>
+          © {new Date().getFullYear()} ChainStamps. Built on Stacks.
         </p>
       </div>
     </footer>
