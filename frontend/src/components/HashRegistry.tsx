@@ -1,9 +1,26 @@
+import { useState, useEffect } from 'react';
+import { motion, useAnimation, AnimatePresence } from 'framer-motion';
+import { useWallet } from '../context/WalletContext';
+import { CONTRACT_ADDRESS, CONTRACTS } from '../config/contracts';
+import { twMerge } from 'tailwind-merge';
+import { FileText, Hash, Share2, ExternalLink, HelpCircle, CheckCircle2, AlertCircle } from 'lucide-react';
+import { CardSkeleton } from './ui/Skeleton';
+import { Tooltip } from './ui/Tooltip';
+import { Button } from './ui/Button';
+import { Breadcrumbs } from './ui/Breadcrumbs';
+import { AnimatedNumber } from './ui/AnimatedNumber';
+import { SuccessMessage } from './ui/SuccessMessage';
+import { WarningMessage } from './ui/WarningMessage';
+import { SubmitButton } from './ui/SubmitButton';
+import { triggerHaptic } from '../utils/haptics';
+import { RecentActivity } from './ui/RecentActivity';
+import { HighlightText } from './ui/HighlightText';
+import { TransactionStepper } from './ui/TransactionStepper';
+import { useContractCall } from '../hooks/useContractCall';
 import { useToast } from '../context/ToastContext';
+import { ANIMATIONS, UI } from '../config/constants';
 
-const SHAKE_ANIMATION = {
-  x: [0, -10, 10, -10, 10, 0],
-  transition: { duration: 0.4 }
-};
+const SHAKE_ANIMATION = ANIMATIONS.SHAKE;
 
 /**
  * HashRegistry component for storing and verifying SHA-256 hashes on the Stacks blockchain.
