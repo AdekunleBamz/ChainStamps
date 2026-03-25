@@ -13,6 +13,7 @@ import { SuccessMessage } from './ui/SuccessMessage';
 import { WarningMessage } from './ui/WarningMessage';
 import { SubmitButton } from './ui/SubmitButton';
 import { triggerHaptic } from '../utils/haptics';
+import { estimateFee } from '../utils/fee';
 
 const SHAKE_ANIMATION = {
   x: [0, -10, 10, -10, 10, 0],
@@ -104,7 +105,7 @@ export const StampRegistry = () => {
         </div>
         <Tooltip content="Stacks network transaction fee (paid in STX) to secure your message on the Bitcoin blockchain.">
           <span className="fee-badge">
-            <AnimatedNumber value={0.05} decimals={2} suffix=" STX" />
+            <AnimatedNumber value={estimateFee(message)} decimals={4} suffix=" STX" />
           </span>
         </Tooltip>
       </div>

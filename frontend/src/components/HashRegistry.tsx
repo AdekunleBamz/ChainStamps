@@ -14,6 +14,7 @@ import { WarningMessage } from './ui/WarningMessage';
 import { SubmitButton } from './ui/SubmitButton';
 import { useToast } from '../context/ToastContext';
 import { triggerHaptic } from '../utils/haptics';
+import { estimateFee } from '../utils/fee';
 
 /**
  * HashRegistry component for anchoring document fingerprints to the Stacks blockchain.
@@ -124,7 +125,7 @@ export const HashRegistry = () => {
         <h2>Hash Registry</h2>
         <Tooltip content="Stacks network transaction fee (paid in STX) to secure your document fingerprints on the Bitcoin blockchain.">
           <span className="fee-badge">
-            <AnimatedNumber value={0.03} decimals={2} suffix=" STX" />
+            <AnimatedNumber value={estimateFee(hash ? 32 : 0)} decimals={4} suffix=" STX" />
           </span>
         </Tooltip>
       </div>

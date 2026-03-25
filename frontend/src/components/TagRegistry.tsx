@@ -8,7 +8,7 @@ import { Tooltip } from './ui/Tooltip';
 import { Breadcrumbs } from './ui/Breadcrumbs';
 import { AnimatedNumber } from './ui/AnimatedNumber';
 import { SuccessMessage } from './ui/SuccessMessage';
-import { WarningMessage } from './ui/WarningMessage';
+import { WarningMessage } from './ui/ui/WarningMessage';
 import { SubmitButton } from './ui/SubmitButton';
 import { useToast } from '../context/ToastContext';
 
@@ -109,7 +109,7 @@ export const TagRegistry = () => {
         </div>
         <Tooltip content="Stacks network transaction fee (paid in STX) to update your namespace metadata.">
           <span className="fee-badge">
-            <AnimatedNumber value={0.04} decimals={2} suffix=" STX" />
+            <AnimatedNumber value={estimateFee(tag)} decimals={4} suffix=" STX" />
           </span>
         </Tooltip>
       </div>
