@@ -19,26 +19,34 @@ Thank you for your interest in contributing to ChainStamps! This document provid
 
 ### Running Tests
 
+#### Smart Contracts (Clarity)
 ```bash
-# Run all tests
-npm test
+# Run Clarity unit tests
+clarinet test
 
-# Run with coverage
+# Run tests with coverage report
 npm run test:report
+```
 
-# Watch mode
-npm run test:watch
+#### Frontend (React)
+```bash
+# Run Vitest suite
+npm --prefix frontend test
+
+# Run Vitest in watch mode
+npm --prefix frontend run test:watch
 ```
 
 ### Checking Clarity Syntax
 
 ```bash
+# Validate contract logic and syntax
 clarinet check
 ```
 
 ## 📝 Commit Convention
 
-We follow [Conventional Commits](https://www.conventionalcommits.org/):
+We follow [Conventional Commits](https://www.conventionalcommits.org/). **All commits must be GPG-signed** to ensure authenticity.
 
 - `feat:` - New features
 - `fix:` - Bug fixes
