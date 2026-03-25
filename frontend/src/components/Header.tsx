@@ -27,6 +27,7 @@ export const Header = () => {
   const { isConnected, isConnecting, userAddress, connect, disconnect, wcUri, showQRModal, setShowQRModal } = useWallet();
   const [isScrolled, setIsScrolled] = useState(false);
   const [blockHeight, setBlockHeight] = useState<number | null>(null);
+  const [activeHash, setActiveHash] = useState(window.location.hash);
   const [isMenuOpen, setIsMenuOpen] = useState(false);
 
   const ticking = useRef(false);
@@ -41,7 +42,12 @@ export const Header = () => {
       }
     };
     
+    const handleHashChange = () => {
+      setActiveHash(window.location.hash);
+    };
+
     window.addEventListener('scroll', handleScroll, { passive: true });
+    window.addEventListener('hashchange', handleHashChange);
 
     const fetchBlockHeight = async () => {
       try {
@@ -58,6 +64,7 @@ export const Header = () => {
 
     return () => {
       window.removeEventListener('scroll', handleScroll);
+      window.removeEventListener('hashchange', handleHashChange);
       clearInterval(interval);
     };
   }, []);
@@ -143,7 +150,7 @@ export const Header = () => {
                   className="transition-base" 
                   onClick={() => setIsMenuOpen(false)} 
                   aria-label="Navigate to Hash Registry section"
-                  aria-current={window.location.hash === '#hash' ? 'page' : undefined}
+                  aria-current={activeHash === '#hash' ? 'page' : undefined}
                 >Hash</a>
               </li>
               <li>
@@ -152,7 +159,7 @@ export const Header = () => {
                   className="transition-base" 
                   onClick={() => setIsMenuOpen(false)} 
                   aria-label="Navigate to Stamp Registry section"
-                  aria-current={window.location.hash === '#stamp' ? 'page' : undefined}
+                  aria-current={activeHash === '#stamp' ? 'page' : undefined}
                 >Stamp</a>
               </li>
               <li>
@@ -161,7 +168,7 @@ export const Header = () => {
                   className="transition-base" 
                   onClick={() => setIsMenuOpen(false)} 
                   aria-label="Navigate to Tag Registry section"
-                  aria-current={window.location.hash === '#tag' ? 'page' : undefined}
+                  aria-current={activeHash === '#tag' ? 'page' : undefined}
                 >Tag</a>
               </li>
             </ul>
