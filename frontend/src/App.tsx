@@ -1,4 +1,5 @@
 import { useEffect, useState, useMemo, memo } from 'react';
+import { twMerge } from 'tailwind-merge';
 import { motion } from 'framer-motion';
 import { WalletProvider } from './context/WalletContext';
 import { Header } from './components/Header';
