@@ -78,13 +78,42 @@ export const Header = () => {
   }, []);
 
 
+  const navRef = useRef<HTMLElement>(null);
+
   useEffect(() => {
     if (!isMenuOpen) return;
+    
+    const handleTabKey = (e: KeyboardEvent) => {
+      if (e.key !== 'Tab') return;
+      
+      const focusableElements = navRef.current?.querySelectorAll(
+        'a[href], button:not([disabled]), input:not([disabled]), textarea:not([disabled]), [tabindex]:not([tabindex="-1"])'
+      );
+      if (!focusableElements || focusableElements.length === 0) return;
+      
+      const firstElement = focusableElements[0] as HTMLElement;
+      const lastElement = focusableElements[focusableElements.length - 1] as HTMLElement;
+
+      if (e.shiftKey) {
+        if (document.activeElement === firstElement) {
+          lastElement.focus();
+          e.preventDefault();
+        }
+      } else {
+        if (document.activeElement === lastElement) {
+          firstElement.focus();
+          e.preventDefault();
+        }
+      }
+    };
+
     const onKeyDown = (event: KeyboardEvent) => {
       if (event.key === 'Escape') {
         setIsMenuOpen(false);
       }
+      handleTabKey(event);
     };
+    
     window.addEventListener('keydown', onKeyDown);
     return () => window.removeEventListener('keydown', onKeyDown);
   }, [isMenuOpen]);
@@ -136,6 +165,7 @@ export const Header = () => {
 
           <nav
             id="primary-navigation"
+            ref={navRef}
             aria-label="Main navigation links"
             className={twMerge("nav-links", isMenuOpen && "mobile-open")}
           >
