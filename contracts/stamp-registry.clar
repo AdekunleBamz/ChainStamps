@@ -16,6 +16,7 @@
 (define-constant STAMP-FEE u50000)
 (define-constant MAX-MESSAGE-LENGTH u256)
 (define-constant MAX-CATEGORY-LENGTH u32)
+(define-constant MAX-USER-STAMPS u100)
 
 ;; Valid categories
 (define-constant CATEGORY-GENERAL u0)
@@ -185,11 +186,11 @@
         
         ;; Update user stamps list
         (map-set user-stamps tx-sender 
-            (unwrap-panic (as-max-len? (append current-user-stamps new-stamp-id) u100)))
+            (unwrap-panic (as-max-len? (append current-user-stamps new-stamp-id) MAX-USER-STAMPS)))
         
         ;; Update category stamps list
         (map-set category-stamps category
-            (unwrap-panic (as-max-len? (append current-category-stamps new-stamp-id) u100)))
+            (unwrap-panic (as-max-len? (append current-category-stamps new-stamp-id) MAX-USER-STAMPS)))
         
         ;; Increment counter and fees
         (var-set stamp-counter new-stamp-id)
