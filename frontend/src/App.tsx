@@ -162,10 +162,17 @@ const App = () => {
                 </div>
                 <div className="search-meta" id="search-metadata" role="status" aria-live="polite">
                   <div className="flex flex-col gap-1">
-                    <span className="sr-only">Search results updated: </span>
-                    <span>
-                      Showing {filteredItems.length} of {INITIAL_REGISTRIES.length} registries
-                    </span>
+                    <div className="flex items-center gap-2">
+                      <span className="sr-only">Search results updated: </span>
+                      <span>
+                        Showing {filteredItems.length} of {INITIAL_REGISTRIES.length} registries
+                      </span>
+                      {(searchQuery || selectedCategories.length > 0) && (
+                        <span className="flex items-center justify-center bg-primary/20 text-primary text-[10px] font-bold h-4 px-1.5 rounded-full animate-in fade-in zoom-in">
+                          { (searchQuery ? 1 : 0) + selectedCategories.length} filter{(searchQuery ? 1 : 0) + selectedCategories.length > 1 ? 's' : ''} active
+                        </span>
+                      )}
+                    </div>
                     <span className="text-[10px] opacity-70 animate-pulse-slow">
                       Last synchronized: {lastUpdated}
                     </span>
@@ -173,13 +180,14 @@ const App = () => {
                   {(searchQuery || selectedCategories.length > 0) && (
                     <button
                       type="button"
-                      className="search-meta-reset"
+                      className="search-meta-reset hover:text-primary transition-colors flex items-center gap-1 group"
                       onClick={() => {
                         setSearchQuery('');
                         setSelectedCategories([]);
                       }}
                       aria-controls="registry-results"
                     >
+                      <X size={10} className="group-hover:rotate-90 transition-transform" />
                       Clear all filters
                     </button>
                   )}
