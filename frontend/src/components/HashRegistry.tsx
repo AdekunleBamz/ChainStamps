@@ -3,10 +3,11 @@ import { motion, useAnimation } from 'framer-motion';
 import { useWallet } from '../context/WalletContext';
 import { CONTRACT_ADDRESS, CONTRACTS } from '../config/contracts';
 import { twMerge } from 'tailwind-merge';
-import { FileText, Hash } from 'lucide-react';
+import { FileText, Hash, Share2 } from 'lucide-react';
 import { CardSkeleton } from './ui/Skeleton';
 import { Tooltip } from './ui/Tooltip';
 import { CopyButton } from './ui/CopyButton';
+import { Button } from './ui/Button';
 import { Breadcrumbs } from './ui/Breadcrumbs';
 import { AnimatedNumber } from './ui/AnimatedNumber';
 import { SuccessMessage } from './ui/SuccessMessage';
@@ -122,7 +123,26 @@ export const HashRegistry = () => {
             <span className="text-sm font-semibold text-muted-foreground mr-1">SHA-256</span>
           </Tooltip>
         </div>
-        <h2>Hash Registry</h2>
+        <div className="flex items-center gap-2">
+          <h2 className="m-0">Hash Registry</h2>
+          <Tooltip content="Copy link to this section">
+            <Button
+              variant="ghost"
+              size="icon"
+              className="h-8 w-8 rounded-full opacity-50 hover:opacity-100 transition-opacity"
+              onClick={() => {
+                const url = new URL(window.location.href);
+                url.hash = 'hash';
+                navigator.clipboard.writeText(url.toString());
+                addToast('Section link copied!', 'success');
+                triggerHaptic('success');
+              }}
+              aria-label="Copy link to Hash Registry section"
+            >
+              <Share2 size={16} strokeWidth={1.5} />
+            </Button>
+          </Tooltip>
+        </div>
         <Tooltip content="Stacks network transaction fee (paid in STX) to secure your document fingerprints on the Bitcoin blockchain.">
           <span className="fee-badge">
             <AnimatedNumber value={estimateFee(hash ? 32 : 0)} decimals={4} suffix=" STX" />
