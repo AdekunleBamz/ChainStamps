@@ -43,12 +43,17 @@ export const TagRegistry = ({ searchQuery = '' }: { searchQuery?: string }) => {
     triggerHaptic('error');
   };
 
+  const [lastSubmitTime, setLastSubmitTime] = useState(0);
+
   useEffect(() => {
     const timer = setTimeout(() => setIsLoading(false), 1200);
     return () => clearTimeout(timer);
   }, []);
 
   const storeTag = async () => {
+    const now = Date.now();
+    if (now - lastSubmitTime < 2000) return; // 2s rate limit
+
     if (!key || !value || !isConnected || !userAddress) {
       if (!key || !value) {
         handleError('Please enter both key and value for the tag.');
@@ -68,6 +73,7 @@ export const TagRegistry = ({ searchQuery = '' }: { searchQuery?: string }) => {
       }, 'Tag stored successfully!', `Tag: ${sanitizedKey}`);
       setKey('');
       setValue('');
+      setLastSubmitTime(Date.now());
     } catch {
       // Error handled by hook
     }
