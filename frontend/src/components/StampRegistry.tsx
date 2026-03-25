@@ -2,7 +2,7 @@ import { useState, useEffect } from 'react';
 import { motion, useAnimation } from 'framer-motion';
 import { useWallet } from '../context/WalletContext';
 import { CONTRACT_ADDRESS, CONTRACTS } from '../config/contracts';
-import { Stamp, Share2 } from 'lucide-react';
+import { Stamp, Share2, Shield } from 'lucide-react';
 import { twMerge } from 'tailwind-merge';
 import { CardSkeleton } from './ui/Skeleton';
 import { Tooltip } from './ui/Tooltip';
@@ -195,6 +195,15 @@ export const StampRegistry = () => {
           >
             {message.length}/256
           </span>
+          {message.length >= 200 && (
+            <motion.p 
+              initial={{ opacity: 0, height: 0 }}
+              animate={{ opacity: 1, height: 'auto' }}
+              className="text-[10px] text-orange-500 font-bold mt-2 flex items-center gap-1"
+            >
+              <Shield size={10} /> Approaching character limit for transaction data
+            </motion.p>
+          )}
         </div>
 
         {isSubmitting && (
