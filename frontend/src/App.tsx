@@ -62,6 +62,7 @@ const App = () => {
     { 
       id: 'hash', 
       name: 'Hash Registry', 
+      category: 'Hash',
       description: 'Store and verify SHA-256 hashes for files and data',
       tags: ['security', 'verification', 'hashes'],
       component: <HashRegistry /> 
@@ -69,6 +70,7 @@ const App = () => {
     { 
       id: 'stamp', 
       name: 'Stamp Registry', 
+      category: 'Stamp',
       description: 'Permanent on-chain text stamps and messages',
       tags: ['timestamp', 'content', 'identity'],
       component: <StampRegistry /> 
@@ -76,13 +78,14 @@ const App = () => {
     { 
       id: 'tag', 
       name: 'Tag Registry', 
+      category: 'Tag',
       description: 'Key-value metadata storage for on-chain identity',
       tags: ['metadata', 'tags', 'identity'],
       component: <TagRegistry /> 
     },
   ], []);
 
-  const { searchQuery, setSearchQuery, filteredItems, isStale } = useSearch(registries);
+  const { searchQuery, setSearchQuery, selectedCategories, setSelectedCategories, toggleCategory, filteredItems, isStale } = useSearch(registries);
 
   useEffect(() => {
     const handleKeyDown = (e: KeyboardEvent) => {
@@ -167,11 +170,14 @@ const App = () => {
                       Last synchronized: {lastUpdated}
                     </span>
                   </div>
-                  {searchQuery && (
+                  {(searchQuery || selectedCategories.length > 0) && (
                     <button
                       type="button"
                       className="search-meta-reset"
-                      onClick={() => setSearchQuery('')}
+                      onClick={() => {
+                        setSearchQuery('');
+                        setSelectedCategories([]);
+                      }}
                       aria-controls="registry-results"
                     >
                       Clear all filters
@@ -183,12 +189,12 @@ const App = () => {
                     <button
                       key={suggestion}
                       type="button"
-                      onClick={() => setSearchQuery(suggestion)}
+                      onClick={() => toggleCategory(suggestion)}
                       className={twMerge(
                         "search-chip",
-                        searchQuery.toLowerCase() === suggestion.toLowerCase() && "search-chip-active"
+                        selectedCategories.includes(suggestion) && "search-chip-active"
                       )}
-                      aria-pressed={searchQuery.toLowerCase() === suggestion.toLowerCase()}
+                      aria-pressed={selectedCategories.includes(suggestion)}
                       aria-controls="registry-results"
                     >
                       {suggestion}
