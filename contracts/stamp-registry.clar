@@ -152,12 +152,15 @@
 
 ;; Public functions
 
-;; Stamp a message on-chain with default category
+;; @desc Stamp a message on-chain with the default category
+;; @param message the UTF-8 string to record on the blockchain
 (define-public (stamp-message (message (string-utf8 256)))
     (stamp-message-with-category message CATEGORY-GENERAL)
 )
 
-;; Stamp a message on-chain with specific category
+;; @desc Stamp a message on-chain with a specified category code
+;; @param message the UTF-8 string to record
+;; @param category numeric code for the message classification
 (define-public (stamp-message-with-category (message (string-utf8 256)) (category uint))
     (let
         (
@@ -200,7 +203,8 @@
     )
 )
 
-;; Revoke a stamp (sender only) - marks the stamp as no longer valid
+;; @desc Revoke a previously created stamp (sender only)
+;; @param stamp-id the unique numeric ID of the stamp to revoke
 (define-public (revoke-stamp (stamp-id uint))
     (let
         (
