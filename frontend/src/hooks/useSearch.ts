@@ -1,4 +1,4 @@
-import { useState, useMemo, useDeferredValue } from 'react';
+import { useState, useMemo, useDeferredValue, useEffect } from 'react';
 
 export interface SearchableItem {
   id: string;
@@ -9,9 +9,26 @@ export interface SearchableItem {
 }
 
 export const useSearch = <T extends SearchableItem>(items: T[]) => {
-  const [searchQuery, setSearchQuery] = useState('');
-  const [selectedCategories, setSelectedCategories] = useState<string[]>([]);
+  const [searchQuery, setSearchQuery] = useState(new URLSearchParams(window.location.search).get('q') || '');
+  const [selectedCategories, setSelectedCategories] = useState<string[]>(
+    new URLSearchParams(window.location.search).get('c')?.split(',').filter(Boolean) || []
+  );
   const deferredQuery = useDeferredValue(searchQuery);
+
+  // Sync state to URL
+  useEffect(() => {
+    const params = new URLSearchParams();
+    if (searchQuery) params.set('q', searchQuery);
+    if (selectedCategories.length > 0) params.set('c', selectedCategories.join(','));
+    
+    const newSearch = params.toString();
+    const currentSearch = window.location.search.replace('?', '');
+    
+    if (newSearch !== currentSearch) {
+      const newUrl = `${window.location.pathname}${newSearch ? `?${newSearch}` : ''}`;
+      window.history.replaceState({}, '', newUrl);
+    }
+  }, [searchQuery, selectedCategories]);
 
   const filteredItems = useMemo(() => {
     let result = items;
