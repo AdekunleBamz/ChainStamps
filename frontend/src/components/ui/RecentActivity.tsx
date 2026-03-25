@@ -1,6 +1,6 @@
 import { motion, AnimatePresence } from 'framer-motion';
 import { ExternalLink, Hash, Stamp, Tag as TagIcon, Clock } from 'lucide-react';
-import { memo } from 'react';
+import { memo, useState, useMemo } from 'react';
 import { twMerge } from 'tailwind-merge';
 
 interface Activity {
@@ -22,18 +22,54 @@ const ICON_MAP = {
   tag: TagIcon,
 };
 
+type FilterType = 'all' | 'today' | 'week';
+
 export const RecentActivity = memo(({ activities, className }: RecentActivityProps) => {
+  const [filter, setFilter] = useState<FilterType>('all');
+
+  const filteredActivities = useMemo(() => {
+    const now = Date.now();
+    const oneDay = 24 * 60 * 60 * 1000;
+    const oneWeek = 7 * oneDay;
+
+    switch (filter) {
+      case 'today':
+        return activities.filter(a => now - a.timestamp < oneDay);
+      case 'week':
+        return activities.filter(a => now - a.timestamp < oneWeek);
+      default:
+        return activities;
+    }
+  }, [activities, filter]);
+
   if (activities.length === 0) return null;
 
   return (
     <div className={twMerge("mt-8 pt-6 border-t border-border/50", className)}>
-      <div className="flex items-center gap-2 mb-4">
-        <Clock size={14} className="text-muted-foreground" />
-        <h4 className="text-[10px] uppercase tracking-widest font-bold text-muted-foreground">Recent Activity</h4>
+      <div className="flex flex-between items-center mb-4">
+        <div className="flex items-center gap-2">
+          <Clock size={12} className="text-muted-foreground" />
+          <h4 className="text-[10px] uppercase tracking-widest font-bold text-muted-foreground">Recent Activity</h4>
+        </div>
+        <div className="flex items-center gap-1 bg-white/5 p-1 rounded-lg">
+          {(['all', 'today', 'week'] as FilterType[]).map((f) => (
+            <button
+              key={f}
+              onClick={() => setFilter(f)}
+              className={twMerge(
+                "px-2 py-0.5 text-[9px] font-bold uppercase tracking-wider rounded-md transition-all",
+                filter === f ? "bg-primary text-white" : "text-muted-foreground hover:bg-white/5"
+              )}
+            >
+              {f}
+            </button>
+          ))}
+        </div>
       </div>
+
       <div className="flex flex-col gap-2">
         <AnimatePresence initial={false}>
-          {activities.slice(0, 3).map((activity) => {
+          {filteredActivities.slice(0, 5).map((activity) => {
             const Icon = ICON_MAP[activity.type];
             const isRecent = Date.now() - activity.timestamp < 180000; // 3 minutes
 
@@ -72,6 +108,11 @@ export const RecentActivity = memo(({ activities, className }: RecentActivityPro
             );
           })}
         </AnimatePresence>
+        {filteredActivities.length === 0 && (
+          <div className="text-center py-4 text-[10px] text-muted-foreground bg-white/5 rounded-xl border border-dashed border-white/10">
+            No activity found for this period
+          </div>
+        )}
       </div>
     </div>
   );
