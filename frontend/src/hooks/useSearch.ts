@@ -15,19 +15,23 @@ export const useSearch = <T extends SearchableItem>(items: T[]) => {
   );
   const deferredQuery = useDeferredValue(searchQuery);
 
-  // Sync state to URL
+  // Sync state to URL with debounce
   useEffect(() => {
-    const params = new URLSearchParams();
-    if (searchQuery) params.set('q', searchQuery);
-    if (selectedCategories.length > 0) params.set('c', selectedCategories.join(','));
-    
-    const newSearch = params.toString();
-    const currentSearch = window.location.search.replace('?', '');
-    
-    if (newSearch !== currentSearch) {
-      const newUrl = `${window.location.pathname}${newSearch ? `?${newSearch}` : ''}`;
-      window.history.replaceState({}, '', newUrl);
-    }
+    const timeoutId = setTimeout(() => {
+      const params = new URLSearchParams();
+      if (searchQuery) params.set('q', searchQuery);
+      if (selectedCategories.length > 0) params.set('c', selectedCategories.join(','));
+      
+      const newSearch = params.toString();
+      const currentSearch = window.location.search.replace('?', '');
+      
+      if (newSearch !== currentSearch) {
+        const newUrl = `${window.location.pathname}${newSearch ? `?${newSearch}` : ''}`;
+        window.history.replaceState({}, '', newUrl);
+      }
+    }, 300);
+
+    return () => clearTimeout(timeoutId);
   }, [searchQuery, selectedCategories]);
 
   const filteredItems = useMemo(() => {
