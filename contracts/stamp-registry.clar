@@ -11,6 +11,7 @@
 (define-constant ERR-STAMP-NOT-FOUND (err u103))
 (define-constant ERR-STAMP-ALREADY-REVOKED (err u104))
 (define-constant ERR-INVALID-CATEGORY (err u105))
+(define-constant ERR-NOT-STAMP-SENDER (err u106))
 
 ;; Fee in microSTX (0.05 STX = 50000 microSTX)
 (define-constant STAMP-FEE u50000)
@@ -207,7 +208,7 @@
             (stamp-data (unwrap! (map-get? stamps stamp-id) ERR-STAMP-NOT-FOUND))
         )
         ;; Only the sender can revoke
-        (asserts! (is-eq tx-sender (get sender stamp-data)) ERR-NOT-AUTHORIZED)
+        (asserts! (is-eq tx-sender (get sender stamp-data)) ERR-NOT-STAMP-SENDER)
         ;; Cannot revoke if already revoked
         (asserts! (not (get revoked stamp-data)) ERR-STAMP-ALREADY-REVOKED)
         
