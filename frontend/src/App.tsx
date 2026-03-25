@@ -136,9 +136,24 @@ const App = () => {
                       className="search-meta-reset"
                       onClick={() => setSearchQuery('')}
                     >
-                      Show all
+                      Clear all filters
                     </button>
                   )}
+                </div>
+                <div className="search-suggestions" role="group" aria-label="Search suggestions">
+                  {['Hash', 'Stamp', 'Tag'].map(suggestion => (
+                    <button
+                      key={suggestion}
+                      type="button"
+                      onClick={() => setSearchQuery(suggestion)}
+                      className={twMerge(
+                        "search-chip",
+                        searchQuery.toLowerCase() === suggestion.toLowerCase() && "search-chip-active"
+                      )}
+                    >
+                      {suggestion}
+                    </button>
+                  ))}
                 </div>
                 <div className="search-suggestions" aria-label="Quick registry filters">
                   {['hash', 'stamp', 'tag'].map((term) => (
