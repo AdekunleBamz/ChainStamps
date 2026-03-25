@@ -196,15 +196,16 @@ export const Header = () => {
                   </Tooltip>
                   <CopyButton value={userAddress || ''} size={14} className="h-8 w-8" />
                 </div>
-                <Button
-                  variant="outline"
-                  size="icon"
-                  className="disconnect-btn rounded-xl"
-                  onClick={disconnect}
-                  title="Disconnect Wallet"
-                >
-                  <LogOut size={16} strokeWidth={1.5} />
-                </Button>
+                  <Button
+                    variant="outline"
+                    size="icon"
+                    className="disconnect-btn rounded-xl"
+                    onClick={disconnect}
+                    title="Disconnect Wallet"
+                    aria-label="Disconnect Stacks Wallet"
+                  >
+                    <LogOut size={16} strokeWidth={1.5} />
+                  </Button>
               </div>
             ) : (
                 <Button
