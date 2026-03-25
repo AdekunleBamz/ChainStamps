@@ -3,7 +3,7 @@ import { motion, useAnimation } from 'framer-motion';
 import { useWallet } from '../context/WalletContext';
 import { CONTRACT_ADDRESS, CONTRACTS } from '../config/contracts';
 import { twMerge } from 'tailwind-merge';
-import { FileText, Hash, Share2, ExternalLink } from 'lucide-react';
+import { FileText, Hash, Share2, ExternalLink, HelpCircle } from 'lucide-react';
 import { CardSkeleton } from './ui/Skeleton';
 import { Tooltip } from './ui/Tooltip';
 import { CopyButton } from './ui/CopyButton';
@@ -237,7 +237,14 @@ export const HashRegistry = ({ searchQuery = '' }: { searchQuery?: string }) => 
             ) : (
               <div className="hash-display flex-between gap-4">
                 <div className="flex-1 overflow-hidden text-left">
-                  <label className="text-[10px] text-muted-foreground uppercase font-bold mb-1 block">SHA-256 Fingerprint:</label>
+                  <div className="flex items-center gap-1.5 mb-1 text-[10px] text-muted-foreground uppercase font-bold">
+                    <label>SHA-256 Fingerprint</label>
+                    <Tooltip content="A unique digital fingerprint of your file. Even a 1-bit change results in a completely different hash.">
+                      <div className="cursor-help opacity-40 hover:opacity-100 transition-opacity">
+                        <HelpCircle size={10} />
+                      </div>
+                    </Tooltip>
+                  </div>
                   <code className="block truncate text-primary/80 font-mono text-sm">{hash}</code>
                 </div>
                 <CopyButton value={hash || ''} size={16} className="ml-2 h-8 w-8 rounded-lg bg-primary/10" />

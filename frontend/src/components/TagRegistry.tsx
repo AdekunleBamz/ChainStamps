@@ -2,7 +2,7 @@ import { useState, useEffect } from 'react';
 import { motion, useAnimation } from 'framer-motion';
 import { useWallet } from '../context/WalletContext';
 import { CONTRACT_ADDRESS, CONTRACTS } from '../config/contracts';
-import { Tag, Share2, Shield, Info, ExternalLink } from 'lucide-react';
+import { Tag, Share2, Shield, Info, ExternalLink, HelpCircle } from 'lucide-react';
 import { twMerge } from 'tailwind-merge';
 import { CardSkeleton } from './ui/Skeleton';
 import { Tooltip } from './ui/Tooltip';
@@ -14,25 +14,15 @@ import { WarningMessage } from './ui/WarningMessage';
 import { SubmitButton } from './ui/SubmitButton';
 import { useToast } from '../context/ToastContext';
 import { RecentActivity } from './ui/RecentActivity';
-
-/**
- * TagRegistry component for managing key-value metadata on the Stacks blockchain.
- * Features:
- * - Arbitrary key-value pair storage
- * - Real-time character count tracking
- * - Transaction feedback with explorer integration
- * - Stacks wallet authentication integration
- */
 import { useContractCall } from '../hooks/useContractCall';
 import { triggerHaptic } from '../utils/haptics';
 import { estimateFee } from '../utils/fee';
+import { HighlightText } from './ui/HighlightText';
 
 const SHAKE_ANIMATION = {
   x: [0, -10, 10, -10, 10, 0],
   transition: { duration: 0.4 }
 };
-
-import { HighlightText } from './ui/HighlightText';
 
 /**
  * TagRegistry component for managing decentralized key-value metadata.
@@ -44,7 +34,6 @@ export const TagRegistry = ({ searchQuery = '' }: { searchQuery?: string }) => {
   const [value, setValue] = useState('');
   const [isLoading, setIsLoading] = useState(true);
   const controls = useAnimation();
-
   const { isSubmitting, txId, execute, history } = useContractCall();
 
   const handleError = (msg: string) => {
@@ -58,10 +47,6 @@ export const TagRegistry = ({ searchQuery = '' }: { searchQuery?: string }) => {
     return () => clearTimeout(timer);
   }, []);
 
-  /**
-   * Finalizes the dynamic tag storage process by executing the 'store-tag'
-   * contract call on the Stacks blockchain.
-   */
   const storeTag = async () => {
     if (!key || !value || !isConnected || !userAddress) {
       if (!key || !value) {
@@ -185,8 +170,10 @@ export const TagRegistry = ({ searchQuery = '' }: { searchQuery?: string }) => {
         <div className="form-group mb-4">
           <div className="flex items-center gap-2 mb-1">
             <label className="text-[10px] text-muted-foreground uppercase font-bold">Key Name</label>
-            <Tooltip content="Keys are automatically formatted as kebab-case (e.g., 'my-tag-name')">
-              <Info size={10} className="text-muted-foreground/50 cursor-help" />
+            <Tooltip content="Keys are automatically formatted as kebab-case (e.g., 'my-tag-name'). Maximum 64 characters.">
+              <div className="cursor-help opacity-40 hover:opacity-100 transition-opacity">
+                <HelpCircle size={10} />
+              </div>
             </Tooltip>
           </div>
           <input
@@ -204,7 +191,14 @@ export const TagRegistry = ({ searchQuery = '' }: { searchQuery?: string }) => {
         </div>
 
         <div className="form-group mb-6">
-          <label className="text-[10px] text-muted-foreground uppercase font-bold mb-1 block">Value Content</label>
+          <div className="flex items-center gap-2 mb-1">
+            <label className="text-[10px] text-muted-foreground uppercase font-bold">Value Content</label>
+            <Tooltip content="The data you want to associate with this key. Maximum 256 characters.">
+              <div className="cursor-help opacity-40 hover:opacity-100 transition-opacity">
+                <HelpCircle size={10} />
+              </div>
+            </Tooltip>
+          </div>
           <textarea
             placeholder="e.g., 'ChainStamp v1.0'"
             value={value}

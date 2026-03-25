@@ -2,7 +2,7 @@ import { useState, useEffect } from 'react';
 import { motion, useAnimation } from 'framer-motion';
 import { useWallet } from '../context/WalletContext';
 import { CONTRACT_ADDRESS, CONTRACTS } from '../config/contracts';
-import { Stamp, Share2, Shield, ExternalLink } from 'lucide-react';
+import { Stamp, Share2, Shield, ExternalLink, Clock, HelpCircle } from 'lucide-react';
 import { twMerge } from 'tailwind-merge';
 import { CardSkeleton } from './ui/Skeleton';
 import { Tooltip } from './ui/Tooltip';
@@ -17,13 +17,12 @@ import { SubmitButton } from './ui/SubmitButton';
 import { triggerHaptic } from '../utils/haptics';
 import { estimateFee } from '../utils/fee';
 import { RecentActivity } from './ui/RecentActivity';
+import { HighlightText } from './ui/HighlightText';
 
 const SHAKE_ANIMATION = {
   x: [0, -10, 10, -10, 10, 0],
   transition: { duration: 0.4 }
 };
-
-import { HighlightText } from './ui/HighlightText';
 
 /**
  * StampRegistry component for permanently recording text messages on the Stacks blockchain.
@@ -33,10 +32,6 @@ export const StampRegistry = ({ searchQuery = '' }: { searchQuery?: string }) =>
   const { addToast } = useToast();
   const [message, setMessage] = useState('');
   const [isLoading, setIsLoading] = useState(true);
-  /**
-   * Registry configuration for the Stamp features.
-   * Lists all available stamp-based contracts and their metadata.
-   */
   const controls = useAnimation();
   const { isSubmitting, txId, execute, history } = useContractCall();
 
@@ -45,18 +40,11 @@ export const StampRegistry = ({ searchQuery = '' }: { searchQuery?: string }) =>
     return () => clearTimeout(timer);
   }, []);
 
-  /**
-   * Triggers a visual 'shake' animation on the card to indicate validation errors.
-   */
   const shake = () => {
     controls.start(SHAKE_ANIMATION);
     triggerHaptic('error');
   };
 
-  /**
-   * Finalizes the message stamping process by executing the 'store-stamp'
-   * contract call on the Stacks blockchain.
-   */
   const storeStamp = async () => {
     if (!message || !isConnected || !userAddress) {
       if (!message) {
@@ -178,6 +166,14 @@ export const StampRegistry = ({ searchQuery = '' }: { searchQuery?: string }) =>
 
       <div className={twMerge("relative", isSubmitting && "pointer-events-none")}>
         <div className="form-group mb-6">
+          <div className="flex items-center gap-1.5 mb-2 text-[10px] text-muted-foreground uppercase font-bold">
+            <label>Message Content</label>
+            <Tooltip content="Maximum 256 characters. This message will be stored in the transaction metadata.">
+              <div className="cursor-help opacity-40 hover:opacity-100 transition-opacity">
+                <HelpCircle size={10} />
+              </div>
+            </Tooltip>
+          </div>
           <textarea
             placeholder="Enter your message to stamp on-chain..."
             value={message}
