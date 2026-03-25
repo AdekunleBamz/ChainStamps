@@ -189,9 +189,11 @@ export const Header = () => {
             {isConnected ? (
               <div className="wallet-connected flex-center gap-2">
                 <div className="flex items-center gap-2 rounded-xl border border-border bg-background/50 pl-3 pr-1 py-1 shadow-inner">
-                  <span className="text-sm font-mono text-muted-foreground mr-1">
-                    {userAddress?.slice(0, 6)}...{userAddress?.slice(-4)}
-                  </span>
+                  <Tooltip content={userAddress || ''}>
+                    <span className="text-sm font-mono text-muted-foreground mr-1 cursor-help" aria-label={`Wallet address: ${userAddress || 'Not connected'}`}>
+                      {userAddress?.slice(0, 6)}...{userAddress?.slice(-4)}
+                    </span>
+                  </Tooltip>
                   <CopyButton value={userAddress || ''} size={14} className="h-8 w-8" />
                 </div>
                 <Button
