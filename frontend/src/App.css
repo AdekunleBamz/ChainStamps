@@ -700,8 +700,26 @@ section[id] {
   transition: all 0.2s;
 }
 
-.qr-mobile-link:hover {
-  background: rgba(99, 102, 241, 0.2);
+/* Motion Reduction Support */
+@media (prefers-reduced-motion: reduce) {
+  *, ::before, ::after {
+    animation-delay: -1ms !important;
+    animation-duration: 1ms !important;
+    animation-iteration-count: 1 !important;
+    background-attachment: initial !important;
+    scroll-behavior: auto !important;
+    transition-duration: 0s !important;
+    transition-delay: 0s !important;
+  }
+
+  .mesh-gradient {
+    display: none !important;
+  }
+
+  .logo-img, .feature-icon, .button, .card {
+    transition: none !important;
+    transform: none !important;
+  }
 }
 
 .qr-modal-footer {
