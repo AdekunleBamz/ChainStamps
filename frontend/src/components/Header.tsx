@@ -208,15 +208,16 @@ export const Header = () => {
                   </Button>
               </div>
             ) : (
-                <Button
-                  variant="primary"
-                  size="md"
-                  className="connect-btn flex-center"
-                  onClick={connect}
-                  disabled={isConnecting}
-                  aria-haspopup="dialog"
-                  aria-label={isConnecting ? "Connecting to wallet" : "Connect Stacks wallet"}
-                >
+                  <Button
+                    variant="primary"
+                    size="md"
+                    className="connect-btn flex-center"
+                    onClick={connect}
+                    disabled={isConnecting}
+                    aria-busy={isConnecting}
+                    aria-haspopup="dialog"
+                    aria-label={isConnecting ? "Connecting to wallet" : "Connect Stacks wallet"}
+                  >
                 {isConnecting ? (
                   <>
                     <Loader2 size={18} className="spinning mr-2" strokeWidth={1.5} />
