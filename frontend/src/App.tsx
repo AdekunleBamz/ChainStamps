@@ -1,6 +1,6 @@
 import { useEffect, useState, useMemo, memo, Suspense, lazy } from 'react';
 import { twMerge } from 'tailwind-merge';
-import { motion } from 'framer-motion';
+import { motion, AnimatePresence } from 'framer-motion';
 import { WalletProvider } from './context/WalletContext';
 import { Header } from './components/Header';
 import { Hero } from './components/Hero';
@@ -100,9 +100,29 @@ const App = () => {
 
   useEffect(() => {
     const handleKeyDown = (e: KeyboardEvent) => {
+      // Search shortcut
       if ((e.metaKey || e.ctrlKey) && e.key === 'k') {
         e.preventDefault();
         document.querySelector<HTMLInputElement>('.search-input')?.focus();
+      }
+      
+      // Registry navigation shortcuts (Alt + 1/2/3)
+      if (e.altKey) {
+        if (e.key === '1') {
+          e.preventDefault();
+          document.getElementById('hash')?.scrollIntoView({ behavior: 'smooth' });
+          triggerHaptic('light');
+        }
+        if (e.key === '2') {
+          e.preventDefault();
+          document.getElementById('stamp')?.scrollIntoView({ behavior: 'smooth' });
+          triggerHaptic('light');
+        }
+        if (e.key === '3') {
+          e.preventDefault();
+          document.getElementById('tag')?.scrollIntoView({ behavior: 'smooth' });
+          triggerHaptic('light');
+        }
       }
     };
     window.addEventListener('keydown', handleKeyDown);
