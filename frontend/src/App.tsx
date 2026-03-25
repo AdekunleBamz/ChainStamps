@@ -78,7 +78,7 @@ const App = () => {
     <ToastProvider>
       <WalletProvider>
         <FaviconManager />
-        <div className="app">
+        <div id="top" className="app">
           <LogicErrorBoundary>
             <a href="#main-content" className="skip-to-content">
               Skip to content
