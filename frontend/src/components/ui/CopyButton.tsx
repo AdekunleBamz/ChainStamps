@@ -1,8 +1,8 @@
-import { useState } from 'react';
-import { motion, AnimatePresence } from 'framer-motion';
+import { motion, AnimatePresence, useAnimation } from 'framer-motion';
 import { Copy, Check } from 'lucide-react';
 import { twMerge } from 'tailwind-merge';
 import { useToast } from '../../context/ToastContext';
+import { triggerHaptic } from '../../utils/haptics';
 
 /**
  * Properties for the CopyButton component.
@@ -25,25 +25,29 @@ interface CopyButtonProps {
 export const CopyButton = ({ value, className, size = 14 }: CopyButtonProps) => {
     const [copied, setCopied] = useState(false);
     const { addToast } = useToast();
+    const controls = useAnimation();
 
-    /**
-     * Executes the copy-to-clipboard action using the Navigator API.
-     * Triggers success/error toasts and haptic feedback.
-     */
     const handleCopy = async () => {
         try {
             await navigator.clipboard.writeText(value);
             setCopied(true);
+            triggerHaptic('success');
+            controls.start({
+                scale: [1, 1.2, 1],
+                transition: { duration: 0.2 }
+            });
             addToast('Copied to clipboard', 'success');
             setTimeout(() => setCopied(false), 2000);
         } catch (err) {
             console.error('Failed to copy text: ', err);
+            triggerHaptic('error');
             addToast('Failed to copy to clipboard', 'error');
         }
     };
 
     return (
-        <button
+        <motion.button
+            animate={controls}
             onClick={handleCopy}
             className={twMerge(
                 "relative flex items-center justify-center rounded-md p-1.5 transition-colors hover:bg-accent hover:text-accent-foreground",
@@ -88,6 +92,6 @@ export const CopyButton = ({ value, className, size = 14 }: CopyButtonProps) => 
                     </motion.span>
                 )}
             </AnimatePresence>
-        </button>
+        </motion.button>
     );
 }
