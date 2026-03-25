@@ -40,14 +40,16 @@ export const MeshGradient = memo(() => {
         <div className="fixed inset-0 -z-10 overflow-hidden pointer-events-none" aria-hidden="true">
             <motion.div
                 {...ANIMATIONS.blob1}
-                className="absolute top-[-20%] left-[-10%] w-[60%] h-[60%] rounded-full bg-primary/15 blur-[120px] will-change-transform"
+                style={{ transform: 'translateZ(0)' }}
+                className="absolute top-[-20%] left-[-10%] w-[60%] h-[60%] rounded-full bg-primary/10 blur-[80px] will-change-transform"
             />
             <motion.div
                 {...ANIMATIONS.blob2}
-                className="absolute bottom-[-30%] right-[-10%] w-[70%] h-[70%] rounded-full bg-accent/10 blur-[150px] will-change-transform"
+                style={{ transform: 'translateZ(0)' }}
+                className="absolute bottom-[-30%] right-[-10%] w-[70%] h-[70%] rounded-full bg-accent/5 blur-[100px] will-change-transform"
             />
-            <div className="absolute inset-0 bg-background/60 backdrop-blur-[2px]" />
-            <div className="absolute inset-0 opacity-[0.03] mix-blend-overlay pointer-events-none noise-bg" />
+            <div className="absolute inset-0 bg-background/40 backdrop-blur-[1px]" />
+            <div className="absolute inset-0 opacity-[0.02] mix-blend-overlay pointer-events-none noise-bg" />
         </div>
     );
 });

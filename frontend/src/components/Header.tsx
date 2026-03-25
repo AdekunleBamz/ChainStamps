@@ -162,18 +162,15 @@ export const Header = () => {
         isScrolled && "scrolled"
       )}>
         <div className="header-content flex-between">
-          <a className="logo flex-center" href="#top" aria-label="ChainStamps - Back to top" rel="home">
-            <img 
-              src="/logo.png" 
-              alt="" 
-              className="logo-img will-change-transform" 
-              width="32" 
-              height="32" 
-              loading="eager"
-              decoding="async" 
-              aria-hidden="true"
-            />
-            <span className="logo-text">ChainStamps</span>
+          <a className="logo flex items-center gap-3 transition-transform hover:scale-[1.02]" href="#top" aria-label="ChainStamps - Back to top" rel="home">
+            <div className="relative h-8 w-8 flex-center overflow-hidden rounded-xl bg-primary/10 border border-primary/20 shadow-inner">
+              <svg viewBox="0 0 32 32" className="h-5 w-5 fill-primary" aria-hidden="true">
+                <path d="M16 4L6 9v14l10 5 10-5V9L16 4zm8 17.5l-8 4-8-4V10.5l8-4 8 4v11z"/>
+                <path d="M16 11l-4 2v6l4 2 4-2v-6l-4-2zm2 7.1l-2 1-2-1v-2.2l2-1 2 1v2.2z"/>
+              </svg>
+              <div className="absolute inset-0 bg-gradient-to-tr from-primary/20 to-transparent pointer-events-none" />
+            </div>
+            <span className="logo-text text-xl font-bold bg-gradient-to-r from-white to-white/60 bg-clip-text text-transparent">ChainStamps</span>
           </a>
 
                   <button
