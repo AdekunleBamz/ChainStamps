@@ -11,6 +11,7 @@
 (define-constant ERR-TAG-NOT-FOUND (err u103))
 (define-constant ERR-TAG-ALREADY-DELETED (err u104))
 (define-constant ERR-NAMESPACE-TOO-LONG (err u105))
+(define-constant ERR-NOT-TAG-OWNER (err u106))
 
 ;; Fee in microSTX (0.04 STX = 40000 microSTX)
 (define-constant TAG-FEE u40000)
@@ -150,12 +151,17 @@
 
 ;; Public functions
 
-;; Store a key-value tag on-chain (default namespace)
+;; @desc Store a key-value tag on-chain in the default namespace
+;; @param key the UTF-8 string key
+;; @param value the UTF-8 string value
 (define-public (store-tag (key (string-utf8 64)) (value (string-utf8 256)))
     (store-tag-with-namespace DEFAULT-NAMESPACE key value)
 )
 
-;; Store a key-value tag with custom namespace
+;; @desc Store a key-value tag with a custom namespace
+;; @param namespace the custom namespace for the tag
+;; @param key the string key
+;; @param value the string value
 (define-public (store-tag-with-namespace (namespace (string-utf8 32)) (key (string-utf8 64)) (value (string-utf8 256)))
     (let
         (
@@ -202,7 +208,9 @@
     )
 )
 
-;; Update an existing tag value (same fee applies)
+;; @desc Update the value of an existing tag in the default namespace
+;; @param key the existing key to update
+;; @param new-value the new value for the tag
 (define-public (update-tag (key (string-utf8 64)) (new-value (string-utf8 256)))
     (update-tag-with-namespace DEFAULT-NAMESPACE key new-value)
 )
@@ -247,7 +255,7 @@
             (tag-data (unwrap! (map-get? tags tag-id) ERR-TAG-NOT-FOUND))
         )
         ;; Only the owner can delete
-        (asserts! (is-eq tx-sender (get owner tag-data)) ERR-NOT-AUTHORIZED)
+        (asserts! (is-eq tx-sender (get owner tag-data)) ERR-NOT-TAG-OWNER)
         ;; Cannot delete if already deleted
         (asserts! (not (get deleted tag-data)) ERR-TAG-ALREADY-DELETED)
         
