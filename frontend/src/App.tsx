@@ -133,7 +133,7 @@ const App = () => {
                     <span>
                       Showing {filteredRegistries.length} of {registries.length} registries
                     </span>
-                    <span className="text-[10px] opacity-70">
+                    <span className="text-[10px] opacity-70 animate-pulse-slow">
                       Last synchronized: {lastUpdated}
                     </span>
                   </div>
