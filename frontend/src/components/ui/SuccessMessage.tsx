@@ -1,5 +1,6 @@
 import React from 'react';
-import { CheckCircle } from 'lucide-react';
+import { CheckCircle, ExternalLink } from 'lucide-react';
+import { motion, AnimatePresence } from 'framer-motion';
 
 interface SuccessMessageProps {
   message: string;
@@ -8,36 +9,40 @@ interface SuccessMessageProps {
   children?: React.ReactNode;
 }
 
-/**
- * SuccessMessage component for displaying transaction feedback.
- * 
- * @param {Object} props - Component properties.
- * @param {string} props.message - The success message to display.
- * @param {string|null} props.txId - The Stacks transaction ID to link to the explorer.
- */
 export const SuccessMessage: React.FC<SuccessMessageProps> = ({ 
   message, 
   txId, 
   explorerUrl = 'https://explorer.stacks.co/txid',
   children 
 }) => {
-  if (!message && !txId) return null;
-
   return (
-    <div className="success-message flex-center gap-2" role="status" aria-live="polite">
-      <CheckCircle size={18} />
-      <span>{message} </span>
-      {txId && (
-        <a
-          href={`${explorerUrl}/${txId}?chain=mainnet`}
-          target="_blank"
-          rel="noopener noreferrer"
-          aria-label="View transaction on Stacks Explorer"
+    <AnimatePresence>
+      {(message || txId) && (
+        <motion.div
+          initial={{ opacity: 0, y: 10, scale: 0.95 }}
+          animate={{ opacity: 1, y: 0, scale: 1 }}
+          exit={{ opacity: 0, scale: 0.95 }}
+          className="success-message flex items-center justify-center gap-2 mt-4 p-3 rounded-xl bg-success/10 border border-success/20 text-success text-xs font-bold shadow-sm shadow-success/5"
+          role="status"
+          aria-live="polite"
         >
-          View transaction
-        </a>
+          <CheckCircle size={14} className="shrink-0" />
+          <span className="truncate">{message} </span>
+          {txId && (
+            <a
+              href={`${explorerUrl}/${txId}?chain=mainnet`}
+              target="_blank"
+              rel="noopener noreferrer"
+              className="flex items-center gap-1 underline underline-offset-4 hover:opacity-80 transition-opacity"
+              aria-label="View transaction on Stacks Explorer"
+            >
+              Details
+              <ExternalLink size={10} />
+            </a>
+          )}
+          {children}
+        </motion.div>
       )}
-      {children}
-    </div>
+    </AnimatePresence>
   );
 };
