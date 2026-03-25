@@ -33,7 +33,6 @@
 (define-constant MAX-MESSAGE-LENGTH u256)
 ;; Maximum length for category names (reserved for future use)
 (define-constant MAX-CATEGORY-LENGTH u32)
-;; Maximum stamps a single user can create (prevents state bloat)
 (define-constant MAX-USER-STAMPS u100)
 
 ;; ============================================================
@@ -275,11 +274,11 @@
         
         ;; Update user's stamp list
         (map-set user-stamps tx-sender 
-            (unwrap-panic (as-max-len? (append current-user-stamps new-stamp-id) u100)))
+            (unwrap-panic (as-max-len? (append current-user-stamps new-stamp-id) MAX-USER-STAMPS)))
         
         ;; Update category's stamp list
         (map-set category-stamps category
-            (unwrap-panic (as-max-len? (append current-category-stamps new-stamp-id) u100)))
+            (unwrap-panic (as-max-len? (append current-category-stamps new-stamp-id) MAX-USER-STAMPS)))
         
         ;; Increment counter and update fees
         (var-set stamp-counter new-stamp-id)
