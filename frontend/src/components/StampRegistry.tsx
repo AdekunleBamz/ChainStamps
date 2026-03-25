@@ -98,9 +98,11 @@ export const StampRegistry = () => {
       <div className="card-header flex-between mb-2">
         <div className="flex items-center gap-2">
           <Stamp className="card-icon" size={24} strokeWidth={1.5} />
+          <Tooltip content="A message stamp permanently records your text and a timestamp on the blockchain, creating an immutable proof of existence.">
+            <h2 className="text-xl">Message Stamp</h2>
+          </Tooltip>
         </div>
-        <h2>Stamp Registry</h2>
-        <Tooltip content="Stacks network transaction fee (paid in STX)">
+        <Tooltip content="Stacks network transaction fee (paid in STX) to secure your message on the Bitcoin blockchain.">
           <span className="fee-badge">
             <AnimatedNumber value={0.05} decimals={2} suffix=" STX" />
           </span>

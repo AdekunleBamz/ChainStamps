@@ -103,9 +103,11 @@ export const TagRegistry = () => {
       <div className="card-header flex-between mb-2">
         <div className="flex items-center gap-2">
           <Tag className="card-icon" size={24} strokeWidth={1.5} />
+          <Tooltip content="Tags allow you to attach metadata to Stacks namespaces, facilitating decentralized discovery and organization.">
+            <h2 className="text-xl">Namespace Tag</h2>
+          </Tooltip>
         </div>
-        <h2>Tag Registry</h2>
-        <Tooltip content="Stacks network transaction fee (paid in STX)">
+        <Tooltip content="Stacks network transaction fee (paid in STX) to update your namespace metadata.">
           <span className="fee-badge">
             <AnimatedNumber value={0.04} decimals={2} suffix=" STX" />
           </span>
