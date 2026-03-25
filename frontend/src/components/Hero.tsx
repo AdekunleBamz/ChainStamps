@@ -70,9 +70,14 @@ export const Hero = () => {
         style={{ y: y1 }}
       />
       <motion.div 
-        className="hero-floating-element absolute top-1/4 right-10 w-32 h-32 bg-primary/5 rounded-full blur-3xl"
+        className="hero-floating-element absolute top-1/4 right-10 w-64 h-64 bg-primary/10 rounded-full blur-[120px] -z-10"
         aria-hidden="true"
         style={{ y: y2 }}
+      />
+      <motion.div 
+        className="hero-floating-element absolute bottom-1/4 left-10 w-48 h-48 bg-accent/10 rounded-full blur-[100px] -z-10"
+        aria-hidden="true"
+        style={{ y: y1 }}
       />
 
       <motion.h1 className="hero-title will-change-transform" variants={ITEM_VARIANTS}>
