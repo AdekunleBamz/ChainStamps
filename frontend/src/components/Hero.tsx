@@ -1,7 +1,6 @@
 import { Shield, Clock, Database } from 'lucide-react';
-import { motion } from 'framer-motion';
-import type { ComponentType } from 'react';
-import { memo } from 'react';
+import { motion, useScroll, useTransform } from 'framer-motion';
+import { useRef, memo, type ComponentType } from 'react';
 
 const CONTAINER_VARIANTS = {
   hidden: { opacity: 0 },
@@ -37,14 +36,35 @@ const FeatureItem = memo(({ icon: Icon, title, description, ariaLabel }: { icon:
  * @component
  */
 export const Hero = () => {
+  const containerRef = useRef<HTMLElement>(null);
+  const { scrollYProgress } = useScroll({
+    target: containerRef,
+    offset: ["start start", "end start"]
+  });
+
+  const y1 = useTransform(scrollYProgress, [0, 1], [0, 200]);
+  const y2 = useTransform(scrollYProgress, [0, 1], [0, -150]);
+  const opacity = useTransform(scrollYProgress, [0, 0.5, 1], [1, 1, 0]);
+
   return (
     <motion.section
+      ref={containerRef}
       className="hero relative overflow-hidden"
       initial="hidden"
       animate="visible"
       variants={CONTAINER_VARIANTS}
+      style={{ opacity }}
     >
-      <div className="hero-glow" aria-hidden="true" />
+      <motion.div 
+        className="hero-glow" 
+        aria-hidden="true" 
+        style={{ y: y1 }}
+      />
+      <motion.div 
+        className="hero-floating-element absolute top-1/4 right-10 w-32 h-32 bg-primary/5 rounded-full blur-3xl"
+        aria-hidden="true"
+        style={{ y: y2 }}
+      />
 
       <motion.h1 className="hero-title will-change-transform" variants={ITEM_VARIANTS}>
         <span className="gradient-text from-primary to-accent-hover">ChainStamps</span>
