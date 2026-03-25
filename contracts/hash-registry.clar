@@ -190,7 +190,9 @@
 
 ;; Public functions
 
-;; Store a hash on-chain
+;; @desc Store a SHA-256 hash on-chain with a custom description
+;; @param hash 32-byte buffer representing the document fingerprint
+;; @param description human-readable title for the hash
 (define-public (store-hash (hash (buff 32)) (description (string-utf8 128)))
     (begin
         ;; Check if hash already exists
@@ -207,7 +209,8 @@
     )
 )
 
-;; Store multiple hashes in a single transaction (discounted fee)
+;; @desc Store multiple hashes in one transaction with a discounted fee
+;; @param hash-list list of up to 10 hash/description tuples
 (define-public (store-hashes-batch (hash-list (list 10 { hash: (buff 32), description: (string-utf8 128) })))
     (let
         (
@@ -249,7 +252,8 @@
     )
 )
 
-;; Revoke a hash (owner only) - marks the hash as no longer valid
+;; @desc Revoke an existing hash, marking it as invalid for verification
+;; @param hash the 32-byte buffer to revoke
 (define-public (revoke-hash (hash (buff 32)))
     (let
         (
