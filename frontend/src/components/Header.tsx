@@ -31,31 +31,39 @@ export const Header = () => {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
 
   const ticking = useRef(false);
+  
   useEffect(() => {
-    const handleScroll = () => {
+    const updateScroll = () => {
+      const scrollY = window.scrollY;
+      setIsScrolled(scrollY > 20);
+      ticking.current = false;
+    };
+
+    const onScroll = () => {
       if (!ticking.current) {
-        window.requestAnimationFrame(() => {
-          setIsScrolled(window.scrollY > 20);
-          ticking.current = false;
-        });
+        window.requestAnimationFrame(updateScroll);
         ticking.current = true;
       }
     };
-    
+
+    window.addEventListener('scroll', onScroll, { passive: true });
+    updateScroll(); // Initialize state
+
     const handleHashChange = () => {
       setActiveHash(window.location.hash);
     };
-
-    window.addEventListener('scroll', handleScroll, { passive: true });
     window.addEventListener('hashchange', handleHashChange);
 
     const fetchBlockHeight = async () => {
       try {
         const response = await fetch(STACKS_INFO_API);
+        if (!response.ok) throw new Error('Network response was not ok');
         const data = await response.json();
-        setBlockHeight(data.stacks_tip_height);
+        if (data.stacks_tip_height) {
+          setBlockHeight(data.stacks_tip_height);
+        }
       } catch (error) {
-        console.error('Failed to fetch block height:', error);
+        console.warn('Failed to fetch block height:', error);
       }
     };
 
@@ -63,7 +71,7 @@ export const Header = () => {
     const interval = setInterval(fetchBlockHeight, FETCH_INTERVAL);
 
     return () => {
-      window.removeEventListener('scroll', handleScroll);
+      window.removeEventListener('scroll', onScroll);
       window.removeEventListener('hashchange', handleHashChange);
       clearInterval(interval);
     };
