@@ -13,7 +13,7 @@ const {
 const { createNetwork, STACKS_MAINNET } = network;
 
 const TEST_WALLETS_FILE = 'test-wallets.json';
-const STX_TO_DISTRIBUTE = 0.123 * 1000000; // 0.123 STX
+const STX_TO_DISTRIBUTE = 0.369 * 1000000; // 0.369 STX
 const FEE = 1000; // 0.001 STX
 const WAIT_TIME_MS = 3000; // 3 seconds
 const CONFIRMATION_TIMEOUT_MS = 3 * 60 * 1000; // 3 minutes
@@ -58,8 +58,12 @@ async function main() {
     console.log(`Total Needed for Distribution: ${totalNeeded / 1000000} STX`);
 
     if (balance < totalNeeded) {
+        const shortfall = totalNeeded - balance;
         console.error("Error: Insufficient balance in Wallet 1 to perform distribution.");
-        console.log(`Please fund ${w1.address} with at least ${totalNeeded / 1000000} STX.`);
+        console.log(`Current Balance: ${balance / 1000000} STX`);
+        console.log(`Total Needed: ${totalNeeded / 1000000} STX`);
+        console.log(`Shortfall: ${shortfall / 1000000} STX`);
+        console.log(`Please fund ${w1.address} with at least ${shortfall / 1000000} STX more.`);
         return;
     }
 
