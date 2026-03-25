@@ -20,6 +20,7 @@ import { PullToRefresh } from './components/ui/PullToRefresh';
 import { EmptyState } from './components/ui/EmptyState';
 import { LogicErrorBoundary } from './components/ui/LogicErrorBoundary';
 import { PerformanceOverlay } from './components/ui/PerformanceOverlay';
+import { ScrollToTop } from './components/ui/ScrollToTop';
 import './App.css';
 
 /**
@@ -141,6 +142,7 @@ const App = () => {
                       type="button"
                       className="search-meta-reset"
                       onClick={() => setSearchQuery('')}
+                      aria-controls="registry-results"
                     >
                       Clear all filters
                     </button>
@@ -157,6 +159,7 @@ const App = () => {
                         searchQuery.toLowerCase() === suggestion.toLowerCase() && "search-chip-active"
                       )}
                       aria-pressed={searchQuery.toLowerCase() === suggestion.toLowerCase()}
+                      aria-controls="registry-results"
                     >
                       {suggestion}
                     </button>
@@ -169,6 +172,7 @@ const App = () => {
                 whileInView={{ opacity: 1 }}
                 viewport={{ once: true }}
                 className="cards-container"
+                id="registry-results"
               >
                 {filteredRegistries.length > 0 ? (
                   filteredRegistries.map((reg, index) => (
@@ -198,6 +202,7 @@ const App = () => {
             <Footer />
           </LogicErrorBoundary>
           <PerformanceOverlay />
+          <ScrollToTop />
         </div>
       </WalletProvider>
     </ToastProvider>
