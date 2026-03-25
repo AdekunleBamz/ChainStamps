@@ -1176,3 +1176,12 @@ section[id] {
   content-visibility: auto;
   contain-intrinsic-size: 1px 1000px;
 }
+
+@keyframes statusPulse {
+  0%, 100% { opacity: 0.5; }
+  50% { opacity: 1; }
+}
+
+.animate-pulse-slow {
+  animation: statusPulse 3s cubic-bezier(0.4, 0, 0.6, 1) infinite;
+}
