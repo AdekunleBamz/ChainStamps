@@ -169,6 +169,15 @@ export const HashRegistry = () => {
           aria-label="Optional description for the document hash"
           aria-required="false"
         />
+        <span 
+          className={twMerge(
+            "char-count text-[10px] mt-1 block text-right",
+            description.length >= 128 ? "text-destructive" : description.length >= 115 ? "text-orange-500" : "text-muted-foreground/50"
+          )} 
+          aria-live="polite"
+        >
+          {description.length}/128
+        </span>
       </div>
 
       <SubmitButton
