@@ -1,6 +1,6 @@
 import { createContext, useContext, useState, useEffect } from 'react';
 import type { ReactNode } from 'react';
-import { wcConnect, wcDisconnect, hasActiveSession, getSession, STACKS_MAINNET, getProvider } from '../utils/walletconnect';
+import { wcConnect, wcDisconnect, hasActiveSession, getSession, STACKS_MAINNET, getProvider, initProvider } from '../utils/walletconnect';
 
 /**
  * The structure of the wallet context, providing state and methods for wallet interaction.
@@ -51,6 +51,9 @@ export const WalletProvider = ({ children }: { children: ReactNode }) => {
    */
   useEffect(() => {
     const checkExistingSession = async () => {
+      // Initialize provider FIRST to check for existing session
+      await initProvider();
+      
       if (hasActiveSession()) {
         const session = getSession();
         if (session) {
