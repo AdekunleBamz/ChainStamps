@@ -2,13 +2,14 @@ import { useState, useEffect } from 'react';
 import { motion, useAnimation } from 'framer-motion';
 import { useWallet } from '../context/WalletContext';
 import { CONTRACT_ADDRESS, CONTRACTS } from '../config/contracts';
-import { Tag } from 'lucide-react';
+import { Tag, Share2 } from 'lucide-react';
 import { CardSkeleton } from './ui/Skeleton';
 import { Tooltip } from './ui/Tooltip';
+import { Button } from './ui/Button';
 import { Breadcrumbs } from './ui/Breadcrumbs';
 import { AnimatedNumber } from './ui/AnimatedNumber';
 import { SuccessMessage } from './ui/SuccessMessage';
-import { WarningMessage } from './ui/ui/WarningMessage';
+import { WarningMessage } from './ui/WarningMessage';
 import { SubmitButton } from './ui/SubmitButton';
 import { useToast } from '../context/ToastContext';
 
@@ -22,6 +23,7 @@ import { useToast } from '../context/ToastContext';
  */
 import { useContractCall } from '../hooks/useContractCall';
 import { triggerHaptic } from '../utils/haptics';
+import { estimateFee } from '../utils/fee';
 
 const SHAKE_ANIMATION = {
   x: [0, -10, 10, -10, 10, 0],
@@ -104,12 +106,32 @@ export const TagRegistry = () => {
         <div className="flex items-center gap-2">
           <Tag className="card-icon" size={24} strokeWidth={1.5} />
           <Tooltip content="Tags allow you to attach metadata to Stacks namespaces, facilitating decentralized discovery and organization.">
-            <h2 className="text-xl">Namespace Tag</h2>
+            <span className="text-sm font-semibold text-muted-foreground mr-1">Namespace Metadata</span>
+          </Tooltip>
+        </div>
+        <div className="flex items-center gap-2">
+          <h2 className="m-0">Tag Registry</h2>
+          <Tooltip content="Copy link to this section">
+            <Button
+              variant="ghost"
+              size="icon"
+              className="h-8 w-8 rounded-full opacity-50 hover:opacity-100 transition-opacity"
+              onClick={() => {
+                const url = new URL(window.location.href);
+                url.hash = 'tag';
+                navigator.clipboard.writeText(url.toString());
+                addToast('Section link copied!', 'success');
+                triggerHaptic('success');
+              }}
+              aria-label="Copy link to Tag Registry section"
+            >
+              <Share2 size={16} strokeWidth={1.5} />
+            </Button>
           </Tooltip>
         </div>
         <Tooltip content="Stacks network transaction fee (paid in STX) to update your namespace metadata.">
           <span className="fee-badge">
-            <AnimatedNumber value={estimateFee(tag)} decimals={4} suffix=" STX" />
+            <AnimatedNumber value={estimateFee(key + value)} decimals={4} suffix=" STX" />
           </span>
         </Tooltip>
       </div>
