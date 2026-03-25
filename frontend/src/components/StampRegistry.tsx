@@ -2,9 +2,10 @@ import { useState, useEffect } from 'react';
 import { motion, useAnimation } from 'framer-motion';
 import { useWallet } from '../context/WalletContext';
 import { CONTRACT_ADDRESS, CONTRACTS } from '../config/contracts';
-import { Stamp } from 'lucide-react';
+import { Stamp, Share2 } from 'lucide-react';
 import { CardSkeleton } from './ui/Skeleton';
 import { Tooltip } from './ui/Tooltip';
+import { Button } from './ui/Button';
 import { Breadcrumbs } from './ui/Breadcrumbs';
 import { AnimatedNumber } from './ui/AnimatedNumber';
 import { useToast } from '../context/ToastContext';
@@ -100,7 +101,27 @@ export const StampRegistry = () => {
         <div className="flex items-center gap-2">
           <Stamp className="card-icon" size={24} strokeWidth={1.5} />
           <Tooltip content="A message stamp permanently records your text and a timestamp on the blockchain, creating an immutable proof of existence.">
-            <h2 className="text-xl">Message Stamp</h2>
+            <span className="text-sm font-semibold text-muted-foreground mr-1">Proof of Existence</span>
+          </Tooltip>
+        </div>
+        <div className="flex items-center gap-2">
+          <h2 className="m-0">Stamp Registry</h2>
+          <Tooltip content="Copy link to this section">
+            <Button
+              variant="ghost"
+              size="icon"
+              className="h-8 w-8 rounded-full opacity-50 hover:opacity-100 transition-opacity"
+              onClick={() => {
+                const url = new URL(window.location.href);
+                url.hash = 'stamp';
+                navigator.clipboard.writeText(url.toString());
+                addToast('Section link copied!', 'success');
+                triggerHaptic('success');
+              }}
+              aria-label="Copy link to Stamp Registry section"
+            >
+              <Share2 size={16} strokeWidth={1.5} />
+            </Button>
           </Tooltip>
         </div>
         <Tooltip content="Stacks network transaction fee (paid in STX) to secure your message on the Bitcoin blockchain.">
