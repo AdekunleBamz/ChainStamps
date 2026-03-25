@@ -51,21 +51,21 @@ const RegistryItem = memo(({ component, index }: { component: React.ReactNode, i
 ));
 
 interface Registry extends SearchableItem {
-  component: React.ReactNode;
+  render: (query: string) => React.ReactNode;
 }
 
 const App = () => {
   const { isConnected, isConnecting } = useWallet();
   const [lastUpdated] = useState(new Date().toLocaleTimeString());
 
-  const registries = useMemo<Registry[]>(() => [
+  const INITIAL_REGISTRIES: Registry[] = useMemo(() => [
     { 
       id: 'hash', 
       name: 'Hash Registry', 
       category: 'Hash',
       description: 'Store and verify SHA-256 hashes for files and data',
       tags: ['security', 'verification', 'hashes'],
-      component: <HashRegistry /> 
+      render: (query) => <HashRegistry searchQuery={query} /> 
     },
     { 
       id: 'stamp', 
@@ -73,7 +73,7 @@ const App = () => {
       category: 'Stamp',
       description: 'Permanent on-chain text stamps and messages',
       tags: ['timestamp', 'content', 'identity'],
-      component: <StampRegistry /> 
+      render: (query) => <StampRegistry searchQuery={query} /> 
     },
     { 
       id: 'tag', 
@@ -81,11 +81,11 @@ const App = () => {
       category: 'Tag',
       description: 'Key-value metadata storage for on-chain identity',
       tags: ['metadata', 'tags', 'identity'],
-      component: <TagRegistry /> 
+      render: (query) => <TagRegistry searchQuery={query} /> 
     },
   ], []);
 
-  const { searchQuery, setSearchQuery, selectedCategories, setSelectedCategories, toggleCategory, filteredItems, isStale } = useSearch(registries);
+  const { searchQuery, setSearchQuery, selectedCategories, setSelectedCategories, toggleCategory, filteredItems, isStale } = useSearch<Registry>(INITIAL_REGISTRIES);
 
   useEffect(() => {
     const handleKeyDown = (e: KeyboardEvent) => {
@@ -164,7 +164,7 @@ const App = () => {
                   <div className="flex flex-col gap-1">
                     <span className="sr-only">Search results updated: </span>
                     <span>
-                      Showing {filteredItems.length} of {registries.length} registries
+                      Showing {filteredItems.length} of {INITIAL_REGISTRIES.length} registries
                     </span>
                     <span className="text-[10px] opacity-70 animate-pulse-slow">
                       Last synchronized: {lastUpdated}
@@ -216,7 +216,7 @@ const App = () => {
                   filteredItems.map((reg, index) => (
                     <RegistryItem 
                       key={reg.id} 
-                      component={reg.component} 
+                      component={reg.render(searchQuery)} 
                       index={index} 
                     />
                   ))

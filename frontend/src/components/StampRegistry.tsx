@@ -23,15 +23,12 @@ const SHAKE_ANIMATION = {
   transition: { duration: 0.4 }
 };
 
+import { HighlightText } from './ui/HighlightText';
+
 /**
  * StampRegistry component for permanently recording text messages on the Stacks blockchain.
- * Supports:
- * - Immutable message stamping with Stacks network timestamps
- * - Character count validation (256 chars max)
- * - Real-time fee estimation based on message weight
- * - Integration with Stacks Explorer for verification
  */
-export const StampRegistry = () => {
+export const StampRegistry = ({ searchQuery = '' }: { searchQuery?: string }) => {
   const { isConnected, userAddress } = useWallet();
   const { addToast } = useToast();
   const [message, setMessage] = useState('');
@@ -113,7 +110,9 @@ export const StampRegistry = () => {
             <Stamp className="card-icon text-primary" size={24} strokeWidth={1.5} />
           </div>
           <div className="flex flex-col">
-            <h2 className="text-xl font-bold m-0 p-0 leading-none">Stamp Registry</h2>
+            <h2 className="text-xl font-bold m-0 p-0 leading-none">
+              <HighlightText text="Stamp Registry" query={searchQuery} />
+            </h2>
             <Tooltip content="A message stamp permanently records your text and a timestamp on the blockchain, creating an immutable proof of existence.">
               <span className="text-[10px] uppercase tracking-wider text-muted-foreground font-bold mt-1">Proof of Existence</span>
             </Tooltip>
@@ -174,7 +173,7 @@ export const StampRegistry = () => {
       </div>
 
       <p className="card-description">
-        Permanently stamp messages on the Stacks blockchain with timestamps
+        <HighlightText text="Permanently stamp messages on the Stacks blockchain with timestamps" query={searchQuery} />
       </p>
 
       <div className={twMerge("relative", isSubmitting && "pointer-events-none")}>

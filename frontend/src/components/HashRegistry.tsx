@@ -34,7 +34,9 @@ const SHAKE_ANIMATION = {
   transition: { duration: 0.4 }
 };
 
-export const HashRegistry = () => {
+import { HighlightText } from './ui/HighlightText';
+
+export const HashRegistry = ({ searchQuery = '' }: { searchQuery?: string }) => {
   const { isConnected, userAddress } = useWallet();
   const { addToast } = useToast();
   const [file, setFile] = useState<File | null>(null);
@@ -123,7 +125,9 @@ export const HashRegistry = () => {
             <Hash className="card-icon text-primary" size={24} strokeWidth={1.5} />
           </div>
           <div className="flex flex-col">
-            <h2 className="text-xl font-bold m-0 p-0 leading-none">Hash Registry</h2>
+            <h2 className="text-xl font-bold m-0 p-0 leading-none">
+              <HighlightText text="Hash Registry" query={searchQuery} />
+            </h2>
             <Tooltip content="Secure cryptographic identifier for your document">
               <span className="text-[10px] uppercase tracking-wider text-muted-foreground font-bold mt-1">SHA-256 Anchoring</span>
             </Tooltip>
@@ -184,7 +188,7 @@ export const HashRegistry = () => {
       </div>
 
       <p className="card-description">
-        Store SHA-256 document hashes on-chain for permanent verification
+        <HighlightText text="Store SHA-256 document hashes on-chain for permanent verification" query={searchQuery} />
       </p>
 
       <div className={twMerge("relative", isSubmitting && "pointer-events-none")}>

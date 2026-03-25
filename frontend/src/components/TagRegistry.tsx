@@ -32,15 +32,12 @@ const SHAKE_ANIMATION = {
   transition: { duration: 0.4 }
 };
 
+import { HighlightText } from './ui/HighlightText';
+
 /**
  * TagRegistry component for managing decentralized key-value metadata.
- * Features:
- * - Arbitrary metadata anchoring to Stacks namespaces
- * - Dynamic fee calculation for variable-length tags
- * - Real-time character count tracking for keys and values
- * - Comprehensive transaction feedback and error handling
  */
-export const TagRegistry = () => {
+export const TagRegistry = ({ searchQuery = '' }: { searchQuery?: string }) => {
   const { isConnected, userAddress } = useWallet();
   const { addToast } = useToast();
   const [key, setKey] = useState('');
@@ -118,7 +115,9 @@ export const TagRegistry = () => {
             <Tag className="card-icon text-primary" size={24} strokeWidth={1.5} />
           </div>
           <div className="flex flex-col">
-            <h2 className="text-xl font-bold m-0 p-0 leading-none">Tag Registry</h2>
+            <h2 className="text-xl font-bold m-0 p-0 leading-none">
+              <HighlightText text="Tag Registry" query={searchQuery} />
+            </h2>
             <Tooltip content="Tags allow you to attach metadata to Stacks namespaces, facilitating decentralized discovery and organization.">
               <span className="text-[10px] uppercase tracking-wider text-muted-foreground font-bold mt-1">Namespace Metadata</span>
             </Tooltip>
@@ -179,7 +178,7 @@ export const TagRegistry = () => {
       </div>
 
       <p className="card-description">
-        Store key-value pairs permanently on the blockchain
+        <HighlightText text="Store key-value pairs permanently on the blockchain" query={searchQuery} />
       </p>
 
       <div className={twMerge("relative", isSubmitting && "pointer-events-none")}>
