@@ -2,7 +2,8 @@ import { useState, useEffect } from 'react';
 import { motion, useAnimation } from 'framer-motion';
 import { useWallet } from '../context/WalletContext';
 import { CONTRACT_ADDRESS, CONTRACTS } from '../config/contracts';
-import { Tag, Share2 } from 'lucide-react';
+import { Tag, Share2, Shield, Info } from 'lucide-react';
+import { twMerge } from 'tailwind-merge';
 import { CardSkeleton } from './ui/Skeleton';
 import { Tooltip } from './ui/Tooltip';
 import { Button } from './ui/Button';
@@ -140,7 +141,24 @@ export const TagRegistry = () => {
               <Share2 size={16} strokeWidth={1.5} />
             </Button>
           </Tooltip>
-          <Tooltip content="Stacks network transaction fee (paid in STX) to update your namespace metadata.">
+          <Tooltip 
+            content={
+              <div className="flex flex-col gap-1 p-1">
+                <div className="flex-between gap-4">
+                  <span>Base Network Fee:</span>
+                  <span className="font-mono">0.0010 STX</span>
+                </div>
+                <div className="flex-between gap-4">
+                  <span>Metadata Storage:</span>
+                  <span className="font-mono">{(estimateFee(key + value) - 0.001).toFixed(4)} STX</span>
+                </div>
+                <div className="border-t border-white/10 mt-1 pt-1 flex-between gap-4 font-bold text-primary">
+                  <span>Total Estimated:</span>
+                  <span className="font-mono">{(estimateFee(key + value)).toFixed(4)} STX</span>
+                </div>
+              </div>
+            }
+          >
             <span className="fee-badge bg-primary/10 text-primary border border-primary/20 px-3 py-1 rounded-full text-xs font-bold">
               <AnimatedNumber value={estimateFee(key + value)} decimals={4} suffix=" STX" />
             </span>
@@ -152,34 +170,62 @@ export const TagRegistry = () => {
         Store key-value pairs permanently on the blockchain
       </p>
 
-      <div className="form-group">
-        <input
-          type="text"
-          placeholder="Key (e.g., 'project-name')"
-          value={key}
-          onChange={(e) => setKey(e.target.value)}
-          onKeyDown={handleKeyDown}
-          maxLength={64}
-          className="input"
-          aria-label="Tag key name"
-          aria-required="true"
-        />
-        <span className="char-count" aria-live="polite">{key.length}/64</span>
-      </div>
+      <div className={twMerge("relative", isSubmitting && "pointer-events-none")}>
+        <div className="form-group mb-4">
+          <div className="flex items-center gap-2 mb-1">
+            <label className="text-[10px] text-muted-foreground uppercase font-bold">Key Name</label>
+            <Tooltip content="Keys are automatically formatted as kebab-case (e.g., 'my-tag-name')">
+              <Info size={10} className="text-muted-foreground/50 cursor-help" />
+            </Tooltip>
+          </div>
+          <input
+            type="text"
+            placeholder="e.g., 'project-name'"
+            value={key}
+            onChange={(e) => setKey(e.target.value.toLowerCase().replace(/\s+/g, '-').replace(/[^a-z0-9-]/g, ''))}
+            onKeyDown={handleKeyDown}
+            maxLength={64}
+            className={twMerge("input font-mono", isSubmitting && "opacity-50")}
+            aria-label="Tag key name"
+            aria-required="true"
+          />
+          <span className="char-count text-[10px] mt-1 block text-right text-muted-foreground/40">{key.length}/64</span>
+        </div>
 
-      <div className="form-group">
-        <textarea
-          placeholder="Value (e.g., 'ChainStamp v1.0')"
-          value={value}
-          onChange={(e) => setValue(e.target.value)}
-          onKeyDown={handleKeyDown}
-          maxLength={256}
-          rows={3}
-          className="textarea"
-          aria-label="Tag value content"
-          aria-required="true"
-        />
-        <span className="char-count" aria-live="polite">{value.length}/256</span>
+        <div className="form-group mb-6">
+          <label className="text-[10px] text-muted-foreground uppercase font-bold mb-1 block">Value Content</label>
+          <textarea
+            placeholder="e.g., 'ChainStamp v1.0'"
+            value={value}
+            onChange={(e) => setValue(e.target.value)}
+            onKeyDown={handleKeyDown}
+            maxLength={256}
+            rows={3}
+            className={twMerge("textarea resize-none", isSubmitting && "opacity-50")}
+            aria-label="Tag value content"
+            aria-required="true"
+          />
+          <div className="flex-between items-start mt-1">
+            {value.length >= 220 && (
+              <span className="text-[10px] text-orange-500 font-bold flex items-center gap-1">
+                <Shield size={10} /> Data limit approaching
+              </span>
+            )}
+            <span className="char-count text-[10px] ml-auto text-muted-foreground/40" aria-live="polite">{value.length}/256</span>
+          </div>
+        </div>
+
+        {isSubmitting && (
+          <div className="absolute inset-0 z-10 flex-center bg-background/20 backdrop-blur-[1px] rounded-2xl pointer-events-none">
+            <motion.div 
+              initial={{ opacity: 0, scale: 0.9 }}
+              animate={{ opacity: 1, scale: 1 }}
+              className="px-4 py-2 bg-primary text-white text-xs font-bold rounded-full shadow-lg"
+            >
+              Confirm in Wallet
+            </motion.div>
+          </div>
+        )}
       </div>
 
       <SubmitButton
