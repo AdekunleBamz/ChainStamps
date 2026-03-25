@@ -7,15 +7,24 @@ const CONTAINER_VARIANTS = {
   visible: {
     opacity: 1,
     transition: {
-      staggerChildren: 0.1,
-      delayChildren: 0.2,
+      staggerChildren: 0.15,
+      delayChildren: 0.3,
+      ease: [0.22, 1, 0.36, 1],
     },
   },
 };
 
 const ITEM_VARIANTS = {
-  hidden: { opacity: 0, y: 20 },
-  visible: { opacity: 1, y: 0 },
+  hidden: { opacity: 0, y: 30, scale: 0.95 },
+  visible: { 
+    opacity: 1, 
+    y: 0, 
+    scale: 1,
+    transition: {
+      duration: 0.8,
+      ease: [0.22, 1, 0.36, 1],
+    }
+  },
 };
 
 const FeatureItem = memo(({ icon: Icon, title, description, ariaLabel }: { icon: ComponentType<{ className?: string; size?: number; strokeWidth?: number }>, title: string, description: string, ariaLabel: string }) => (
