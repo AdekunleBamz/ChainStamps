@@ -129,9 +129,14 @@ const App = () => {
                   )}
                 </div>
                 <div className="search-meta" id="search-metadata" role="status" aria-live="polite">
-                  <span>
-                    Showing {filteredRegistries.length} of {registries.length} registries
-                  </span>
+                  <div className="flex flex-col gap-1">
+                    <span>
+                      Showing {filteredRegistries.length} of {registries.length} registries
+                    </span>
+                    <span className="text-[10px] opacity-70">
+                      Last synchronized: {lastUpdated}
+                    </span>
+                  </div>
                   {searchQuery && (
                     <button
                       type="button"
