@@ -130,8 +130,33 @@ export const Header = () => {
   }, [isMenuOpen]);
 
 
+  useEffect(() => {
+    const handleGlobalClick = (e: MouseEvent) => {
+      const target = e.target as HTMLElement;
+      const link = target.closest('a');
+      
+      if (link && link.hash && link.origin === window.location.origin) {
+        const id = link.hash.slice(1);
+        const element = document.getElementById(id);
+        
+        if (element) {
+          // If the element isn't focusable, make it so temporarily
+          if (!element.hasAttribute('tabindex')) {
+            element.setAttribute('tabindex', '-1');
+            element.addEventListener('blur', () => element.removeAttribute('tabindex'), { once: true });
+          }
+          element.focus();
+        }
+      }
+    };
+
+    window.addEventListener('click', handleGlobalClick);
+    return () => window.removeEventListener('click', handleGlobalClick);
+  }, []);
+
   return (
     <>
+      <a href="#hash" className="skip-link">Skip to Content</a>
       <header role="banner" className={twMerge(
         "header",
         isScrolled && "scrolled"
