@@ -140,16 +140,25 @@ export const Hero = () => {
 
       <motion.div 
         className="hero-scroll-indicator absolute bottom-8 left-1/2 -translate-x-1/2 flex flex-col items-center gap-2 cursor-pointer opacity-50 hover:opacity-100 transition-opacity"
+        role="button"
+        aria-label="Scroll to registry section"
+        tabIndex={0}
         initial={{ opacity: 0, y: -20 }}
         animate={{ opacity: 0.5, y: 0 }}
         transition={{ delay: 2, duration: 1 }}
         onClick={() => document.querySelector('#hash')?.scrollIntoView({ behavior: 'smooth' })}
+        onKeyDown={(e: React.KeyboardEvent) => {
+          if (e.key === 'Enter' || e.key === ' ') {
+            document.querySelector('#hash')?.scrollIntoView({ behavior: 'smooth' });
+          }
+        }}
       >
         <span className="text-[10px] uppercase tracking-widest font-bold">Scroll</span>
         <motion.div 
           animate={{ y: [0, 8, 0] }}
           transition={{ duration: 2, repeat: Infinity, ease: "easeInOut" }}
           className="w-1 h-8 rounded-full bg-gradient-to-b from-primary to-transparent"
+          aria-hidden="true"
         />
       </motion.div>
     </motion.section>

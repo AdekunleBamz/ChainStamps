@@ -60,8 +60,9 @@ export const Footer = memo(() => {
             target="_blank"
             rel="noopener noreferrer"
             aria-label="View ChainStamps source code on GitHub"
+            className="focus-visible:ring-2 focus-visible:ring-primary focus-visible:ring-offset-2 rounded-lg"
           >
-            <Github size={20} strokeWidth={1.5} />
+            <Github size={20} strokeWidth={1.5} role="img" aria-hidden="true" />
           </motion.a>
           <motion.a
             whileHover={{ scale: 1.1, y: -2 }}
@@ -70,8 +71,9 @@ export const Footer = memo(() => {
             target="_blank"
             rel="noopener noreferrer"
             aria-label="Follow ChainStamps on X (formerly Twitter)"
+            className="focus-visible:ring-2 focus-visible:ring-primary focus-visible:ring-offset-2 rounded-lg"
           >
-            <Twitter size={20} strokeWidth={1.5} />
+            <Twitter size={20} strokeWidth={1.5} role="img" aria-hidden="true" />
           </motion.a>
           <motion.a
             whileHover={{ scale: 1.1, y: -2 }}
@@ -80,8 +82,9 @@ export const Footer = memo(() => {
             target="_blank"
             rel="noopener noreferrer"
             aria-label="View ChainStamps contract on Stacks Explorer"
+            className="focus-visible:ring-2 focus-visible:ring-primary focus-visible:ring-offset-2 rounded-lg"
           >
-            <Globe size={20} strokeWidth={1.5} />
+            <Globe size={20} strokeWidth={1.5} role="img" aria-hidden="true" />
           </motion.a>
         </div>
 
