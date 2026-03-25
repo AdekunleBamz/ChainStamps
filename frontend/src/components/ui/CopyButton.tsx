@@ -1,3 +1,4 @@
+import { useState } from 'react';
 import { motion, AnimatePresence, useAnimation } from 'framer-motion';
 import { Copy, Check } from 'lucide-react';
 import { twMerge } from 'tailwind-merge';
