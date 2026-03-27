@@ -1,5 +1,7 @@
 # ChainStamps Roadmap
 
+[Back to Documentation Index](./INDEX.md)
+
 This roadmap outlines potential improvements and features. Items are not guaranteed and may evolve based on community feedback.
 
 ## Short Term (0-3 months)
