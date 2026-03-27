@@ -1,6 +1,7 @@
 # API Reference
 
 Complete API documentation for all ChainStamps smart contracts.
+Use network-specific contract addresses (testnet/mainnet) when calling these functions.
 
 ## Table of Contents
 
