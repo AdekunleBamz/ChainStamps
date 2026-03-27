@@ -1,7 +1,5 @@
 # API Reference
 
-> **Author**: Adekunle Bamz ([@AdekunleBamz](https://github.com/AdekunleBamz))
-
 [Back to Documentation Index](./INDEX.md)
 
 Complete API documentation for all ChainStamps smart contracts.
