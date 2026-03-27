@@ -65,3 +65,4 @@ Currently, there is no formal bug bounty program. However, we appreciate and ack
 ## Contact
 
 For security concerns, please reach out through GitHub's private vulnerability reporting feature.
+Include incident timestamps and affected network when filing a security report.
