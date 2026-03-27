@@ -58,6 +58,10 @@ This guide helps resolve common issues when using ChainStamps.
 **Symptoms:** Contract calls fail despite a connected wallet.
 **Fix:** Confirm wallet network and app configuration target the same chain.
 
+### Wrong Network
+**Symptoms:** Contract calls fail despite a connected wallet.
+**Fix:** Confirm wallet network and app configuration target the same chain.
+
 ## Getting Help
 
 - Open a GitHub issue with steps to reproduce
