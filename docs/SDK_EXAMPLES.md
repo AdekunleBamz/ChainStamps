@@ -1,5 +1,7 @@
 # TypeScript SDK Usage Examples
 
+[Back to Documentation Index](./INDEX.md)
+
 This document shows how to interact with ChainStamps contracts using the Stacks.js SDK.
 
 ## Installation
