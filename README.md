@@ -15,6 +15,7 @@ ChainStamps is a decentralized application for permanent on-chain document verif
 [Getting Started](#-getting-started) •
 [Contracts](#-smart-contracts) •
 [API Reference](#-api-reference) •
+[Documentation](./docs/INDEX.md) •
 [Examples](#-usage-examples) •
 [Contributing](#-contributing)
 
