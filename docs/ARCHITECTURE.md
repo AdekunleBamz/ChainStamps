@@ -1,5 +1,7 @@
 # ChainStamps Architecture
 
+[Back to Documentation Index](./INDEX.md)
+
 ## Overview
 
 ChainStamps is a decentralized timestamping and data storage platform built on the Stacks blockchain. It leverages Bitcoin's security through Stacks' proof-of-transfer (PoX) consensus mechanism.
