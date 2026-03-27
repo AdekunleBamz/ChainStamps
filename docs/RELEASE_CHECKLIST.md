@@ -1,5 +1,7 @@
 # Release Checklist
 
+[Back to Documentation Index](./INDEX.md)
+
 Use this checklist to prepare a release.
 
 ## Pre-Release
