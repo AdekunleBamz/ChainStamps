@@ -60,9 +60,10 @@ test(tag-registry): add edge case tests
 
 1. Ensure all tests pass: `npm test`
 2. Ensure Clarity syntax is valid: `clarinet check`
-3. Update documentation if needed
-4. Create a PR with a clear description
-5. Wait for review and address feedback
+3. Run frontend lint when UI code changes: `npm --prefix frontend run lint`
+4. Update documentation if needed
+5. Create a PR with a clear description
+6. Wait for review and address feedback
 
 ### PR Title Format
 
