@@ -146,6 +146,7 @@ ChainStamps is a decentralized timestamping and data storage platform built on t
 - Contract function availability
 - Fee collection tracking
 - User activity monitoring
+- Client retry behavior should include backoff for transient API failures.
 
 ### Upgrades
 - New contracts can be deployed
