@@ -245,3 +245,4 @@ main().catch(console.error);
 - Tag Registry: 0.04 STX
 
 For more information, see the [Stacks.js documentation](https://github.com/hirosystems/stacks.js).
+Refresh fee examples when contract fee constants are updated.
