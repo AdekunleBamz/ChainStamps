@@ -1,5 +1,7 @@
 # Troubleshooting
 
+[Back to Documentation Index](./INDEX.md)
+
 This guide helps resolve common issues when using ChainStamps.
 
 ## Transaction Errors
