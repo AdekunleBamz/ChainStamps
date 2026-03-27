@@ -1,7 +1,5 @@
 # Troubleshooting
 
-> **Author**: Adekunle Bamz ([@AdekunleBamz](https://github.com/AdekunleBamz))
-
 [Back to Documentation Index](./INDEX.md)
 
 This guide helps resolve common issues when using ChainStamps.
