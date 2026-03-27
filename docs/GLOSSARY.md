@@ -1,5 +1,7 @@
 # ChainStamps Glossary
 
+[Back to Documentation Index](./INDEX.md)
+
 ## A
 
 **Anchor Block**
