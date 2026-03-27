@@ -62,6 +62,8 @@ feat(hash-registry): add batch storage function
 fix(stamp-registry): correct fee calculation
 docs: update API reference
 test(tag-registry): add edge case tests
+
+Tip: Sign commits when possible to improve traceability (`git commit -S`).
 ```
 
 ## 🔄 Pull Request Process
