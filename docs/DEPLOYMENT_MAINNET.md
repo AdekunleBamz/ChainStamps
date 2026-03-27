@@ -110,6 +110,7 @@ You will be prompted to:
 
 Mainnet transactions can take 10-30 minutes to confirm. Monitor at:
 - https://explorer.hiro.so/?chain=mainnet
+- Capture deployment txids and block heights once confirmed.
 
 ### Step 4: Verify Deployment
 
