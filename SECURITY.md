@@ -64,5 +64,7 @@ Currently, there is no formal bug bounty program. However, we appreciate and ack
 
 ## Contact
 
-For security concerns, please reach out through GitHub's private vulnerability reporting feature.
+For security concerns, use GitHub's private reporting flow:
+https://github.com/AdekunleBamz/ChainStamps/security/advisories/new
+
 Include incident timestamps and affected network when filing a security report.
