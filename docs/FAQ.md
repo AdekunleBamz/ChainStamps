@@ -101,3 +101,4 @@ Stacks blocks are anchored to Bitcoin (~10 min). Transactions may take longer du
 
 - GitHub Issues: Report bugs and feature requests
 - Documentation: Check the docs folder for detailed guides
+- Include transaction IDs when asking for support on failed writes.
