@@ -1,8 +1,8 @@
 import { useState, useEffect } from 'react';
 import { motion, useAnimation, AnimatePresence } from 'framer-motion';
 import { useWallet } from '../context/WalletContext';
-import { CONTRACT_ADDRESS, CONTRACTS } from '../config/contracts';
-import { Stamp, Share2, Shield, ExternalLink, Clock, HelpCircle, CheckCircle2, AlertCircle } from 'lucide-react';
+import { BASE_NETWORK_FEE_STX, CONTRACT_ADDRESS, CONTRACTS } from '../config/contracts';
+import { Stamp, Share2, Shield, ExternalLink, HelpCircle, CheckCircle2, AlertCircle } from 'lucide-react';
 import { twMerge } from 'tailwind-merge';
 import { CardSkeleton } from './ui/Skeleton';
 import { Tooltip } from './ui/Tooltip';
@@ -15,10 +15,11 @@ import { SuccessMessage } from './ui/SuccessMessage';
 import { WarningMessage } from './ui/WarningMessage';
 import { SubmitButton } from './ui/SubmitButton';
 import { triggerHaptic } from '../utils/haptics';
-import { estimateFee } from '../utils/fee';
 import { RecentActivity } from './ui/RecentActivity';
 import { HighlightText } from './ui/HighlightText';
 import { TransactionStepper } from './ui/TransactionStepper';
+import { cvToHex, stringUtf8CV } from '@stacks/transactions';
+import { useOnChainFees } from '../hooks/useOnChainFees';
 
 const SHAKE_ANIMATION = {
   x: [0, -10, 10, -10, 10, 0],
@@ -35,6 +36,8 @@ export const StampRegistry = ({ searchQuery = '' }: { searchQuery?: string }) =>
   const [isLoading, setIsLoading] = useState(true);
   const controls = useAnimation();
   const { isSubmitting, step, txId, execute, history } = useContractCall();
+  const { fees } = useOnChainFees();
+  const stampFee = fees.stamp;
 
   useEffect(() => {
     const timer = setTimeout(() => setIsLoading(false), 1200);
@@ -66,8 +69,7 @@ export const StampRegistry = ({ searchQuery = '' }: { searchQuery?: string }) =>
         contractAddress: CONTRACT_ADDRESS,
         contractName: CONTRACTS.stampRegistry.name,
         functionName: 'stamp-message',
-        functionArgs: [sanitizedMessage],
-        stxAmount: CONTRACTS.stampRegistry.fee,
+        functionArgs: [cvToHex(stringUtf8CV(sanitizedMessage))],
       }, 'Message stamped successfully!', sanitizedMessage.slice(0, 32) + (sanitizedMessage.length > 32 ? '...' : ''));
       setMessage('');
       setLastSubmitTime(Date.now());
@@ -150,21 +152,21 @@ export const StampRegistry = ({ searchQuery = '' }: { searchQuery?: string }) =>
               <div className="flex flex-col gap-1 p-1">
                 <div className="flex-between gap-4">
                   <span>Base Network Fee:</span>
-                  <span className="font-mono">0.0010 STX</span>
+                  <span className="font-mono">{BASE_NETWORK_FEE_STX.toFixed(4)} STX</span>
                 </div>
                 <div className="flex-between gap-4">
-                  <span>Message Storage:</span>
-                  <span className="font-mono">{(estimateFee(message) - 0.001).toFixed(4)} STX</span>
+                  <span>Contract Fee:</span>
+                  <span className="font-mono">{stampFee.toFixed(4)} STX</span>
                 </div>
                 <div className="border-t border-white/10 mt-1 pt-1 flex-between gap-4 font-bold text-primary">
-                  <span>Total Estimated:</span>
-                  <span className="font-mono">{(estimateFee(message)).toFixed(4)} STX</span>
+                  <span>Total Due:</span>
+                  <span className="font-mono">{(stampFee + BASE_NETWORK_FEE_STX).toFixed(4)} STX</span>
                 </div>
               </div>
             }
           >
             <span className="fee-badge bg-primary/10 text-primary border border-primary/20 px-3 py-1 rounded-full text-xs font-bold">
-              <AnimatedNumber value={estimateFee(message)} decimals={4} suffix=" STX" />
+              <AnimatedNumber value={stampFee + BASE_NETWORK_FEE_STX} decimals={4} suffix=" STX" />
             </span>
           </Tooltip>
         </div>

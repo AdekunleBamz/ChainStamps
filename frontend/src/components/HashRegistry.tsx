@@ -1,7 +1,7 @@
 import { useState, useEffect } from 'react';
 import { motion, useAnimation, AnimatePresence } from 'framer-motion';
 import { useWallet } from '../context/WalletContext';
-import { CONTRACT_ADDRESS, CONTRACTS } from '../config/contracts';
+import { BASE_NETWORK_FEE_STX, CONTRACT_ADDRESS, CONTRACTS } from '../config/contracts';
 import { twMerge } from 'tailwind-merge';
 import { FileText, Hash, Share2, ExternalLink, HelpCircle, CheckCircle2, AlertCircle } from 'lucide-react';
 import { CardSkeleton } from './ui/Skeleton';
@@ -18,7 +18,9 @@ import { HighlightText } from './ui/HighlightText';
 import { TransactionStepper } from './ui/TransactionStepper';
 import { useContractCall } from '../hooks/useContractCall';
 import { useToast } from '../context/ToastContext';
-import { ANIMATIONS, UI } from '../config/constants';
+import { ANIMATIONS } from '../config/constants';
+import { bufferCV, cvToHex, stringUtf8CV } from '@stacks/transactions';
+import { useOnChainFees } from '../hooks/useOnChainFees';
 
 const SHAKE_ANIMATION = ANIMATIONS.SHAKE;
 
@@ -32,6 +34,8 @@ export const HashRegistry = ({ searchQuery = '' }: { searchQuery?: string }) => 
   const [isLoading, setIsLoading] = useState(true);
   const controls = useAnimation();
   const { isSubmitting, step, txId, execute, history } = useContractCall();
+  const { fees } = useOnChainFees();
+  const hashFee = fees.hash;
 
   useEffect(() => {
     const timer = setTimeout(() => setIsLoading(false), 1200);
@@ -64,12 +68,22 @@ export const HashRegistry = ({ searchQuery = '' }: { searchQuery?: string }) => 
     }
 
     try {
+      const hashPairs = hash.match(/.{2}/g);
+      if (!hashPairs) {
+        throw new Error('Failed to parse hash input.');
+      }
+
+      const hashBytes = Uint8Array.from(hashPairs.map((byte) => parseInt(byte, 16)));
+      const description = `ChainStamp hash ${hash.slice(0, 16)}...`;
+
       await execute({
         contractAddress: CONTRACT_ADDRESS,
         contractName: CONTRACTS.hashRegistry.name,
-        functionName: 'register-hash',
-        functionArgs: [hash],
-        stxAmount: CONTRACTS.hashRegistry.fee,
+        functionName: 'store-hash',
+        functionArgs: [
+          cvToHex(bufferCV(hashBytes)),
+          cvToHex(stringUtf8CV(description)),
+        ],
       }, 'Hash registered successfully!', hash.slice(0, 16) + '...');
       setHash('');
       setLastSubmitTime(Date.now());
@@ -170,21 +184,21 @@ export const HashRegistry = ({ searchQuery = '' }: { searchQuery?: string }) => 
               <div className="flex flex-col gap-1 p-1">
                 <div className="flex-between gap-4">
                   <span>Base Network Fee:</span>
-                  <span className="font-mono">0.0010 STX</span>
+                  <span className="font-mono">{BASE_NETWORK_FEE_STX.toFixed(4)} STX</span>
                 </div>
                 <div className="flex-between gap-4">
                   <span>Registration Fee:</span>
-                  <span className="font-mono">{(CONTRACTS.hashRegistry.fee - 0.001).toFixed(4)} STX</span>
+                  <span className="font-mono">{hashFee.toFixed(4)} STX</span>
                 </div>
                 <div className="border-t border-white/10 mt-1 pt-1 flex-between gap-4 font-bold text-primary">
                   <span>Total Due:</span>
-                  <span className="font-mono">{CONTRACTS.hashRegistry.fee.toFixed(4)} STX</span>
+                  <span className="font-mono">{(hashFee + BASE_NETWORK_FEE_STX).toFixed(4)} STX</span>
                 </div>
               </div>
             }
           >
             <span className="fee-badge bg-primary/10 text-primary border border-primary/20 px-3 py-1 rounded-full text-xs font-bold">
-              <AnimatedNumber value={CONTRACTS.hashRegistry.fee} decimals={4} suffix=" STX" />
+              <AnimatedNumber value={hashFee + BASE_NETWORK_FEE_STX} decimals={4} suffix=" STX" />
             </span>
           </Tooltip>
         </div>

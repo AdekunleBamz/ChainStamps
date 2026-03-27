@@ -19,7 +19,7 @@ interface ContractCallParams {
   contractName: string;
   functionName: string;
   functionArgs: any[];
-  stxAmount: number;
+  stxAmount?: number;
 }
 
 const getErrorMessage = (err: unknown) => {
