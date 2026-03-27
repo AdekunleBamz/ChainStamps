@@ -76,7 +76,7 @@ npm test
 ```
 
 ### How do I deploy to testnet?
-See [Testnet Deployment Guide](./docs/DEPLOYMENT_TESTNET.md)
+See [Testnet Deployment Guide](./DEPLOYMENT_TESTNET.md)
 
 ### What programming language are the contracts written in?
 Clarity, Stacks' smart contract language. It's decidable, meaning you can know exactly what a contract will do before execution.
