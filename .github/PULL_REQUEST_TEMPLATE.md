@@ -28,3 +28,11 @@ Please describe the tests that you ran to verify your changes.
 - [ ] My changes generate no new warnings
 - [ ] I have added tests that prove my fix is effective or that my feature works
 - [ ] New and existing unit tests pass locally with my changes
+- [ ] `clarinet check` passes
+- [ ] I validated the target network context (mainnet/testnet/devnet) for this change
+
+## Testing
+Describe the tests you ran to verify your changes.
+
+## Additional Notes
+Any additional information that reviewers should know.
