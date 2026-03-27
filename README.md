@@ -118,8 +118,8 @@ git clone https://github.com/AdekunleBamz/ChainStamps.git
 cd ChainStamps
 
 # Install dependencies
-npm install
-npm --prefix frontend install
+npm ci
+npm --prefix frontend ci
 
 # Run tests
 npm test
