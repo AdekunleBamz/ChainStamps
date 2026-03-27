@@ -38,7 +38,9 @@ npm ci
 npm run dev
 ```
 
-### Build for Production
+Keep `.env.example` aligned with production-required variables whenever wallet/network config changes.
+
+You can also install [eslint-plugin-react-x](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-x) and [eslint-plugin-react-dom](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-dom) for React-specific lint rules:
 
 ```bash
 # Create production build
