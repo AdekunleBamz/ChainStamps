@@ -19,5 +19,6 @@ Welcome to ChainStamps documentation. Use the links below to navigate.
 
 ## Project Info
 - [Roadmap](./ROADMAP.md)
+- [Release Checklist](./RELEASE_CHECKLIST.md)
 - [Security Policy](../SECURITY.md)
 - [Contributing](../CONTRIBUTING.md)
