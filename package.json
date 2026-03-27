@@ -15,7 +15,7 @@
   "dependencies": {
     "@stacks/clarinet-sdk": "^3.9.0",
     "@stacks/connect": "^7.10.2",
-    "@stacks/transactions": "^7.3.1",
+    "@stacks/transactions": "^7.4.0",
     "@stacks/wallet-sdk": "^7.2.0",
     "@types/node": "^24.4.0",
     "bip39": "^3.1.0",
