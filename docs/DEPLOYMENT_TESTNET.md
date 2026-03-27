@@ -79,6 +79,7 @@ After deployment, check the Stacks Explorer:
 - https://explorer.hiro.so/?chain=testnet
 
 Search for your contract address to verify deployment.
+Record deployment transaction IDs in release notes for later audit.
 
 ## Contract Addresses
 
