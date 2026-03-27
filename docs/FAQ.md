@@ -82,7 +82,7 @@ See [Testnet Deployment Guide](./DEPLOYMENT_TESTNET.md)
 Clarity, Stacks' smart contract language. It's decidable, meaning you can know exactly what a contract will do before execution.
 
 ### Can I contribute to ChainStamps?
-Yes! See [CONTRIBUTING.md](./CONTRIBUTING.md) for guidelines.
+Yes! See [CONTRIBUTING.md](../CONTRIBUTING.md) for guidelines.
 
 ## Troubleshooting
 
