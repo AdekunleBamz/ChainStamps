@@ -1,5 +1,7 @@
 # Security Considerations
 
+[Back to Documentation Index](./INDEX.md)
+
 This document outlines security guidance when using ChainStamps.
 
 ## On-Chain Data Visibility
