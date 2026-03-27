@@ -12,7 +12,7 @@
   "dependencies": {
     "@bamzzstudio/chainstamps-sdk": "^0.1.0",
     "@reown/appkit": "^1.8.15",
-    "@reown/appkit-adapter-wagmi": "^1.8.15",
+    "@reown/appkit-adapter-wagmi": "^1.8.19",
     "@stacks/connect": "^8.2.4",
     "@stacks/network": "^7.3.1",
     "@stacks/transactions": "^7.3.1",
