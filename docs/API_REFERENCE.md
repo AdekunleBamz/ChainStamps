@@ -1,5 +1,7 @@
 # API Reference
 
+[Back to Documentation Index](./INDEX.md)
+
 Complete API documentation for all ChainStamps smart contracts.
 
 ## Table of Contents
