@@ -22,5 +22,8 @@ Which contract(s) would this affect?
 - [ ] tag-registry
 - [ ] New contract
 
+## Security Considerations
+Describe any security implications (access control, fee handling, data exposure) if relevant.
+
 ## Additional Context
 Add any other context or screenshots about the feature request here.
