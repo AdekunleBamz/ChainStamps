@@ -1,7 +1,5 @@
 # Testnet Deployment Guide
 
-> **Author**: Adekunle Bamz ([@AdekunleBamz](https://github.com/AdekunleBamz))
-
 [Back to Documentation Index](./INDEX.md)
 
 This guide walks you through deploying ChainStamps contracts to Stacks Testnet.
