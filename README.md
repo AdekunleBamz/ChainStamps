@@ -442,6 +442,7 @@ ChainStamps is built for speed and efficiency:
 -   **Code Splitting**: Dynamic imports for heavy components like `TransactionHistory`.
 -   **Asset Optimization**: Minified CSS and optimized SVG icons for minimal payload.
 -   **Caching**: Service worker caching for PWA reliability.
+-   **Explorer Accuracy**: Review explorer-link network targets when deployment environments change.
 
 ---
 
