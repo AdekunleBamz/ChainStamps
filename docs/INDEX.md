@@ -18,7 +18,6 @@ Welcome to ChainStamps documentation. Use the links below to navigate.
 - [SDK Examples](./SDK_EXAMPLES.md)
 - [Architecture](./ARCHITECTURE.md)
 - [FAQ](./FAQ.md)
-- [Troubleshooting](./TROUBLESHOOTING.md)
 - [Release Checklist](./RELEASE_CHECKLIST.md)
 
 ## Project Info
