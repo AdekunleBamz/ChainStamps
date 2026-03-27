@@ -6,7 +6,7 @@ Thank you for your interest in contributing to ChainStamps! This document provid
 
 1. Fork the repository
 2. Clone your fork: `git clone https://github.com/YOUR_USERNAME/ChainStamps.git`
-3. Install dependencies: `npm install`
+3. Install dependencies: `npm ci`
 4. Create a feature branch: `git checkout -b feat/your-feature`
 
 ## 📋 Development Setup
