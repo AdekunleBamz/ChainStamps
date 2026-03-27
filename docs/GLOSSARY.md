@@ -88,3 +88,6 @@ A text encoding format used for contract strings.
 
 **Verification**
 The process of checking if a hash or stamp exists on-chain.
+
+**Explorer Link**
+A URL pointing to a transaction or contract page in the Stacks explorer.
