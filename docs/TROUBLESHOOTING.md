@@ -44,7 +44,7 @@ This guide helps resolve common issues when using ChainStamps.
 
 ### Build Errors
 **Symptoms:** TypeScript or lint errors.
-**Fix:** Run `npm install` and confirm Node.js version matches .nvmrc.
+**Fix:** Run `npm ci` (and `npm --prefix frontend ci` for UI changes), then confirm Node.js version matches `.nvmrc`.
 
 ## Getting Help
 
