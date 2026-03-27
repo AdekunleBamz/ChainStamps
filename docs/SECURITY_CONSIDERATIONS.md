@@ -32,6 +32,7 @@ This document outlines security guidance when using ChainStamps.
 ## Monitoring
 - Use Stacks API to monitor transactions and confirmations.
 - Track contract fees and usage for anomaly detection.
+- Cross-check suspicious transactions against explorer data before escalating.
 
 ## Incident Response
 - If a bug is found, open a GitHub issue or report via SECURITY.md.
