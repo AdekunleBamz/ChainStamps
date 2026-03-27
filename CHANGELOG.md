@@ -46,5 +46,8 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - Fee validation before state changes
 - Input length validation
 
+### Release Notes Practice
+- Include representative explorer links when entries involve on-chain behavior changes.
+
 [Unreleased]: https://github.com/AdekunleBamz/ChainStamps/compare/v1.0.0...HEAD
 [1.0.0]: https://github.com/AdekunleBamz/ChainStamps/releases/tag/v1.0.0
