@@ -6,7 +6,7 @@
   "private": true,
   "scripts": {
     "test": "vitest run",
-    "test:report": "vitest run -- --coverage --costs",
+    "test:report": "vitest run --coverage --costs",
     "test:ci": "vitest run --coverage --costs",
     "test:watch": "chokidar \"tests/**/*.ts\" \"contracts/**/*.clar\" -c \"npm run test:report\""
   },
