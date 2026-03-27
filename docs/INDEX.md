@@ -17,6 +17,7 @@ Welcome to ChainStamps documentation. Use the links below to navigate.
 - [Architecture](./ARCHITECTURE.md)
 - [FAQ](./FAQ.md)
 - [Troubleshooting](./TROUBLESHOOTING.md)
+- [Release Checklist](./RELEASE_CHECKLIST.md)
 
 ## Project Info
 - [Roadmap](./ROADMAP.md)
