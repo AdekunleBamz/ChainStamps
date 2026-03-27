@@ -14,7 +14,7 @@ Thank you for your interest in contributing to ChainStamps! This document provid
 ### Prerequisites
 
 - [Clarinet](https://github.com/hirosystems/clarinet) v2.0+
-- [Node.js](https://nodejs.org/) v18+
+- [Node.js](https://nodejs.org/) v20+
 - Git
 
 ### Running Tests
