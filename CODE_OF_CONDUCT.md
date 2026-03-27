@@ -37,7 +37,6 @@ This Code of Conduct applies within all community spaces, and also applies when 
 Instances of abusive, harassing, or otherwise unacceptable behavior may be reported to the community leaders responsible for enforcement.
 
 Project maintainers should acknowledge reports promptly and route security-only disclosures through the private security policy channel in `SECURITY.md`. All complaints will be reviewed and investigated promptly and fairly.
-Reporter privacy should be preserved as much as possible during investigations.
 
 ## Attribution
 
