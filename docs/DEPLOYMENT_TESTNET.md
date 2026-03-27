@@ -1,5 +1,7 @@
 # Testnet Deployment Guide
 
+[Back to Documentation Index](./INDEX.md)
+
 This guide walks you through deploying ChainStamps contracts to Stacks Testnet.
 
 ## Prerequisites
