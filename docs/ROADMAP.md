@@ -29,3 +29,4 @@ This roadmap outlines potential improvements and features. Items are not guarant
 ## Community Contributions
 
 If you'd like to contribute, please open an issue or PR. Feedback is welcome.
+Roadmap priorities should be reviewed at least once per release cycle.
