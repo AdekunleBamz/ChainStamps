@@ -1,5 +1,7 @@
 # Mainnet Deployment Guide
 
+[Back to Documentation Index](./INDEX.md)
+
 ⚠️ **WARNING**: Mainnet deployment uses real STX tokens. Double-check everything before proceeding.
 
 ## Prerequisites
