@@ -24,6 +24,7 @@ Brief description of the changes in this PR.
 - [ ] I have added tests that prove my fix is effective or that my feature works
 - [ ] New and existing unit tests pass locally with my changes
 - [ ] `clarinet check` passes
+- [ ] I validated the target network context (mainnet/testnet/devnet) for this change
 
 ## Testing
 Describe the tests you ran to verify your changes.
