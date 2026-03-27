@@ -30,6 +30,7 @@ npm run dev
 [Getting Started](#-getting-started) •
 [Contracts](#-smart-contracts) •
 [API Reference](#-api-reference) •
+[Documentation](./docs/INDEX.md) •
 [Examples](#-usage-examples) •
 [Contributing](#-contributing)
 
