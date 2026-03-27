@@ -20,3 +20,4 @@ Use this checklist to prepare a release.
 - [ ] Tag release in GitHub
 - [ ] Announce release notes
 - [ ] Monitor transaction success rates
+- [ ] Confirm release commits show as `Verified` on GitHub
