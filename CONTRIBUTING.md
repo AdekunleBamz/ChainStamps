@@ -95,6 +95,7 @@ When reporting issues, please include:
 3. Expected behavior
 4. Actual behavior
 5. Environment details (OS, Clarinet version, Node version)
+6. Transaction IDs or explorer links when issue is chain-related
 
 ## 💡 Feature Requests
 
