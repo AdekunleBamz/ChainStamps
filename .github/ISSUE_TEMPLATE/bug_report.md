@@ -30,5 +30,8 @@ What actually happened.
 - Contract: [hash-registry / stamp-registry / tag-registry]
 - Function: 
 
+## Transaction Details
+- TXID (if available):
+
 ## Additional Context
 Add any other context about the problem here.
