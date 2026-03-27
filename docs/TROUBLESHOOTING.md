@@ -46,6 +46,10 @@ This guide helps resolve common issues when using ChainStamps.
 **Symptoms:** TypeScript or lint errors.
 **Fix:** Run `npm ci` (and `npm --prefix frontend ci` for UI changes), then confirm Node.js version matches `.nvmrc`.
 
+### Wrong Network
+**Symptoms:** Contract calls fail despite a connected wallet.
+**Fix:** Confirm wallet network and app configuration target the same chain.
+
 ## Getting Help
 
 - Open a GitHub issue with steps to reproduce
