@@ -1,5 +1,7 @@
 # Frequently Asked Questions (FAQ)
 
+[Back to Documentation Index](./INDEX.md)
+
 ## General Questions
 
 ### What is ChainStamps?
