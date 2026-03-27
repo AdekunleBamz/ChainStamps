@@ -17,7 +17,7 @@
     "@stacks/network": "^7.3.1",
     "@stacks/transactions": "^7.3.1",
     "@types/canvas-confetti": "^1.9.0",
-    "@walletconnect/universal-provider": "^2.23.1",
+    "@walletconnect/universal-provider": "^2.23.9",
     "buffer": "^6.0.3",
     "canvas-confetti": "^1.9.4",
     "clsx": "^2.1.1",
