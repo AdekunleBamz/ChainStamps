@@ -106,9 +106,9 @@ ChainStamps follows a modern React architecture with:
 
 ### Environment Setup
 
-1.  **Wallet**: Install the [Hiro Wallet](https://www.hiro.so/wallet) or [Xverse](https://www.xverse.app/).
-2.  **Network**: Switch to `Mainnet` for live transactions or `Devnet` for local testing.
-3.  **STX**: Ensure you have a small amount of STX for transaction fees (see [Fees](#-overview)).
+1. **Wallet**: Install the [Hiro Wallet](https://www.hiro.so/wallet) or [Xverse](https://www.xverse.app/).
+2. **Network**: Switch to `Mainnet` for live transactions or `Devnet` for local testing.
+3. **STX**: Ensure you have a small amount of STX for transaction fees (see [Fees](#-overview)).
 
 ### Installation
 
