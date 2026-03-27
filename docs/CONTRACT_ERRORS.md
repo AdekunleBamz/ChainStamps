@@ -1,5 +1,7 @@
 # ChainStamps Contract Error Codes
 
+[Back to Documentation Index](./INDEX.md)
+
 This document lists error codes used across ChainStamps contracts for easier debugging.
 
 ## hash-registry
