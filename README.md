@@ -134,6 +134,9 @@ npm test
 # Start Clarinet console
 clarinet console
 
+# Run combined contract + test checks
+npm run check
+
 # Run all tests with coverage
 npm run test:report
 
