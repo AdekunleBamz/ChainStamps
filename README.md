@@ -19,6 +19,8 @@ npm --prefix frontend ci
 npm --prefix frontend run dev
 ```
 
+For prerequisites, environment setup, and contract workflows, see the [Detailed Setup](#-detailed-setup) section below.
+
 <div align="center">
 
 ![Clarity](https://img.shields.io/badge/Clarity-Smart%20Contracts-blue?style=for-the-badge)
@@ -100,7 +102,7 @@ ChainStamps follows a modern React architecture with:
 - ✅ **Low Fees** - Minimal STX cost per operation
 - ✅ **Bitcoin Security** - Inherits Bitcoin's security through Stacks
 
-## 🚀 Getting Started
+## 🚀 Detailed Setup
 
 ### Prerequisites
 - Node.js 20+
