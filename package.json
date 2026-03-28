@@ -5,6 +5,8 @@
   "type": "module",
   "private": true,
   "scripts": {
+    "contracts:check": "clarinet check",
+    "check": "npm run contracts:check && npm run test",
     "test": "vitest run",
     "test:report": "vitest run --coverage --costs",
     "test:ci": "vitest run --coverage --costs",
