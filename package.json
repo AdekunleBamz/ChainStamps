@@ -12,6 +12,9 @@
   },
   "author": "",
   "license": "ISC",
+  "engines": {
+    "node": ">=20.0.0"
+  },
   "dependencies": {
     "@stacks/clarinet-sdk": "^3.9.0",
     "@stacks/connect": "^7.10.2",
