@@ -9,12 +9,14 @@ ChainStamps is a decentralized application for permanent on-chain document verif
 ```bash
 # Clone the repository
 git clone https://github.com/AdekunleBamz/ChainStamps.git
+cd ChainStamps
 
 # Install dependencies
-npm install
+npm ci
+npm --prefix frontend ci
 
 # Start the development server
-npm run dev
+npm --prefix frontend run dev
 ```
 
 <div align="center">
