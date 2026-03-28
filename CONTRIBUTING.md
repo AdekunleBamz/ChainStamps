@@ -7,8 +7,8 @@ Thank you for your interest in contributing to ChainStamps! This document provid
 ## 🚀 Getting Started
 
 1. Fork the repository
-2. Clone your fork: `git clone https://github.com/AdekunleBamz/ChainStamps.git`
-3. Install dependencies: `npm ci`
+2. Clone your fork: `git clone https://github.com/adekunlebamz/ChainStamps.git`
+3. Install dependencies: `npm ci && npm --prefix frontend ci`
 4. Create a feature branch: `git checkout -b feat/your-feature`
 
 ## 📋 Development Setup
@@ -36,10 +36,13 @@ npx vitest run tests/chainstamp-sdk-fees.test.ts
 #### Frontend (React checks)
 ```bash
 # Run Vitest suite
-npm run frontend:lint
+npm --prefix frontend run test
 
 # Run Vitest in watch mode
-npm run frontend:build
+npm --prefix frontend run test:watch
+
+# Run frontend lint checks
+npm --prefix frontend run lint
 ```
 
 ### Checking Clarity Syntax
