@@ -248,3 +248,4 @@ main().catch(console.error);
 
 For more information, see the [Stacks.js documentation](https://github.com/hirosystems/stacks.js).
 Refresh fee examples when contract fee constants are updated.
+- In automation flows, fetch nonce right before signing and retry with refreshed nonce after stale-transaction errors.
