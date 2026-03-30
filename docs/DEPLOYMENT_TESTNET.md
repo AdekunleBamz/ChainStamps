@@ -138,3 +138,7 @@ After successful testnet deployment:
 4. Plan mainnet deployment
 
 See [DEPLOYMENT_MAINNET.md](./DEPLOYMENT_MAINNET.md) for mainnet instructions.
+
+## Operational Note
+
+When validating deployment in CI, capture both transaction IDs and explorer links so later incident triage can reconstruct the full testnet timeline quickly.
