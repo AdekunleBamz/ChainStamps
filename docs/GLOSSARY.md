@@ -95,3 +95,6 @@ The process of checking if a hash or stamp exists on-chain.
 
 **Explorer Link**
 A URL pointing to a transaction or contract page in the Stacks explorer.
+
+**Incident Context Bundle**
+A compact set of metadata (network, wallet, tx IDs, and contract principal) shared with maintainers to speed up triage.
