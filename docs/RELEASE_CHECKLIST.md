@@ -23,3 +23,4 @@ Use this checklist to prepare a release.
 - [ ] Announce release notes
 - [ ] Monitor transaction success rates
 - [ ] Confirm release commits show as `Verified` on GitHub
+- [ ] Assign an explicit escalation owner for the first 24h post-release window
