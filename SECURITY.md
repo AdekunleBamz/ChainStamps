@@ -68,3 +68,5 @@ For security concerns, use GitHub's private reporting flow:
 https://github.com/AdekunleBamz/ChainStamps/security/advisories/new
 
 Include incident timestamps and affected network when filing a security report.
+
+Maintenance note: include affected network and transaction IDs in all vulnerability reports.
