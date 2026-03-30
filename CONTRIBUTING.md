@@ -123,3 +123,5 @@ By contributing, you agree that your contributions will be licensed under the MI
 ## 🙏 Thank You!
 
 Your contributions help make ChainStamps better for everyone!
+
+Maintenance note: run npm run check before opening mixed frontend and contract pull requests.
