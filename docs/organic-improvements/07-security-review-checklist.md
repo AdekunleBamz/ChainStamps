@@ -4,3 +4,4 @@
 - Validate hash and message size boundary behavior.
 - Review dependency advisories before release cut.
 - Run targeted regression tests for reverted fixes.
+- Verify CI and deployment environments do not expose wallet mnemonics or signer secrets in logs.
