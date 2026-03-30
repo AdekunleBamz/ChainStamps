@@ -196,3 +196,5 @@ For deployment issues:
 1. Check [Stacks Discord](https://stacks.chat)
 2. Review [Clarinet documentation](https://docs.hiro.so/clarinet)
 3. Open an issue in this repository
+
+Maintenance note: confirm wallet nonce and fee balance immediately before mainnet deployment submission.
