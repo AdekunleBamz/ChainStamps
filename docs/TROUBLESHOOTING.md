@@ -57,3 +57,7 @@ This guide helps resolve common issues when using ChainStamps.
 - Open a GitHub issue with steps to reproduce
 - Include transaction IDs and network details
 - Reference error codes where applicable
+
+## Support Handoff Note
+
+When escalating an issue, include wallet address and contract identifier alongside the tx ID so responders can replay context without follow-up questions.
