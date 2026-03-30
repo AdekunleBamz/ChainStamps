@@ -69,3 +69,5 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 [Unreleased]: https://github.com/AdekunleBamz/ChainStamps/compare/v1.0.0...HEAD
 [1.0.0]: https://github.com/AdekunleBamz/ChainStamps/releases/tag/v1.0.0
+
+Maintenance note: include doc-only behavior clarifications in changelog when they affect operator workflows.
