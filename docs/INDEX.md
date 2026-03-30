@@ -24,3 +24,5 @@ Welcome to ChainStamps documentation. Use the links below to navigate.
 - [Release Checklist](./RELEASE_CHECKLIST.md)
 - [Security Policy](../SECURITY.md)
 - [Contributing](../CONTRIBUTING.md)
+
+Maintenance note: when a documentation file is renamed or moved, update this index in the same PR so links stay accurate.
