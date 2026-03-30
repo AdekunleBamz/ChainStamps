@@ -57,3 +57,7 @@ This document defines the visual design system and component patterns for the Ch
 - **Transitions**: `150ms ease-in-out` for hover states.
 - **Page Transitions**: Framer Motion `opacity` and `y` offset.
 - **Scale**: `0.98` on click/press for interactive elements.
+
+## Data Display Note
+
+When rendering wallet addresses or tx IDs, truncate in the middle and keep full values available via copy action or tooltip.
