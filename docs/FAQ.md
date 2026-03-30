@@ -104,3 +104,6 @@ Stacks blocks are anchored to Bitcoin (~10 min). Transactions may take longer du
 - GitHub Issues: Report bugs and feature requests
 - Documentation: Check the docs folder for detailed guides
 - Include transaction IDs when asking for support on failed writes.
+
+### How should we compare testnet and mainnet behavior?
+Use the same wallet derivation path, contract names, and fee assumptions where possible so observed differences are truly network-specific and easier to diagnose.
