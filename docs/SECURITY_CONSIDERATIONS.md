@@ -39,4 +39,5 @@ This document outlines security guidance when using ChainStamps.
 
 ## Incident Response
 - If a bug is found, open a GitHub issue or report via SECURITY.md.
+- Preserve request logs and tx references used to reproduce the issue before restarting services.
 - Consider pausing new releases until a fix is deployed.
