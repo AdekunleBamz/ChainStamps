@@ -32,3 +32,4 @@ This roadmap outlines potential improvements and features. Items are not guarant
 
 If you'd like to contribute, please open an issue or PR. Feedback is welcome.
 Roadmap priorities should be reviewed at least once per release cycle.
+Roadmap updates should also capture reliability learnings from recent incidents to keep operational debt visible.
