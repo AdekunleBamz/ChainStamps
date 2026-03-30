@@ -24,11 +24,5 @@ Welcome to ChainStamps documentation. Use the links below to navigate.
 - [Roadmap](./ROADMAP.md)
 - [Security Policy](../SECURITY.md)
 - [Contributing](../CONTRIBUTING.md)
-- [Code of Conduct](../CODE_OF_CONDUCT.md)
 
-## Developer Shortcuts
-
-- Fast pre-push check: `npm run check:fast`
-- Focused fee utility tests: `npm run test:fee`
-- Focused SDK fee tests: `npx vitest run tests/chainstamp-sdk-fees.test.ts`
-- Frontend lint/build helpers: `npm run frontend:lint` and `npm run frontend:build`
+Maintenance note: when a documentation file is renamed or moved, update this index in the same PR so links stay accurate.
