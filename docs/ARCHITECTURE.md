@@ -171,3 +171,4 @@ The Tag Registry provides a dynamic, updatable key-value store. Unlike the other
 - New contracts can be deployed
 - Migration paths for data (if needed)
 - Backward compatibility considerations
+- Monitor mempool-to-confirmation latency separately from API response latency to avoid mixing chain delay with service delay during investigations.
