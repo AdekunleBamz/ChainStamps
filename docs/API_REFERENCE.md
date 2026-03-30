@@ -639,3 +639,7 @@ Get current tag fee.
 | u101 | ERR-KEY-TOO-LONG | Key exceeds 64 chars |
 | u102 | ERR-VALUE-TOO-LONG | Value exceeds 256 chars |
 | u103 | ERR-TAG-NOT-FOUND | Tag not found |
+
+### Integration Note
+
+For read-only integrations, log the contract principal and block height used for each response snapshot to simplify reproducible debugging across environments.
