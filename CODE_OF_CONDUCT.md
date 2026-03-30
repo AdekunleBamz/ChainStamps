@@ -42,3 +42,5 @@ Reporter privacy should be preserved as much as possible during investigations.
 ## Attribution
 
 This Code of Conduct is adapted from the [Contributor Covenant](https://www.contributor-covenant.org), version 2.1.
+
+Maintenance note: route vulnerability disclosures through the private SECURITY.md channel, not public discussions.
