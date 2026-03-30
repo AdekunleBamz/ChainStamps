@@ -478,3 +478,5 @@ ChainStamps is built for speed and efficiency:
 *Secured by Bitcoin*
 
 </div>
+
+Maintenance note: validate explorer links after switching network defaults.
