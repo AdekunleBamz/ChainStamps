@@ -1,5 +1,7 @@
 # ChainStamps Glossary
 
+> **Author**: Adekunle Bamz ([@AdekunleBamz](https://github.com/AdekunleBamz))
+
 [Back to Documentation Index](./INDEX.md)
 
 ## A
