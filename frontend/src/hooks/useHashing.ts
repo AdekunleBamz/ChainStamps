@@ -1,6 +1,12 @@
 import { useState, useCallback } from 'react';
 
-const getErrorMessage = (err: unknown) =>
+/**
+ * Extracts a user-friendly error message from an unknown error.
+ * 
+ * @param {unknown} err - The error to extract message from
+ * @returns {string} A human-readable error message
+ */
+const getErrorMessage = (err: unknown): string =>
   err instanceof Error ? err.message : 'Failed to compute file hash';
 
 /**
