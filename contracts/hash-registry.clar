@@ -85,13 +85,18 @@
 ;; Enables lookup of hashes by their sequential ID
 (define-map hash-by-id uint (buff 32))
 
-;; Read-only functions
+;; ============================================================
+;; READ-ONLY FUNCTIONS - Hash Lookup
+;; ============================================================
 
+;; Retrieve complete metadata for a hash by its buffer
+;; Returns: (some {owner, description, timestamp, block-height, hash-id, last-updated, revoked}) or none
 (define-read-only (get-hash-info (hash (buff 32)))
     (map-get? hashes hash)
 )
 
-;; Get owner of a hash if it exists
+;; Get the owner principal of a hash if it exists
+;; Returns: (some principal) or none
 (define-read-only (get-hash-owner (hash (buff 32)))
     (match (map-get? hashes hash)
         hash-data (some (get owner hash-data))
@@ -99,7 +104,8 @@
     )
 )
 
-;; Get description for a hash if it exists
+;; Get the description string of a hash if it exists
+;; Returns: (some string-utf8) or none
 (define-read-only (get-hash-description (hash (buff 32)))
     (match (map-get? hashes hash)
         hash-data (some (get description hash-data))
@@ -107,7 +113,8 @@
     )
 )
 
-;; Get block height for a hash if it exists
+;; Get the block height when a hash was stored
+;; Returns: (some uint) or none
 (define-read-only (get-hash-block-height (hash (buff 32)))
     (match (map-get? hashes hash)
         hash-data (some (get block-height hash-data))
@@ -115,6 +122,8 @@
     )
 )
 
+;; Verify if a hash exists and has not been revoked
+;; Returns: true if hash exists and is valid, false otherwise
 (define-read-only (verify-hash (hash (buff 32)))
     (match (map-get? hashes hash)
         hash-data (not (get revoked hash-data))
@@ -122,6 +131,8 @@
     )
 )
 
+;; Check if a hash has been explicitly revoked by its owner
+;; Returns: true if revoked, false if valid or non-existent
 (define-read-only (is-hash-revoked (hash (buff 32)))
     (match (map-get? hashes hash)
         hash-data (get revoked hash-data)
@@ -129,7 +140,8 @@
     )
 )
 
-;; Check if a principal is the owner of a hash
+;; Verify if a principal is the owner of a specific hash
+;; Returns: true if user is the owner, false otherwise
 (define-read-only (is-hash-owner (hash (buff 32)) (user principal))
     (match (map-get? hashes hash)
         hash-data (is-eq (get owner hash-data) user)
@@ -137,44 +149,64 @@
     )
 )
 
+;; ============================================================
+;; READ-ONLY FUNCTIONS - Contract State
+;; ============================================================
+
+;; Get total number of hashes stored in the registry
 (define-read-only (get-hash-count)
     (var-get hash-counter)
 )
 
+;; Get total fees collected by the contract since deployment
 (define-read-only (get-total-fees)
     (var-get total-fees-collected)
 )
 
+;; Get current fee for storing a single hash
 (define-read-only (get-hash-fee)
     HASH-FEE
 )
 
+;; Get discounted fee per hash for batch operations
 (define-read-only (get-batch-hash-fee)
     BATCH-HASH-FEE
 )
 
+;; Get maximum allowed batch size for batch store operations
 (define-read-only (get-max-batch-size)
     MAX-BATCH-SIZE
 )
 
+;; Get fee for updating a hash description
 (define-read-only (get-update-fee)
     UPDATE-FEE
 )
 
+;; ============================================================
+;; READ-ONLY FUNCTIONS - User Queries
+;; ============================================================
+
+;; Get list of all hash buffers owned by a user
+;; Returns: (list 100 (buff 32)) or empty list if none
 (define-read-only (get-user-hashes (user principal))
     (default-to (list) (map-get? user-hashes user))
 )
 
-;; Get total hashes stored by a user
+;; Get count of hashes stored by a specific user
+;; Returns: uint representing number of hashes
 (define-read-only (get-user-hash-count (user principal))
     (len (default-to (list) (map-get? user-hashes user)))
 )
 
+;; Get hash buffer by its sequential ID
+;; Returns: (some (buff 32)) or none if ID doesn't exist
 (define-read-only (get-hash-by-id (id uint))
     (map-get? hash-by-id id)
 )
 
-;; Get hash info by ID
+;; Get complete hash metadata by sequential ID
+;; Returns: (some {owner, description, ...}) or none
 (define-read-only (get-hash-info-by-id (id uint))
     (match (map-get? hash-by-id id)
         hash (map-get? hashes hash)
@@ -182,16 +214,23 @@
     )
 )
 
+;; ============================================================
+;; READ-ONLY FUNCTIONS - Contract Info
+;; ============================================================
+
+;; Get the contract owner principal (fee recipient)
 (define-read-only (get-contract-owner)
     CONTRACT-OWNER
 )
 
 ;; Check if a principal is the contract owner
+;; Returns: true if user is contract deployer, false otherwise
 (define-read-only (is-contract-owner (user principal))
     (is-eq user CONTRACT-OWNER)
 )
 
-;; Get contract stats summary
+;; Get summary statistics for the contract
+;; Returns: {total-hashes, total-fees, fee-per-hash}
 (define-read-only (get-stats)
     {
         total-hashes: (var-get hash-counter),
