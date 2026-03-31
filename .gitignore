@@ -52,3 +52,11 @@ test-wallets.json
 scripts/get-address.js
 scripts/
 test-wallets.json
+
+# Frontend build and dependencies
+frontend/node_modules
+frontend/dist
+frontend/.vite
+
+# Clarinet deployment artifacts
+*.deployment.json
