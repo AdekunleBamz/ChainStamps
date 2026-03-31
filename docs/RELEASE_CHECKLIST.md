@@ -1,5 +1,7 @@
 # Release Checklist
 
+> **Author**: Adekunle Bamz ([@AdekunleBamz](https://github.com/AdekunleBamz))
+
 [Back to Documentation Index](./INDEX.md)
 
 Use this checklist to prepare a release.
