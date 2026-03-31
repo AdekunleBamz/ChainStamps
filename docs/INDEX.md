@@ -1,5 +1,7 @@
 # Documentation Index
 
+> **Maintainer**: Adekunle Bamz ([@AdekunleBamz](https://github.com/AdekunleBamz))
+
 Welcome to ChainStamps documentation. Use the links below to navigate.
 
 ## Getting Started
