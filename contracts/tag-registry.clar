@@ -24,20 +24,41 @@
 ;; Error: Namespace exceeds maximum allowed length of 32 UTF-8 bytes (u105)
 (define-constant ERR-NAMESPACE-TOO-LONG (err u105))
 
-;; Fee in microSTX (0.04 STX = 40000 microSTX)
+;; ============================================================
+;; CONSTANTS - Fee Structure and Limits
+;; ============================================================
+;; Fee for storing or updating a tag (0.04 STX = 40000 microSTX)
 (define-constant TAG-FEE u40000)
+;; Maximum length for tag keys in UTF-8 bytes
 (define-constant MAX-KEY-LENGTH u64)
+;; Maximum length for tag values in UTF-8 bytes
 (define-constant MAX-VALUE-LENGTH u256)
+;; Maximum length for namespace names in UTF-8 bytes
 (define-constant MAX-NAMESPACE-LENGTH u32)
+;; Maximum tags a single user can store (prevents state bloat)
 (define-constant MAX-USER-TAGS u100)
+;; Default namespace used when no namespace is specified
 (define-constant DEFAULT-NAMESPACE u"default")
 
-;; Data Variables
+;; ============================================================
+;; DATA VARIABLES
+;; ============================================================
+;; Counter for total tags stored (used for ID generation)
 (define-data-var tag-counter uint u0)
+;; Accumulated total of all fees collected by the contract
 (define-data-var total-fees-collected uint u0)
 
-;; Data Maps
-;; Store tags by ID
+;; ============================================================
+;; DATA MAPS
+;; ============================================================
+;; Primary storage: Maps tag ID to tag metadata
+;; - owner: Principal who stored the tag
+;; - namespace: Namespace for grouping related tags
+;; - key: The tag key (unique within owner+namespace)
+;; - value: The tag value
+;; - timestamp: Block timestamp when tag was stored
+;; - block-height: Block height when tag was stored
+;; - deleted: Whether this tag has been deleted by owner
 (define-map tags uint {
     owner: principal,
     namespace: (string-utf8 32),
@@ -48,13 +69,16 @@
     deleted: bool
 })
 
-;; Store user's tag IDs
+;; Index: Maps user principal to list of their tag IDs
+;; Enables efficient lookup of all tags owned by a user
 (define-map user-tags principal (list 100 uint))
 
-;; Store user's tags by namespace
+;; Index: Maps owner+namespace to list of tag IDs in that namespace
+;; Enables browsing tags by namespace grouping
 (define-map namespace-tags { owner: principal, namespace: (string-utf8 32) } (list 100 uint))
 
-;; Store tag ID by owner+namespace+key for lookup
+;; Lookup: Maps owner+namespace+key to tag ID for O(1) key-based retrieval
+;; Enables efficient lookup of tags by their key within a namespace
 (define-map tag-lookup { owner: principal, namespace: (string-utf8 32), key: (string-utf8 64) } uint)
 
 ;; Read-only functions
