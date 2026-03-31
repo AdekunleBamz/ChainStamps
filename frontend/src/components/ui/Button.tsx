@@ -1,6 +1,7 @@
 import { motion, type HTMLMotionProps } from 'framer-motion';
 import { type ReactNode } from 'react';
 import { twMerge } from 'tailwind-merge';
+import { Loader2 } from 'lucide-react';
 import { triggerHaptic } from '../../utils/haptics';
 
 /**
@@ -24,6 +25,8 @@ interface ButtonProps extends HTMLMotionProps<'button'> {
     title?: string;
     /** Disables the button and prevents interaction. */
     disabled?: boolean;
+    /** Shows a loading spinner and disables the button. */
+    isLoading?: boolean;
 }
 
 /**
@@ -39,12 +42,16 @@ export function Button({
     className,
     haptic = 'light',
     onClick,
+    isLoading = false,
+    disabled,
     ...props
 }: ButtonProps) {
     const handleClick = (e: React.MouseEvent<HTMLButtonElement>) => {
         triggerHaptic(haptic);
         if (onClick) onClick(e);
     };
+
+    const isDisabled = disabled || isLoading;
     const variants = {
         primary: "bg-primary text-primary-foreground hover:bg-primary/90 shadow-lg shadow-primary/20",
         secondary: "bg-secondary text-secondary-foreground hover:bg-secondary/90",
@@ -72,9 +79,14 @@ export function Button({
                 className
             )}
             {...props}
+            disabled={isDisabled}
             onClick={handleClick}
         >
-            {children}
+            {isLoading ? (
+                <Loader2 className="animate-spin" size={size === 'sm' ? 14 : size === 'lg' ? 20 : 16} />
+            ) : (
+                children
+            )}
         </motion.button>
     );
 }
