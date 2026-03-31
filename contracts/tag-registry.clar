@@ -2,14 +2,26 @@
 ;; version: 1.2.0
 ;; summary: Store key-value tags on-chain with namespace support
 ;; description: ChainStamp - Pay 0.04 STX to store a namespaced key-value pair permanently on the blockchain
+;; author: Adekunle Bamz (@AdekunleBamz)
+;; license: MIT
 
-;; Constants
+;; ============================================================
+;; CONSTANTS - Error Codes
+;; ============================================================
+;; Contract owner principal for fee collection
 (define-constant CONTRACT-OWNER tx-sender)
+
+;; Error: Caller is not authorized to perform this action (u100)
 (define-constant ERR-NOT-AUTHORIZED (err u100))
+;; Error: Tag key exceeds maximum allowed length of 64 UTF-8 bytes (u101)
 (define-constant ERR-KEY-TOO-LONG (err u101))
+;; Error: Tag value exceeds maximum allowed length of 256 UTF-8 bytes (u102)
 (define-constant ERR-VALUE-TOO-LONG (err u102))
+;; Error: Tag not found in the registry (u103)
 (define-constant ERR-TAG-NOT-FOUND (err u103))
+;; Error: Tag has already been deleted (u104)
 (define-constant ERR-TAG-ALREADY-DELETED (err u104))
+;; Error: Namespace exceeds maximum allowed length of 32 UTF-8 bytes (u105)
 (define-constant ERR-NAMESPACE-TOO-LONG (err u105))
 
 ;; Fee in microSTX (0.04 STX = 40000 microSTX)
