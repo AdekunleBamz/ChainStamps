@@ -1,5 +1,7 @@
 # TypeScript SDK Usage Examples
 
+> **Author**: Adekunle Bamz ([@AdekunleBamz](https://github.com/AdekunleBamz))
+
 [Back to Documentation Index](./INDEX.md)
 
 This document shows how to interact with ChainStamps contracts using the Stacks.js SDK.
