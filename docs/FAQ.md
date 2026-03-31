@@ -1,5 +1,7 @@
 # Frequently Asked Questions (FAQ)
 
+> **Author**: Adekunle Bamz ([@AdekunleBamz](https://github.com/AdekunleBamz))
+
 [Back to Documentation Index](./INDEX.md)
 
 ## General Questions
