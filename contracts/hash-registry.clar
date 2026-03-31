@@ -239,87 +239,46 @@
     }
 )
 
-;; Private helper for storing a single hash (used in batch)
+;; ============================================================
+;; PRIVATE FUNCTIONS - Internal Helpers
+;; ============================================================
+
+;; Internal helper to store a hash and update all indices
+;; Used by both single and batch store operations
+;; Returns: the new hash ID (uint)
 (define-private (store-hash-internal (hash (buff 32)) (description (string-utf8 128)))
     (let
         (
             (new-hash-id (+ (var-get hash-counter) u1))
             (current-user-hashes (default-to (list) (map-get? user-hashes tx-sender)))
         )
-        ;; Store the hash
+        ;; Store the hash metadata
         (map-set hashes hash {
             owner: tx-sender,
             description: description,
             timestamp: (unwrap-panic (get-stacks-block-info? time (- stacks-block-height u1))),
             block-height: stacks-block-height,
-                hash-id: new-hash-id,
-                last-updated: stacks-block-height,
-                revoked: false
+            hash-id: new-hash-id,
+            last-updated: stacks-block-height,
+            revoked: false
         })
         
-        ;; Store reverse lookup
+        ;; Store reverse lookup by ID
         (map-set hash-by-id new-hash-id hash)
         
-        ;; Update user hashes list
+        ;; Update user's hash list
         (map-set user-hashes tx-sender 
             (unwrap-panic (as-max-len? (append current-user-hashes hash) MAX-USER-HASHES)))
         
-        ;; Increment counter
+        ;; Increment global counter
         (var-set hash-counter new-hash-id)
         
         new-hash-id
     )
 )
 
-;; Public functions
-
-;; @desc Store a SHA-256 hash on-chain with a custom description
-;; @param hash 32-byte buffer representing the document fingerprint
-;; @param description human-readable title for the hash
-(define-public (store-hash (hash (buff 32)) (description (string-utf8 128)))
-    (begin
-        ;; Check if hash already exists
-        (asserts! (is-none (map-get? hashes hash)) ERR-HASH-ALREADY-EXISTS)
-        
-        ;; Transfer fee to contract owner
-        (try! (stx-transfer? HASH-FEE tx-sender CONTRACT-OWNER))
-        
-        ;; Store and update fees
-        (let ((new-hash-id (store-hash-internal hash description)))
-            (var-set total-fees-collected (+ (var-get total-fees-collected) HASH-FEE))
-            (ok new-hash-id)
-        )
-    )
-)
-
-;; @desc Store multiple hashes in one transaction with a discounted fee
-;; @param hash-list list of up to 10 hash/description tuples
-(define-public (store-hashes-batch (hash-list (list 10 { hash: (buff 32), description: (string-utf8 128) })))
-    (let
-        (
-            (batch-size (len hash-list))
-            (total-fee (* BATCH-HASH-FEE batch-size))
-        )
-        ;; Validate batch size
-        (asserts! (> batch-size u0) ERR-EMPTY-BATCH)
-        (asserts! (<= batch-size MAX-BATCH-SIZE) ERR-BATCH-TOO-LARGE)
-        
-        ;; Transfer total fee
-        (try! (stx-transfer? total-fee tx-sender CONTRACT-OWNER))
-        
-        ;; Store each hash (fold to collect IDs)
-        (let
-            (
-                (result (fold store-hash-fold hash-list (ok (list))))
-            )
-            ;; Update total fees
-            (var-set total-fees-collected (+ (var-get total-fees-collected) total-fee))
-            result
-        )
-    )
-)
-
-;; Fold helper for batch storage
+;; Fold helper for batch hash storage
+;; Processes each entry in a batch and collects resulting IDs
 (define-private (store-hash-fold 
     (entry { hash: (buff 32), description: (string-utf8 128) })
     (acc (response (list 10 uint) uint)))
@@ -329,59 +288,146 @@
                 (let ((new-id (store-hash-internal (get hash entry) (get description entry))))
                     (ok (unwrap-panic (as-max-len? (append success-list new-id) u10)))
                 )
-                acc ;; Skip existing hashes
+                acc ;; Skip existing hashes, return accumulated list
             )
         err-val (err err-val)
     )
 )
 
-;; @desc Revoke an existing hash, marking it as invalid for verification
+;; ============================================================
+;; PUBLIC FUNCTIONS - Hash Operations
+;; ============================================================
+
+;; Store a SHA-256 hash on-chain with a custom description
+;; Emits: hash ID on success
+;; @param hash 32-byte buffer representing the document fingerprint
+;; @param description human-readable title for the hash (max 128 UTF-8 bytes)
+(define-public (store-hash (hash (buff 32)) (description (string-utf8 128)))
+    (begin
+        ;; Ensure hash doesn't already exist
+        (asserts! (is-none (map-get? hashes hash)) ERR-HASH-ALREADY-EXISTS)
+        
+        ;; Transfer fee to contract owner
+        (try! (stx-transfer? HASH-FEE tx-sender CONTRACT-OWNER))
+        
+        ;; Store hash and update fee counter
+        (let ((new-hash-id (store-hash-internal hash description)))
+            (var-set total-fees-collected (+ (var-get total-fees-collected) HASH-FEE))
+            (ok new-hash-id)
+        )
+    )
+)
+
+;; Store multiple hashes in one transaction with discounted fee
+;; More cost-effective for storing multiple documents
+;; @param hash-list list of up to 10 hash/description tuples
+(define-public (store-hashes-batch (hash-list (list 10 { hash: (buff 32), description: (string-utf8 128) })))
+    (let
+        (
+            (batch-size (len hash-list))
+            (total-fee (* BATCH-HASH-FEE batch-size))
+        )
+        ;; Validate batch is not empty and within size limit
+        (asserts! (> batch-size u0) ERR-EMPTY-BATCH)
+        (asserts! (<= batch-size MAX-BATCH-SIZE) ERR-BATCH-TOO-LARGE)
+        
+        ;; Transfer total batch fee
+        (try! (stx-transfer? total-fee tx-sender CONTRACT-OWNER))
+        
+        ;; Process each hash and collect IDs
+        (let
+            (
+                (result (fold store-hash-fold hash-list (ok (list))))
+            )
+            ;; Update total fees collected
+            (var-set total-fees-collected (+ (var-get total-fees-collected) total-fee))
+            result
+        )
+    )
+)
+
+;; Revoke an existing hash, marking it as invalid for verification
+;; Only the hash owner can revoke their own hash
 ;; @param hash the 32-byte buffer to revoke
 (define-public (revoke-hash (hash (buff 32)))
     (let
         (
             (hash-data (unwrap! (map-get? hashes hash) ERR-HASH-NOT-FOUND))
         )
-        ;; Only the owner can revoke
+        ;; Verify caller is the owner
         (asserts! (is-eq tx-sender (get owner hash-data)) ERR-NOT-HASH-OWNER)
-        ;; Cannot revoke if already revoked
+        ;; Ensure hash hasn't been revoked already
         (asserts! (not (get revoked hash-data)) ERR-HASH-ALREADY-REVOKED)
         
-        ;; Update the hash to revoked state
+        ;; Mark hash as revoked
         (map-set hashes hash (merge hash-data { revoked: true }))
         
         (ok true)
     )
 )
 
-;; Update the description of an existing hash (owner only, smaller fee)
+;; Update the description of an existing hash
+;; Requires smaller fee than storing a new hash
+;; Only the hash owner can update their hash's description
+;; @param hash the 32-byte buffer whose description to update
+;; @param new-description new human-readable description (max 128 UTF-8 bytes)
 (define-public (update-description (hash (buff 32)) (new-description (string-utf8 128)))
     (let
         (
             (hash-data (unwrap! (map-get? hashes hash) ERR-HASH-NOT-FOUND))
         )
-        ;; Only owner can update
+        ;; Verify caller is the owner
         (asserts! (is-eq tx-sender (get owner hash-data)) ERR-NOT-HASH-OWNER)
-        ;; Check description length
+        ;; Validate description length
         (asserts! (<= (len new-description) u128) ERR-DESCRIPTION-TOO-LONG)
         
         ;; Transfer update fee
         (try! (stx-transfer? UPDATE-FEE tx-sender CONTRACT-OWNER))
         
-        ;; Update the hash description
+        ;; Update description and last-updated block height
         (map-set hashes hash (merge hash-data {
             description: new-description,
             last-updated: stacks-block-height
         }))
         
-        ;; Update fees
+        ;; Update fee counter
         (var-set total-fees-collected (+ (var-get total-fees-collected) UPDATE-FEE))
         
         (ok true)
     )
 )
 
-;; Admin function (owner only)
+;; ============================================================
+;; PUBLIC FUNCTIONS - Ownership Transfer
+;; ============================================================
+
+;; Transfer hash ownership to another principal
+;; Only the current owner can transfer their hash
+;; Cannot transfer ownership to self
+;; @param hash the 32-byte buffer to transfer
+;; @param new-owner the principal who will become the new owner
+(define-public (transfer-hash (hash (buff 32)) (new-owner principal))
+    (let
+        (
+            (hash-data (unwrap! (map-get? hashes hash) ERR-HASH-NOT-FOUND))
+        )
+        ;; Verify caller is the current owner
+        (asserts! (is-eq tx-sender (get owner hash-data)) ERR-NOT-HASH-OWNER)
+        ;; Prevent transfer to self
+        (asserts! (not (is-eq tx-sender new-owner)) ERR-TRANSFER-TO-SELF)
+        
+        ;; Update ownership in the hash metadata
+        (map-set hashes hash (merge hash-data { owner: new-owner }))
+        (ok true)
+    )
+)
+
+;; ============================================================
+;; PUBLIC FUNCTIONS - Admin
+;; ============================================================
+
+;; Verify the caller is the contract owner
+;; Used for administrative access control
 (define-public (verify-owner)
     (begin
         (asserts! (is-eq tx-sender CONTRACT-OWNER) ERR-NOT-AUTHORIZED)
@@ -389,25 +435,13 @@
     )
 )
 
-;; Batch verify multiple hashes at once
-;; Returns a list of booleans indicating which hashes exist
+;; ============================================================
+;; READ-ONLY FUNCTIONS - Batch Operations
+;; ============================================================
+
+;; Verify multiple hashes in a single call
+;; Returns a list of booleans indicating existence and validity
+;; @param hash-list list of up to 10 hash buffers to verify
 (define-read-only (batch-verify-hashes (hash-list (list 10 (buff 32))))
     (map verify-hash hash-list)
-)
-
-;; Transfer hash ownership to another user
-(define-public (transfer-hash (hash (buff 32)) (new-owner principal))
-    (let
-        (
-            (hash-data (unwrap! (map-get? hashes hash) ERR-HASH-NOT-FOUND))
-        )
-        ;; Only current owner can transfer
-        (asserts! (is-eq tx-sender (get owner hash-data)) ERR-NOT-HASH-OWNER)
-        ;; Cannot transfer to self
-        (asserts! (not (is-eq tx-sender new-owner)) ERR-TRANSFER-TO-SELF)
-        
-        ;; Update ownership
-        (map-set hashes hash (merge hash-data { owner: new-owner }))
-        (ok true)
-    )
 )
