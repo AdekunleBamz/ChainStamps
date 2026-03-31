@@ -16,6 +16,15 @@
     "type": "git",
     "url": "https://github.com/AdekunleBamz/ChainStamps.git"
   },
+  "keywords": [
+    "blockchain",
+    "stacks",
+    "bitcoin",
+    "clarity",
+    "smart-contracts",
+    "document-verification",
+    "on-chain-storage"
+  ],
   "engines": {
     "node": ">=20.0.0"
   },
