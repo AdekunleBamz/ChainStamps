@@ -1,5 +1,7 @@
 # Security Policy
 
+> **Security Contact**: Adekunle Bamz ([@AdekunleBamz](https://github.com/AdekunleBamz))
+
 ## Supported Versions
 
 | Version | Supported          |
