@@ -16,6 +16,10 @@
     "type": "git",
     "url": "https://github.com/AdekunleBamz/ChainStamps.git"
   },
+  "homepage": "https://chainstamp.vercel.app",
+  "bugs": {
+    "url": "https://github.com/AdekunleBamz/ChainStamps/issues"
+  },
   "keywords": [
     "blockchain",
     "stacks",
