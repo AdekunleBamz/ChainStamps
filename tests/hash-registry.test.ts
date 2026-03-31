@@ -1,14 +1,37 @@
+/**
+ * Hash Registry Contract Tests
+ * 
+ * Tests for the hash-registry Clarity contract covering:
+ * - Fee structure and initial state
+ * - Hash storage and verification
+ * - Duplicate hash rejection
+ * - Fee collection tracking
+ * - User hash management
+ * - Ownership and metadata retrieval
+ * 
+ * @author Adekunle Bamz (@AdekunleBamz)
+ * @license MIT
+ */
+
 import { describe, expect, it } from "vitest";
 import { Cl } from "@stacks/transactions";
 
+// Get test accounts from simnet
 const accounts = simnet.getAccounts();
 const deployer = accounts.get("deployer")!;
 const wallet1 = accounts.get("wallet_1")!;
 const wallet2 = accounts.get("wallet_2")!;
 
-const HASH_FEE = 30000n; // 0.03 STX in microSTX
+// Fee constants (in microSTX)
+const HASH_FEE = 30000n; // 0.03 STX = 30000 microSTX
 
-// Helper to create a test hash (32 bytes)
+/**
+ * Helper function to generate a deterministic 32-byte hash for testing.
+ * Each seed produces a unique hash pattern.
+ * 
+ * @param seed - A number used to generate a unique hash pattern
+ * @returns A 32-byte Uint8Array representing a SHA-256 hash
+ */
 const createTestHash = (seed: number): Uint8Array => {
   const hash = new Uint8Array(32);
   for (let i = 0; i < 32; i++) {
@@ -18,9 +41,17 @@ const createTestHash = (seed: number): Uint8Array => {
 };
 
 describe("hash-registry", () => {
+  // ============================================================
+  // Initialization Tests
+  // ============================================================
+
   it("ensures simnet is well initialized", () => {
     expect(simnet.blockHeight).toBeDefined();
   });
+
+  // ============================================================
+  // Fee Structure Tests
+  // ============================================================
 
   it("should return correct hash fee", () => {
     const { result } = simnet.callReadOnlyFn(
@@ -32,6 +63,10 @@ describe("hash-registry", () => {
     expect(result).toBeUint(HASH_FEE);
   });
 
+  // ============================================================
+  // Initial State Tests
+  // ============================================================
+
   it("should start with zero hashes", () => {
     const { result } = simnet.callReadOnlyFn(
       "hash-registry",
@@ -41,6 +76,10 @@ describe("hash-registry", () => {
     );
     expect(result).toBeUint(0);
   });
+
+  // ============================================================
+  // Hash Storage Tests
+  // ============================================================
 
   it("should allow user to store a hash", () => {
     const testHash = createTestHash(1);
@@ -63,6 +102,10 @@ describe("hash-registry", () => {
     );
     expect(countResult).toBeUint(1);
   });
+
+  // ============================================================
+  // Hash Verification Tests
+  // ============================================================
 
   it("should verify hash exists", () => {
     const testHash = createTestHash(2);
@@ -114,6 +157,10 @@ describe("hash-registry", () => {
     expect(result).toBeErr(Cl.uint(101)); // ERR-HASH-ALREADY-EXISTS
   });
 
+  // ============================================================
+  // Fee Collection Tests
+  // ============================================================
+
   it("should track fees collected", () => {
     const testHash = createTestHash(4);
 
@@ -132,6 +179,10 @@ describe("hash-registry", () => {
     );
     expect(result).toBeUint(HASH_FEE);
   });
+
+  // ============================================================
+  // User Hash Management Tests
+  // ============================================================
 
   it("should return user hash count", () => {
     const hash1 = createTestHash(5);
@@ -158,6 +209,37 @@ describe("hash-registry", () => {
     );
     expect(result).toBeUint(2);
   });
+
+  it("should track user hashes", () => {
+    const testHash1 = createTestHash(9);
+    const testHash2 = createTestHash(10);
+
+    simnet.callPublicFn(
+      "hash-registry",
+      "store-hash",
+      [Cl.buffer(testHash1), Cl.stringUtf8("Hash 1")],
+      wallet2
+    );
+
+    simnet.callPublicFn(
+      "hash-registry",
+      "store-hash",
+      [Cl.buffer(testHash2), Cl.stringUtf8("Hash 2")],
+      wallet2
+    );
+
+    const { result } = simnet.callReadOnlyFn(
+      "hash-registry",
+      "get-user-hashes",
+      [Cl.principal(wallet2)],
+      wallet2
+    );
+    expect(result).toBeList([Cl.buffer(testHash1), Cl.buffer(testHash2)]);
+  });
+
+  // ============================================================
+  // Ownership Tests
+  // ============================================================
 
   it("should return hash owner", () => {
     const testHash = createTestHash(7);
@@ -188,6 +270,10 @@ describe("hash-registry", () => {
     expect(result).toBePrincipal(deployer);
   });
 
+  // ============================================================
+  // Metadata Retrieval Tests
+  // ============================================================
+
   it("should retrieve hash by ID", () => {
     const testHash = createTestHash(8);
 
@@ -205,33 +291,6 @@ describe("hash-registry", () => {
       wallet1
     );
     expect(result).toBeSome(Cl.buffer(testHash));
-  });
-
-  it("should track user hashes", () => {
-    const testHash1 = createTestHash(9);
-    const testHash2 = createTestHash(10);
-
-    simnet.callPublicFn(
-      "hash-registry",
-      "store-hash",
-      [Cl.buffer(testHash1), Cl.stringUtf8("Hash 1")],
-      wallet2
-    );
-
-    simnet.callPublicFn(
-      "hash-registry",
-      "store-hash",
-      [Cl.buffer(testHash2), Cl.stringUtf8("Hash 2")],
-      wallet2
-    );
-
-    const { result } = simnet.callReadOnlyFn(
-      "hash-registry",
-      "get-user-hashes",
-      [Cl.principal(wallet2)],
-      wallet2
-    );
-    expect(result).toBeList([Cl.buffer(testHash1), Cl.buffer(testHash2)]);
   });
 
   it("should return hash description", () => {
