@@ -1,7 +1,7 @@
 [project]
 name = 'chainstamp'
-description = ''
-authors = []
+description = 'ChainStamps - Decentralized document verification and on-chain stamping on Stacks/Bitcoin'
+authors = ['Adekunle Bamz (@adekunlebamz)']
 telemetry = true
 cache_dir = './.cache'
 requirements = []
