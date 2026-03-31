@@ -10,8 +10,12 @@
     "test:ci": "vitest run --coverage --costs",
     "test:watch": "chokidar \"tests/**/*.ts\" \"contracts/**/*.clar\" -c \"npm run test:report\""
   },
-  "author": "",
+  "author": "Adekunle Bamz (@adekunlebamz)",
   "license": "ISC",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/AdekunleBamz/ChainStamps.git"
+  },
   "engines": {
     "node": ">=20.0.0"
   },
