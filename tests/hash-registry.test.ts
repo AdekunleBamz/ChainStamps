@@ -331,4 +331,202 @@ describe("hash-registry", () => {
     );
     expect(result).toBeSome(Cl.uint(simnet.blockHeight));
   });
+
+  // ============================================================
+  // Hash Revocation Tests
+  // ============================================================
+
+  it("should allow owner to revoke hash", () => {
+    const testHash = createTestHash(13);
+
+    simnet.callPublicFn(
+      "hash-registry",
+      "store-hash",
+      [Cl.buffer(testHash), Cl.stringUtf8("Revoke test")],
+      wallet1
+    );
+
+    const { result } = simnet.callPublicFn(
+      "hash-registry",
+      "revoke-hash",
+      [Cl.buffer(testHash)],
+      wallet1
+    );
+    expect(result).toBeOk(Cl.bool(true));
+
+    // Verify hash is now revoked
+    const { result: verifyResult } = simnet.callReadOnlyFn(
+      "hash-registry",
+      "verify-hash",
+      [Cl.buffer(testHash)],
+      wallet1
+    );
+    expect(verifyResult).toBeBool(false);
+  });
+
+  it("should reject revocation by non-owner", () => {
+    const testHash = createTestHash(14);
+
+    simnet.callPublicFn(
+      "hash-registry",
+      "store-hash",
+      [Cl.buffer(testHash), Cl.stringUtf8("Non-owner revoke")],
+      wallet1
+    );
+
+    const { result } = simnet.callPublicFn(
+      "hash-registry",
+      "revoke-hash",
+      [Cl.buffer(testHash)],
+      wallet2
+    );
+    expect(result).toBeErr(Cl.uint(108)); // ERR-NOT-HASH-OWNER
+  });
+
+  it("should reject revoking already revoked hash", () => {
+    const testHash = createTestHash(15);
+
+    simnet.callPublicFn(
+      "hash-registry",
+      "store-hash",
+      [Cl.buffer(testHash), Cl.stringUtf8("Double revoke")],
+      wallet1
+    );
+
+    simnet.callPublicFn(
+      "hash-registry",
+      "revoke-hash",
+      [Cl.buffer(testHash)],
+      wallet1
+    );
+
+    const { result } = simnet.callPublicFn(
+      "hash-registry",
+      "revoke-hash",
+      [Cl.buffer(testHash)],
+      wallet1
+    );
+    expect(result).toBeErr(Cl.uint(103)); // ERR-HASH-ALREADY-REVOKED
+  });
+
+  // ============================================================
+  // Hash Transfer Tests
+  // ============================================================
+
+  it("should allow owner to transfer hash", () => {
+    const testHash = createTestHash(16);
+
+    simnet.callPublicFn(
+      "hash-registry",
+      "store-hash",
+      [Cl.buffer(testHash), Cl.stringUtf8("Transfer test")],
+      wallet1
+    );
+
+    const { result } = simnet.callPublicFn(
+      "hash-registry",
+      "transfer-hash",
+      [Cl.buffer(testHash), Cl.principal(wallet2)],
+      wallet1
+    );
+    expect(result).toBeOk(Cl.bool(true));
+
+    // Verify new owner
+    const { result: ownerResult } = simnet.callReadOnlyFn(
+      "hash-registry",
+      "get-hash-owner",
+      [Cl.buffer(testHash)],
+      wallet2
+    );
+    expect(ownerResult).toBeSome(Cl.principal(wallet2));
+  });
+
+  it("should reject transfer by non-owner", () => {
+    const testHash = createTestHash(17);
+
+    simnet.callPublicFn(
+      "hash-registry",
+      "store-hash",
+      [Cl.buffer(testHash), Cl.stringUtf8("Non-owner transfer")],
+      wallet1
+    );
+
+    const { result } = simnet.callPublicFn(
+      "hash-registry",
+      "transfer-hash",
+      [Cl.buffer(testHash), Cl.principal(wallet2)],
+      wallet2
+    );
+    expect(result).toBeErr(Cl.uint(108)); // ERR-NOT-HASH-OWNER
+  });
+
+  it("should reject transfer to self", () => {
+    const testHash = createTestHash(18);
+
+    simnet.callPublicFn(
+      "hash-registry",
+      "store-hash",
+      [Cl.buffer(testHash), Cl.stringUtf8("Self transfer")],
+      wallet1
+    );
+
+    const { result } = simnet.callPublicFn(
+      "hash-registry",
+      "transfer-hash",
+      [Cl.buffer(testHash), Cl.principal(wallet1)],
+      wallet1
+    );
+    expect(result).toBeErr(Cl.uint(107)); // ERR-TRANSFER-TO-SELF
+  });
+
+  // ============================================================
+  // Description Update Tests
+  // ============================================================
+
+  it("should allow owner to update description", () => {
+    const testHash = createTestHash(19);
+
+    simnet.callPublicFn(
+      "hash-registry",
+      "store-hash",
+      [Cl.buffer(testHash), Cl.stringUtf8("Original description")],
+      wallet1
+    );
+
+    const { result } = simnet.callPublicFn(
+      "hash-registry",
+      "update-description",
+      [Cl.buffer(testHash), Cl.stringUtf8("Updated description")],
+      wallet1
+    );
+    expect(result).toBeOk(Cl.bool(true));
+
+    // Verify description was updated
+    const { result: descResult } = simnet.callReadOnlyFn(
+      "hash-registry",
+      "get-hash-description",
+      [Cl.buffer(testHash)],
+      wallet1
+    );
+    expect(descResult).toBeSome(Cl.stringUtf8("Updated description"));
+  });
+
+  it("should reject description update by non-owner", () => {
+    const testHash = createTestHash(20);
+
+    simnet.callPublicFn(
+      "hash-registry",
+      "store-hash",
+      [Cl.buffer(testHash), Cl.stringUtf8("Owner only update")],
+      wallet1
+    );
+
+    const { result } = simnet.callPublicFn(
+      "hash-registry",
+      "update-description",
+      [Cl.buffer(testHash), Cl.stringUtf8("Unauthorized update")],
+      wallet2
+    );
+    expect(result).toBeErr(Cl.uint(108)); // ERR-NOT-HASH-OWNER
+  });
 });
