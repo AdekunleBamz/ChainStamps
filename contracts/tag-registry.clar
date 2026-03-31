@@ -81,12 +81,18 @@
 ;; Enables efficient lookup of tags by their key within a namespace
 (define-map tag-lookup { owner: principal, namespace: (string-utf8 32), key: (string-utf8 64) } uint)
 
-;; Read-only functions
+;; ============================================================
+;; READ-ONLY FUNCTIONS - Tag Lookup
+;; ============================================================
 
+;; Retrieve complete metadata for a tag by its ID
+;; Returns: (some {owner, namespace, key, value, timestamp, block-height, deleted}) or none
 (define-read-only (get-tag (tag-id uint))
     (map-get? tags tag-id)
 )
-;; Get owner of a tag if it exists
+
+;; Get the owner principal of a tag if it exists
+;; Returns: (some principal) or none
 (define-read-only (get-tag-owner (tag-id uint))
     (match (map-get? tags tag-id)
         tag-data (some (get owner tag-data))
@@ -94,7 +100,8 @@
     )
 )
 
-;; Check if a principal is the owner of a tag
+;; Verify if a principal is the owner of a specific tag
+;; Returns: true if user is the owner, false otherwise
 (define-read-only (is-tag-owner (tag-id uint) (user principal))
     (match (map-get? tags tag-id)
         tag-data (is-eq (get owner tag-data) user)
@@ -102,7 +109,8 @@
     )
 )
 
-;; Get value of a tag if it exists
+;; Get the value of a tag if it exists
+;; Returns: (some string-utf8) or none
 (define-read-only (get-tag-value (tag-id uint))
     (match (map-get? tags tag-id)
         tag-data (some (get value tag-data))
@@ -110,7 +118,8 @@
     )
 )
 
-;; Get key of a tag if it exists
+;; Get the key of a tag if it exists
+;; Returns: (some string-utf8) or none
 (define-read-only (get-tag-key (tag-id uint))
     (match (map-get? tags tag-id)
         tag-data (some (get key tag-data))
@@ -118,7 +127,8 @@
     )
 )
 
-;; Get block height for a tag if it exists
+;; Get the block height when a tag was stored
+;; Returns: (some uint) or none
 (define-read-only (get-tag-block-height (tag-id uint))
     (match (map-get? tags tag-id)
         tag-data (some (get block-height tag-data))
@@ -126,10 +136,14 @@
     )
 )
 
+;; Get a tag by key in the default namespace
+;; Convenience function that delegates to get-tag-by-ns-key
 (define-read-only (get-tag-by-key (owner principal) (key (string-utf8 64)))
     (get-tag-by-ns-key owner DEFAULT-NAMESPACE key)
 )
 
+;; Get a tag by owner, namespace, and key with O(1) lookup
+;; Returns the full tag metadata if found and not deleted, none otherwise
 (define-read-only (get-tag-by-ns-key (owner principal) (namespace (string-utf8 32)) (key (string-utf8 64)))
     (match (map-get? tag-lookup { owner: owner, namespace: namespace, key: key })
         tag-id (match (map-get? tags tag-id)
@@ -140,6 +154,8 @@
     )
 )
 
+;; Check if a tag has been explicitly deleted by its owner
+;; Returns: true if deleted, false if active or non-existent
 (define-read-only (is-tag-deleted (tag-id uint))
     (match (map-get? tags tag-id)
         tag-data (get deleted tag-data)
@@ -147,36 +163,58 @@
     )
 )
 
+;; ============================================================
+;; READ-ONLY FUNCTIONS - Contract State
+;; ============================================================
+
+;; Get total number of tags stored in the registry
 (define-read-only (get-tag-count)
     (var-get tag-counter)
 )
 
+;; Get total fees collected by the contract since deployment
 (define-read-only (get-total-fees)
     (var-get total-fees-collected)
 )
 
+;; Get current fee for storing or updating a tag
 (define-read-only (get-tag-fee)
     TAG-FEE
 )
 
+;; ============================================================
+;; READ-ONLY FUNCTIONS - User Queries
+;; ============================================================
+
+;; Get list of all tag IDs owned by a user
+;; Returns: (list 100 uint) or empty list if none
 (define-read-only (get-user-tags (user principal))
     (default-to (list) (map-get? user-tags user))
 )
 
-;; Get total tags stored by a user
+;; Get count of tags stored by a specific user
+;; Returns: uint representing number of tags
 (define-read-only (get-user-tag-count (user principal))
     (len (default-to (list) (map-get? user-tags user)))
 )
 
+;; Get list of tag IDs in a specific namespace for a user
+;; Returns: (list 100 uint) or empty list if none
 (define-read-only (get-user-namespace-tags (user principal) (namespace (string-utf8 32)))
     (default-to (list) (map-get? namespace-tags { owner: user, namespace: namespace }))
 )
 
+;; ============================================================
+;; READ-ONLY FUNCTIONS - Contract Info
+;; ============================================================
+
+;; Get the contract owner principal (fee recipient)
 (define-read-only (get-contract-owner)
     CONTRACT-OWNER
 )
 
-;; Get contract stats summary
+;; Get summary statistics for the contract
+;; Returns: {total-tags, total-fees, fee-per-tag}
 (define-read-only (get-stats)
     {
         total-tags: (var-get tag-counter),
@@ -185,14 +223,22 @@
     }
 )
 
-;; Public functions
+;; ============================================================
+;; PUBLIC FUNCTIONS - Tag Operations
+;; ============================================================
 
-;; Store a key-value tag on-chain (default namespace)
+;; Store a key-value tag on-chain in the default namespace
+;; @param key the tag key (max 64 UTF-8 bytes)
+;; @param value the tag value (max 256 UTF-8 bytes)
 (define-public (store-tag (key (string-utf8 64)) (value (string-utf8 256)))
     (store-tag-with-namespace DEFAULT-NAMESPACE key value)
 )
 
-;; Store a key-value tag with custom namespace
+;; Store a key-value tag on-chain with a custom namespace
+;; Creates a new tag with the given namespace, key, and value
+;; @param namespace namespace for grouping related tags (max 32 UTF-8 bytes)
+;; @param key the tag key (max 64 UTF-8 bytes)
+;; @param value the tag value (max 256 UTF-8 bytes)
 (define-public (store-tag-with-namespace (namespace (string-utf8 32)) (key (string-utf8 64)) (value (string-utf8 256)))
     (let
         (
@@ -200,15 +246,17 @@
             (current-user-tags (default-to (list) (map-get? user-tags tx-sender)))
             (current-ns-tags (default-to (list) (map-get? namespace-tags { owner: tx-sender, namespace: namespace })))
         )
-        ;; Check lengths
+        ;; Validate namespace length
         (asserts! (<= (len namespace) MAX-NAMESPACE-LENGTH) ERR-NAMESPACE-TOO-LONG)
+        ;; Validate key length
         (asserts! (<= (len key) MAX-KEY-LENGTH) ERR-KEY-TOO-LONG)
+        ;; Validate value length
         (asserts! (<= (len value) MAX-VALUE-LENGTH) ERR-VALUE-TOO-LONG)
         
         ;; Transfer fee to contract owner
         (try! (stx-transfer? TAG-FEE tx-sender CONTRACT-OWNER))
         
-        ;; Store the tag
+        ;; Store the tag metadata
         (map-set tags new-tag-id {
             owner: tx-sender,
             namespace: namespace,
@@ -219,47 +267,54 @@
             deleted: false
         })
         
-        ;; Store lookup
+        ;; Store lookup for O(1) key-based retrieval
         (map-set tag-lookup { owner: tx-sender, namespace: namespace, key: key } new-tag-id)
         
-        ;; Update user tags list
+        ;; Update user's tag list
         (map-set user-tags tx-sender 
             (unwrap-panic (as-max-len? (append current-user-tags new-tag-id) MAX-USER-TAGS)))
         
-        ;; Update namespace tags list
+        ;; Update namespace's tag list
         (map-set namespace-tags { owner: tx-sender, namespace: namespace }
             (unwrap-panic (as-max-len? (append current-ns-tags new-tag-id) MAX-USER-TAGS)))
         
-        ;; Increment counter and fees
+        ;; Increment counter and update fees
         (var-set tag-counter new-tag-id)
         (var-set total-fees-collected (+ (var-get total-fees-collected) TAG-FEE))
         
-        ;; Return the tag ID
+        ;; Return the new tag ID
         (ok new-tag-id)
     )
 )
 
-;; Update an existing tag value (same fee applies)
+;; Update an existing tag value in the default namespace
+;; Same fee applies as storing a new tag
+;; @param key the tag key to update (max 64 UTF-8 bytes)
+;; @param new-value the new tag value (max 256 UTF-8 bytes)
 (define-public (update-tag (key (string-utf8 64)) (new-value (string-utf8 256)))
     (update-tag-with-namespace DEFAULT-NAMESPACE key new-value)
 )
 
-;; Update an existing tag with namespace
+;; Update an existing tag value with namespace
+;; Only the tag owner can update their tag's value
+;; @param namespace the namespace containing the tag (max 32 UTF-8 bytes)
+;; @param key the tag key to update (max 64 UTF-8 bytes)
+;; @param new-value the new tag value (max 256 UTF-8 bytes)
 (define-public (update-tag-with-namespace (namespace (string-utf8 32)) (key (string-utf8 64)) (new-value (string-utf8 256)))
     (let
         (
             (existing-tag-id (unwrap! (map-get? tag-lookup { owner: tx-sender, namespace: namespace, key: key }) ERR-TAG-NOT-FOUND))
             (existing-tag (unwrap! (map-get? tags existing-tag-id) ERR-TAG-NOT-FOUND))
         )
-        ;; Check if tag is deleted
+        ;; Ensure tag hasn't been deleted
         (asserts! (not (get deleted existing-tag)) ERR-TAG-ALREADY-DELETED)
-        ;; Check value length
+        ;; Validate new value length
         (asserts! (<= (len new-value) MAX-VALUE-LENGTH) ERR-VALUE-TOO-LONG)
         
         ;; Transfer fee to contract owner
         (try! (stx-transfer? TAG-FEE tx-sender CONTRACT-OWNER))
         
-        ;; Update the tag
+        ;; Update the tag value and timestamp
         (map-set tags existing-tag-id {
             owner: tx-sender,
             namespace: namespace,
@@ -277,28 +332,39 @@
     )
 )
 
+;; ============================================================
+;; PUBLIC FUNCTIONS - Tag Deletion
+;; ============================================================
+
 ;; Delete a tag (owner only) - marks the tag as deleted
+;; Deleted tags are not returned by lookup functions but remain in storage
+;; @param tag-id the numeric ID of the tag to delete
 (define-public (delete-tag (tag-id uint))
     (let
         (
             (tag-data (unwrap! (map-get? tags tag-id) ERR-TAG-NOT-FOUND))
         )
-        ;; Only the owner can delete
+        ;; Verify caller is the owner
         (asserts! (is-eq tx-sender (get owner tag-data)) ERR-NOT-AUTHORIZED)
-        ;; Cannot delete if already deleted
+        ;; Ensure tag hasn't been deleted already
         (asserts! (not (get deleted tag-data)) ERR-TAG-ALREADY-DELETED)
         
-        ;; Update the tag to deleted state
+        ;; Mark tag as deleted
         (map-set tags tag-id (merge tag-data { deleted: true }))
         
-        ;; Remove from lookup
+        ;; Remove from key-based lookup
         (map-delete tag-lookup { owner: tx-sender, namespace: (get namespace tag-data), key: (get key tag-data) })
         
         (ok true)
     )
 )
 
-;; Admin function (owner only)
+;; ============================================================
+;; PUBLIC FUNCTIONS - Admin
+;; ============================================================
+
+;; Verify the caller is the contract owner
+;; Used for administrative access control
 (define-public (verify-owner)
     (begin
         (asserts! (is-eq tx-sender CONTRACT-OWNER) ERR-NOT-AUTHORIZED)
@@ -306,7 +372,12 @@
     )
 )
 
-;; Get multiple tags by IDs
+;; ============================================================
+;; READ-ONLY FUNCTIONS - Batch Operations
+;; ============================================================
+
+;; Get multiple tags by their IDs in a single call
+;; Returns: list of tag metadata (some may be none if ID doesn't exist)
 (define-read-only (batch-get-tags (tag-ids (list 10 uint)))
     (map get-tag tag-ids)
 )
