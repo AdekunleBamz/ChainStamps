@@ -1,75 +1,91 @@
-# React + TypeScript + Vite
+# ChainStamps Frontend
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+> **Maintainer**: Adekunle Bamz ([@AdekunleBamz](https://github.com/AdekunleBamz))
 
-Currently, two official plugins are available:
+The ChainStamps frontend is a modern React application built with TypeScript and Vite, providing a user-friendly interface for interacting with the ChainStamps smart contracts on the Stacks blockchain.
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react) uses [Babel](https://babeljs.io/) (or [oxc](https://oxc.rs) when used in [rolldown-vite](https://vite.dev/guide/rolldown)) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
+## Features
 
-## React Compiler
+- **Document Verification**: Store and verify SHA-256 hashes on-chain
+- **Message Stamping**: Permanently record messages with timestamps
+- **Key-Value Storage**: Store and update metadata on the blockchain
+- **Wallet Integration**: Support for Hiro and Xverse wallets
+- **Responsive Design**: Works on desktop and mobile devices
+- **Dark Mode**: Built-in theme switching
 
-The React Compiler is not enabled on this template because of its impact on dev & build performances. To add it, see [this documentation](https://react.dev/learn/react-compiler/installation).
+## Tech Stack
 
-## Expanding the ESLint configuration
+- **React 18** - UI framework
+- **TypeScript** - Type safety
+- **Vite** - Build tool and dev server
+- **Framer Motion** - Animations
+- **Tailwind CSS** - Styling utilities
 
-If you are developing a production application, we recommend updating the configuration to enable type-aware lint rules:
+## Getting Started
 
-```js
-export default defineConfig([
-  globalIgnores(['dist']),
-  {
-    files: ['**/*.{ts,tsx}'],
-    extends: [
-      // Other configs...
+### Prerequisites
 
-      // Remove tseslint.configs.recommended and replace with this
-      tseslint.configs.recommendedTypeChecked,
-      // Alternatively, use this for stricter rules
-      tseslint.configs.strictTypeChecked,
-      // Optionally, add this for stylistic rules
-      tseslint.configs.stylisticTypeChecked,
+- Node.js 20+
+- npm 10+
 
-      // Other configs...
-    ],
-    languageOptions: {
-      parserOptions: {
-        project: ['./tsconfig.node.json', './tsconfig.app.json'],
-        tsconfigRootDir: import.meta.dirname,
-      },
-      // other options...
-    },
-  },
-])
+### Installation
+
+```bash
+# Install dependencies
+npm ci
+
+# Start development server
+npm run dev
 ```
 
-Keep `.env.example` aligned with production-required variables whenever wallet/network config changes.
+### Build for Production
 
-You can also install [eslint-plugin-react-x](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-x) and [eslint-plugin-react-dom](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-dom) for React-specific lint rules:
+```bash
+# Create production build
+npm run build
 
-```js
-// eslint.config.js
-import reactX from 'eslint-plugin-react-x'
-import reactDom from 'eslint-plugin-react-dom'
-
-export default defineConfig([
-  globalIgnores(['dist']),
-  {
-    files: ['**/*.{ts,tsx}'],
-    extends: [
-      // Other configs...
-      // Enable lint rules for React
-      reactX.configs['recommended-typescript'],
-      // Enable lint rules for React DOM
-      reactDom.configs.recommended,
-    ],
-    languageOptions: {
-      parserOptions: {
-        project: ['./tsconfig.node.json', './tsconfig.app.json'],
-        tsconfigRootDir: import.meta.dirname,
-      },
-      // other options...
-    },
-  },
-])
+# Preview production build
+npm run preview
 ```
+
+### Linting
+
+```bash
+# Run ESLint
+npm run lint
+
+# Fix auto-fixable issues
+npm run lint -- --fix
+```
+
+## Project Structure
+
+```
+frontend/src/
+├── components/          # React components
+│   ├── ui/             # Reusable UI components
+│   └── *.tsx           # Feature components
+├── hooks/              # Custom React hooks
+├── context/            # React context providers
+├── utils/              # Utility functions
+├── config/             # Configuration files
+└── sdk/                # ChainStamps SDK
+```
+
+## Environment Variables
+
+Copy `.env.example` to `.env` and configure:
+
+```
+VITE_APP_NAME=ChainStamps
+VITE_CONTRACT_ADDRESS=SP...
+VITE_NETWORK=testnet
+```
+
+## Contributing
+
+Please read the main [CONTRIBUTING.md](../CONTRIBUTING.md) for guidelines.
+
+## License
+
+MIT - see [LICENSE](../LICENSE)
