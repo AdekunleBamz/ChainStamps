@@ -1,5 +1,7 @@
 # UI Style Guide 🎨
 
+> **Author**: Adekunle Bamz ([@AdekunleBamz](https://github.com/AdekunleBamz))
+
 This document defines the visual design system and component patterns for the ChainStamps frontend.
 
 ## Color Palette
