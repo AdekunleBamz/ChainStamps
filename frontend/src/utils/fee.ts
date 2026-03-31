@@ -21,3 +21,25 @@ export function estimateFee(payload: number | string): number {
     const estimated = BASE_FEE + (size * FEE_PER_BYTE);
     return Math.round(estimated * 10000) / 10000;
 }
+
+/**
+ * Converts STX amount to microSTX (uSTX).
+ * Useful for displaying fees in the UI with higher precision.
+ * 
+ * @param {number} stx - Amount in STX
+ * @returns {number} Amount in microSTX (uSTX)
+ */
+export function stxToMicroStx(stx: number): number {
+    return Math.round(stx * 1_000_000);
+}
+
+/**
+ * Converts microSTX (uSTX) to STX.
+ * Useful for parsing contract fee values.
+ * 
+ * @param {number} microStx - Amount in microSTX (uSTX)
+ * @returns {number} Amount in STX
+ */
+export function microStxToStx(microStx: number): number {
+    return microStx / 1_000_000;
+}
