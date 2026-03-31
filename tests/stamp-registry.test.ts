@@ -1,3 +1,4 @@
+
 /**
  * Stamp Registry Contract Tests
  * 
@@ -375,5 +376,51 @@ describe("stamp-registry", () => {
       wallet1
     );
     expect(result).toBeNone();
+  });
+
+  // ============================================================
+  // Stats and Contract Info Tests
+  // ============================================================
+
+  it("should return contract stats", () => {
+    simnet.callPublicFn(
+      "stamp-registry",
+      "stamp-message",
+      [Cl.stringUtf8("Stats test")],
+      wallet1
+    );
+
+    const { result } = simnet.callReadOnlyFn(
+      "stamp-registry",
+      "get-stats",
+      [],
+      wallet1
+    );
+
+    expect(result).toBeTuple({
+      "total-stamps": Cl.uint(1),
+      "total-fees": Cl.uint(STAMP_FEE),
+      "fee-per-stamp": Cl.uint(STAMP_FEE)
+    });
+  });
+
+  it("should return update fee", () => {
+    const { result } = simnet.callReadOnlyFn(
+      "stamp-registry",
+      "get-update-fee",
+      [],
+      wallet1
+    );
+    expect(result).toBeUint(10000); // 0.01 STX
+  });
+
+  it("should return max batch size", () => {
+    const { result } = simnet.callReadOnlyFn(
+      "stamp-registry",
+      "get-max-batch-size",
+      [],
+      wallet1
+    );
+    expect(result).toBeUint(5);
   });
 });
