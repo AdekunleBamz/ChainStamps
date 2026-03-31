@@ -1,7 +1,16 @@
 import confetti from 'canvas-confetti';
 
 /**
+ * Configuration options for confetti animations.
+ * Uses brand colors (primary, accent, success) for consistency.
+ */
+const CONFETTI_COLORS = ['#6366f1', '#a855f7', '#3b82f6'];
+const SUCCESS_COLORS = ['#6366f1', '#a855f7', '#22c55e'];
+
+/**
  * Triggers a side-burst confetti effect that lasts for 3 seconds.
+ * Creates a celebratory animation from both sides of the screen.
+ * Ideal for milestone achievements or special events.
  */
 export const triggerConfetti = () => {
     const duration = 3 * 1000;
@@ -23,13 +32,13 @@ export const triggerConfetti = () => {
             ...defaults,
             particleCount,
             origin: { x: randomInRange(0.1, 0.3), y: Math.random() - 0.2 },
-            colors: ['#6366f1', '#a855f7', '#3b82f6'] // Use primary/accent colors
+            colors: CONFETTI_COLORS
         });
         confetti({
             ...defaults,
             particleCount,
             origin: { x: randomInRange(0.7, 0.9), y: Math.random() - 0.2 },
-            colors: ['#6366f1', '#a855f7', '#3b82f6']
+            colors: CONFETTI_COLORS
         });
     }, 250);
 };
@@ -37,16 +46,33 @@ export const triggerConfetti = () => {
 /**
  * Triggers a celebratory confetti animation on the screen.
  * Used to provide visual feedback for successful transactions.
+ * Creates a single burst from the bottom center with success colors.
  */
 export const triggerSuccessConfetti = () => {
     confetti({
         particleCount: 150,
         spread: 70,
         origin: { y: 0.6 },
-        colors: ['#6366f1', '#a855f7', '#22c55e'],
+        colors: SUCCESS_COLORS,
         ticks: 200,
         gravity: 1.2,
         scalar: 1.2,
         shapes: ['circle', 'square']
+    });
+};
+
+/**
+ * Triggers a subtle confetti burst for minor celebrations.
+ * Uses fewer particles and a shorter duration.
+ */
+export const triggerSubtleConfetti = () => {
+    confetti({
+        particleCount: 50,
+        spread: 50,
+        origin: { y: 0.7 },
+        colors: CONFETTI_COLORS,
+        ticks: 100,
+        gravity: 0.8,
+        scalar: 0.8
     });
 };
