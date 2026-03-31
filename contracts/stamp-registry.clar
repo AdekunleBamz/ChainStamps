@@ -24,24 +24,50 @@
 ;; Error: Invalid category code provided (u105)
 (define-constant ERR-INVALID-CATEGORY (err u105))
 
-;; Fee in microSTX (0.05 STX = 50000 microSTX)
+;; ============================================================
+;; CONSTANTS - Fee Structure and Limits
+;; ============================================================
+;; Fee for stamping a message (0.05 STX = 50000 microSTX)
 (define-constant STAMP-FEE u50000)
+;; Maximum message length in UTF-8 bytes
 (define-constant MAX-MESSAGE-LENGTH u256)
+;; Maximum length for category names (reserved for future use)
 (define-constant MAX-CATEGORY-LENGTH u32)
+;; Maximum stamps a single user can create (prevents state bloat)
 (define-constant MAX-USER-STAMPS u100)
 
-;; Valid categories
+;; ============================================================
+;; CONSTANTS - Message Categories
+;; ============================================================
+;; General messages - default category for uncategorized stamps
 (define-constant CATEGORY-GENERAL u0)
+;; Announcements - official project or product announcements
 (define-constant CATEGORY-ANNOUNCEMENT u1)
+;; Milestones - significant achievements or version releases
 (define-constant CATEGORY-MILESTONE u2)
+;; Legal - legal notices, disclaimers, or terms
 (define-constant CATEGORY-LEGAL u3)
+;; Personal - personal messages or notes
 (define-constant CATEGORY-PERSONAL u4)
 
-;; Data Variables
+;; ============================================================
+;; DATA VARIABLES
+;; ============================================================
+;; Counter for total stamps created (used for ID generation)
 (define-data-var stamp-counter uint u0)
+;; Accumulated total of all fees collected by the contract
 (define-data-var total-fees-collected uint u0)
 
-;; Data Maps
+;; ============================================================
+;; DATA MAPS
+;; ============================================================
+;; Primary storage: Maps stamp ID to message metadata
+;; - sender: Principal who created the stamp
+;; - message: The stamped message content (max 256 UTF-8 bytes)
+;; - category: Numeric category code for classification
+;; - timestamp: Block timestamp when stamp was created
+;; - block-height: Block height when stamp was created
+;; - revoked: Whether this stamp has been revoked by sender
 (define-map stamps uint {
     sender: principal,
     message: (string-utf8 256),
@@ -51,9 +77,12 @@
     revoked: bool
 })
 
+;; Index: Maps user principal to list of their stamp IDs
+;; Enables efficient lookup of all stamps created by a user
 (define-map user-stamps principal (list 100 uint))
 
-;; Category tracking
+;; Index: Maps category code to list of stamp IDs in that category
+;; Enables browsing stamps by category classification
 (define-map category-stamps uint (list 100 uint))
 
 ;; Read-only functions
