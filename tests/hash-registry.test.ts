@@ -529,4 +529,122 @@ describe("hash-registry", () => {
     );
     expect(result).toBeErr(Cl.uint(108)); // ERR-NOT-HASH-OWNER
   });
+
+  // ============================================================
+  // Batch Operation Tests
+  // ============================================================
+
+  it("should allow batch storing multiple hashes", () => {
+    const hash1 = createTestHash(21);
+    const hash2 = createTestHash(22);
+
+    const { result } = simnet.callPublicFn(
+      "hash-registry",
+      "store-hashes-batch",
+      [
+        Cl.list([
+          Cl.tuple({
+            hash: Cl.buffer(hash1),
+            description: Cl.stringUtf8("Batch hash 1")
+          }),
+          Cl.tuple({
+            hash: Cl.buffer(hash2),
+            description: Cl.stringUtf8("Batch hash 2")
+          })
+        ])
+      ],
+      wallet1
+    );
+
+    expect(result).toBeOk(Cl.list([Cl.uint(1), Cl.uint(2)]));
+  });
+
+  it("should charge discounted fee for batch operations", () => {
+    const hash3 = createTestHash(23);
+    const hash4 = createTestHash(24);
+    const BATCH_FEE = 50000n; // 2 * 25000 microSTX
+
+    simnet.callPublicFn(
+      "hash-registry",
+      "store-hashes-batch",
+      [
+        Cl.list([
+          Cl.tuple({
+            hash: Cl.buffer(hash3),
+            description: Cl.stringUtf8("Discount test 1")
+          }),
+          Cl.tuple({
+            hash: Cl.buffer(hash4),
+            description: Cl.stringUtf8("Discount test 2")
+          })
+        ])
+      ],
+      wallet2
+    );
+
+    // Check that the correct batch fee was collected
+    const { result } = simnet.callReadOnlyFn(
+      "hash-registry",
+      "get-total-fees",
+      [],
+      wallet2
+    );
+    // Total fees should include previous batch + this batch
+    expect(result).toBeUint(BATCH_FEE);
+  });
+
+  it("should reject empty batch", () => {
+    const { result } = simnet.callPublicFn(
+      "hash-registry",
+      "store-hashes-batch",
+      [Cl.list([])],
+      wallet1
+    );
+    expect(result).toBeErr(Cl.uint(106)); // ERR-EMPTY-BATCH
+  });
+
+  it("should skip duplicate hashes in batch", () => {
+    const hash5 = createTestHash(25);
+
+    // First store a hash normally
+    simnet.callPublicFn(
+      "hash-registry",
+      "store-hash",
+      [Cl.buffer(hash5), Cl.stringUtf8("Pre-existing")],
+      wallet1
+    );
+
+    // Try to batch store with one new and one duplicate
+    const hash6 = createTestHash(26);
+    const { result } = simnet.callPublicFn(
+      "hash-registry",
+      "store-hashes-batch",
+      [
+        Cl.list([
+          Cl.tuple({
+            hash: Cl.buffer(hash5),
+            description: Cl.stringUtf8("Duplicate in batch")
+          }),
+          Cl.tuple({
+            hash: Cl.buffer(hash6),
+            description: Cl.stringUtf8("New in batch")
+          })
+        ])
+      ],
+      wallet2
+    );
+
+    // Should only return the ID for the new hash
+    expect(result).toBeOk(Cl.list([Cl.uint(2)]));
+  });
+
+  it("should return correct batch fee", () => {
+    const { result } = simnet.callReadOnlyFn(
+      "hash-registry",
+      "get-batch-hash-fee",
+      [],
+      wallet1
+    );
+    expect(result).toBeUint(25000); // 0.025 STX per hash in batch
+  });
 });
