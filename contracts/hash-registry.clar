@@ -2,19 +2,36 @@
 ;; version: 1.3.0
 ;; summary: Store document hashes on-chain for verification
 ;; description: ChainStamp - Pay 0.03 STX to permanently store a hash for document verification
+;; author: Adekunle Bamz (@AdekunleBamz)
+;; license: MIT
 
-;; Constants
+;; ============================================================
+;; CONSTANTS - Error Codes
+;; ============================================================
+;; Contract owner principal for fee collection
 (define-constant CONTRACT-OWNER tx-sender)
+
+;; Error: Caller is not authorized to perform this action (u100)
 (define-constant ERR-NOT-AUTHORIZED (err u100))
+;; Error: Hash already exists in the registry (u101)
 (define-constant ERR-HASH-ALREADY-EXISTS (err u101))
+;; Error: Hash not found in the registry (u102)
 (define-constant ERR-HASH-NOT-FOUND (err u102))
+;; Error: Hash has already been revoked (u103)
 (define-constant ERR-HASH-ALREADY-REVOKED (err u103))
+;; Error: Description exceeds maximum allowed length (u104)
 (define-constant ERR-DESCRIPTION-TOO-LONG (err u104))
+;; Error: Batch size exceeds maximum allowed (u105)
 (define-constant ERR-BATCH-TOO-LARGE (err u105))
+;; Error: Batch contains no hashes (u106)
 (define-constant ERR-EMPTY-BATCH (err u106))
+;; Error: Cannot transfer hash ownership to self (u107)
 (define-constant ERR-TRANSFER-TO-SELF (err u107))
+;; Error: Caller is not the owner of the hash (u108)
 (define-constant ERR-NOT-HASH-OWNER (err u108))
+;; Error: Insufficient fee provided for operation (u109)
 (define-constant ERR-INSUFFICIENT-FEE (err u109))
+;; Error: Description is empty or invalid (u110)
 (define-constant ERR-INVALID-DESCRIPTION (err u110))
 
 ;; Fee in microSTX (0.03 STX = 30000 microSTX)
