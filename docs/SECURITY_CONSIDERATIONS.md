@@ -1,5 +1,7 @@
 # Security Considerations
 
+> **Author**: Adekunle Bamz ([@AdekunleBamz](https://github.com/AdekunleBamz))
+
 [Back to Documentation Index](./INDEX.md)
 
 This document outlines security guidance when using ChainStamps.
