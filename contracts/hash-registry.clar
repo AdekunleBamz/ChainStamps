@@ -34,22 +34,39 @@
 ;; Error: Description is empty or invalid (u110)
 (define-constant ERR-INVALID-DESCRIPTION (err u110))
 
-;; Fee in microSTX (0.03 STX = 30000 microSTX)
+;; ============================================================
+;; CONSTANTS - Fee Structure
+;; ============================================================
+;; Standard fee for storing a single hash (0.03 STX = 30000 microSTX)
 (define-constant HASH-FEE u30000)
 ;; Discounted fee for batch operations (0.025 STX = 25000 microSTX per hash)
 (define-constant BATCH-HASH-FEE u25000)
+;; Maximum number of hashes allowed in a single batch operation
 (define-constant MAX-BATCH-SIZE u10)
-;; Smaller fee for description update only
+;; Reduced fee for description updates only (0.01 STX = 10000 microSTX)
 (define-constant UPDATE-FEE u10000)
-
+;; Maximum number of hashes a single user can store (prevents state bloat)
 (define-constant MAX-USER-HASHES u100)
 
-;; Data Variables
+;; ============================================================
+;; DATA VARIABLES
+;; ============================================================
+;; Counter for total hashes stored (used for ID generation)
 (define-data-var hash-counter uint u0)
+;; Accumulated total of all fees collected by the contract
 (define-data-var total-fees-collected uint u0)
 
-;; Data Maps
-;; Store hash with metadata
+;; ============================================================
+;; DATA MAPS
+;; ============================================================
+;; Primary storage: Maps hash (32-byte buffer) to metadata
+;; - owner: Principal who stored the hash
+;; - description: Human-readable description (max 128 UTF-8 bytes)
+;; - timestamp: Block timestamp when hash was stored
+;; - block-height: Block height when hash was stored
+;; - hash-id: Unique sequential ID for this hash
+;; - last-updated: Block height of last metadata update
+;; - revoked: Whether this hash has been revoked by owner
 (define-map hashes (buff 32) {
     owner: principal,
     description: (string-utf8 128),
@@ -60,10 +77,12 @@
     revoked: bool
 })
 
-;; Track hashes by user
+;; Index: Maps user principal to list of their hash buffers
+;; Enables efficient lookup of all hashes owned by a user
 (define-map user-hashes principal (list 100 (buff 32)))
 
-;; Track hash by ID for enumeration
+;; Index: Maps sequential hash ID to hash buffer
+;; Enables lookup of hashes by their sequential ID
 (define-map hash-by-id uint (buff 32))
 
 ;; Read-only functions
