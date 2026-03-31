@@ -2,14 +2,26 @@
 ;; version: 1.2.0
 ;; summary: Store short messages on-chain for a small fee
 ;; description: ChainStamp - Pay 0.05 STX to permanently stamp a message on the Stacks blockchain
+;; author: Adekunle Bamz (@AdekunleBamz)
+;; license: MIT
 
-;; Constants
+;; ============================================================
+;; CONSTANTS - Error Codes
+;; ============================================================
+;; Contract owner principal for fee collection
 (define-constant CONTRACT-OWNER tx-sender)
+
+;; Error: Caller is not authorized to perform this action (u100)
 (define-constant ERR-NOT-AUTHORIZED (err u100))
+;; Error: Message exceeds maximum allowed length of 256 UTF-8 bytes (u101)
 (define-constant ERR-MESSAGE-TOO-LONG (err u101))
+;; Error: Insufficient STX payment provided for stamping (u102)
 (define-constant ERR-INSUFFICIENT-PAYMENT (err u102))
+;; Error: Stamp ID not found in the registry (u103)
 (define-constant ERR-STAMP-NOT-FOUND (err u103))
+;; Error: Stamp has already been revoked by sender (u104)
 (define-constant ERR-STAMP-ALREADY-REVOKED (err u104))
+;; Error: Invalid category code provided (u105)
 (define-constant ERR-INVALID-CATEGORY (err u105))
 
 ;; Fee in microSTX (0.05 STX = 50000 microSTX)
