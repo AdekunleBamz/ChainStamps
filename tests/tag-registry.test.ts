@@ -415,4 +415,135 @@ describe("tag-registry", () => {
     );
     expect(result).toBeErr(Cl.uint(103));
   });
+
+  // ============================================================
+  // Stats and Contract Info Tests
+  // ============================================================
+
+  it("should return contract stats", () => {
+    simnet.callPublicFn(
+      "tag-registry",
+      "store-tag",
+      [Cl.stringUtf8("stats-key"), Cl.stringUtf8("stats-val")],
+      wallet1
+    );
+
+    const { result } = simnet.callReadOnlyFn(
+      "tag-registry",
+      "get-stats",
+      [],
+      wallet1
+    );
+
+    expect(result).toBeTuple({
+      "total-tags": Cl.uint(1),
+      "total-fees": Cl.uint(TAG_FEE),
+      "fee-per-tag": Cl.uint(TAG_FEE)
+    });
+  });
+
+  it("should return update fee", () => {
+    const { result } = simnet.callReadOnlyFn(
+      "tag-registry",
+      "get-update-fee",
+      [],
+      wallet1
+    );
+    expect(result).toBeUint(10000); // 0.01 STX
+  });
+
+  it("should return max batch size", () => {
+    const { result } = simnet.callReadOnlyFn(
+      "tag-registry",
+      "get-max-batch-size",
+      [],
+      wallet1
+    );
+    expect(result).toBeUint(5);
+  });
+
+  // ============================================================
+  // Metadata Retrieval Tests
+  // ============================================================
+
+  it("should return tag timestamp", () => {
+    simnet.callPublicFn(
+      "tag-registry",
+      "store-tag",
+      [Cl.stringUtf8("time-key"), Cl.stringUtf8("time-val")],
+      wallet1
+    );
+
+    const { result } = simnet.callReadOnlyFn(
+      "tag-registry",
+      "get-tag-timestamp",
+      [Cl.uint(1)],
+      wallet1
+    );
+    expect(result).not.toBeNone();
+  });
+
+  it("should return tag block height", () => {
+    simnet.callPublicFn(
+      "tag-registry",
+      "store-tag",
+      [Cl.stringUtf8("block-key"), Cl.stringUtf8("block-val")],
+      wallet1
+    );
+
+    const { result } = simnet.callReadOnlyFn(
+      "tag-registry",
+      "get-tag-block-height",
+      [Cl.uint(1)],
+      wallet1
+    );
+    expect(result).not.toBeNone();
+  });
+
+  // ============================================================
+  // Ownership Verification Tests
+  // ============================================================
+
+  it("should allow only owner to verify ownership", () => {
+    const { result: ownerResult } = simnet.callPublicFn(
+      "tag-registry",
+      "verify-owner",
+      [],
+      deployer
+    );
+    expect(ownerResult).toBeOk(Cl.bool(true));
+
+    const { result: nonOwnerResult } = simnet.callPublicFn(
+      "tag-registry",
+      "verify-owner",
+      [],
+      wallet1
+    );
+    expect(nonOwnerResult).toBeErr(Cl.uint(100));
+  });
+
+  it("should verify tag ownership by key", () => {
+    simnet.callPublicFn(
+      "tag-registry",
+      "store-tag",
+      [Cl.stringUtf8("verify-key"), Cl.stringUtf8("verify-val")],
+      wallet1
+    );
+
+    const { result: isOwner } = simnet.callReadOnlyFn(
+      "tag-registry",
+      "is-tag-owner",
+      [Cl.principal(wallet1), Cl.stringUtf8("verify-key")],
+      wallet1
+    );
+    expect(isOwner).toBeBool(true);
+
+    const { result: notOwner } = simnet.callReadOnlyFn(
+      "tag-registry",
+      "is-tag-owner",
+      [Cl.principal(wallet2), Cl.stringUtf8("verify-key")],
+      wallet2
+    );
+    expect(notOwner).toBeBool(false);
+  });
 });
