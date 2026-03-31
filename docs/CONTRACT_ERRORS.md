@@ -1,5 +1,7 @@
 # ChainStamps Contract Error Codes
 
+> **Author**: Adekunle Bamz ([@AdekunleBamz](https://github.com/AdekunleBamz))
+
 [Back to Documentation Index](./INDEX.md)
 
 This document lists error codes used across ChainStamps contracts for easier debugging.
