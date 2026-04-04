@@ -446,4 +446,339 @@ describe("hash-registry", () => {
     );
     expect(result).toBeSome(Cl.uint(simnet.blockHeight));
   });
+
+  // ============================================================
+  // Hash Revocation Tests
+  // ============================================================
+
+  it("should allow owner to revoke hash", () => {
+    const testHash = createTestHash(13);
+
+    simnet.callPublicFn(
+      "hash-registry",
+      "store-hash",
+      [Cl.buffer(testHash), Cl.stringUtf8("Revoke test")],
+      wallet1
+    );
+
+    const { result } = simnet.callPublicFn(
+      "hash-registry",
+      "revoke-hash",
+      [Cl.buffer(testHash)],
+      wallet1
+    );
+    expect(result).toBeOk(Cl.bool(true));
+
+    // Verify hash is now revoked
+    const { result: verifyResult } = simnet.callReadOnlyFn(
+      "hash-registry",
+      "verify-hash",
+      [Cl.buffer(testHash)],
+      wallet1
+    );
+    expect(verifyResult).toBeBool(false);
+  });
+
+  it("should report fresh hashes as not revoked", () => {
+    const testHash = createTestHash(72);
+
+    simnet.callPublicFn(
+      "hash-registry",
+      "store-hash",
+      [Cl.buffer(testHash), Cl.stringUtf8("Revocation status")],
+      wallet1
+    );
+
+    const { result } = simnet.callReadOnlyFn(
+      "hash-registry",
+      "is-hash-revoked",
+      [Cl.buffer(testHash)],
+      wallet1
+    );
+    expect(result).toBeBool(false);
+  });
+
+  it("should reject revocation by non-owner", () => {
+    const testHash = createTestHash(14);
+
+    simnet.callPublicFn(
+      "hash-registry",
+      "store-hash",
+      [Cl.buffer(testHash), Cl.stringUtf8("Non-owner revoke")],
+      wallet1
+    );
+
+    const { result } = simnet.callPublicFn(
+      "hash-registry",
+      "revoke-hash",
+      [Cl.buffer(testHash)],
+      wallet2
+    );
+    expect(result).toBeErr(Cl.uint(108)); // ERR-NOT-HASH-OWNER
+  });
+
+  it("should reject revoking already revoked hash", () => {
+    const testHash = createTestHash(15);
+
+    simnet.callPublicFn(
+      "hash-registry",
+      "store-hash",
+      [Cl.buffer(testHash), Cl.stringUtf8("Double revoke")],
+      wallet1
+    );
+
+    simnet.callPublicFn(
+      "hash-registry",
+      "revoke-hash",
+      [Cl.buffer(testHash)],
+      wallet1
+    );
+
+    const { result } = simnet.callPublicFn(
+      "hash-registry",
+      "revoke-hash",
+      [Cl.buffer(testHash)],
+      wallet1
+    );
+    expect(result).toBeErr(Cl.uint(103)); // ERR-HASH-ALREADY-REVOKED
+  });
+
+  // ============================================================
+  // Hash Transfer Tests
+  // ============================================================
+
+  it("should allow owner to transfer hash", () => {
+    const testHash = createTestHash(16);
+
+    simnet.callPublicFn(
+      "hash-registry",
+      "store-hash",
+      [Cl.buffer(testHash), Cl.stringUtf8("Transfer test")],
+      wallet1
+    );
+
+    const { result } = simnet.callPublicFn(
+      "hash-registry",
+      "transfer-hash",
+      [Cl.buffer(testHash), Cl.principal(wallet2)],
+      wallet1
+    );
+    expect(result).toBeOk(Cl.bool(true));
+
+    // Verify new owner
+    const { result: ownerResult } = simnet.callReadOnlyFn(
+      "hash-registry",
+      "get-hash-owner",
+      [Cl.buffer(testHash)],
+      wallet2
+    );
+    expect(ownerResult).toBeSome(Cl.principal(wallet2));
+  });
+
+  it("should reject transfer by non-owner", () => {
+    const testHash = createTestHash(17);
+
+    simnet.callPublicFn(
+      "hash-registry",
+      "store-hash",
+      [Cl.buffer(testHash), Cl.stringUtf8("Non-owner transfer")],
+      wallet1
+    );
+
+    const { result } = simnet.callPublicFn(
+      "hash-registry",
+      "transfer-hash",
+      [Cl.buffer(testHash), Cl.principal(wallet2)],
+      wallet2
+    );
+    expect(result).toBeErr(Cl.uint(108)); // ERR-NOT-HASH-OWNER
+  });
+
+  it("should reject transfer to self", () => {
+    const testHash = createTestHash(18);
+
+    simnet.callPublicFn(
+      "hash-registry",
+      "store-hash",
+      [Cl.buffer(testHash), Cl.stringUtf8("Self transfer")],
+      wallet1
+    );
+
+    const { result } = simnet.callPublicFn(
+      "hash-registry",
+      "transfer-hash",
+      [Cl.buffer(testHash), Cl.principal(wallet1)],
+      wallet1
+    );
+    expect(result).toBeErr(Cl.uint(107)); // ERR-TRANSFER-TO-SELF
+  });
+
+  // ============================================================
+  // Description Update Tests
+  // ============================================================
+
+  it("should allow owner to update description", () => {
+    const testHash = createTestHash(19);
+
+    simnet.callPublicFn(
+      "hash-registry",
+      "store-hash",
+      [Cl.buffer(testHash), Cl.stringUtf8("Original description")],
+      wallet1
+    );
+
+    const { result } = simnet.callPublicFn(
+      "hash-registry",
+      "update-description",
+      [Cl.buffer(testHash), Cl.stringUtf8("Updated description")],
+      wallet1
+    );
+    expect(result).toBeOk(Cl.bool(true));
+
+    // Verify description was updated
+    const { result: descResult } = simnet.callReadOnlyFn(
+      "hash-registry",
+      "get-hash-description",
+      [Cl.buffer(testHash)],
+      wallet1
+    );
+    expect(descResult).toBeSome(Cl.stringUtf8("Updated description"));
+  });
+
+  it("should reject description update by non-owner", () => {
+    const testHash = createTestHash(20);
+
+    simnet.callPublicFn(
+      "hash-registry",
+      "store-hash",
+      [Cl.buffer(testHash), Cl.stringUtf8("Owner only update")],
+      wallet1
+    );
+
+    const { result } = simnet.callPublicFn(
+      "hash-registry",
+      "update-description",
+      [Cl.buffer(testHash), Cl.stringUtf8("Unauthorized update")],
+      wallet2
+    );
+    expect(result).toBeErr(Cl.uint(108)); // ERR-NOT-HASH-OWNER
+  });
+
+  // ============================================================
+  // Batch Operation Tests
+  // ============================================================
+
+  it("should allow batch storing multiple hashes", () => {
+    const hash1 = createTestHash(21);
+    const hash2 = createTestHash(22);
+
+    const { result } = simnet.callPublicFn(
+      "hash-registry",
+      "store-hashes-batch",
+      [
+        Cl.list([
+          Cl.tuple({
+            hash: Cl.buffer(hash1),
+            description: Cl.stringUtf8("Batch hash 1")
+          }),
+          Cl.tuple({
+            hash: Cl.buffer(hash2),
+            description: Cl.stringUtf8("Batch hash 2")
+          })
+        ])
+      ],
+      wallet1
+    );
+
+    expect(result).toBeOk(Cl.list([Cl.uint(1), Cl.uint(2)]));
+  });
+
+  it("should charge discounted fee for batch operations", () => {
+    const hash3 = createTestHash(23);
+    const hash4 = createTestHash(24);
+    const BATCH_FEE = 50000n; // 2 * 25000 microSTX
+
+    simnet.callPublicFn(
+      "hash-registry",
+      "store-hashes-batch",
+      [
+        Cl.list([
+          Cl.tuple({
+            hash: Cl.buffer(hash3),
+            description: Cl.stringUtf8("Discount test 1")
+          }),
+          Cl.tuple({
+            hash: Cl.buffer(hash4),
+            description: Cl.stringUtf8("Discount test 2")
+          })
+        ])
+      ],
+      wallet2
+    );
+
+    // Check that the correct batch fee was collected
+    const { result } = simnet.callReadOnlyFn(
+      "hash-registry",
+      "get-total-fees",
+      [],
+      wallet2
+    );
+    // Total fees should include previous batch + this batch
+    expect(result).toBeUint(BATCH_FEE);
+  });
+
+  it("should reject empty batch", () => {
+    const { result } = simnet.callPublicFn(
+      "hash-registry",
+      "store-hashes-batch",
+      [Cl.list([])],
+      wallet1
+    );
+    expect(result).toBeErr(Cl.uint(106)); // ERR-EMPTY-BATCH
+  });
+
+  it("should skip duplicate hashes in batch", () => {
+    const hash5 = createTestHash(25);
+
+    // First store a hash normally
+    simnet.callPublicFn(
+      "hash-registry",
+      "store-hash",
+      [Cl.buffer(hash5), Cl.stringUtf8("Pre-existing")],
+      wallet1
+    );
+
+    // Try to batch store with one new and one duplicate
+    const hash6 = createTestHash(26);
+    const { result } = simnet.callPublicFn(
+      "hash-registry",
+      "store-hashes-batch",
+      [
+        Cl.list([
+          Cl.tuple({
+            hash: Cl.buffer(hash5),
+            description: Cl.stringUtf8("Duplicate in batch")
+          }),
+          Cl.tuple({
+            hash: Cl.buffer(hash6),
+            description: Cl.stringUtf8("New in batch")
+          })
+        ])
+      ],
+      wallet2
+    );
+
+    // Should only return the ID for the new hash
+    expect(result).toBeOk(Cl.list([Cl.uint(2)]));
+  });
+
+  it("should return correct batch fee", () => {
+    const { result } = simnet.callReadOnlyFn(
+      "hash-registry",
+      "get-batch-hash-fee",
+      [],
+      wallet1
+    );
+    expect(result).toBeUint(25000); // 0.025 STX per hash in batch
+  });
 });
