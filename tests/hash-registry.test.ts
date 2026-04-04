@@ -356,6 +356,16 @@ describe("hash-registry", () => {
     expect(result).toBeErr(Cl.uint(100));
   });
 
+  it("should reject ownership verification from non-owners", () => {
+    const { result } = simnet.callPublicFn(
+      "hash-registry",
+      "verify-owner",
+      [],
+      wallet1
+    );
+    expect(result).toBeErr(Cl.uint(100));
+  });
+
   // ============================================================
   // Metadata Retrieval Tests
   // ============================================================
