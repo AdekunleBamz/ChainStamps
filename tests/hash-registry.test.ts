@@ -709,6 +709,16 @@ describe("hash-registry", () => {
     expect(result).toBeErr(Cl.uint(108)); // ERR-NOT-HASH-OWNER
   });
 
+  it("should reject updating descriptions for missing hashes", () => {
+    const { result } = simnet.callPublicFn(
+      "hash-registry",
+      "update-description",
+      [Cl.buffer(createTestHash(79)), Cl.stringUtf8("Missing update")],
+      wallet1
+    );
+    expect(result).toBeErr(Cl.uint(102)); // ERR-HASH-NOT-FOUND
+  });
+
   // ============================================================
   // Batch Operation Tests
   // ============================================================
