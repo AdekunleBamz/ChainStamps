@@ -629,6 +629,16 @@ describe("hash-registry", () => {
     expect(result).toBeErr(Cl.uint(108)); // ERR-NOT-HASH-OWNER
   });
 
+  it("should reject transferring a missing hash", () => {
+    const { result } = simnet.callPublicFn(
+      "hash-registry",
+      "transfer-hash",
+      [Cl.buffer(createTestHash(78)), Cl.principal(wallet2)],
+      wallet1
+    );
+    expect(result).toBeErr(Cl.uint(102)); // ERR-HASH-NOT-FOUND
+  });
+
   it("should reject transfer to self", () => {
     const testHash = createTestHash(18);
 
