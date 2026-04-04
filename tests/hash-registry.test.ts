@@ -73,6 +73,16 @@ describe("hash-registry", () => {
     expect(result).toBeUint(10);
   });
 
+  it("should return the description update fee", () => {
+    const { result } = simnet.callReadOnlyFn(
+      "hash-registry",
+      "get-update-fee",
+      [],
+      wallet1
+    );
+    expect(result).toBeUint(10000);
+  });
+
   // ============================================================
   // Initial State Tests
   // ============================================================
