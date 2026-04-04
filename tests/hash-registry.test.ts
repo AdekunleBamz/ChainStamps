@@ -562,6 +562,31 @@ describe("hash-registry", () => {
     expect(result).toBeErr(Cl.uint(103)); // ERR-HASH-ALREADY-REVOKED
   });
 
+  it("should report revoked hashes after revocation", () => {
+    const testHash = createTestHash(73);
+
+    simnet.callPublicFn(
+      "hash-registry",
+      "store-hash",
+      [Cl.buffer(testHash), Cl.stringUtf8("Revoke status flag")],
+      wallet1
+    );
+    simnet.callPublicFn(
+      "hash-registry",
+      "revoke-hash",
+      [Cl.buffer(testHash)],
+      wallet1
+    );
+
+    const { result } = simnet.callReadOnlyFn(
+      "hash-registry",
+      "is-hash-revoked",
+      [Cl.buffer(testHash)],
+      wallet1
+    );
+    expect(result).toBeBool(true);
+  });
+
   // ============================================================
   // Hash Transfer Tests
   // ============================================================
