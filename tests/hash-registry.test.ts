@@ -257,6 +257,16 @@ describe("hash-registry", () => {
     expect(result).toBeList([Cl.buffer(testHash1), Cl.buffer(testHash2)]);
   });
 
+  it("should return an empty list for users without hashes", () => {
+    const { result } = simnet.callReadOnlyFn(
+      "hash-registry",
+      "get-user-hashes",
+      [Cl.principal(wallet2)],
+      wallet2
+    );
+    expect(result).toBeList([]);
+  });
+
   // ============================================================
   // Ownership Tests
   // ============================================================
