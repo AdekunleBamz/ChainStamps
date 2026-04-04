@@ -290,6 +290,16 @@ describe("hash-registry", () => {
     expect(result).toBeSome(Cl.principal(wallet2));
   });
 
+  it("should return none for missing hash owner lookups", () => {
+    const { result } = simnet.callReadOnlyFn(
+      "hash-registry",
+      "get-hash-owner",
+      [Cl.buffer(createTestHash(70))],
+      wallet1
+    );
+    expect(result).toBeNone();
+  });
+
   it("should return contract owner", () => {
     const { result } = simnet.callReadOnlyFn(
       "hash-registry",
