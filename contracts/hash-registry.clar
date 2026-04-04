@@ -268,7 +268,7 @@
         
         ;; Update user's hash list
         (map-set user-hashes tx-sender 
-            (unwrap-panic (as-max-len? (append current-user-hashes hash) MAX-USER-HASHES)))
+            (unwrap-panic (as-max-len? (append current-user-hashes hash) u100)))
         
         ;; Increment global counter
         (var-set hash-counter new-hash-id)
