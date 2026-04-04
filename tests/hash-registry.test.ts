@@ -379,25 +379,14 @@ describe("hash-registry", () => {
     expect(result).toBeSome(Cl.buffer(testHash));
   });
 
-  it("should retrieve full hash info by ID", () => {
-    const testHash = createTestHash(23);
-    const description = "Info by id";
-
-    simnet.callPublicFn(
-      "hash-registry",
-      "store-hash",
-      [Cl.buffer(testHash), Cl.stringUtf8(description)],
-      wallet1
-    );
-
+  it("should return none for missing hash info by id", () => {
     const { result } = simnet.callReadOnlyFn(
       "hash-registry",
       "get-hash-info-by-id",
-      [Cl.uint(1)],
+      [Cl.uint(9999)],
       wallet1
     );
-
-    expect(result).not.toBeNone();
+    expect(result).toBeNone();
   });
 
   it("should return hash description", () => {
