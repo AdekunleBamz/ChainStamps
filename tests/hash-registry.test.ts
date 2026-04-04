@@ -690,6 +690,31 @@ describe("hash-registry", () => {
     expect(descResult).toBeSome(Cl.stringUtf8("Updated description"));
   });
 
+  it("should add the update fee to total fees after description changes", () => {
+    const testHash = createTestHash(80);
+
+    simnet.callPublicFn(
+      "hash-registry",
+      "store-hash",
+      [Cl.buffer(testHash), Cl.stringUtf8("Fee accounting")],
+      wallet1
+    );
+    simnet.callPublicFn(
+      "hash-registry",
+      "update-description",
+      [Cl.buffer(testHash), Cl.stringUtf8("Fee accounting updated")],
+      wallet1
+    );
+
+    const { result } = simnet.callReadOnlyFn(
+      "hash-registry",
+      "get-total-fees",
+      [],
+      wallet1
+    );
+    expect(result).toBeUint(40000);
+  });
+
   it("should reject description update by non-owner", () => {
     const testHash = createTestHash(20);
 
