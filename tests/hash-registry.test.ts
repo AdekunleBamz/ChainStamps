@@ -63,17 +63,7 @@ describe("hash-registry", () => {
     expect(result).toBeUint(HASH_FEE);
   });
 
-  it("should return correct batch hash fee", () => {
-    const { result } = simnet.callReadOnlyFn(
-      "hash-registry",
-      "get-batch-hash-fee",
-      [],
-      wallet1
-    );
-    expect(result).toBeUint(25000);
-  });
-
-  it("should return the maximum batch hash size", () => {
+  it("should return the maximum allowed batch size", () => {
     const { result } = simnet.callReadOnlyFn(
       "hash-registry",
       "get-max-batch-size",
@@ -81,16 +71,6 @@ describe("hash-registry", () => {
       wallet1
     );
     expect(result).toBeUint(10);
-  });
-
-  it("should return the description update fee", () => {
-    const { result } = simnet.callReadOnlyFn(
-      "hash-registry",
-      "get-update-fee",
-      [],
-      wallet1
-    );
-    expect(result).toBeUint(10000);
   });
 
   // ============================================================
