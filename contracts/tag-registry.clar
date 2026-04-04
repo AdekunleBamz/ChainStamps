@@ -272,11 +272,11 @@
         
         ;; Update user's tag list
         (map-set user-tags tx-sender 
-            (unwrap-panic (as-max-len? (append current-user-tags new-tag-id) MAX-USER-TAGS)))
+            (unwrap-panic (as-max-len? (append current-user-tags new-tag-id) u100)))
         
         ;; Update namespace's tag list
         (map-set namespace-tags { owner: tx-sender, namespace: namespace }
-            (unwrap-panic (as-max-len? (append current-ns-tags new-tag-id) MAX-USER-TAGS)))
+            (unwrap-panic (as-max-len? (append current-ns-tags new-tag-id) u100)))
         
         ;; Increment counter and update fees
         (var-set tag-counter new-tag-id)
