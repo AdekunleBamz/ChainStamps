@@ -310,6 +310,16 @@ describe("hash-registry", () => {
     expect(result).toBePrincipal(deployer);
   });
 
+  it("should allow the deployer to verify contract ownership", () => {
+    const { result } = simnet.callPublicFn(
+      "hash-registry",
+      "verify-owner",
+      [],
+      deployer
+    );
+    expect(result).toBeOk(Cl.bool(true));
+  });
+
   // ============================================================
   // Metadata Retrieval Tests
   // ============================================================
