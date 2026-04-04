@@ -806,4 +806,37 @@ describe("hash-registry", () => {
     );
     expect(result).toBeUint(25000); // 0.025 STX per hash in batch
   });
+
+  it("should batch-verify valid, revoked, and missing hashes", () => {
+    const activeHash = createTestHash(74);
+    const revokedHash = createTestHash(75);
+    const missingHash = createTestHash(76);
+
+    simnet.callPublicFn(
+      "hash-registry",
+      "store-hash",
+      [Cl.buffer(activeHash), Cl.stringUtf8("Batch verify active")],
+      wallet1
+    );
+    simnet.callPublicFn(
+      "hash-registry",
+      "store-hash",
+      [Cl.buffer(revokedHash), Cl.stringUtf8("Batch verify revoked")],
+      wallet1
+    );
+    simnet.callPublicFn(
+      "hash-registry",
+      "revoke-hash",
+      [Cl.buffer(revokedHash)],
+      wallet1
+    );
+
+    const { result } = simnet.callReadOnlyFn(
+      "hash-registry",
+      "batch-verify-hashes",
+      [Cl.list([Cl.buffer(activeHash), Cl.buffer(revokedHash), Cl.buffer(missingHash)])],
+      wallet1
+    );
+    expect(result).toBeList([Cl.bool(true), Cl.bool(false), Cl.bool(false)]);
+  });
 });
