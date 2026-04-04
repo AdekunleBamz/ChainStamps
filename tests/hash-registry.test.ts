@@ -401,6 +401,33 @@ describe("hash-registry", () => {
     expect(result).toBeSome(Cl.stringUtf8(description));
   });
 
+  it("should report whether a user owns a hash", () => {
+    const testHash = createTestHash(71);
+
+    simnet.callPublicFn(
+      "hash-registry",
+      "store-hash",
+      [Cl.buffer(testHash), Cl.stringUtf8("Ownership flag")],
+      wallet1
+    );
+
+    const { result: ownerResult } = simnet.callReadOnlyFn(
+      "hash-registry",
+      "is-hash-owner",
+      [Cl.buffer(testHash), Cl.principal(wallet1)],
+      wallet1
+    );
+    expect(ownerResult).toBeBool(true);
+
+    const { result: outsiderResult } = simnet.callReadOnlyFn(
+      "hash-registry",
+      "is-hash-owner",
+      [Cl.buffer(testHash), Cl.principal(wallet2)],
+      wallet2
+    );
+    expect(outsiderResult).toBeBool(false);
+  });
+
   it("should return hash block height", () => {
     const testHash = createTestHash(12);
 
