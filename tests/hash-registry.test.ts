@@ -496,6 +496,16 @@ describe("hash-registry", () => {
     expect(result).toBeErr(Cl.uint(108)); // ERR-NOT-HASH-OWNER
   });
 
+  it("should reject revoking a missing hash", () => {
+    const { result } = simnet.callPublicFn(
+      "hash-registry",
+      "revoke-hash",
+      [Cl.buffer(createTestHash(77))],
+      wallet1
+    );
+    expect(result).toBeErr(Cl.uint(102)); // ERR-HASH-NOT-FOUND
+  });
+
   it("should reject revoking already revoked hash", () => {
     const testHash = createTestHash(15);
 
