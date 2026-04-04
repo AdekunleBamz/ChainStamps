@@ -333,6 +333,16 @@ describe("hash-registry", () => {
     expect(result).toBeSome(Cl.buffer(testHash));
   });
 
+  it("should return none for missing hash info by id", () => {
+    const { result } = simnet.callReadOnlyFn(
+      "hash-registry",
+      "get-hash-info-by-id",
+      [Cl.uint(9999)],
+      wallet1
+    );
+    expect(result).toBeNone();
+  });
+
   it("should return hash description", () => {
     const testHash = createTestHash(11);
     const description = "Description lookup";
