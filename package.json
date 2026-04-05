@@ -10,12 +10,11 @@
     "test:report": "vitest run --coverage --costs",
     "test:ci": "vitest run --coverage --costs",
     "test:watch": "chokidar \"tests/**/*.ts\" \"contracts/**/*.clar\" -c \"npm run test:report\"",
-    "contracts:check": "clarinet check",
-    "frontend:install": "npm --prefix frontend ci",
-    "frontend:dev": "npm --prefix frontend run dev",
-    "frontend:lint": "npm --prefix frontend run lint",
-    "frontend:build": "npm --prefix frontend run build",
-    "check:fast": "npm run contracts:check && npm run test:fee"
+    "consolidate:test-wallets": "node scripts/consolidate-test-wallets.js",
+    "lint": "eslint .",
+    "lint:fix": "eslint . --fix",
+    "format": "prettier --write .",
+    "format:check": "prettier --check ."
   },
   "author": "Adekunle Bamz (@adekunlebamz)",
   "license": "ISC",
