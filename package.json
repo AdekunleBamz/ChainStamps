@@ -8,7 +8,11 @@
     "test": "vitest run",
     "test:report": "vitest run --coverage --costs",
     "test:ci": "vitest run --coverage --costs",
-    "test:watch": "chokidar \"tests/**/*.ts\" \"contracts/**/*.clar\" -c \"npm run test:report\""
+    "test:watch": "chokidar \"tests/**/*.ts\" \"contracts/**/*.clar\" -c \"npm run test:report\"",
+    "lint": "eslint .",
+    "lint:fix": "eslint . --fix",
+    "format": "prettier --write .",
+    "format:check": "prettier --check ."
   },
   "author": "Adekunle Bamz (@adekunlebamz)",
   "license": "ISC",
