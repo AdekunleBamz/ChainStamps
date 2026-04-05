@@ -1,10 +1,4 @@
-node_modules
-dist
-coverage
-.cache
-*.clar
-.DS_Store
-.env
-.npm_cache
-Clarinet.toml
-deployments/*.yaml
+node_modules/
+build/
+dist/
+coverage/
