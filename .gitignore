@@ -49,9 +49,7 @@ out/
 test-wallets.json
 
 # Scripts
-scripts/get-address.js
 scripts/
-test-wallets.json
 
 # Frontend build and dependencies
 frontend/node_modules
