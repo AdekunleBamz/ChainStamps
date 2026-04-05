@@ -49,8 +49,8 @@ out/
 test-wallets.json
 
 # Scripts
-scripts/get-address.js
-scripts/
+scripts/*
+!scripts/consolidate-test-wallets.js
 test-wallets.json
 
 # Frontend build and dependencies
