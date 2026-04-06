@@ -36,10 +36,23 @@ export function stxToMicroStx(stx: number): number {
 /**
  * Converts microSTX (uSTX) to STX.
  * Useful for parsing contract fee values.
- * 
- * @param {number} microStx - Amount in microSTX (uSTX)
- * @returns {number} Amount in STX
+ *
+ * @param microStx - Amount in microSTX (uSTX)
+ * @returns Amount in STX
  */
 export function microStxToStx(microStx: number): number {
     return microStx / 1_000_000;
+}
+
+/** Number of microSTX in one STX. Used for fee conversions. */
+const MICROSTX_PER_STX = 1_000_000;
+
+/**
+ * Formats an STX amount with the currency symbol.
+ *
+ * @param stx - Amount in STX
+ * @returns Formatted string with STX symbol
+ */
+export function formatStx(stx: number): string {
+    return `${stx.toFixed(4)} STX`;
 }
