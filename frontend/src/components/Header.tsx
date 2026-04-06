@@ -8,8 +8,14 @@ import { Tooltip } from './ui/Tooltip';
 import { CopyButton } from './ui/CopyButton';
 import { AnimatedNumber } from './ui/AnimatedNumber';
 
+/** Stacks mainnet info API endpoint for fetching block height. */
 const STACKS_INFO_API = 'https://api.mainnet.hiro.so/v2/info';
-const FETCH_INTERVAL = 30000; // 30 seconds
+
+/** Interval in milliseconds for refreshing block height data. */
+const FETCH_INTERVAL = 30000;
+
+/** Scroll event throttle threshold in pixels. */
+const SCROLL_THRESHOLD = 20;
 
 /**
  * Global Header component that serves as the primary navigation and wallet interaction hub.
@@ -35,7 +41,7 @@ export const Header = () => {
   useEffect(() => {
     const updateScroll = () => {
       const scrollY = window.scrollY;
-      setIsScrolled(scrollY > 20);
+      setIsScrolled(scrollY > SCROLL_THRESHOLD);
       ticking.current = false;
     };
 
