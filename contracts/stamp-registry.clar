@@ -1,5 +1,5 @@
 ;; title: stamp-registry
-;; version: 1.2.0
+;; version: 1.2.1
 ;; summary: Store short messages on-chain for a small fee
 ;; description: ChainStamp - Pay 0.05 STX to permanently stamp a message on the Stacks blockchain
 ;; author: Adekunle Bamz (@AdekunleBamz)
