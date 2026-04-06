@@ -33,6 +33,8 @@
 (define-constant ERR-INSUFFICIENT-FEE (err u109))
 ;; Error: Description is empty or invalid (u110)
 (define-constant ERR-INVALID-DESCRIPTION (err u110))
+;; Error: Hash verification failed - hash is invalid or revoked (u111)
+(define-constant ERR-VERIFICATION-FAILED (err u111))
 
 ;; ============================================================
 ;; CONSTANTS - Fee Structure
