@@ -245,6 +245,7 @@ Store updatable key-value pairs on-chain.
 |----------|------|-------------|
 | `stamp-message` | Public | Stamp a new message |
 | `get-stamp` | Read-only | Get stamp by ID |
+| `get-stamp-category` | Read-only | Get stamp category code |
 | `get-stamp-count` | Read-only | Total stamps created |
 | `get-user-stamps` | Read-only | Get all stamps by user |
 | `get-stamp-fee` | Read-only | Current fee (50000 µSTX) |
