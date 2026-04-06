@@ -23,6 +23,8 @@
 (define-constant ERR-STAMP-ALREADY-REVOKED (err u104))
 ;; Error: Invalid category code provided (u105)
 (define-constant ERR-INVALID-CATEGORY (err u105))
+;; Error: Message cannot be empty (u106)
+(define-constant ERR-EMPTY-MESSAGE (err u106))
 
 ;; ============================================================
 ;; CONSTANTS - Fee Structure and Limits
@@ -135,8 +137,16 @@
 ;; Returns: true if user is the sender, false otherwise
 (define-read-only (is-stamp-sender (stamp-id uint) (user principal))
     (match (map-get? stamps stamp-id)
-        stamp-data (is-eq (get sender stamp-data) user)
         false
+    )
+)
+
+;; Get the category of a stamp if it exists
+;; Returns: (some uint) or none
+(define-read-only (get-stamp-category (stamp-id uint))
+    (match (map-get? stamps stamp-id)
+        stamp-data (some (get category stamp-data))
+        none
     )
 )
 
@@ -256,6 +266,7 @@
             (current-category-stamps (default-to (list) (map-get? category-stamps category)))
         )
         ;; Validate message length
+        (asserts! (> (len message) u0) ERR-EMPTY-MESSAGE)
         (asserts! (<= (len message) MAX-MESSAGE-LENGTH) ERR-MESSAGE-TOO-LONG)
         ;; Validate category is within allowed range
         (asserts! (is-valid-category category) ERR-INVALID-CATEGORY)
