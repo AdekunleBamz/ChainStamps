@@ -1,13 +1,14 @@
 import { motion } from 'framer-motion';
 import { twMerge } from 'tailwind-merge';
 
-/**
- * Properties for the Skeleton component.
- */
+/** Properties for the Skeleton component. */
 interface SkeletonProps {
     /** Additional CSS classes for the skeleton element. */
     className?: string;
 }
+
+/** Default animation duration for skeleton pulse effect in milliseconds. */
+const SKELETON_ANIMATION_DURATION = 1.5;
 
 /**
  * A placeholder component that displays an animated pulse effect for loading states.
@@ -21,7 +22,7 @@ export const Skeleton = ({ className }: SkeletonProps) => {
             initial={{ opacity: 0.5 }}
             animate={{ opacity: [0.5, 0.8, 0.5] }}
             transition={{
-                duration: 1.5,
+                duration: SKELETON_ANIMATION_DURATION,
                 repeat: Infinity,
                 ease: "easeInOut",
             }}
