@@ -1,5 +1,5 @@
 ;; title: hash-registry
-;; version: 1.3.0
+;; version: 1.3.1
 ;; summary: Store document hashes on-chain for verification
 ;; description: ChainStamp - Pay 0.03 STX to permanently store a hash for document verification
 ;; author: Adekunle Bamz (@AdekunleBamz)
