@@ -1,6 +1,5 @@
-import { useState } from 'react';
+import { useState, type ReactNode } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
-import { type ReactNode } from 'react';
 import { twMerge } from 'tailwind-merge';
 
 /**
