@@ -52,6 +52,7 @@ export function Button({
     };
 
     const isDisabled = disabled || isLoading;
+    const loaderSize = size === 'sm' ? 14 : size === 'lg' ? 20 : 16;
     const variants = {
         primary: "bg-primary text-primary-foreground hover:bg-primary/90 shadow-lg shadow-primary/20",
         secondary: "bg-secondary text-secondary-foreground hover:bg-secondary/90",
@@ -82,11 +83,7 @@ export function Button({
             disabled={isDisabled}
             onClick={handleClick}
         >
-            {isLoading ? (
-                <Loader2 className="animate-spin" size={size === 'sm' ? 14 : size === 'lg' ? 20 : 16} />
-            ) : (
-                children
-            )}
+            {isLoading ? <Loader2 className="animate-spin" size={loaderSize} /> : children}
         </motion.button>
     );
 }
