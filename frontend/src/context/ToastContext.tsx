@@ -59,9 +59,12 @@ export const ToastProvider = ({ children }: { children: ReactNode }) => {
         setToasts((prev) => [...prev, { id, message, type }]);
 
         // Auto-remove after 5 seconds
-        setTimeout(() => {
+        const timeoutId = setTimeout(() => {
             removeToast(id);
         }, 5000);
+
+        // Cleanup timeout on unmount or before re-adding
+        return () => clearTimeout(timeoutId);
     }, [removeToast]);
 
     return (
