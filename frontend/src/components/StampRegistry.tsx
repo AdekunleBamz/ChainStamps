@@ -21,10 +21,17 @@ import { TransactionStepper } from './ui/TransactionStepper';
 import { cvToHex, stringUtf8CV } from '@stacks/transactions';
 import { useOnChainFees } from '../hooks/useOnChainFees';
 
+/** Shake animation variant for form validation errors. */
 const SHAKE_ANIMATION = {
   x: [0, -10, 10, -10, 10, 0],
   transition: { duration: 0.4 }
 };
+
+/** Rate limit interval for stamp submission in milliseconds. */
+const RATE_LIMIT_INTERVAL = 2000;
+
+/** Maximum message length for stamp registry. */
+const MAX_MESSAGE_LENGTH = 256;
 
 /**
  * StampRegistry component for permanently recording text messages on the Stacks blockchain.
@@ -53,7 +60,7 @@ export const StampRegistry = memo(({ searchQuery = '' }: { searchQuery?: string 
 
   const storeStamp = async () => {
     const now = Date.now();
-    if (now - lastSubmitTime < 2000) return; // 2s rate limit
+    if (now - lastSubmitTime < RATE_LIMIT_INTERVAL) return;
 
     if (!message || !isConnected || !userAddress) {
       if (!message) {
@@ -93,7 +100,7 @@ export const StampRegistry = memo(({ searchQuery = '' }: { searchQuery?: string 
     animate: { opacity: 1, y: 0, transition: { duration: 0.5 } },
   };
 
-  const isMessageValid = message.length > 0 && message.length <= 256;
+  const isMessageValid = message.length > 0 && message.length <= MAX_MESSAGE_LENGTH;
 
   return (
     <motion.section
@@ -217,7 +224,7 @@ export const StampRegistry = memo(({ searchQuery = '' }: { searchQuery?: string 
               e.target.style.height = `${e.target.scrollHeight}px`;
             }}
             onKeyDown={handleKeyDown}
-            maxLength={256}
+            maxLength={MAX_MESSAGE_LENGTH}
             rows={4}
             className={twMerge(
               "textarea min-h-[120px] transition-all duration-200 resize-none",
@@ -236,7 +243,7 @@ export const StampRegistry = memo(({ searchQuery = '' }: { searchQuery?: string 
             )} 
             aria-live="polite"
           >
-            {message.length}/256
+            {message.length}/{MAX_MESSAGE_LENGTH}
           </span>
           {message.length >= 200 && (
             <motion.p 
