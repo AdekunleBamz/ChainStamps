@@ -2,6 +2,9 @@ import { motion } from 'framer-motion';
 import { type ReactNode, type FC } from 'react';
 import { Search, type LucideProps } from 'lucide-react';
 
+/** Default rotation duration for the decorative ring animation in seconds. */
+const RING_ROTATION_DURATION = 20;
+
 interface EmptyStateProps {
   title: string;
   description: string;
@@ -35,7 +38,7 @@ export const EmptyState = ({ title, description, action, icon: Icon = Search }: 
             strokeWidth="1"
             strokeDasharray="4 4"
             animate={{ rotate: 360 }}
-            transition={{ duration: 20, repeat: Infinity, ease: "linear" }}
+            transition={{ duration: RING_ROTATION_DURATION, repeat: Infinity, ease: "linear" }}
           />
           <defs>
             <radialGradient id="empty-radial" cx="0" cy="0" r="1" gradientUnits="userSpaceOnUse" gradientTransform="translate(60 60) rotate(90) scale(50)">
