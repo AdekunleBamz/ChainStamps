@@ -21,10 +21,20 @@ import { TransactionStepper } from './ui/TransactionStepper';
 import { cvToHex, stringUtf8CV } from '@stacks/transactions';
 import { useOnChainFees } from '../hooks/useOnChainFees';
 
+/** Shake animation variant for form validation errors. */
 const SHAKE_ANIMATION = {
   x: [0, -10, 10, -10, 10, 0],
   transition: { duration: 0.4 }
 };
+
+/** Rate limit interval for tag submission in milliseconds. */
+const RATE_LIMIT_INTERVAL = 2000;
+
+/** Maximum key length for tag registry. */
+const MAX_KEY_LENGTH = 64;
+
+/** Maximum value length for tag registry. */
+const MAX_VALUE_LENGTH = 256;
 
 /**
  * TagRegistry component for managing decentralized key-value metadata.
@@ -55,7 +65,7 @@ export const TagRegistry = memo(({ searchQuery = '' }: { searchQuery?: string })
 
   const storeTag = async () => {
     const now = Date.now();
-    if (now - lastSubmitTime < 2000) return; // 2s rate limit
+    if (now - lastSubmitTime < RATE_LIMIT_INTERVAL) return;
 
     if (!key || !value || !isConnected || !userAddress) {
       if (!key || !value) {
@@ -100,7 +110,7 @@ export const TagRegistry = memo(({ searchQuery = '' }: { searchQuery?: string })
   };
 
   const isKeyValid = key.length > 0 && /^[a-z0-9-]+$/.test(key);
-  const isValueValid = value.length > 0 && value.length <= 256;
+  const isValueValid = value.length > 0 && value.length <= MAX_VALUE_LENGTH;
 
   return (
     <motion.section
@@ -221,7 +231,7 @@ export const TagRegistry = memo(({ searchQuery = '' }: { searchQuery?: string })
             value={key}
             onChange={(e) => setKey(e.target.value.toLowerCase().replace(/\s+/g, '-').replace(/[^a-z0-9-]/g, ''))}
             onKeyDown={handleKeyDown}
-            maxLength={64}
+            maxLength={MAX_KEY_LENGTH}
             className={twMerge(
               "input font-mono transition-all duration-200", 
               isSubmitting && "opacity-50",
@@ -231,7 +241,7 @@ export const TagRegistry = memo(({ searchQuery = '' }: { searchQuery?: string })
             aria-label="Tag key name"
             aria-required="true"
           />
-          <span className="char-count text-[10px] mt-1 block text-right text-muted-foreground/40">{key.length}/64</span>
+          <span className="char-count text-[10px] mt-1 block text-right text-muted-foreground/40">{key.length}/{MAX_KEY_LENGTH}</span>
         </div>
 
         <div className="form-group mb-6">
@@ -270,7 +280,7 @@ export const TagRegistry = memo(({ searchQuery = '' }: { searchQuery?: string })
             value={value}
             onChange={(e) => setValue(e.target.value)}
             onKeyDown={handleKeyDown}
-            maxLength={256}
+            maxLength={MAX_VALUE_LENGTH}
             rows={3}
             className={twMerge(
               "textarea resize-none transition-all duration-200", 
@@ -287,7 +297,7 @@ export const TagRegistry = memo(({ searchQuery = '' }: { searchQuery?: string })
                 <Shield size={10} /> Data limit approaching
               </span>
             )}
-            <span className="char-count text-[10px] ml-auto text-muted-foreground/40" aria-live="polite">{value.length}/256</span>
+            <span className="char-count text-[10px] ml-auto text-muted-foreground/40" aria-live="polite">{value.length}/{MAX_VALUE_LENGTH}</span>
           </div>
         </div>
 
