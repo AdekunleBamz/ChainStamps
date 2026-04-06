@@ -22,7 +22,11 @@ import { ANIMATIONS } from '../config/constants';
 import { bufferCV, cvToHex, stringUtf8CV } from '@stacks/transactions';
 import { useOnChainFees } from '../hooks/useOnChainFees';
 
+/** Pre-computed shake animation variant for form validation errors. */
 const SHAKE_ANIMATION = ANIMATIONS.SHAKE;
+
+/** Rate limit interval for hash submission in milliseconds. */
+const RATE_LIMIT_INTERVAL = 2000;
 
 /**
  * HashRegistry component for storing and verifying SHA-256 hashes on the Stacks blockchain.
@@ -51,7 +55,7 @@ export const HashRegistry = memo(({ searchQuery = '' }: { searchQuery?: string }
 
   const storeHash = async () => {
     const now = Date.now();
-    if (now - lastSubmitTime < 2000) return; // 2s rate limit
+    if (now - lastSubmitTime < RATE_LIMIT_INTERVAL) return;
     
     if (!hash || !isConnected || !userAddress) {
       if (!hash) {
