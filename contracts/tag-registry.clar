@@ -1,5 +1,5 @@
 ;; title: tag-registry
-;; version: 1.2.0
+;; version: 1.2.1
 ;; summary: Store key-value tags on-chain with namespace support
 ;; description: ChainStamp - Pay 0.04 STX to store a namespaced key-value pair permanently on the blockchain
 ;; author: Adekunle Bamz (@AdekunleBamz)
