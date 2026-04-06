@@ -385,7 +385,7 @@ Before deploying to mainnet, ensure:
 
 -   [ ] **Q2 2026**: Multi-signature support for Tag Registry.
 -   [ ] **Q3 2026**: Integration with Hiro Wallet mobile.
--   [ ] **Q4 2026**: decentralized storage integration (IPFS/Arweave).
+-   [ ] **Q4 2026**: Decentralized storage integration (IPFS/Arweave).
 -   [ ] **Q1 2027**: Cross-chain verification bridge.
 
 ## 📁 Project Structure
