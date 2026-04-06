@@ -1,10 +1,13 @@
+/** Haptic feedback type definitions for consistent tactile interactions. */
+export type HapticType = 'light' | 'medium' | 'heavy' | 'error' | 'success';
+
 /**
  * Triggers haptic feedback on supported devices.
  * Uses the Web Vibration API to provide sensory cues for user interactions.
- * 
- * @param {'light' | 'medium' | 'heavy' | 'error' | 'success'} type - The intensity/pattern of the vibration.
+ *
+ * @param type - The intensity/pattern of the vibration.
  */
-export const triggerHaptic = (type: 'light' | 'medium' | 'heavy' | 'error' | 'success') => {
+export const triggerHaptic = (type: HapticType): void => {
     if (typeof window !== 'undefined' && 'vibrate' in navigator) {
         switch (type) {
             case 'light':
