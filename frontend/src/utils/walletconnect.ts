@@ -1,7 +1,13 @@
 import UniversalProvider from '@walletconnect/universal-provider';
 
+/** WalletConnect project ID from environment variables. */
 const PROJECT_ID = (import.meta.env.VITE_WALLETCONNECT_PROJECT_ID || '').trim();
+
+/** Debug flag for verbose WalletConnect logging. */
 const DEBUG = import.meta.env.VITE_DEBUG === 'true';
+
+/** Timeout in milliseconds for stx_getAddresses request. */
+const ADDRESS_REQUEST_TIMEOUT = 15000;
 
 // Metadata for WalletConnect - icons array must be non-empty
 const metadata = {
@@ -131,7 +137,7 @@ export const wcConnect = async (
         params: {},
       }, STACKS_MAINNET),
       new Promise<never>((_, reject) => 
-        setTimeout(() => reject(new Error('stx_getAddresses timeout')), 15000)
+        setTimeout(() => reject(new Error('stx_getAddresses timeout')), ADDRESS_REQUEST_TIMEOUT)
       ),
     ]);
 
