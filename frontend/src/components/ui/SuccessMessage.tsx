@@ -2,6 +2,9 @@ import React from 'react';
 import { CheckCircle, ExternalLink } from 'lucide-react';
 import { motion, AnimatePresence } from 'framer-motion';
 
+/** Default Stacks Explorer URL for transaction links. */
+const DEFAULT_EXPLORER_URL = 'https://explorer.stacks.co/txid';
+
 interface SuccessMessageProps {
   message: string;
   txId?: string | null;
@@ -12,7 +15,7 @@ interface SuccessMessageProps {
 export const SuccessMessage: React.FC<SuccessMessageProps> = ({ 
   message, 
   txId, 
-  explorerUrl = 'https://explorer.stacks.co/txid',
+  explorerUrl = DEFAULT_EXPLORER_URL,
   children 
 }) => {
   return (
