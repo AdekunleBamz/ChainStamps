@@ -1,20 +1,21 @@
 import confetti from 'canvas-confetti';
 
-/**
- * Configuration options for confetti animations.
- * Uses brand colors (primary, accent, success) for consistency.
- */
+/** Brand colors used for standard confetti animations. */
 const CONFETTI_COLORS = ['#6366f1', '#a855f7', '#3b82f6'];
+
+/** Success-themed colors for celebration confetti. */
 const SUCCESS_COLORS = ['#6366f1', '#a855f7', '#22c55e'];
+
+/** Default confetti duration in milliseconds. */
+const CONFETTI_DURATION = 3 * 1000;
 
 /**
  * Triggers a side-burst confetti effect that lasts for 3 seconds.
  * Creates a celebratory animation from both sides of the screen.
  * Ideal for milestone achievements or special events.
  */
-export const triggerConfetti = () => {
-    const duration = 3 * 1000;
-    const animationEnd = Date.now() + duration;
+export const triggerConfetti = (): void => {
+    const animationEnd = Date.now() + CONFETTI_DURATION;
     const defaults = { startVelocity: 30, spread: 360, ticks: 60, zIndex: 0 };
 
     const randomInRange = (min: number, max: number) => Math.random() * (max - min) + min;
@@ -26,7 +27,7 @@ export const triggerConfetti = () => {
             return clearInterval(interval);
         }
 
-        const particleCount = 50 * (timeLeft / duration);
+        const particleCount = 50 * (timeLeft / CONFETTI_DURATION);
         // since particles fall down, start a bit higher than random
         confetti({
             ...defaults,
