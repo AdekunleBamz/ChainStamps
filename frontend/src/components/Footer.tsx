@@ -2,6 +2,12 @@ import { Github, Twitter, Globe, Zap, Clock, ShieldCheck } from 'lucide-react';
 import { motion } from 'framer-motion';
 import { memo } from 'react';
 
+/** Animation variants for social link hover effects. */
+const SOCIAL_LINK_ANIMATION = {
+    hover: { scale: 1.1, y: -2 },
+    tap: { scale: 0.9 },
+};
+
 /**
  * Global Footer component.
  * Displays copyright information, social links, and site-wide navigation landmarks.
@@ -68,8 +74,8 @@ export const Footer = memo(() => {
 
         <div className="footer-links">
           <motion.a
-            whileHover={{ scale: 1.1, y: -2 }}
-            whileTap={{ scale: 0.9 }}
+            whileHover={SOCIAL_LINK_ANIMATION.hover}
+            whileTap={SOCIAL_LINK_ANIMATION.tap}
             href="https://github.com/AdekunleBamz/ChainStamps"
             target="_blank"
             rel="noopener noreferrer"
@@ -79,8 +85,8 @@ export const Footer = memo(() => {
             <Github size={20} strokeWidth={1.5} role="img" aria-hidden="true" />
           </motion.a>
           <motion.a
-            whileHover={{ scale: 1.1, y: -2 }}
-            whileTap={{ scale: 0.9 }}
+            whileHover={SOCIAL_LINK_ANIMATION.hover}
+            whileTap={SOCIAL_LINK_ANIMATION.tap}
             href="https://twitter.com"
             target="_blank"
             rel="noopener noreferrer"
@@ -90,8 +96,8 @@ export const Footer = memo(() => {
             <Twitter size={20} strokeWidth={1.5} role="img" aria-hidden="true" />
           </motion.a>
           <motion.a
-            whileHover={{ scale: 1.1, y: -2 }}
-            whileTap={{ scale: 0.9 }}
+            whileHover={SOCIAL_LINK_ANIMATION.hover}
+            whileTap={SOCIAL_LINK_ANIMATION.tap}
             href="https://explorer.stacks.co/address/SP5K2RHMSBH4PAP4PGX77MCVNK1ZEED07CWX9TJT?chain=mainnet"
             target="_blank"
             rel="noopener noreferrer"
