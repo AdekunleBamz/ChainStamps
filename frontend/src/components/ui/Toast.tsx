@@ -12,10 +12,10 @@ export const ToastContainer = () => {
 
     /** Mapping of notification types to their respective Lucide icons and colors. */
     const icons = {
-        success: <CheckCircle className="text-green-500" size={20} />,
-        error: <AlertCircle className="text-red-500" size={20} />,
-        info: <Info className="text-blue-500" size={20} />,
-        warning: <AlertTriangle className="text-yellow-500" size={20} />,
+        success: <CheckCircle className="text-green-500" size={20} aria-hidden="true" />,
+        error: <AlertCircle className="text-red-500" size={20} aria-hidden="true" />,
+        info: <Info className="text-blue-500" size={20} aria-hidden="true" />,
+        warning: <AlertTriangle className="text-yellow-500" size={20} aria-hidden="true" />,
     };
 
     /** Mapping of notification types to their glassmorphic background styles. */
