@@ -26,3 +26,9 @@ export const UI = {
   RATE_LIMIT_COOLDOWN: 2000,
   SKELETON_DELAY: 1200
 };
+
+/** Maximum retries for failed blockchain API calls. */
+export const MAX_API_RETRIES = 3;
+
+/** Delay between API retry attempts in milliseconds. */
+export const API_RETRY_DELAY = 1000;
