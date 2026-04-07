@@ -4,6 +4,12 @@ import { twMerge } from 'tailwind-merge';
 import { Loader2 } from 'lucide-react';
 import { triggerHaptic } from '../../utils/haptics';
 
+/** Hover scale factor for button animation. */
+const BUTTON_HOVER_SCALE = 1.02;
+
+/** Tap scale factor for button animation. */
+const BUTTON_TAP_SCALE = 0.98;
+
 /**
  * Properties for the Button component.
  * @extends {HTMLMotionProps<'button'>}
