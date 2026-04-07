@@ -36,6 +36,9 @@ const MAX_KEY_LENGTH = 64;
 /** Maximum value length for tag registry. */
 const MAX_VALUE_LENGTH = 256;
 
+/** Regular expression pattern for validating tag key format (kebab-case). */
+const TAG_KEY_PATTERN = /^[a-z0-9-]+$/;
+
 /**
  * TagRegistry component for managing decentralized key-value metadata.
  */
