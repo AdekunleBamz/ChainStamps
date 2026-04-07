@@ -224,8 +224,8 @@ export const HashRegistry = memo(({ searchQuery = '' }: { searchQuery?: string }
             <div className="flex items-center gap-1.5 text-[10px] text-muted-foreground uppercase font-bold">
               <label>SHA-256 Hash</label>
               <Tooltip content="A 64-character hexadecimal string representing a SHA-256 hash.">
-                <div className="cursor-help opacity-40 hover:opacity-100 transition-opacity">
-                  <HelpCircle size={10} />
+                <div className="cursor-help opacity-40 hover:opacity-100 transition-opacity" role="note" aria-label="Hash format help">
+                  <HelpCircle size={10} aria-hidden="true" />
                 </div>
               </Tooltip>
             </div>
