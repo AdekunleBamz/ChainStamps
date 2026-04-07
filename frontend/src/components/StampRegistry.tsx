@@ -174,6 +174,7 @@ export const StampRegistry = memo(({ searchQuery = '' }: { searchQuery?: string 
                 </div>
               </div>
             }
+            aria-label="Fee breakdown for stamp registration"
           >
             <span className="fee-badge bg-primary/10 text-primary border border-primary/20 px-3 py-1 rounded-full text-xs font-bold">
               <AnimatedNumber value={stampFee + BASE_NETWORK_FEE_STX} decimals={4} suffix=" STX" />
