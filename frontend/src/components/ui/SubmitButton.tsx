@@ -45,6 +45,7 @@ export const SubmitButton: React.FC<SubmitButtonProps> = ({
       onClick={onClick}
       disabled={disabled || isLoading}
       aria-busy={ariaBusy || isLoading}
+      aria-label={isLoading ? loadingText : idleText}
       variant={variant}
       size={size}
       className={className}
