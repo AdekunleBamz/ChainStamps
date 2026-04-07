@@ -3,6 +3,9 @@ import { useToast } from '../../context/ToastContext';
 import { CheckCircle, AlertCircle, X, Info, AlertTriangle } from 'lucide-react';
 import { twMerge } from 'tailwind-merge';
 
+/** Animation duration for toast icon entrance in seconds. */
+const TOAST_ICON_ANIMATION_DURATION = 0.2;
+
 /**
  * A container component that renders active toast notifications in a fixed position.
  * Listens to the toast context for updates.
