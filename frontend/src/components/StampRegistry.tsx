@@ -33,6 +33,9 @@ const RATE_LIMIT_INTERVAL = 2000;
 /** Maximum message length for stamp registry. */
 const MAX_MESSAGE_LENGTH = 256;
 
+/** Minimum message length for valid stamp. */
+const MIN_MESSAGE_LENGTH = 1;
+
 /**
  * StampRegistry component for permanently recording text messages on the Stacks blockchain.
  */
