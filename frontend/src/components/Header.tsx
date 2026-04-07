@@ -215,7 +215,7 @@ export const Header = () => {
                     </div>
                   </div>
                 }>
-                  <div className="network-heartbeat flex items-center bg-white/5 border border-white/10 px-3 py-1.5 rounded-full" aria-live="polite" aria-label={`Stacks Mainnet block height: ${blockHeight || 'Loading'}`}>
+                  <div className="network-heartbeat flex items-center bg-white/5 border border-white/10 px-3 py-1.5 rounded-full" aria-live="polite" aria-label={`Stacks Mainnet block height: ${blockHeight || 'Loading'}`} role="status">
                     <Activity size={12} className="mr-2 text-primary animate-pulse" strokeWidth={2.5} aria-hidden="true" />
                     <span className="text-[10px] font-bold uppercase tracking-widest text-muted-foreground mr-2" aria-hidden="true">
                       Mainnet
