@@ -47,7 +47,7 @@ export const EmptyState = ({ title, description, action, icon: Icon = Search }: 
             </radialGradient>
           </defs>
         </svg>
-        <div className="absolute inset-0 flex items-center justify-center text-primary/40">
+        <div className="absolute inset-0 flex items-center justify-center text-primary/40" role="img" aria-hidden="true">
           <Icon size={48} strokeWidth={1} />
         </div>
       </motion.div>
