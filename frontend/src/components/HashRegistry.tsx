@@ -28,6 +28,9 @@ const SHAKE_ANIMATION = ANIMATIONS.SHAKE;
 /** Rate limit interval for hash submission in milliseconds. */
 const RATE_LIMIT_INTERVAL = 2000;
 
+/** Regular expression pattern for validating SHA-256 hash format. */
+const HASH_VALIDATION_PATTERN = /^[a-fA-F0-9]{64}$/;
+
 /**
  * HashRegistry component for storing and verifying SHA-256 hashes on the Stacks blockchain.
  */
