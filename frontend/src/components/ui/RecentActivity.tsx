@@ -63,7 +63,7 @@ export const RecentActivity = memo(({ activities, isLoading, className }: Recent
   if (!isLoading && activities.length === 0) return null;
 
   return (
-    <div className={twMerge("mt-8 pt-6 border-t border-border/50", className)}>
+    <div className={twMerge("mt-8 pt-6 border-t border-border/50", className)} aria-label="Recent transaction activity">
       <div className="flex-between items-center mb-4">
         <div className="flex items-center gap-2">
           <Clock size={12} className="text-muted-foreground" />
