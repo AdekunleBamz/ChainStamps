@@ -252,7 +252,12 @@
     (let
         (
             (new-hash-id (+ (var-get hash-counter) u1))
-            (current-user-hashes (default-to (list) (map-get? user-hashes tx-sender)))
+            (current-user-hashes
+                (match (map-get? user-hashes tx-sender)
+                    stored-hashes stored-hashes
+                    (list)
+                )
+            )
         )
         ;; Store the hash metadata
         (map-set hashes hash {
@@ -270,7 +275,7 @@
         
         ;; Update user's hash list
         (map-set user-hashes tx-sender 
-            (unwrap-panic (as-max-len? (append current-user-hashes hash) MAX-USER-HASHES)))
+            (unwrap-panic (as-max-len? (concat current-user-hashes (list hash)) u100)))
         
         ;; Increment global counter
         (var-set hash-counter new-hash-id)

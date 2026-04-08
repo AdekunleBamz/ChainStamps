@@ -275,11 +275,11 @@
         
         ;; Update user's stamp list
         (map-set user-stamps tx-sender 
-            (unwrap-panic (as-max-len? (append current-user-stamps new-stamp-id) MAX-USER-STAMPS)))
+            (unwrap-panic (as-max-len? (append current-user-stamps new-stamp-id) u100)))
         
         ;; Update category's stamp list
         (map-set category-stamps category
-            (unwrap-panic (as-max-len? (append current-category-stamps new-stamp-id) MAX-USER-STAMPS)))
+            (unwrap-panic (as-max-len? (append current-category-stamps new-stamp-id) u100)))
         
         ;; Increment counter and update fees
         (var-set stamp-counter new-stamp-id)
