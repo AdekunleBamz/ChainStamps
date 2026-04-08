@@ -23,6 +23,7 @@ export default defineConfig({
   test: {
     // use vitest-environment-clarinet
     environment: "clarinet",
+    include: ["tests/**/*.ts"],
     pool: "forks",
     // clarinet handles test isolation by resetting the simnet between tests
     isolate: false,
@@ -39,4 +40,3 @@ export default defineConfig({
     },
   },
 });
-
