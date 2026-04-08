@@ -442,31 +442,45 @@ describe("tag-registry", () => {
     });
   });
 
-  it("should return update fee", () => {
-    const { result } = simnet.callReadOnlyFn(
+  it("should return namespace tag IDs for a user", () => {
+    simnet.callPublicFn(
       "tag-registry",
-      "get-update-fee",
-      [],
+      "store-tag",
+      [Cl.stringUtf8("namespace-key"), Cl.stringUtf8("namespace-val")],
       wallet1
     );
-    expect(result).toBeUint(10000); // 0.01 STX
+
+    const { result } = simnet.callReadOnlyFn(
+      "tag-registry",
+      "get-user-namespace-tags",
+      [Cl.principal(wallet1), Cl.stringUtf8("default")],
+      wallet1
+    );
+    expect(result).toBeList([Cl.uint(1)]);
   });
 
-  it("should return max batch size", () => {
-    const { result } = simnet.callReadOnlyFn(
+  it("should report active tags as not deleted", () => {
+    simnet.callPublicFn(
       "tag-registry",
-      "get-max-batch-size",
-      [],
+      "store-tag",
+      [Cl.stringUtf8("active-key"), Cl.stringUtf8("active-val")],
       wallet1
     );
-    expect(result).toBeUint(5);
+
+    const { result } = simnet.callReadOnlyFn(
+      "tag-registry",
+      "is-tag-deleted",
+      [Cl.uint(1)],
+      wallet1
+    );
+    expect(result).toBeBool(false);
   });
 
   // ============================================================
   // Metadata Retrieval Tests
   // ============================================================
 
-  it("should return tag timestamp", () => {
+  it("should return tag timestamp data from the stored record", () => {
     simnet.callPublicFn(
       "tag-registry",
       "store-tag",
@@ -476,11 +490,13 @@ describe("tag-registry", () => {
 
     const { result } = simnet.callReadOnlyFn(
       "tag-registry",
-      "get-tag-timestamp",
+      "get-tag",
       [Cl.uint(1)],
       wallet1
     );
     expect(result).not.toBeNone();
+    const tagData = (result as any).value.value;
+    expect(BigInt(tagData.timestamp.value)).toBeGreaterThan(0n);
   });
 
   it("should return tag block height", () => {
@@ -522,7 +538,7 @@ describe("tag-registry", () => {
     expect(nonOwnerResult).toBeErr(Cl.uint(100));
   });
 
-  it("should verify tag ownership by key", () => {
+  it("should verify tag ownership by id", () => {
     simnet.callPublicFn(
       "tag-registry",
       "store-tag",
@@ -533,7 +549,7 @@ describe("tag-registry", () => {
     const { result: isOwner } = simnet.callReadOnlyFn(
       "tag-registry",
       "is-tag-owner",
-      [Cl.principal(wallet1), Cl.stringUtf8("verify-key")],
+      [Cl.uint(1), Cl.principal(wallet1)],
       wallet1
     );
     expect(isOwner).toBeBool(true);
@@ -541,7 +557,7 @@ describe("tag-registry", () => {
     const { result: notOwner } = simnet.callReadOnlyFn(
       "tag-registry",
       "is-tag-owner",
-      [Cl.principal(wallet2), Cl.stringUtf8("verify-key")],
+      [Cl.uint(1), Cl.principal(wallet2)],
       wallet2
     );
     expect(notOwner).toBeBool(false);

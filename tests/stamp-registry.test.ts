@@ -404,23 +404,30 @@ describe("stamp-registry", () => {
     });
   });
 
-  it("should return update fee", () => {
+  it("should validate known category bounds", () => {
     const { result } = simnet.callReadOnlyFn(
       "stamp-registry",
-      "get-update-fee",
-      [],
+      "is-valid-category",
+      [Cl.uint(4)],
       wallet1
     );
-    expect(result).toBeUint(10000); // 0.01 STX
+    expect(result).toBeBool(true);
   });
 
-  it("should return max batch size", () => {
-    const { result } = simnet.callReadOnlyFn(
+  it("should return stamps by category", () => {
+    simnet.callPublicFn(
       "stamp-registry",
-      "get-max-batch-size",
-      [],
+      "stamp-message-with-category",
+      [Cl.stringUtf8("Category message"), Cl.uint(2)],
       wallet1
     );
-    expect(result).toBeUint(5);
+
+    const { result } = simnet.callReadOnlyFn(
+      "stamp-registry",
+      "get-stamps-by-category",
+      [Cl.uint(2)],
+      wallet1
+    );
+    expect(result).toBeList([Cl.uint(1)]);
   });
 });
