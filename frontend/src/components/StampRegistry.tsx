@@ -129,13 +129,13 @@ export const StampRegistry = memo(({ searchQuery = '' }: { searchQuery?: string 
           </div>
         </div>
         <div className="flex items-center gap-3">
-          <Tooltip content="View contract on Stacks Explorer">
+          <Tooltip content="View contract on Hiro Explorer">
             <a
-              href={`https://explorer.stacks.co/txid/${CONTRACT_ADDRESS}.${CONTRACTS.stampRegistry.name}?chain=mainnet`}
+              href={`https://explorer.hiro.so/address/${CONTRACT_ADDRESS}.${CONTRACTS.stampRegistry.name}?chain=mainnet`}
               target="_blank"
               rel="noopener noreferrer"
               className="h-8 w-8 flex-center rounded-full opacity-40 hover:opacity-100 hover:bg-primary/10 transition-all text-muted-foreground hover:text-primary"
-              aria-label="View contract on Stacks Explorer"
+              aria-label="View contract on Hiro Explorer"
             >
               <ExternalLink size={16} strokeWidth={1.5} />
             </a>
