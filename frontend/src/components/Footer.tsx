@@ -98,10 +98,10 @@ export const Footer = memo(() => {
           <motion.a
             whileHover={SOCIAL_LINK_ANIMATION.hover}
             whileTap={SOCIAL_LINK_ANIMATION.tap}
-            href="https://explorer.stacks.co/address/SP5K2RHMSBH4PAP4PGX77MCVNK1ZEED07CWX9TJT?chain=mainnet"
+            href="https://explorer.hiro.so/address/SP5K2RHMSBH4PAP4PGX77MCVNK1ZEED07CWX9TJT?chain=mainnet"
             target="_blank"
             rel="noopener noreferrer"
-            aria-label="View ChainStamps contract on Stacks Explorer"
+            aria-label="View ChainStamps contract on Hiro Explorer"
             className="focus-visible:ring-2 focus-visible:ring-primary focus-visible:ring-offset-2 rounded-lg"
           >
             <Globe size={20} strokeWidth={1.5} role="img" aria-hidden="true" />
