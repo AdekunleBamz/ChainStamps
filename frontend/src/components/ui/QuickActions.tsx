@@ -83,6 +83,7 @@ export const QuickActions = () => {
                 </span>
                 <Tooltip content={action.label}>
                   <button
+                    type="button"
                     onClick={() => handleAction(action.id)}
                     className="h-12 w-12 rounded-2xl bg-primary text-white shadow-2xl flex-center hover:scale-110 active:scale-95 transition-all relative overflow-hidden group/btn"
                     aria-label={`Go to ${action.label}`}
@@ -103,6 +104,7 @@ export const QuickActions = () => {
             >
               <Tooltip content="Back to Top">
                 <button
+                  type="button"
                   onClick={() => {
                     window.scrollTo({ top: 0, behavior: 'smooth' });
                     setIsOpen(false);
@@ -120,6 +122,7 @@ export const QuickActions = () => {
       </AnimatePresence>
 
       <button
+        type="button"
         onClick={() => {
           setIsOpen(!isOpen);
           triggerHaptic('medium');
