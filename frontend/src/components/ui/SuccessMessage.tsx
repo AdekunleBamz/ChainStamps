@@ -2,8 +2,8 @@ import React from 'react';
 import { CheckCircle, ExternalLink } from 'lucide-react';
 import { motion, AnimatePresence } from 'framer-motion';
 
-/** Default Stacks Explorer URL for transaction links. */
-const DEFAULT_EXPLORER_URL = 'https://explorer.stacks.co/txid';
+/** Default Hiro Explorer URL for transaction links. */
+const DEFAULT_EXPLORER_URL = 'https://explorer.hiro.so/txid';
 
 interface SuccessMessageProps {
   message: string;
@@ -37,7 +37,7 @@ export const SuccessMessage: React.FC<SuccessMessageProps> = ({
               target="_blank"
               rel="noopener noreferrer"
               className="flex items-center gap-1 underline underline-offset-4 hover:opacity-80 transition-opacity"
-              aria-label="View transaction on Stacks Explorer"
+              aria-label="View transaction on Hiro Explorer"
             >
               Details
               <ExternalLink size={10} />
