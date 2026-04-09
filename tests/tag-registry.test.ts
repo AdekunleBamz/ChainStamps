@@ -443,6 +443,31 @@ describe("tag-registry", () => {
     expect(updatedTag).not.toBeNone();
   });
 
+  it("should allow namespaced tag updates by owner", () => {
+    simnet.callPublicFn(
+      "tag-registry",
+      "store-tag-with-namespace",
+      [Cl.stringUtf8("profile"), Cl.stringUtf8("bio"), Cl.stringUtf8("old bio")],
+      wallet1
+    );
+
+    const { result } = simnet.callPublicFn(
+      "tag-registry",
+      "update-tag-with-namespace",
+      [Cl.stringUtf8("profile"), Cl.stringUtf8("bio"), Cl.stringUtf8("new bio")],
+      wallet1
+    );
+    expect(result).toBeOk(Cl.uint(1));
+
+    const { result: updatedValue } = simnet.callReadOnlyFn(
+      "tag-registry",
+      "get-tag-value",
+      [Cl.uint(1)],
+      wallet1
+    );
+    expect(updatedValue).toBeSome(Cl.stringUtf8("new bio"));
+  });
+
   it("should prevent tag update by non-owner", () => {
     simnet.callPublicFn(
       "tag-registry",
