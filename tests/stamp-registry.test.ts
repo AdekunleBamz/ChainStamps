@@ -414,6 +414,16 @@ describe("stamp-registry", () => {
     expect(result).toBeBool(true);
   });
 
+  it("should reject categories above the supported range", () => {
+    const { result } = simnet.callReadOnlyFn(
+      "stamp-registry",
+      "is-valid-category",
+      [Cl.uint(5)],
+      wallet1
+    );
+    expect(result).toBeBool(false);
+  });
+
   it("should return stamps by category", () => {
     simnet.callPublicFn(
       "stamp-registry",
