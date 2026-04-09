@@ -74,6 +74,7 @@ export const RecentActivity = memo(({ activities, isLoading, className }: Recent
             {(['all', 'today', 'week'] as FilterType[]).map((f) => (
               <button
                 key={f}
+                type="button"
                 onClick={() => setFilter(f)}
                 className={twMerge(
                   "px-2 py-0.5 text-[9px] font-bold uppercase tracking-wider rounded-md transition-all",
