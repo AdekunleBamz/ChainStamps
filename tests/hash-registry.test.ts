@@ -379,6 +379,27 @@ describe("hash-registry", () => {
     expect(result).toBeSome(Cl.buffer(testHash));
   });
 
+  it("should retrieve full hash info by ID", () => {
+    const testHash = createTestHash(23);
+    const description = "Info by id";
+
+    simnet.callPublicFn(
+      "hash-registry",
+      "store-hash",
+      [Cl.buffer(testHash), Cl.stringUtf8(description)],
+      wallet1
+    );
+
+    const { result } = simnet.callReadOnlyFn(
+      "hash-registry",
+      "get-hash-info-by-id",
+      [Cl.uint(1)],
+      wallet1
+    );
+
+    expect(result).not.toBeNone();
+  });
+
   it("should return hash description", () => {
     const testHash = createTestHash(11);
     const description = "Description lookup";
