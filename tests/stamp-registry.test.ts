@@ -297,6 +297,23 @@ describe("stamp-registry", () => {
     expect(result).toBeBool(true);
   });
 
+  it("should report active stamps as not revoked", () => {
+    simnet.callPublicFn(
+      "stamp-registry",
+      "stamp-message",
+      [Cl.stringUtf8("Revocation state")],
+      wallet1
+    );
+
+    const { result } = simnet.callReadOnlyFn(
+      "stamp-registry",
+      "is-stamp-revoked",
+      [Cl.uint(1)],
+      wallet1
+    );
+    expect(result).toBeBool(false);
+  });
+
   it("should return contract owner", () => {
     const { result } = simnet.callReadOnlyFn(
       "stamp-registry",
