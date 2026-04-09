@@ -300,6 +300,24 @@ describe("hash-registry", () => {
     expect(result).toBePrincipal(deployer);
   });
 
+  it("should identify the contract owner correctly", () => {
+    const { result: ownerResult } = simnet.callReadOnlyFn(
+      "hash-registry",
+      "is-contract-owner",
+      [Cl.principal(deployer)],
+      wallet1
+    );
+    expect(ownerResult).toBeBool(true);
+
+    const { result: userResult } = simnet.callReadOnlyFn(
+      "hash-registry",
+      "is-contract-owner",
+      [Cl.principal(wallet1)],
+      wallet1
+    );
+    expect(userResult).toBeBool(false);
+  });
+
   // ============================================================
   // Metadata Retrieval Tests
   // ============================================================
