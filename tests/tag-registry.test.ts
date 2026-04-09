@@ -370,6 +370,23 @@ describe("tag-registry", () => {
     expect(result).toBeSome(Cl.principal(wallet1));
   });
 
+  it("should confirm when a user owns a tag", () => {
+    simnet.callPublicFn(
+      "tag-registry",
+      "store-tag",
+      [Cl.stringUtf8("owned-key"), Cl.stringUtf8("owned-value")],
+      wallet1
+    );
+
+    const { result } = simnet.callReadOnlyFn(
+      "tag-registry",
+      "is-tag-owner",
+      [Cl.uint(1), Cl.principal(wallet1)],
+      wallet1
+    );
+    expect(result).toBeBool(true);
+  });
+
   it("should return contract owner", () => {
     const { result } = simnet.callReadOnlyFn(
       "tag-registry",
