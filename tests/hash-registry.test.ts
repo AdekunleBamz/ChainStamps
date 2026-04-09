@@ -309,6 +309,25 @@ describe("hash-registry", () => {
     expect(result).toBeBool(true);
   });
 
+  it("should report active hashes as not revoked", () => {
+    const testHash = createTestHash(22);
+
+    simnet.callPublicFn(
+      "hash-registry",
+      "store-hash",
+      [Cl.buffer(testHash), Cl.stringUtf8("Revocation flag")],
+      wallet1
+    );
+
+    const { result } = simnet.callReadOnlyFn(
+      "hash-registry",
+      "is-hash-revoked",
+      [Cl.buffer(testHash)],
+      wallet1
+    );
+    expect(result).toBeBool(false);
+  });
+
   it("should return contract owner", () => {
     const { result } = simnet.callReadOnlyFn(
       "hash-registry",
