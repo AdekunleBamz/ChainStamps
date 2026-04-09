@@ -149,6 +149,16 @@ describe("stamp-registry", () => {
     expect(stampResult).not.toBeNone();
   });
 
+  it("should reject stamping with an invalid category", () => {
+    const { result } = simnet.callPublicFn(
+      "stamp-registry",
+      "stamp-message-with-category",
+      [Cl.stringUtf8("Invalid category"), Cl.uint(5)],
+      wallet1
+    );
+    expect(result).toBeErr(Cl.uint(105));
+  });
+
   // ============================================================
   // Fee Collection Tests
   // ============================================================
