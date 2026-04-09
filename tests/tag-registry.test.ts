@@ -503,6 +503,16 @@ describe("tag-registry", () => {
     expect(result).toBeList([Cl.uint(1)]);
   });
 
+  it("should return an empty namespace list when nothing was stored there", () => {
+    const { result } = simnet.callReadOnlyFn(
+      "tag-registry",
+      "get-user-namespace-tags",
+      [Cl.principal(wallet1), Cl.stringUtf8("missing")],
+      wallet1
+    );
+    expect(result).toBeList([]);
+  });
+
   it("should report active tags as not deleted", () => {
     simnet.callPublicFn(
       "tag-registry",
