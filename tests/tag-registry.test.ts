@@ -24,6 +24,16 @@ const wallet1 = accounts.get("wallet_1")!;
 const wallet2 = accounts.get("wallet_2")!;
 const wallet3 = accounts.get("wallet_3")!;
 
+interface StoredTagResult {
+  value: {
+    value: {
+      timestamp: {
+        value: bigint;
+      };
+    };
+  };
+}
+
 // Fee constants (in microSTX)
 const TAG_FEE = 40000n; // 0.04 STX = 40000 microSTX
 
@@ -495,7 +505,7 @@ describe("tag-registry", () => {
       wallet1
     );
     expect(result).not.toBeNone();
-    const tagData = (result as any).value.value;
+    const tagData = (result as StoredTagResult).value.value;
     expect(BigInt(tagData.timestamp.value)).toBeGreaterThan(0n);
   });
 
