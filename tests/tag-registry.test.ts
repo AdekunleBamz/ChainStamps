@@ -555,6 +555,31 @@ describe("tag-registry", () => {
     expect(result).toBeBool(false);
   });
 
+  it("should mark deleted tags as deleted", () => {
+    simnet.callPublicFn(
+      "tag-registry",
+      "store-tag",
+      [Cl.stringUtf8("delete-key"), Cl.stringUtf8("delete-val")],
+      wallet1
+    );
+
+    const { result: deleteResult } = simnet.callPublicFn(
+      "tag-registry",
+      "delete-tag",
+      [Cl.uint(1)],
+      wallet1
+    );
+    expect(deleteResult).toBeOk(Cl.bool(true));
+
+    const { result } = simnet.callReadOnlyFn(
+      "tag-registry",
+      "is-tag-deleted",
+      [Cl.uint(1)],
+      wallet1
+    );
+    expect(result).toBeBool(true);
+  });
+
   // ============================================================
   // Metadata Retrieval Tests
   // ============================================================
