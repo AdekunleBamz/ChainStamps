@@ -53,6 +53,7 @@ export const CopyButton = ({ value, className, size = 14 }: CopyButtonProps) => 
     return (
         <motion.button
             animate={controls}
+            type="button"
             onClick={handleCopy}
             className={twMerge(
                 "relative flex items-center justify-center rounded-md p-1.5 transition-colors hover:bg-accent hover:text-accent-foreground",
