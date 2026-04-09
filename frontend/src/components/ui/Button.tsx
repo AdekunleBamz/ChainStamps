@@ -81,9 +81,10 @@ export const Button = memo(function Button({
 
     return (
         <motion.button
-            whileHover={{ scale: BUTTON_HOVER_SCALE }}
-            whileTap={{ scale: BUTTON_TAP_SCALE }}
-            transition={{ type: "spring", stiffness: BUTTON_SPRING_STIFFNESS, damping: BUTTON_SPRING_DAMPING }}
+            whileHover={{ scale: 1.02 }}
+            whileTap={{ scale: 0.98 }}
+            transition={{ type: "spring", stiffness: 400, damping: 17 }}
+            type={props.type ?? 'button'}
             className={twMerge(
                 "inline-flex items-center justify-center rounded-xl font-medium transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring disabled:pointer-events-none disabled:opacity-50",
                 BUTTON_VARIANT_CLASSES[variant],
