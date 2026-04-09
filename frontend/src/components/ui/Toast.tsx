@@ -51,6 +51,7 @@ export const ToastContainer = () => {
                         <div className="shrink-0">{icons[toast.type]}</div>
                         <p className="flex-1 text-sm font-medium text-foreground">{toast.message}</p>
                         <button
+                            type="button"
                             onClick={() => removeToast(toast.id)}
                             className="ml-2 shrink-0 rounded-md p-1 opacity-50 transition-opacity hover:opacity-100"
                         >
