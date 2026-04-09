@@ -73,6 +73,16 @@ describe("hash-registry", () => {
     expect(result).toBeUint(25000);
   });
 
+  it("should return the maximum batch hash size", () => {
+    const { result } = simnet.callReadOnlyFn(
+      "hash-registry",
+      "get-max-batch-size",
+      [],
+      wallet1
+    );
+    expect(result).toBeUint(10);
+  });
+
   // ============================================================
   // Initial State Tests
   // ============================================================
