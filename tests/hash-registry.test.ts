@@ -290,6 +290,25 @@ describe("hash-registry", () => {
     expect(result).toBeSome(Cl.principal(wallet2));
   });
 
+  it("should confirm when a user owns a hash", () => {
+    const testHash = createTestHash(21);
+
+    simnet.callPublicFn(
+      "hash-registry",
+      "store-hash",
+      [Cl.buffer(testHash), Cl.stringUtf8("Ownership flag")],
+      wallet1
+    );
+
+    const { result } = simnet.callReadOnlyFn(
+      "hash-registry",
+      "is-hash-owner",
+      [Cl.buffer(testHash), Cl.principal(wallet1)],
+      wallet1
+    );
+    expect(result).toBeBool(true);
+  });
+
   it("should return contract owner", () => {
     const { result } = simnet.callReadOnlyFn(
       "hash-registry",
