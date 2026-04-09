@@ -125,6 +125,7 @@ export const QuickActions = () => {
       </AnimatePresence>
 
       <button
+        type="button"
         onClick={() => {
           setIsOpen(!isOpen);
           triggerHaptic('medium');
