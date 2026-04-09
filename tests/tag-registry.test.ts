@@ -218,6 +218,23 @@ describe("tag-registry", () => {
     expect(result).not.toBeNone();
   });
 
+  it("should retrieve a namespaced tag by namespace and key", () => {
+    simnet.callPublicFn(
+      "tag-registry",
+      "store-tag-with-namespace",
+      [Cl.stringUtf8("profile"), Cl.stringUtf8("handle"), Cl.stringUtf8("chainstamp")],
+      wallet1
+    );
+
+    const { result } = simnet.callReadOnlyFn(
+      "tag-registry",
+      "get-tag-by-ns-key",
+      [Cl.principal(wallet1), Cl.stringUtf8("profile"), Cl.stringUtf8("handle")],
+      wallet1
+    );
+    expect(result).not.toBeNone();
+  });
+
   it("should return tag value", () => {
     const key = "value-key";
     const value = "value-data";
