@@ -259,6 +259,7 @@ const App = () => {
                 {/* Mobile Filter Drawer */}
                 <FilterDrawer
                   isOpen={isFilterDrawerOpen}
+                  onOpen={() => setIsFilterDrawerOpen(true)}
                   onClose={() => setIsFilterDrawerOpen(false)}
                   activeFiltersCount={(searchQuery ? 1 : 0) + selectedCategories.length}
                 >

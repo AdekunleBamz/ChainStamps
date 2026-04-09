@@ -10,18 +10,19 @@ const DRAWER_SPRING_STIFFNESS = 200;
 
 interface FilterDrawerProps {
   isOpen: boolean;
+  onOpen: () => void;
   onClose: () => void;
   children: ReactNode;
   activeFiltersCount: number;
 }
 
-export const FilterDrawer = ({ isOpen, onClose, children, activeFiltersCount }: FilterDrawerProps) => {
+export const FilterDrawer = ({ isOpen, onOpen, onClose, children, activeFiltersCount }: FilterDrawerProps) => {
   return (
     <>
       {/* Mobile Toggle Button */}
       <button
         type="button"
-        onClick={onClose}
+        onClick={onOpen}
         className={twMerge(
           "md:hidden fixed bottom-24 right-6 z-[100] h-14 w-14 rounded-full bg-primary text-white shadow-2xl flex-center transition-all",
           isOpen ? "scale-0 opacity-0" : "scale-100 opacity-100"
