@@ -290,6 +290,16 @@ describe("stamp-registry", () => {
     expect(result).toBeSome(Cl.principal(wallet1));
   });
 
+  it("should return none for a missing stamp sender lookup", () => {
+    const { result } = simnet.callReadOnlyFn(
+      "stamp-registry",
+      "get-stamp-sender",
+      [Cl.uint(9999)],
+      wallet1
+    );
+    expect(result).toBeNone();
+  });
+
   it("should report active stamps as valid", () => {
     simnet.callPublicFn(
       "stamp-registry",
