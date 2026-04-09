@@ -280,6 +280,23 @@ describe("stamp-registry", () => {
     expect(result).toBeSome(Cl.principal(wallet1));
   });
 
+  it("should report active stamps as valid", () => {
+    simnet.callPublicFn(
+      "stamp-registry",
+      "stamp-message",
+      [Cl.stringUtf8("Validity test")],
+      wallet1
+    );
+
+    const { result } = simnet.callReadOnlyFn(
+      "stamp-registry",
+      "is-stamp-valid",
+      [Cl.uint(1)],
+      wallet1
+    );
+    expect(result).toBeBool(true);
+  });
+
   it("should return contract owner", () => {
     const { result } = simnet.callReadOnlyFn(
       "stamp-registry",
