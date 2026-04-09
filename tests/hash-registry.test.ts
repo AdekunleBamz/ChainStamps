@@ -63,6 +63,16 @@ describe("hash-registry", () => {
     expect(result).toBeUint(HASH_FEE);
   });
 
+  it("should return correct batch hash fee", () => {
+    const { result } = simnet.callReadOnlyFn(
+      "hash-registry",
+      "get-batch-hash-fee",
+      [],
+      wallet1
+    );
+    expect(result).toBeUint(25000);
+  });
+
   // ============================================================
   // Initial State Tests
   // ============================================================
