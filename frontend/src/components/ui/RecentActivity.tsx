@@ -119,11 +119,11 @@ export const RecentActivity = memo(({ activities, isLoading, className }: Recent
                     </div>
                   </div>
                   <a
-                    href={`https://explorer.stacks.co/txid/${activity.txId}?chain=mainnet`}
+                    href={`https://explorer.hiro.so/txid/${activity.txId}?chain=mainnet`}
                     target="_blank"
                     rel="noopener noreferrer"
                     className="p-1 text-muted-foreground hover:text-primary transition-colors opacity-0 group-hover:opacity-100 focus:opacity-100"
-                    aria-label={`View transaction ${activity.txId} on Explorer`}
+                    aria-label={`View transaction ${activity.txId} on Hiro Explorer`}
                   >
                     <ExternalLink size={14} />
                   </a>
