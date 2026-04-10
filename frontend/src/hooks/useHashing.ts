@@ -27,6 +27,9 @@ export const useHashing = () => {
     setIsHashing(true);
     setError(null);
     try {
+      if (!globalThis.crypto?.subtle) {
+        throw new Error('Web Crypto API is not available in this environment');
+      }
       const buffer = await file.arrayBuffer();
       const hashBuffer = await crypto.subtle.digest('SHA-256', buffer);
       const hashArray = Array.from(new Uint8Array(hashBuffer));
@@ -35,6 +38,7 @@ export const useHashing = () => {
       return hashHex;
     } catch (err: unknown) {
       const msg = getErrorMessage(err);
+      setHash(null);
       setError(msg);
       throw err;
     } finally {
