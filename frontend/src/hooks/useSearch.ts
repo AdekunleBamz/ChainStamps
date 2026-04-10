@@ -17,14 +17,20 @@ export interface SearchableItem {
  * @returns {Object} Search state and utility functions.
  */
 export const useSearch = <T extends SearchableItem>(items: T[]) => {
-  const [searchQuery, setSearchQuery] = useState(new URLSearchParams(window.location.search).get('q') || '');
-  const [selectedCategories, setSelectedCategories] = useState<string[]>(
-    new URLSearchParams(window.location.search).get('c')?.split(',').filter(Boolean) || []
-  );
+  const [searchQuery, setSearchQuery] = useState(() => {
+    if (typeof window === 'undefined') return '';
+    return new URLSearchParams(window.location.search).get('q') || '';
+  });
+  const [selectedCategories, setSelectedCategories] = useState<string[]>(() => {
+    if (typeof window === 'undefined') return [];
+    return new URLSearchParams(window.location.search).get('c')?.split(',').filter(Boolean) || [];
+  });
   const deferredQuery = useDeferredValue(searchQuery);
 
   // Sync state to URL with debounce
   useEffect(() => {
+    if (typeof window === 'undefined') return;
+
     const timeoutId = setTimeout(() => {
       const params = new URLSearchParams();
       if (searchQuery) params.set('q', searchQuery);
