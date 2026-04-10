@@ -17,7 +17,8 @@ export const FEE_PER_BYTE = 0.00005;
  * @returns {number} The estimated fee in STX, rounded to 4 decimal places.
  */
 export function estimateFee(payload: number | string): number {
-    const size = typeof payload === 'string' ? new Blob([payload]).size : payload;
+    const rawSize = typeof payload === 'string' ? new Blob([payload]).size : Number(payload);
+    const size = Number.isFinite(rawSize) && rawSize > 0 ? rawSize : 0;
     const estimated = BASE_FEE + (size * FEE_PER_BYTE);
     return Math.round(estimated * 10000) / 10000;
 }
@@ -30,7 +31,8 @@ export function estimateFee(payload: number | string): number {
  * @returns {number} Amount in microSTX (uSTX)
  */
 export function stxToMicroStx(stx: number): number {
-    return Math.round(stx * 1_000_000);
+    const normalizedStx = Number.isFinite(stx) ? Math.max(stx, 0) : 0;
+    return Math.round(normalizedStx * 1_000_000);
 }
 
 /**
@@ -41,7 +43,8 @@ export function stxToMicroStx(stx: number): number {
  * @returns Amount in STX
  */
 export function microStxToStx(microStx: number): number {
-    return microStx / 1_000_000;
+    const normalizedMicroStx = Number.isFinite(microStx) ? Math.max(microStx, 0) : 0;
+    return normalizedMicroStx / 1_000_000;
 }
 
 /** Number of microSTX in one STX. Used for fee conversions. */
