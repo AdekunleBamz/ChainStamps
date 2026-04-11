@@ -53,10 +53,11 @@ const resolveFee = (result: PromiseSettledResult<unknown>, fallback: number): nu
     return fallback;
   }
 
+  const rawValue = result.value;
   const resolvedValue =
-    typeof result.value === 'object' && result.value !== null
-      ? (result.value as Record<string, unknown>).value
-      : undefined;
+    typeof rawValue === 'object' && rawValue !== null && 'value' in rawValue
+      ? (rawValue as Record<string, unknown>).value
+      : rawValue;
 
   const feeValue = toMicroStx(resolvedValue);
   if (feeValue === null) {
