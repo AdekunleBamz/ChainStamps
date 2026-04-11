@@ -32,7 +32,7 @@ export function estimateFee(payload: number | string): number {
  */
 export function stxToMicroStx(stx: number): number {
     const normalizedStx = Number.isFinite(stx) ? Math.max(stx, 0) : 0;
-    return Math.round(normalizedStx * 1_000_000);
+    return Math.round(normalizedStx * MICROSTX_PER_STX);
 }
 
 /**
@@ -44,7 +44,7 @@ export function stxToMicroStx(stx: number): number {
  */
 export function microStxToStx(microStx: number): number {
     const normalizedMicroStx = Number.isFinite(microStx) ? Math.max(microStx, 0) : 0;
-    return normalizedMicroStx / 1_000_000;
+    return normalizedMicroStx / MICROSTX_PER_STX;
 }
 
 /** Number of microSTX in one STX. Used for fee conversions. */
@@ -57,5 +57,6 @@ const MICROSTX_PER_STX = 1_000_000;
  * @returns Formatted string with STX symbol
  */
 export function formatStx(stx: number): string {
-    return `${stx.toFixed(4)} STX`;
+    const normalized = Number.isFinite(stx) ? Math.max(stx, 0) : 0;
+    return `${normalized.toFixed(4)} STX`;
 }
