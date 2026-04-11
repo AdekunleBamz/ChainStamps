@@ -109,6 +109,9 @@ npm --prefix frontend ci
 
 # Run tests
 npm test
+
+# Run focused fee utility tests
+npm run test:fee
 ```
 
 ### Local Development
@@ -120,8 +123,11 @@ clarinet console
 # Run all tests with coverage
 npm run test:report
 
+# Run a fast pre-push check (contracts + focused fee tests)
+npm run check:fast
+
 # Start frontend dev server
-npm --prefix frontend run dev
+npm run frontend:dev
 ```
 
 ### Development Workflow
@@ -129,7 +135,7 @@ npm --prefix frontend run dev
 1.  **Code**: Write Clarity contracts in `contracts/`.
 2.  **Test**: Run `npm test` to verify contract behavior.
 3.  **Frontend**: Update React components in `frontend/src/`.
-4.  **Verify**: Run `npm --prefix frontend run lint` and `npm test`.
+4.  **Verify**: Run `npm run frontend:lint` and `npm run check:fast`.
 5.  **Deploy**: Use `clarinet deployments apply`.
 
 ## 📜 Smart Contracts
@@ -316,7 +322,7 @@ npm test
 npm run test:report
 
 # Build frontend bundle
-npm --prefix frontend run build
+npm run frontend:build
 
 # Watch mode
 npm run test:watch
