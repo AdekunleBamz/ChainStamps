@@ -26,3 +26,9 @@ Welcome to ChainStamps documentation. Use the links below to navigate.
 - [Security Policy](../SECURITY.md)
 - [Contributing](../CONTRIBUTING.md)
 - [Code of Conduct](../CODE_OF_CONDUCT.md)
+
+## Developer Shortcuts
+
+- Fast pre-push check: `npm run check:fast`
+- Focused fee utility tests: `npm run test:fee`
+- Frontend lint/build helpers: `npm run frontend:lint` and `npm run frontend:build`
