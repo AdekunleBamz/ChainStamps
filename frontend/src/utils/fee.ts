@@ -17,10 +17,23 @@ export const FEE_PER_BYTE = 0.00005;
  * @returns {number} The estimated fee in STX, rounded to 4 decimal places.
  */
 export function estimateFee(payload: number | string): number {
-    const rawSize = typeof payload === 'string' ? new Blob([payload]).size : Number(payload);
+    const rawSize = resolvePayloadSize(payload);
     const size = Number.isFinite(rawSize) && rawSize > 0 ? rawSize : 0;
     const estimated = BASE_FEE + (size * FEE_PER_BYTE);
     return Math.round(estimated * 10000) / 10000;
+}
+
+function resolvePayloadSize(payload: number | string): number {
+    if (typeof payload === 'number') {
+        return Number.isFinite(payload) ? payload : 0;
+    }
+
+    const normalized = payload.trim();
+    if (/^\d+$/.test(normalized)) {
+        return Number(normalized);
+    }
+
+    return new TextEncoder().encode(payload).length;
 }
 
 /**
