@@ -1,0 +1,30 @@
+import { describe, expect, it } from 'vitest'
+import {
+  estimateFee,
+  formatStx,
+  microStxToStx,
+  stxToMicroStx,
+} from '../frontend/src/utils/fee'
+
+describe('fee utils', () => {
+  it('estimates fees from numeric payload sizes', () => {
+    expect(estimateFee(100)).toBe(0.006)
+    expect(estimateFee('100')).toBe(0.006)
+  })
+
+  it('estimates fees from UTF-8 payload strings', () => {
+    expect(estimateFee('hello')).toBe(0.0013)
+  })
+
+  it('converts STX and microSTX values safely', () => {
+    expect(stxToMicroStx(1.25)).toBe(1_250_000)
+    expect(stxToMicroStx(-1)).toBe(0)
+    expect(microStxToStx(2_500_000)).toBe(2.5)
+    expect(microStxToStx(-10)).toBe(0)
+  })
+
+  it('formats STX values with fixed precision', () => {
+    expect(formatStx(1.23456)).toBe('1.2346 STX')
+    expect(formatStx(-1)).toBe('0.0000 STX')
+  })
+})
