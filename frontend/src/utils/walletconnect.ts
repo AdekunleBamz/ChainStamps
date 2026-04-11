@@ -190,6 +190,7 @@ export const wcDisconnect = async (): Promise<void> => {
   }
 
   wcUri = null;
+  provider = null;
 }
 
 /**
