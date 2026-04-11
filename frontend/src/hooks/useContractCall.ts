@@ -33,6 +33,8 @@ const getErrorMessage = (err: unknown) => {
 };
 
 const HISTORY_KEY = 'chainstamp_activity_history';
+const generateActivityId = () =>
+  globalThis.crypto?.randomUUID?.() || Math.random().toString(36).slice(2, 11);
 
 /**
  * Custom hook for making Stacks contract calls via WalletConnect.
@@ -75,7 +77,7 @@ export const useContractCall = () => {
       setStep('pending');
       
       const newActivity: Activity = {
-        id: Math.random().toString(36).substr(2, 9),
+        id: generateActivityId(),
         type: params.contractName.includes('hash') ? 'hash' : params.contractName.includes('tag') ? 'tag' : 'stamp',
         label: label,
         txId: newTxId,
