@@ -6,9 +6,15 @@
   "private": true,
   "scripts": {
     "test": "vitest run",
+    "test:fee": "vitest run tests/fee-utils.test.ts",
     "test:report": "vitest run --coverage --costs",
     "test:ci": "vitest run --coverage --costs",
-    "test:watch": "chokidar \"tests/**/*.ts\" \"contracts/**/*.clar\" -c \"npm run test:report\""
+    "test:watch": "chokidar \"tests/**/*.ts\" \"contracts/**/*.clar\" -c \"npm run test:report\"",
+    "contracts:check": "clarinet check",
+    "frontend:install": "npm --prefix frontend ci",
+    "frontend:lint": "npm --prefix frontend run lint",
+    "frontend:build": "npm --prefix frontend run build",
+    "check:fast": "npm run contracts:check && npm run test:fee"
   },
   "author": "Adekunle Bamz (@adekunlebamz)",
   "license": "ISC",
