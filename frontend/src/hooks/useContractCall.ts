@@ -84,9 +84,11 @@ export const useContractCall = () => {
         timestamp: Date.now(),
       };
 
-      const updatedHistory = [newActivity, ...history].slice(0, 10);
-      setHistory(updatedHistory);
-      localStorage.setItem(HISTORY_KEY, JSON.stringify(updatedHistory));
+      setHistory((previousHistory) => {
+        const updatedHistory = [newActivity, ...previousHistory].slice(0, 10);
+        localStorage.setItem(HISTORY_KEY, JSON.stringify(updatedHistory));
+        return updatedHistory;
+      });
 
       addToast(successMessage, 'success');
       triggerSuccessConfetti();
@@ -114,7 +116,7 @@ export const useContractCall = () => {
     } finally {
       setIsSubmitting(false);
     }
-  }, [addToast, history]);
+  }, [addToast]);
 
   return {
     isSubmitting,
