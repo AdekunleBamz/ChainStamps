@@ -106,11 +106,13 @@ export const wcConnect = async (
 
   // Subscribe to display_uri BEFORE calling connect
   if (onDisplayUri) {
-    prov.on('display_uri', (uri: string) => {
+    const handleDisplayUri = (uri: string) => {
       if (DEBUG) console.log('📱 WC URI received:', uri.substring(0, 50) + '...');
       wcUri = uri;
       onDisplayUri(uri);
-    });
+      prov.off?.('display_uri', handleDisplayUri);
+    };
+    prov.on('display_uri', handleDisplayUri);
   }
 
   if (DEBUG) console.log('🔗 Requesting connection with required namespaces...');
