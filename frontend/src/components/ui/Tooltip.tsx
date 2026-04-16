@@ -44,7 +44,7 @@ export const Tooltip = ({ content, children, className }: TooltipProps) => {
                         className="absolute bottom-full left-1/2 z-[100] mb-2 -translate-x-1/2"
                         style={{ left: '50%', transform: 'translateX(-50%)' }}
                     >
-                        <div className="relative rounded-lg border border-border bg-popover px-3 py-1.5 text-xs font-medium text-popover-foreground shadow-xl backdrop-blur-md">
+                        <div className="relative rounded-lg border border-border bg-popover px-3 py-1.5 text-xs font-medium text-popover-foreground shadow-xl backdrop-blur-md" role="tooltip">
                             {content}
                             <div className="absolute top-full left-1/2 -mt-1 h-2 w-2 -translate-x-1/2 rotate-45 border-b border-r border-border bg-popover" />
                         </div>
