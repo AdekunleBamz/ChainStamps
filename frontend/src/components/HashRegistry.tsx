@@ -46,7 +46,7 @@ export const HashRegistry = memo(({ searchQuery = '' }: { searchQuery?: string }
   const hashFee = fees.hash;
 
   useEffect(() => {
-    const timer = setTimeout(() => setIsLoading(false), 1200);
+    const timer = setTimeout(() => setIsLoading(false), UI.SKELETON_DELAY);
     return () => {
       clearTimeout(timer);
     };
