@@ -63,7 +63,7 @@ export const TagRegistry = memo(({ searchQuery = '' }: { searchQuery?: string })
   const [lastSubmitTime, setLastSubmitTime] = useState(0);
 
   useEffect(() => {
-    const timer = setTimeout(() => setIsLoading(false), 1200);
+    const timer = setTimeout(() => setIsLoading(false), UI.SKELETON_DELAY);
     return () => clearTimeout(timer);
   }, []);
 
