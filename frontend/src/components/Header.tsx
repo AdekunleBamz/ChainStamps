@@ -8,12 +8,13 @@ import { Tooltip } from './ui/Tooltip';
 import { CopyButton } from './ui/CopyButton';
 import { AnimatedNumber } from './ui/AnimatedNumber';
 import { STACKS_API_URL } from '../config/contracts';
+import { BLOCK_FETCH_INTERVAL } from '../config/constants';
 
 /** Stacks mainnet info API endpoint for fetching block height. */
 const STACKS_INFO_API = `${STACKS_API_URL}/v2/info`;
 
 /** Interval in milliseconds for refreshing block height data. */
-const FETCH_INTERVAL = 30000;
+const FETCH_INTERVAL = BLOCK_FETCH_INTERVAL;
 
 /** Scroll event throttle threshold in pixels. */
 const SCROLL_THRESHOLD = 20;
