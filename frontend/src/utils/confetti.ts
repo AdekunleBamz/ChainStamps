@@ -9,6 +9,9 @@ const SUCCESS_COLORS = ['#6366f1', '#a855f7', '#22c55e'];
 /** Default confetti duration in milliseconds. */
 const CONFETTI_DURATION = 3 * 1000;
 
+/** Particle count for the success confetti burst. */
+const SUCCESS_PARTICLE_COUNT = 150;
+
 /**
  * Triggers a side-burst confetti effect that lasts for 3 seconds.
  * Creates a celebratory animation from both sides of the screen.
@@ -51,7 +54,7 @@ export const triggerConfetti = (): void => {
  */
 export const triggerSuccessConfetti = () => {
     confetti({
-        particleCount: 150,
+        particleCount: SUCCESS_PARTICLE_COUNT,
         spread: 70,
         origin: { y: 0.6 },
         colors: SUCCESS_COLORS,
