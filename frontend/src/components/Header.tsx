@@ -7,9 +7,10 @@ import { Button } from './ui/Button';
 import { Tooltip } from './ui/Tooltip';
 import { CopyButton } from './ui/CopyButton';
 import { AnimatedNumber } from './ui/AnimatedNumber';
+import { STACKS_API_URL } from '../config/contracts';
 
 /** Stacks mainnet info API endpoint for fetching block height. */
-const STACKS_INFO_API = 'https://api.mainnet.hiro.so/v2/info';
+const STACKS_INFO_API = `${STACKS_API_URL}/v2/info`;
 
 /** Interval in milliseconds for refreshing block height data. */
 const FETCH_INTERVAL = 30000;
