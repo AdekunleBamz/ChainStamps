@@ -13,7 +13,7 @@ const STATUS_DOT_Y = 26;
  *
  * @param status - Application state indicator.
  */
-export const updateFavicon = (status: 'connected' | 'connecting' | 'disconnected' | 'pending' | 'confirmed' | 'error') => {
+export const updateFavicon = (status: 'connected' | 'connecting' | 'disconnected' | 'disconnecting' | 'pending' | 'confirmed' | 'error') => {
     const canvas = document.createElement('canvas');
     canvas.width = FAVICON_SIZE;
     canvas.height = FAVICON_SIZE;
@@ -47,6 +47,9 @@ export const updateFavicon = (status: 'connected' | 'connecting' | 'disconnected
                 break;
             case 'disconnected':
                 ctx.fillStyle = '#64748b';
+                break;
+            case 'disconnecting':
+                ctx.fillStyle = '#94a3b8';
                 break;
         }
 
