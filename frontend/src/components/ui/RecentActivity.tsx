@@ -26,7 +26,7 @@ const ICON_MAP = {
 type FilterType = 'all' | 'today' | 'week';
 
 const ActivitySkeleton = () => (
-  <div className="flex flex-col gap-2">
+  <div className="flex flex-col gap-2" aria-busy="true" aria-label="Loading recent activity">
     {[1, 2, 3].map((i) => (
       <div key={i} className="flex-between p-3 rounded-xl bg-white/5 border border-white/5 animate-pulse gap-3">
         <div className="flex items-center gap-3 overflow-hidden flex-1">
