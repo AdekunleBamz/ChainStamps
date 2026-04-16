@@ -99,3 +99,8 @@ export const fetchOnChainFees = async (forceRefresh = false): Promise<OnChainFee
 
   return inFlightFeeRequest;
 };
+
+export const clearFeeCache = (): void => {
+  cachedFees = null;
+  inFlightFeeRequest = null;
+};
