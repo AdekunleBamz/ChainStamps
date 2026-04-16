@@ -76,8 +76,8 @@ export function Button({
 
     return (
         <motion.button
-            whileHover={{ scale: 1.02 }}
-            whileTap={{ scale: 0.98 }}
+            whileHover={{ scale: BUTTON_HOVER_SCALE }}
+            whileTap={{ scale: BUTTON_TAP_SCALE }}
             transition={{ type: "spring", stiffness: 400, damping: 17 }}
             className={twMerge(
                 "inline-flex items-center justify-center rounded-xl font-medium transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring disabled:pointer-events-none disabled:opacity-50",
