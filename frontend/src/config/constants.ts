@@ -32,3 +32,6 @@ export const MAX_API_RETRIES = 3;
 
 /** Delay between API retry attempts in milliseconds. */
 export const API_RETRY_DELAY = 1000;
+
+/** Interval in milliseconds between on-chain fee refreshes. */
+export const FEE_REFRESH_INTERVAL = 60_000;
