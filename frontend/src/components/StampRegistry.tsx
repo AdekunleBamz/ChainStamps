@@ -20,6 +20,7 @@ import { HighlightText } from './ui/HighlightText';
 import { TransactionStepper } from './ui/TransactionStepper';
 import { cvToHex, stringUtf8CV } from '@stacks/transactions';
 import { useOnChainFees } from '../hooks/useOnChainFees';
+import { UI } from '../config/constants';
 
 /** Shake animation variant for form validation errors. */
 const SHAKE_ANIMATION = {
@@ -28,7 +29,7 @@ const SHAKE_ANIMATION = {
 };
 
 /** Rate limit interval for stamp submission in milliseconds. */
-const RATE_LIMIT_INTERVAL = 2000;
+const RATE_LIMIT_INTERVAL = UI.RATE_LIMIT_COOLDOWN;
 
 /** Maximum message length for stamp registry. */
 const MAX_MESSAGE_LENGTH = 256;
