@@ -1,5 +1,5 @@
 /** Haptic feedback type definitions for consistent tactile interactions. */
-export type HapticType = 'light' | 'medium' | 'heavy' | 'error' | 'success';
+export type HapticType = 'light' | 'medium' | 'heavy' | 'error' | 'success' | 'notification';
 
 /**
  * Triggers haptic feedback on supported devices.
@@ -24,6 +24,9 @@ export const triggerHaptic = (type: HapticType): void => {
                 break;
             case 'error':
                 navigator.vibrate([50, 50, 50]);
+                break;
+            case 'notification':
+                navigator.vibrate([10, 50, 10]);
                 break;
             default:
                 navigator.vibrate(10);
