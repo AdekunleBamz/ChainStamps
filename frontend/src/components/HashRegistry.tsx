@@ -19,6 +19,7 @@ import { TransactionStepper } from './ui/TransactionStepper';
 import { useContractCall } from '../hooks/useContractCall';
 import { useToast } from '../context/ToastContext';
 import { ANIMATIONS } from '../config/constants';
+import { UI } from '../config/constants';
 import { bufferCV, cvToHex, stringUtf8CV } from '@stacks/transactions';
 import { useOnChainFees } from '../hooks/useOnChainFees';
 
@@ -26,7 +27,7 @@ import { useOnChainFees } from '../hooks/useOnChainFees';
 const SHAKE_ANIMATION = ANIMATIONS.SHAKE;
 
 /** Rate limit interval for hash submission in milliseconds. */
-const RATE_LIMIT_INTERVAL = 2000;
+const RATE_LIMIT_INTERVAL = UI.RATE_LIMIT_COOLDOWN;
 
 /** Regular expression pattern for validating SHA-256 hash format. */
 const HASH_VALIDATION_PATTERN = /^[a-fA-F0-9]{64}$/;
