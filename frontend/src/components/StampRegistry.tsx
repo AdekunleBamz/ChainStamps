@@ -51,7 +51,7 @@ export const StampRegistry = memo(({ searchQuery = '' }: { searchQuery?: string 
   const stampFee = fees.stamp;
 
   useEffect(() => {
-    const timer = setTimeout(() => setIsLoading(false), 1200);
+    const timer = setTimeout(() => setIsLoading(false), UI.SKELETON_DELAY);
     return () => clearTimeout(timer);
   }, []);
 
