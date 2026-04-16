@@ -1,3 +1,6 @@
+/** Number of microSTX in one STX. Used for fee conversions. */
+export const MICROSTX_PER_STX = 1_000_000;
+
 /**
  * Base transaction fee in STX.
  * Represents the minimum cost to interact with the ChainStamp contracts.
@@ -59,9 +62,6 @@ export function microStxToStx(microStx: number): number {
     const normalizedMicroStx = Number.isFinite(microStx) ? Math.max(microStx, 0) : 0;
     return normalizedMicroStx / MICROSTX_PER_STX;
 }
-
-/** Number of microSTX in one STX. Used for fee conversions. */
-const MICROSTX_PER_STX = 1_000_000;
 
 /**
  * Formats an STX amount with the currency symbol.
