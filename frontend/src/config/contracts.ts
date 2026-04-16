@@ -55,3 +55,4 @@ export const CONTRACTS: Record<string, RegistryConfig> = {
 
 export const NETWORK = DEFAULT_NETWORK;
 export const STACKS_API_URL = "https://api.hiro.so";
+export const STACKS_API_V2_URL = `${STACKS_API_URL}/v2`;
