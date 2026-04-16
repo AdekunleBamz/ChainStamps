@@ -20,13 +20,10 @@ import { HighlightText } from './ui/HighlightText';
 import { TransactionStepper } from './ui/TransactionStepper';
 import { cvToHex, stringUtf8CV } from '@stacks/transactions';
 import { useOnChainFees } from '../hooks/useOnChainFees';
-import { UI } from '../config/constants';
+import { ANIMATIONS, UI } from '../config/constants';
 
 /** Shake animation variant for form validation errors. */
-const SHAKE_ANIMATION = {
-  x: [0, -10, 10, -10, 10, 0],
-  transition: { duration: 0.4 }
-};
+const SHAKE_ANIMATION = ANIMATIONS.SHAKE;
 
 /** Rate limit interval for tag submission in milliseconds. */
 const RATE_LIMIT_INTERVAL = UI.RATE_LIMIT_COOLDOWN;
