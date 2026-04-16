@@ -31,6 +31,8 @@ export const Tooltip = ({ content, children, className }: TooltipProps) => {
             className={twMerge("relative inline-block", className)}
             onMouseEnter={() => setIsVisible(true)}
             onMouseLeave={() => setIsVisible(false)}
+            onFocus={() => setIsVisible(true)}
+            onBlur={() => setIsVisible(false)}
         >
             {children}
             <AnimatePresence>
