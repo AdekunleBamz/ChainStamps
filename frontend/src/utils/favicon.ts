@@ -24,8 +24,8 @@ export const updateFavicon = (status: 'connected' | 'connecting' | 'disconnected
     const img = new Image();
     img.src = '/logo.png';
     img.onload = () => {
-        ctx.clearRect(0, 0, 32, 32);
-        ctx.drawImage(img, 0, 0, 32, 32);
+        ctx.clearRect(0, 0, FAVICON_SIZE, FAVICON_SIZE);
+        ctx.drawImage(img, 0, 0, FAVICON_SIZE, FAVICON_SIZE);
 
         // Add status indicator dot
         ctx.beginPath();
