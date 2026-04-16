@@ -42,6 +42,7 @@ export const SubmitButton: React.FC<SubmitButtonProps> = ({
 }) => {
   return (
     <Button
+      type="submit"
       onClick={onClick}
       disabled={disabled || isLoading}
       aria-busy={ariaBusy || isLoading}
