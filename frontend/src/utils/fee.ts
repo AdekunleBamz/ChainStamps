@@ -73,3 +73,14 @@ export function formatStx(stx: number): string {
     const normalized = Number.isFinite(stx) ? Math.max(stx, 0) : 0;
     return `${normalized.toFixed(4)} STX`;
 }
+
+/**
+ * Formats a microSTX amount with the µSTX symbol.
+ *
+ * @param microStx - Amount in microSTX (uSTX)
+ * @returns Formatted string with µSTX symbol
+ */
+export function formatUStx(microStx: number): string {
+    const normalized = Number.isFinite(microStx) ? Math.max(Math.round(microStx), 0) : 0;
+    return `${normalized.toLocaleString()} µSTX`;
+}
