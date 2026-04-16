@@ -5,6 +5,9 @@ import { motion, AnimatePresence } from 'framer-motion';
 /** Default Hiro Explorer URL for transaction links. */
 const DEFAULT_EXPLORER_URL = 'https://explorer.hiro.so/txid';
 
+/** Stacks mainnet chain query parameter appended to explorer links. */
+const EXPLORER_CHAIN = 'mainnet';
+
 interface SuccessMessageProps {
   message: string;
   txId?: string | null;
@@ -33,7 +36,7 @@ export const SuccessMessage: React.FC<SuccessMessageProps> = ({
           <span className="truncate">{message} </span>
           {txId && (
             <a
-              href={`${explorerUrl}/${txId}?chain=mainnet`}
+              href={`${explorerUrl}/${txId}?chain=${EXPLORER_CHAIN}`}
               target="_blank"
               rel="noopener noreferrer"
               className="flex items-center gap-1 underline underline-offset-4 hover:opacity-80 transition-opacity"
