@@ -1,4 +1,4 @@
-import { useState, useMemo, useDeferredValue, useEffect } from 'react';
+import { useState, useMemo, useDeferredValue, useEffect, useCallback } from 'react';
 
 export interface SearchableItem {
   id: string;
@@ -70,13 +70,13 @@ export const useSearch = <T extends SearchableItem>(items: T[]) => {
     return result;
   }, [items, deferredQuery, selectedCategories]);
 
-  const toggleCategory = (category: string) => {
+  const toggleCategory = useCallback((category: string) => {
     setSelectedCategories(prev => 
       prev.includes(category) 
         ? prev.filter(c => c !== category) 
         : [...prev, category]
     );
-  };
+  }, []);
 
   return {
     searchQuery,
