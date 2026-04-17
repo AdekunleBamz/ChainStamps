@@ -14,6 +14,11 @@ export const BASE_FEE = 0.001;
 export const FEE_PER_BYTE = 0.00005;
 
 /**
+ * Maximum allowed fee in STX to prevent runaway estimates.
+ */
+export const MAX_FEE = 10;
+
+/**
  * Calculates the estimated transaction fee based on payload size.
  * 
  * @param {number | string} payload - The data to be stored or its length in bytes.
@@ -23,7 +28,7 @@ export function estimateFee(payload: number | string): number {
     const rawSize = resolvePayloadSize(payload);
     const size = Number.isFinite(rawSize) && rawSize > 0 ? rawSize : 0;
     const estimated = BASE_FEE + (size * FEE_PER_BYTE);
-    return Math.round(estimated * 10000) / 10000;
+    return Math.round(Math.min(estimated, MAX_FEE) * 10000) / 10000;
 }
 
 function resolvePayloadSize(payload: number | string): number {
