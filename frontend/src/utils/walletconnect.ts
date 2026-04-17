@@ -20,6 +20,9 @@ const metadata = {
 // Stacks mainnet chain ID in CAIP format
 export const STACKS_MAINNET = 'stacks:1';
 
+// Stacks testnet chain ID in CAIP format
+export const STACKS_TESTNET = 'stacks:2147483648';
+
 // Required namespaces for Stacks
 const requiredNamespaces = {
   stacks: {
