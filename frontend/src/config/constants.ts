@@ -24,7 +24,8 @@ export const UI = {
   TOAST_DURATION: 3000,
   HAPTIC_COOLDOWN: 200,
   RATE_LIMIT_COOLDOWN: 2000,
-  SKELETON_DELAY: 1200
+  SKELETON_DELAY: 1200,
+  COPY_SUCCESS_DURATION: 2000,
 };
 
 /** Maximum retries for failed blockchain API calls. */
