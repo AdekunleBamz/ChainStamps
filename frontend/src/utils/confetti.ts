@@ -12,6 +12,9 @@ const CONFETTI_DURATION = 3 * 1000;
 /** Particle count for the success confetti burst. */
 const SUCCESS_PARTICLE_COUNT = 150;
 
+/** Particle count for the subtle confetti burst. */
+const SUBTLE_PARTICLE_COUNT = 50;
+
 /**
  * Triggers a side-burst confetti effect that lasts for 3 seconds.
  * Creates a celebratory animation from both sides of the screen.
@@ -71,7 +74,7 @@ export const triggerSuccessConfetti = () => {
  */
 export const triggerSubtleConfetti = () => {
     confetti({
-        particleCount: 50,
+        particleCount: SUBTLE_PARTICLE_COUNT,
         spread: 50,
         origin: { y: 0.7 },
         colors: CONFETTI_COLORS,
