@@ -52,7 +52,10 @@ export const useContractCall = () => {
     const saved = localStorage.getItem(HISTORY_KEY);
     if (saved) {
       try {
-        setHistory(JSON.parse(saved));
+        const parsed = JSON.parse(saved);
+        if (Array.isArray(parsed)) {
+          setHistory(parsed);
+        }
       } catch (e) {
         console.error('Failed to load history', e);
       }
