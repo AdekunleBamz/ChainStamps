@@ -8,6 +8,9 @@ const STATUS_DOT_RADIUS = 6;
 const STATUS_DOT_X = 26;
 const STATUS_DOT_Y = 26;
 
+/** Source path for the base favicon image. */
+const FAVICON_IMG_SRC = '/logo.png';
+
 /**
  * Dynamically updates the site's favicon based on the current application state.
  *
@@ -22,7 +25,7 @@ export const updateFavicon = (status: 'connected' | 'connecting' | 'disconnected
 
     // Load the original logo (assuming it's at /favicon.svg or /logo.png)
     const img = new Image();
-    img.src = '/logo.png';
+    img.src = FAVICON_IMG_SRC;
     img.onload = () => {
         ctx.clearRect(0, 0, FAVICON_SIZE, FAVICON_SIZE);
         ctx.drawImage(img, 0, 0, FAVICON_SIZE, FAVICON_SIZE);
