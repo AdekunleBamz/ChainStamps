@@ -18,8 +18,7 @@ import { HighlightText } from './ui/HighlightText';
 import { TransactionStepper } from './ui/TransactionStepper';
 import { useContractCall } from '../hooks/useContractCall';
 import { useToast } from '../context/ToastContext';
-import { ANIMATIONS } from '../config/constants';
-import { UI } from '../config/constants';
+import { ANIMATIONS, UI } from '../config/constants';
 import { bufferCV, cvToHex, stringUtf8CV } from '@stacks/transactions';
 import { useOnChainFees } from '../hooks/useOnChainFees';
 
