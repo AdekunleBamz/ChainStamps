@@ -11,6 +11,7 @@ Use this checklist to prepare a release.
 - [ ] Verify contract versions and metadata headers
 - [ ] Run test suite: `npm test`
 - [ ] Run focused fee utility checks: `npm run test:fee`
+- [ ] Run SDK fee fetch tests: `npx vitest run tests/chainstamp-sdk-fees.test.ts`
 - [ ] Verify deployment docs for testnet/mainnet
 - [ ] Review new features for backward compatibility
 
