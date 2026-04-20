@@ -92,4 +92,8 @@ describe('fee utils', () => {
   it('formats invalid micro-STX values as zero', () => {
     expect(formatUStx(Number.NaN)).toBe('0 µSTX')
   })
+
+  it('formats negative fractional micro-STX values as zero', () => {
+    expect(formatUStx(-0.4)).toBe('0 µSTX')
+  })
 })
