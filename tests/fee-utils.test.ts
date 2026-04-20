@@ -13,6 +13,10 @@ describe('fee utils', () => {
     expect(estimateFee('100')).toBe(0.006)
   })
 
+  it('floors fractional numeric payload sizes to whole bytes', () => {
+    expect(estimateFee(10.9)).toBe(0.0015)
+  })
+
   it('estimates fees from UTF-8 payload strings', () => {
     expect(estimateFee('hello')).toBe(0.0013)
   })
