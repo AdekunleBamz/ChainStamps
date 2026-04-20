@@ -75,7 +75,7 @@ Blockchain data is permanent. Plan carefully before storing.
 
 ### How do I run tests locally?
 ```bash
-npm install
+npm ci
 npm test
 ```
 
