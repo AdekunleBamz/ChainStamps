@@ -28,6 +28,8 @@ export const useHashing = (): {
   fileSize: number | null;
   fileName: string | null;
   hashCount: number;
+  hasHash: boolean;
+  hasError: boolean;
   computeHash: (file: File) => Promise<string>;
   resetHash: () => void;
 } => {
