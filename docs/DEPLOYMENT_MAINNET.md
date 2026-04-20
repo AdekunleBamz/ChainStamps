@@ -103,7 +103,7 @@ npm ci
 clarinet check
 
 # Run all tests
-npm test
+npm run test
 
 # Review contracts one more time
 cat contracts/*.clar
