@@ -1,5 +1,8 @@
 import { useState, useCallback } from 'react';
 
+/** Hash algorithm identifier used for file fingerprinting. */
+const HASH_ALGORITHM = 'SHA-256';
+
 /**
  * Extracts a user-friendly error message from an unknown error.
  * 
@@ -18,7 +21,13 @@ const getErrorMessage = (err: unknown): string =>
  * @property {string|null} error - Error message if hashing fails.
  * @property {function} computeHash - Function to start hashing a File object.
  */
-export const useHashing = () => {
+export const useHashing = (): {
+  hash: string | null;
+  isHashing: boolean;
+  error: string | null;
+  computeHash: (file: File) => Promise<string>;
+  resetHash: () => void;
+} => {
   const [hash, setHash] = useState<string | null>(null);
   const [isHashing, setIsHashing] = useState(false);
   const [error, setError] = useState<string | null>(null);
@@ -31,7 +40,7 @@ export const useHashing = () => {
         throw new Error('Web Crypto API is not available in this environment');
       }
       const buffer = await file.arrayBuffer();
-      const hashBuffer = await crypto.subtle.digest('SHA-256', buffer);
+      const hashBuffer = await crypto.subtle.digest(HASH_ALGORITHM, buffer);
       const hashArray = Array.from(new Uint8Array(hashBuffer));
       const hashHex = hashArray.map(b => b.toString(16).padStart(2, '0')).join('');
       setHash(hashHex);
