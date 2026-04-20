@@ -7,6 +7,16 @@ export type HapticType = 'light' | 'medium' | 'heavy' | 'error' | 'success' | 'n
 export const isHapticsSupported = (): boolean =>
   typeof window !== 'undefined' && 'vibrate' in navigator;
 
+/** Vibration patterns for each haptic type in milliseconds. */
+const HAPTIC_PATTERN: Record<HapticType, number | number[]> = {
+    light: 10,
+    medium: 20,
+    heavy: 50,
+    success: [10, 30, 10],
+    error: [50, 50, 50],
+    notification: [10, 50, 10],
+};
+
 /**
  * Triggers haptic feedback on supported devices.
  * Uses the Web Vibration API to provide sensory cues for user interactions.
@@ -15,26 +25,5 @@ export const isHapticsSupported = (): boolean =>
  */
 export const triggerHaptic = (type: HapticType): void => {
     if (!isHapticsSupported()) return;
-    switch (type) {
-        case 'light':
-            navigator.vibrate(10);
-            break;
-        case 'medium':
-            navigator.vibrate(20);
-            break;
-        case 'heavy':
-            navigator.vibrate(50);
-            break;
-        case 'success':
-            navigator.vibrate([10, 30, 10]);
-            break;
-        case 'error':
-            navigator.vibrate([50, 50, 50]);
-            break;
-        case 'notification':
-            navigator.vibrate([10, 50, 10]);
-            break;
-        default:
-            navigator.vibrate(10);
-    }
+    navigator.vibrate(HAPTIC_PATTERN[type] ?? 10);
 };
