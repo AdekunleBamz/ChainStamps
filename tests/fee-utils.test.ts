@@ -21,6 +21,10 @@ describe('fee utils', () => {
     expect(estimateFee('')).toBe(0.001)
   })
 
+  it('prices whitespace payloads by byte length when non-numeric', () => {
+    expect(estimateFee('   ')).toBe(0.0012)
+  })
+
   it('caps estimated fees at the configured maximum', () => {
     expect(estimateFee(500_000)).toBe(10)
   })
