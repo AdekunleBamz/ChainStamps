@@ -2,6 +2,7 @@ import { motion, AnimatePresence } from 'framer-motion';
 import { ExternalLink, Hash, Stamp, Tag as TagIcon, Clock } from 'lucide-react';
 import { memo, useState, useMemo } from 'react';
 import { twMerge } from 'tailwind-merge';
+import { NETWORK } from '../../config/contracts';
 
 interface Activity {
   id: string;
@@ -119,7 +120,7 @@ export const RecentActivity = memo(({ activities, isLoading, className }: Recent
                     </div>
                   </div>
                   <a
-                    href={`https://explorer.stacks.co/txid/${activity.txId}?chain=mainnet`}
+                    href={`https://explorer.stacks.co/txid/${activity.txId}?chain=${NETWORK}`}
                     target="_blank"
                     rel="noopener noreferrer"
                     className="p-1 text-muted-foreground hover:text-primary transition-colors opacity-0 group-hover:opacity-100 focus:opacity-100"
