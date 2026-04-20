@@ -1,7 +1,7 @@
 import { useState, useEffect, memo } from 'react';
 import { motion, useAnimation, AnimatePresence } from 'framer-motion';
 import { useWallet } from '../context/WalletContext';
-import { BASE_NETWORK_FEE_STX, CONTRACT_ADDRESS, CONTRACTS } from '../config/contracts';
+import { BASE_NETWORK_FEE_STX, CONTRACT_ADDRESS, CONTRACTS, NETWORK } from '../config/contracts';
 import { Stamp, Share2, Shield, ExternalLink, HelpCircle, CheckCircle2, AlertCircle } from 'lucide-react';
 import { twMerge } from 'tailwind-merge';
 import { CardSkeleton } from './ui/Skeleton';
@@ -128,7 +128,7 @@ export const StampRegistry = memo(({ searchQuery = '' }: { searchQuery?: string 
         <div className="flex items-center gap-3">
           <Tooltip content="View contract on Stacks Explorer">
             <a
-              href={`https://explorer.stacks.co/txid/${CONTRACT_ADDRESS}.${CONTRACTS.stampRegistry.name}?chain=mainnet`}
+              href={`https://explorer.stacks.co/txid/${CONTRACT_ADDRESS}.${CONTRACTS.stampRegistry.name}?chain=${NETWORK}`}
               target="_blank"
               rel="noopener noreferrer"
               className="h-8 w-8 flex-center rounded-full opacity-40 hover:opacity-100 hover:bg-primary/10 transition-all text-muted-foreground hover:text-primary"
