@@ -43,6 +43,7 @@ describe('fee utils', () => {
     expect(stxToMicroStx(Number.POSITIVE_INFINITY)).toBe(0)
     expect(microStxToStx(2_500_000)).toBe(2.5)
     expect(microStxToStx(-10)).toBe(0)
+    expect(microStxToStx(Number.NaN)).toBe(0)
   })
 
   it('formats STX values with fixed precision', () => {
