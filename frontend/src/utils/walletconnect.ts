@@ -9,6 +9,9 @@ const DEBUG = import.meta.env.VITE_DEBUG === 'true';
 /** Timeout in milliseconds for stx_getAddresses request. */
 const ADDRESS_REQUEST_TIMEOUT = 15000;
 
+/** WalletConnect relay WebSocket URL. */
+const RELAY_URL = 'wss://relay.walletconnect.com';
+
 // Metadata for WalletConnect - icons array must be non-empty
 const metadata = {
   name: 'ChainStamp',
@@ -74,7 +77,7 @@ export const initProvider = async (): Promise<UniversalProvider> => {
   provider = await UniversalProvider.init({
     projectId: PROJECT_ID,
     metadata,
-    relayUrl: 'wss://relay.walletconnect.com',
+    relayUrl: RELAY_URL,
   });
 
   // Listen for session disconnect
