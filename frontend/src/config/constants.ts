@@ -60,3 +60,9 @@ export const EXPLORER_BASE_URL = 'https://explorer.stacks.co';
 
 /** Maximum number of past stamps to show in the recent activity list. */
 export const MAX_RECENT_STAMPS = 50;
+
+/** Minimum number of characters required for a valid tag name. */
+export const MIN_TAG_LENGTH = 1;
+
+/** Maximum number of characters allowed in a stamp tag. */
+export const MAX_TAG_LENGTH = 64;
