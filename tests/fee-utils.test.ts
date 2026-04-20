@@ -52,4 +52,8 @@ describe('fee utils', () => {
   it('formats micro-STX values with grouping separators', () => {
     expect(formatUStx(1234567)).toBe('1,234,567 µSTX')
   })
+
+  it('rounds fractional micro-STX values before formatting', () => {
+    expect(formatUStx(12.6)).toBe('13 µSTX')
+  })
 })
