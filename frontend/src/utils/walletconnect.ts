@@ -129,6 +129,7 @@ export const wcConnect = async (
   // Fetch addresses via stx_getAddresses with timeout
   let address = '';
   let publicKey: string | undefined;
+  let addressTimeout: ReturnType<typeof setTimeout> | undefined;
 
   try {
     const addressResult = await Promise.race([
@@ -136,9 +137,9 @@ export const wcConnect = async (
         method: 'stx_getAddresses',
         params: {},
       }, STACKS_MAINNET),
-      new Promise<never>((_, reject) => 
-        setTimeout(() => reject(new Error('stx_getAddresses timeout')), ADDRESS_REQUEST_TIMEOUT)
-      ),
+      new Promise<never>((_, reject) => {
+        addressTimeout = setTimeout(() => reject(new Error('stx_getAddresses timeout')), ADDRESS_REQUEST_TIMEOUT);
+      }),
     ]);
 
     if (DEBUG) console.log('📬 Address result:', addressResult);
@@ -161,6 +162,8 @@ export const wcConnect = async (
       const parts = accounts[0].split(':');
       address = parts[2] || parts[0];
     }
+  } finally {
+    if (addressTimeout) clearTimeout(addressTimeout);
   }
 
   if (!address) {
