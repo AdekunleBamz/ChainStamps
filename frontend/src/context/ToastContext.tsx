@@ -48,6 +48,10 @@ interface ToastContextType {
     removeToast: (id: string) => void;
     /** Removes all active toasts immediately. */
     clearAll: () => void;
+    /** True when there is at least one active toast. */
+    hasToasts: boolean;
+    /** The most recently added toast, or null if none active. */
+    latestToast: Toast | null;
 }
 
 const ToastContext = createContext<ToastContextType | undefined>(undefined);
@@ -94,7 +98,7 @@ export const ToastProvider = ({ children }: { children: ReactNode }) => {
     const addInfo = useCallback((message: string) => addToast(message, 'info'), [addToast]);
 
     return (
-        <ToastContext.Provider value={{ toasts, toastCount: toasts.length, addToast, addSuccess, addError, addWarning, addInfo, removeToast, clearAll }}>
+        <ToastContext.Provider value={{ toasts, toastCount: toasts.length, addToast, addSuccess, addError, addWarning, addInfo, removeToast, clearAll, hasToasts: toasts.length > 0, latestToast: toasts.length > 0 ? toasts[toasts.length - 1] : null }}>
             {children}
         </ToastContext.Provider>
     );
