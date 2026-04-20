@@ -25,6 +25,10 @@ describe('fee utils', () => {
     expect(estimateFee(-100)).toBe(0.001)
   })
 
+  it('uses the base fee for zero-byte numeric payloads', () => {
+    expect(estimateFee(0)).toBe(0.001)
+  })
+
   it('parses and trims numeric string payload lengths', () => {
     expect(estimateFee(' 250 ')).toBe(0.0135)
   })
