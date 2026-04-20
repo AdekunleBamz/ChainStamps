@@ -18,6 +18,7 @@ npm install @stacks/transactions @stacks/network @stacks/connect
 import { 
   makeContractCall, 
   broadcastTransaction,
+  callReadOnlyFunction,
   bufferCV,
   stringUtf8CV,
   uintCV,
