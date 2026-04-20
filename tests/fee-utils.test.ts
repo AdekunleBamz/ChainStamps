@@ -56,4 +56,8 @@ describe('fee utils', () => {
   it('rounds fractional micro-STX values before formatting', () => {
     expect(formatUStx(12.6)).toBe('13 µSTX')
   })
+
+  it('formats invalid micro-STX values as zero', () => {
+    expect(formatUStx(Number.NaN)).toBe('0 µSTX')
+  })
 })
