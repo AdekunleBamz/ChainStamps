@@ -23,7 +23,21 @@ const ROADMAP_PHASES = [
     }
 ];
 
-interface RoadmapPhaseProps {
+type PhaseStatus = 'completed' | 'current' | 'upcoming';
+
+/** Left-border colour class for each roadmap phase status. */
+const PHASE_BORDER_CLASS: Record<PhaseStatus, string> = {
+    completed: 'border-primary',
+    current: 'border-yellow-500',
+    upcoming: 'border-muted',
+};
+
+/** Badge colour class for each roadmap phase status. */
+const PHASE_BADGE_CLASS: Record<PhaseStatus, string> = {
+    completed: 'bg-primary/20 text-primary',
+    current: 'bg-yellow-500/20 text-yellow-500',
+    upcoming: 'bg-muted text-muted-foreground',
+};
     /** The metadata object for the phase, containing title, status, and items. */
     phase: typeof ROADMAP_PHASES[0];
     /** The index of the phase in the list, used for staggered animations. */
@@ -44,9 +58,7 @@ const RoadmapPhase = memo(({ phase, index }: RoadmapPhaseProps) => {
             viewport={{ once: true }}
             role="article"
             aria-label={`Roadmap phase: ${phase.title}`}
-            className={`roadmap-phase card glass p-6 border-l-4 transition-base shadow-md ${phase.status === 'completed' ? 'border-primary' :
-                    phase.status === 'current' ? 'border-yellow-500' : 'border-muted'
-                }`}
+            className={`roadmap-phase card glass p-6 border-l-4 transition-base shadow-md ${PHASE_BORDER_CLASS[phase.status as PhaseStatus] ?? 'border-muted'}`}
         >
             <div className="flex items-start gap-4">
                 <div className="mt-1 flex-center">
@@ -63,9 +75,7 @@ const RoadmapPhase = memo(({ phase, index }: RoadmapPhaseProps) => {
                     <div className="flex-between mb-2">
                         <h3 className="text-xl font-bold" id={`phase-title-${index}`}>{phase.title}</h3>
                         <span 
-                            className={`text-xs px-2 py-1 rounded-full uppercase font-bold tracking-wider shadow-sm ${phase.status === 'completed' ? 'bg-primary/20 text-primary' :
-                                phase.status === 'current' ? 'bg-yellow-500/20 text-yellow-500' : 'bg-muted text-muted-foreground'
-                            }`}
+                            className={`text-xs px-2 py-1 rounded-full uppercase font-bold tracking-wider shadow-sm ${PHASE_BADGE_CLASS[phase.status as PhaseStatus] ?? 'bg-muted text-muted-foreground'}`}
                             aria-current={phase.status === 'current' ? 'step' : undefined}
                         >
                             {phase.status}
