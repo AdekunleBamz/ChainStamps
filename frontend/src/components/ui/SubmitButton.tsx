@@ -53,7 +53,7 @@ export const SubmitButton: React.FC<SubmitButtonProps> = ({
     >
       {isLoading ? (
         <>
-          <Loader2 className="spinning mr-2" size={18} strokeWidth={1.5} />
+          <Loader2 className="spinning mr-2" aria-hidden="true" size={18} strokeWidth={1.5} />
           {loadingText}
         </>
       ) : (
