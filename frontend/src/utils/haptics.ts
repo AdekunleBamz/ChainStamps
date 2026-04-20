@@ -27,3 +27,25 @@ export const triggerHaptic = (type: HapticType): void => {
     if (!isHapticsSupported()) return;
     navigator.vibrate(HAPTIC_PATTERN[type] ?? 10);
 };
+
+/**
+ * Triggers a sequence of haptic feedback patterns in order.
+ *
+ * @param types - Ordered list of haptic types to fire in sequence.
+ */
+export const triggerHapticSequence = (types: HapticType[]): void => {
+    if (!isHapticsSupported() || types.length === 0) return;
+    const pattern = types.flatMap(t => {
+        const p = HAPTIC_PATTERN[t];
+        return typeof p === 'number' ? [p, 50] : [...p, 50];
+    });
+    navigator.vibrate(pattern);
+};
+
+/**
+ * Immediately cancels any ongoing haptic vibration.
+ */
+export const cancelHaptic = (): void => {
+    if (!isHapticsSupported()) return;
+    navigator.vibrate(0);
+};
