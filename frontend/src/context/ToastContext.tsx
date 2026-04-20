@@ -2,6 +2,11 @@ import { createContext, useContext, useState, useCallback, type ReactNode } from
 
 type ToastType = 'success' | 'error' | 'info' | 'warning';
 
+/** Duration in milliseconds before a toast auto-dismisses. */
+const TOAST_AUTO_DISMISS_MS = 5000;
+/** Character length of the randomly generated toast ID. */
+const TOAST_ID_LENGTH = 9;
+
 /**
  * Represents a single toast notification.
  */
@@ -55,13 +60,13 @@ export const ToastProvider = ({ children }: { children: ReactNode }) => {
      * @param {ToastType} [type='info'] - The severity/type of the toast.
      */
     const addToast = useCallback((message: string, type: ToastType = 'info') => {
-        const id = Math.random().toString(36).substr(2, 9);
+        const id = Math.random().toString(36).substr(2, TOAST_ID_LENGTH);
         setToasts((prev) => [...prev, { id, message, type }]);
 
         // Auto-remove after 5 seconds
         const timeoutId = setTimeout(() => {
             removeToast(id);
-        }, 5000);
+        }, TOAST_AUTO_DISMISS_MS);
 
         // Cleanup timeout on unmount or before re-adding
         return () => clearTimeout(timeoutId);
