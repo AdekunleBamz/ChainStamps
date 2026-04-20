@@ -10,8 +10,12 @@ interface WalletContextType {
   isConnected: boolean;
   /** Whether a connection is currently being established. */
   isConnecting: boolean;
+  /** True when the wallet is connected and not in the process of connecting. */
+  isReady: boolean;
   /** The current user's Stacks address, or null if not connected. */
   userAddress: string | null;
+  /** Abbreviated version of the user address (first 6 + last 4 chars), or null. */
+  shortAddress: string | null;
   /** The current user's public key, if available. */
   publicKey: string | null;
   /** Function to initiate a WalletConnect connection. */
@@ -126,7 +130,11 @@ export const WalletProvider = ({ children }: { children: ReactNode }) => {
       value={{
         isConnected,
         isConnecting,
+        isReady: isConnected && !isConnecting,
         userAddress,
+        shortAddress: userAddress
+          ? `${userAddress.slice(0, 6)}…${userAddress.slice(-4)}`
+          : null,
         publicKey,
         connect,
         disconnect,
