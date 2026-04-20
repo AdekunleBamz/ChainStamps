@@ -10,7 +10,7 @@ This guide walks you through deploying ChainStamps contracts to Stacks Testnet.
 
 1. **Clarinet** installed (v2.0+)
 2. **Stacks Wallet** with testnet STX
-3. **Node.js** v18+
+3. **Node.js** v20+
 
 ## Getting Testnet STX
 
