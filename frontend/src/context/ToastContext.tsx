@@ -37,6 +37,10 @@ interface ToastContextType {
     addSuccess: (message: string) => void;
     /** Convenience method to add an error toast. */
     addError: (message: string) => void;
+    /** Convenience method to add a warning toast. */
+    addWarning: (message: string) => void;
+    /** Convenience method to add an info toast. */
+    addInfo: (message: string) => void;
     /** 
      * Manually removes a toast by its ID.
      * @param {string} id - The unique identifier of the toast to remove.
@@ -86,9 +90,11 @@ export const ToastProvider = ({ children }: { children: ReactNode }) => {
 
     const addSuccess = useCallback((message: string) => addToast(message, 'success'), [addToast]);
     const addError = useCallback((message: string) => addToast(message, 'error'), [addToast]);
+    const addWarning = useCallback((message: string) => addToast(message, 'warning'), [addToast]);
+    const addInfo = useCallback((message: string) => addToast(message, 'info'), [addToast]);
 
     return (
-        <ToastContext.Provider value={{ toasts, toastCount: toasts.length, addToast, addSuccess, addError, removeToast, clearAll }}>
+        <ToastContext.Provider value={{ toasts, toastCount: toasts.length, addToast, addSuccess, addError, addWarning, addInfo, removeToast, clearAll }}>
             {children}
         </ToastContext.Provider>
     );
