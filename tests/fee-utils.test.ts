@@ -25,6 +25,10 @@ describe('fee utils', () => {
     expect(estimateFee('   ')).toBe(0.0012)
   })
 
+  it('treats scientific-notation strings as literal payload content', () => {
+    expect(estimateFee('1e3')).toBe(0.0012)
+  })
+
   it('caps estimated fees at the configured maximum', () => {
     expect(estimateFee(500_000)).toBe(10)
   })
