@@ -11,7 +11,7 @@
 1. **Successful testnet deployment** - Deploy and test on testnet first
 2. **Clarinet** v2.0+ installed
 3. **Stacks Wallet** with mainnet STX for deployment fees
-4. **All tests passing** - `npm test` should pass 100%
+4. **All tests passing** - `npm run test` should pass 100%
 
 ## Pre-Deployment Checklist
 
