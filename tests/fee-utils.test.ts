@@ -40,6 +40,7 @@ describe('fee utils', () => {
   it('converts STX and microSTX values safely', () => {
     expect(stxToMicroStx(1.25)).toBe(1_250_000)
     expect(stxToMicroStx(-1)).toBe(0)
+    expect(stxToMicroStx(Number.POSITIVE_INFINITY)).toBe(0)
     expect(microStxToStx(2_500_000)).toBe(2.5)
     expect(microStxToStx(-10)).toBe(0)
   })
