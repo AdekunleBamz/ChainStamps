@@ -51,4 +51,26 @@ describe('chainstamp sdk fee fetcher', () => {
     expect(stampSpy).toHaveBeenCalledTimes(2)
     expect(tagSpy).toHaveBeenCalledTimes(2)
   })
+
+  it('deduplicates in-flight requests when called concurrently', async () => {
+    let resolveHash: ((value: bigint) => void) | undefined
+    const hashRequest = new Promise<bigint>(resolve => {
+      resolveHash = resolve
+    })
+
+    const hashSpy = vi.spyOn(chainstampClient, 'getHashFee').mockReturnValue(hashRequest)
+    const stampSpy = vi.spyOn(chainstampClient, 'getStampFee').mockResolvedValue(50_000n)
+    const tagSpy = vi.spyOn(chainstampClient, 'getTagFee').mockResolvedValue(40_000n)
+
+    const firstRequest = fetchOnChainFees()
+    const secondRequest = fetchOnChainFees()
+
+    resolveHash?.(30_000n)
+    const [first, second] = await Promise.all([firstRequest, secondRequest])
+
+    expect(first).toEqual(second)
+    expect(hashSpy).toHaveBeenCalledTimes(1)
+    expect(stampSpy).toHaveBeenCalledTimes(1)
+    expect(tagSpy).toHaveBeenCalledTimes(1)
+  })
 })
