@@ -33,7 +33,7 @@ npm run test:report
 npx vitest run tests/chainstamp-sdk-fees.test.ts
 ```
 
-#### Frontend (React)
+#### Frontend (React checks)
 ```bash
 # Run Vitest suite
 npm --prefix frontend test
