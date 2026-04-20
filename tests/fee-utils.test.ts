@@ -72,6 +72,10 @@ describe('fee utils', () => {
     expect(stxToMicroStx(0.0000005)).toBe(1)
   })
 
+  it('converts one micro-STX into decimal STX correctly', () => {
+    expect(microStxToStx(1)).toBe(0.000001)
+  })
+
   it('formats micro-STX values with grouping separators', () => {
     expect(formatUStx(1234567)).toBe('1,234,567 µSTX')
   })
