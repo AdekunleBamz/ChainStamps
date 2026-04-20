@@ -80,6 +80,11 @@ export const useSearch = <T extends SearchableItem>(items: T[]) => {
     );
   }, []);
 
+  const clearSearch = useCallback(() => {
+    setSearchQuery('');
+    setSelectedCategories([]);
+  }, []);
+
   return {
     searchQuery,
     setSearchQuery,
@@ -87,6 +92,9 @@ export const useSearch = <T extends SearchableItem>(items: T[]) => {
     setSelectedCategories,
     toggleCategory,
     filteredItems,
+    resultCount: filteredItems.length,
+    hasResults: filteredItems.length > 0,
+    clearSearch,
     isStale: searchQuery !== deferredQuery
   };
 };
