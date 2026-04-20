@@ -48,16 +48,21 @@ const FaviconManager = () => {
   return null;
 }
 
+/** Animation stagger delay multiplier for registry items (seconds per index step). */
+const REGISTRY_STAGGER_DELAY = 0.1;
+/** Minimum skeleton height for lazy-loaded registry cards. */
+const REGISTRY_SKELETON_HEIGHT = 400;
+
 const RegistryItem = memo(({ component, index }: { component: React.ReactNode, index: number }) => (
   <motion.div
     initial={{ opacity: 0, y: 30 }}
     whileInView={{ opacity: 1, y: 0 }}
     viewport={{ once: true }}
-    transition={{ delay: index * 0.1 }}
+    transition={{ delay: index * REGISTRY_STAGGER_DELAY }}
     className="registry-wrapper"
   >
     <Suspense fallback={
-      <div className="h-[400px] w-full bg-white/5 animate-pulse rounded-3xl border border-white/10 flex items-center justify-center">
+      <div className={`h-[${REGISTRY_SKELETON_HEIGHT}px] w-full bg-white/5 animate-pulse rounded-3xl border border-white/10 flex items-center justify-center`}>
         <Loader2 className="spinning text-primary/20" size={32} />
       </div>
     }>
