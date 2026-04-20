@@ -33,7 +33,7 @@ export const Header = () => {
   const { isConnected, isConnecting, userAddress, connect, disconnect, wcUri, showQRModal, setShowQRModal } = useWallet();
   const [isScrolled, setIsScrolled] = useState(false);
   const [blockHeight, setBlockHeight] = useState<number | null>(null);
-  const [activeHash, setActiveHash] = useState(window.location.hash);
+  const [activeHash, setActiveHash] = useState(() => (typeof window === 'undefined' ? '' : window.location.hash));
   const [isMenuOpen, setIsMenuOpen] = useState(false);
 
   const ticking = useRef(false);
