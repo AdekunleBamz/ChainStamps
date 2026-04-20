@@ -32,6 +32,10 @@ describe('fee utils', () => {
     expect(estimateFee('🔥')).toBe(0.0012)
   })
 
+  it('falls back to base fee when payload size is NaN', () => {
+    expect(estimateFee(Number.NaN)).toBe(0.001)
+  })
+
   it('converts STX and microSTX values safely', () => {
     expect(stxToMicroStx(1.25)).toBe(1_250_000)
     expect(stxToMicroStx(-1)).toBe(0)
