@@ -16,6 +16,7 @@ npm install @stacks/transactions @stacks/network @stacks/connect @noble/hashes
 import { 
   makeContractCall, 
   broadcastTransaction,
+  callReadOnlyFunction,
   bufferCV,
   stringUtf8CV,
   uintCV,
