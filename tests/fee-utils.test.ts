@@ -48,4 +48,8 @@ describe('fee utils', () => {
     expect(formatStx(1.23456)).toBe('1.2346 STX')
     expect(formatStx(-1)).toBe('0.0000 STX')
   })
+
+  it('formats micro-STX values with grouping separators', () => {
+    expect(formatUStx(1234567)).toBe('1,234,567 µSTX')
+  })
 })
