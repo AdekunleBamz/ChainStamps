@@ -29,13 +29,15 @@ interface AnimatedNumberProps {
  * @param {AnimatedNumberProps} props - Component properties.
  */
 export function AnimatedNumber({ value, className, prefix = '', suffix = '', decimals = 0 }: AnimatedNumberProps) {
-    const [displayValue, setDisplayValue] = useState(value);
-    const latestValueRef = useRef(value);
+    const safeValue = Number.isFinite(value) ? value : 0;
+    const safeDecimals = Number.isInteger(decimals) && decimals >= 0 ? decimals : 0;
+    const [displayValue, setDisplayValue] = useState(safeValue);
+    const latestValueRef = useRef(safeValue);
 
     useEffect(() => {
-        if (latestValueRef.current === value) return;
+        if (latestValueRef.current === safeValue) return;
 
-        const controls = animate(latestValueRef.current, value, {
+        const controls = animate(latestValueRef.current, safeValue, {
             duration: ANIMATED_NUMBER_DURATION,
             ease: ANIMATED_NUMBER_EASE,
             onUpdate: (latest: number) => {
@@ -45,7 +47,7 @@ export function AnimatedNumber({ value, className, prefix = '', suffix = '', dec
         });
 
         return () => controls.stop();
-    }, [value]);
+    }, [safeValue]);
 
     return (
         <span 
@@ -55,8 +57,8 @@ export function AnimatedNumber({ value, className, prefix = '', suffix = '', dec
         >
             {prefix}
             {displayValue.toLocaleString(undefined, {
-                minimumFractionDigits: decimals,
-                maximumFractionDigits: decimals,
+                minimumFractionDigits: safeDecimals,
+                maximumFractionDigits: safeDecimals,
             })}
             {suffix}
         </span>
