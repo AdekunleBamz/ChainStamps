@@ -25,17 +25,25 @@ interface Toast {
 interface ToastContextType {
     /** Array of currently active toast notifications visible on the screen. */
     toasts: Toast[];
+    /** Total number of active toast notifications. */
+    toastCount: number;
     /** 
      * Adds a new toast notification.
      * @param {string} message - The text to display in the toast.
      * @param {ToastType} [type] - The visual style (success, error, info, warning).
      */
     addToast: (message: string, type?: ToastType) => void;
+    /** Convenience method to add a success toast. */
+    addSuccess: (message: string) => void;
+    /** Convenience method to add an error toast. */
+    addError: (message: string) => void;
     /** 
      * Manually removes a toast by its ID.
      * @param {string} id - The unique identifier of the toast to remove.
      */
     removeToast: (id: string) => void;
+    /** Removes all active toasts immediately. */
+    clearAll: () => void;
 }
 
 const ToastContext = createContext<ToastContextType | undefined>(undefined);
@@ -72,8 +80,15 @@ export const ToastProvider = ({ children }: { children: ReactNode }) => {
         return () => clearTimeout(timeoutId);
     }, [removeToast]);
 
+    const clearAll = useCallback(() => {
+        setToasts([]);
+    }, []);
+
+    const addSuccess = useCallback((message: string) => addToast(message, 'success'), [addToast]);
+    const addError = useCallback((message: string) => addToast(message, 'error'), [addToast]);
+
     return (
-        <ToastContext.Provider value={{ toasts, addToast, removeToast }}>
+        <ToastContext.Provider value={{ toasts, toastCount: toasts.length, addToast, addSuccess, addError, removeToast, clearAll }}>
             {children}
         </ToastContext.Provider>
     );
