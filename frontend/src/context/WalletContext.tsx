@@ -28,6 +28,8 @@ interface WalletContextType {
   showQRModal: boolean;
   /** Function to toggle the visibility of the QR modal. */
   setShowQRModal: (show: boolean) => void;
+  /** True when neither connected nor in the process of connecting. */
+  isDisconnected: boolean;
 }
 
 const WalletContext = createContext<WalletContextType | undefined>(undefined);
@@ -141,6 +143,7 @@ export const WalletProvider = ({ children }: { children: ReactNode }) => {
         wcUri,
         showQRModal,
         setShowQRModal,
+        isDisconnected: !isConnected && !isConnecting,
       }}
     >
       {children}
