@@ -18,6 +18,22 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - EditorConfig for consistent formatting
 - Prettier configuration
 - Node.js version specification via .nvmrc
+- `MAX_FILE_SIZE_MB`, `DEFAULT_DEBOUNCE_DELAY_MS`, `HASH_HEX_LENGTH` constants
+- `PAGINATION` config and `EXPLORER_BASE_URL` in global constants
+- `formatFee()`, `isValidFee()`, `stxToMicroStx()` helpers in `fee.ts`
+- `triggerHapticSequence()` and `cancelHaptic()` in `haptics.ts`
+- `triggerMiniConfetti()` in `confetti.ts`
+- `resetFavicon()` in `favicon.ts`
+- `fileSize`, `fileName`, `hashCount` fields to `useHashing` return value
+- `isIdle`, `hasError`, `isConfirmed`, `submittedAt` computed fields in `useContractCall`
+- `isLoaded`, `lastFetched`, `refreshFees` in `useOnChainFees`
+- `resultCount`, `hasResults`, `clearSearch` to `useSearch`
+- `isReady`, `shortAddress` computed fields in `WalletContext`
+- `clearAll`, `toastCount`, `addSuccess`, `addError` helpers in `ToastContext`
+- `isFeesCached()`, `getFeesAge()` exports from `sdk/chainstamp.ts`
+- `isProviderReady()` helper in `walletconnect.ts`
+- `onComplete` callback prop to `AnimatedNumber`
+- `placement` prop to `Tooltip`
 
 ## [1.0.0] - 2026-01-28
 
