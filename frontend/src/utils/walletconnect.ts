@@ -285,3 +285,9 @@ export const hasActiveSession = (): boolean => {
 export const getSession = (): WCSession | null => {
   return provider?.session as WCSession | null;
 }
+
+/**
+ * Returns true when the WalletConnect Universal Provider has been initialised
+ * and is ready to accept new connection or transaction requests.
+ */
+export const isProviderReady = (): boolean => provider !== null;
