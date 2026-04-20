@@ -49,3 +49,9 @@ export const cancelHaptic = (): void => {
     if (!isHapticsSupported()) return;
     navigator.vibrate(0);
 };
+
+/** Convenience alias: triggers a 'success' haptic */
+export const hapticSuccess = (): void => triggerHaptic('success');
+
+/** Convenience alias: triggers an 'error' haptic */
+export const hapticError = (): void => triggerHaptic('error');
