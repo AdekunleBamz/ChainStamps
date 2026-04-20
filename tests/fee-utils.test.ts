@@ -97,6 +97,10 @@ describe('fee utils', () => {
     expect(microStxToStx(1)).toBe(0.000001)
   })
 
+  it('returns zero for non-finite micro-STX inputs', () => {
+    expect(microStxToStx(Number.POSITIVE_INFINITY)).toBe(0)
+  })
+
   it('formats micro-STX values with grouping separators', () => {
     expect(formatUStx(1234567)).toBe('1,234,567 µSTX')
   })
