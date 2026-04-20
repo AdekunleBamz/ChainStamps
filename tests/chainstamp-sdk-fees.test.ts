@@ -73,4 +73,18 @@ describe('chainstamp sdk fee fetcher', () => {
     expect(stampSpy).toHaveBeenCalledTimes(1)
     expect(tagSpy).toHaveBeenCalledTimes(1)
   })
+
+  it('extracts microstx values from wrapped response objects', async () => {
+    vi.spyOn(chainstampClient, 'getHashFee').mockResolvedValue({ value: '30000' })
+    vi.spyOn(chainstampClient, 'getStampFee').mockResolvedValue({ value: '50000' })
+    vi.spyOn(chainstampClient, 'getTagFee').mockResolvedValue({ value: '40000' })
+
+    const fees = await fetchOnChainFees(true)
+
+    expect(fees).toEqual({
+      hash: 0.03,
+      stamp: 0.05,
+      tag: 0.04,
+    })
+  })
 })
