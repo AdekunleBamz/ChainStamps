@@ -19,6 +19,7 @@ const SKELETON_ANIMATION_DURATION = 1.5;
 export const Skeleton = ({ className }: SkeletonProps) => {
     return (
         <motion.div
+            aria-hidden="true"
             initial={{ opacity: 0.5 }}
             animate={{ opacity: [0.5, 0.8, 0.5] }}
             transition={{
