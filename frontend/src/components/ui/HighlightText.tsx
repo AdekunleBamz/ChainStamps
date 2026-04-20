@@ -15,7 +15,7 @@ export const HighlightText = memo(({ text, query, className = "bg-primary/20 tex
     <>
       {parts.map((part, i) => 
         part.toLowerCase() === query.toLowerCase() ? (
-          <span key={i} className={className}>
+          <span key={i} className={className} aria-label={part}>
             {part}
           </span>
         ) : (
