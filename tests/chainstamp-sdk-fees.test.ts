@@ -99,4 +99,16 @@ describe('chainstamp sdk fee fetcher', () => {
     expect(fees.stamp).toBe(0.05)
     expect(fees.tag).toBe(0.04)
   })
+
+  it('falls back when fee calls return negative numeric values', async () => {
+    vi.spyOn(chainstampClient, 'getHashFee').mockResolvedValue(-30_000)
+    vi.spyOn(chainstampClient, 'getStampFee').mockResolvedValue(-50_000)
+    vi.spyOn(chainstampClient, 'getTagFee').mockResolvedValue(-40_000)
+
+    const fees = await fetchOnChainFees(true)
+
+    expect(fees.hash).toBe(CONTRACTS.hashRegistry.fee)
+    expect(fees.stamp).toBe(CONTRACTS.stampRegistry.fee)
+    expect(fees.tag).toBe(CONTRACTS.tagRegistry.fee)
+  })
 })
