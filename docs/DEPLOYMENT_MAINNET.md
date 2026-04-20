@@ -96,6 +96,9 @@ The command should return no matches.
 ### Step 1: Final Verification
 
 ```bash
+# Install deterministic dependencies
+npm ci
+
 # Check syntax
 clarinet check
 
