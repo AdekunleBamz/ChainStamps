@@ -110,7 +110,7 @@ export const TagRegistry = memo(({ searchQuery = '' }: { searchQuery?: string })
     animate: { opacity: 1, y: 0, transition: { duration: 0.5 } }
   };
 
-  const isKeyValid = key.length > 0 && /^[a-z0-9-]+$/.test(key);
+  const isKeyValid = key.length > 0 && TAG_KEY_PATTERN.test(key);
   const isValueValid = value.length > 0 && value.length <= MAX_VALUE_LENGTH;
 
   return (
