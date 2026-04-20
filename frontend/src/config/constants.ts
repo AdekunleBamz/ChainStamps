@@ -66,3 +66,10 @@ export const MIN_TAG_LENGTH = 1;
 
 /** Maximum number of characters allowed in a stamp tag. */
 export const MAX_TAG_LENGTH = 64;
+
+/** Frozen map of supported stamp types shown in the create stamp UI. */
+export const STAMP_TYPES = Object.freeze({
+  FILE: 'file',
+  TEXT: 'text',
+  URL: 'url',
+} as const);
