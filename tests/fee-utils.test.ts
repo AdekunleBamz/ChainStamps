@@ -2,6 +2,7 @@ import { describe, expect, it } from 'vitest'
 import {
   estimateFee,
   formatStx,
+  formatUStx,
   microStxToStx,
   stxToMicroStx,
 } from '../frontend/src/utils/fee'
