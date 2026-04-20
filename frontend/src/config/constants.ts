@@ -79,3 +79,6 @@ export const STACKS_BLOCKS_PER_DAY = 144;
 
 /** Average block time in seconds. */
 export const AVG_BLOCK_TIME_SECONDS = 600;
+
+/** Minimum STX balance in microSTX required to be able to submit a transaction. */
+export const MIN_STX_FOR_TX_MICROSTX = 1000; // 0.001 STX
