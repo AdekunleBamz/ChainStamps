@@ -38,4 +38,17 @@ describe('chainstamp sdk fee fetcher', () => {
     expect(stampSpy).toHaveBeenCalledTimes(1)
     expect(tagSpy).toHaveBeenCalledTimes(1)
   })
+
+  it('bypasses cache when force refresh is requested', async () => {
+    const hashSpy = vi.spyOn(chainstampClient, 'getHashFee').mockResolvedValue(30_000n)
+    const stampSpy = vi.spyOn(chainstampClient, 'getStampFee').mockResolvedValue(50_000n)
+    const tagSpy = vi.spyOn(chainstampClient, 'getTagFee').mockResolvedValue(40_000n)
+
+    await fetchOnChainFees()
+    await fetchOnChainFees(true)
+
+    expect(hashSpy).toHaveBeenCalledTimes(2)
+    expect(stampSpy).toHaveBeenCalledTimes(2)
+    expect(tagSpy).toHaveBeenCalledTimes(2)
+  })
 })
