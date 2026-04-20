@@ -11,11 +11,7 @@ export const ScrollToTop = () => {
 
   useEffect(() => {
     const toggleVisibility = () => {
-      if (window.scrollY > SCROLL_VISIBILITY_THRESHOLD) {
-        setIsVisible(true);
-      } else {
-        setIsVisible(false);
-      }
+      setIsVisible(window.scrollY > SCROLL_VISIBILITY_THRESHOLD);
     };
 
     window.addEventListener('scroll', toggleVisibility);
