@@ -3,12 +3,15 @@ import { ChevronUp } from 'lucide-react';
 import { twMerge } from 'tailwind-merge';
 import { Button } from './Button';
 
+/** Scroll offset in pixels before the scroll-to-top button becomes visible. */
+const SCROLL_VISIBILITY_THRESHOLD = 300;
+
 export const ScrollToTop = () => {
   const [isVisible, setIsVisible] = useState(false);
 
   useEffect(() => {
     const toggleVisibility = () => {
-      if (window.scrollY > 300) {
+      if (window.scrollY > SCROLL_VISIBILITY_THRESHOLD) {
         setIsVisible(true);
       } else {
         setIsVisible(false);
