@@ -70,7 +70,7 @@ export const HashRegistry = memo(({ searchQuery = '' }: { searchQuery?: string }
       return;
     }
 
-    if (!/^[a-fA-F0-9]{64}$/.test(hash)) {
+    if (!HASH_VALIDATION_PATTERN.test(hash)) {
       addToast('Invalid SHA-256 hash format.', 'error');
       shake();
       return;
@@ -134,7 +134,7 @@ export const HashRegistry = memo(({ searchQuery = '' }: { searchQuery?: string }
     animate: { opacity: 1, y: 0, transition: { duration: 0.5 } },
   };
 
-  const isHashValid = /^[a-fA-F0-9]{64}$/.test(hash);
+  const isHashValid = HASH_VALIDATION_PATTERN.test(hash);
 
   return (
     <motion.section
