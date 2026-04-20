@@ -18,7 +18,7 @@ export const useOnChainFees = () => {
     const syncOnChainFees = async () => {
       try {
         const nextFees = await fetchOnChainFees();
-        if (!cancelled) {
+        if (!cancelled && nextFees && typeof nextFees === 'object') {
           setFees(nextFees);
         }
       } catch {
