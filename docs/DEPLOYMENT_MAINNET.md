@@ -83,6 +83,14 @@ plan:
             path: contracts/tag-registry.clar
 ```
 
+Quick path sanity-check before broadcasting:
+
+```bash
+rg "path: ontracts/" deployments/default.mainnet-plan.yaml
+```
+
+The command should return no matches.
+
 ## Deployment Steps
 
 ### Step 1: Final Verification
