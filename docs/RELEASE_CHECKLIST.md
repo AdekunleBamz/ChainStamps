@@ -10,6 +10,7 @@ Use this checklist to prepare a release.
 - [ ] Update CHANGELOG.md with new entries
 - [ ] Verify contract versions and metadata headers
 - [ ] Run test suite: `npm test`
+- [ ] Run focused fee utility checks: `npm run test:fee`
 - [ ] Verify deployment docs for testnet/mainnet
 - [ ] Review new features for backward compatibility
 
