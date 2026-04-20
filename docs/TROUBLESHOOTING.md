@@ -50,6 +50,10 @@ This guide helps resolve common issues when using ChainStamps.
 **Symptoms:** TypeScript or lint errors.
 **Fix:** Run `npm ci` (and `npm --prefix frontend ci` for UI changes), then confirm Node.js version matches `.nvmrc`.
 
+### Deployment Plan Contract Path Errors
+**Symptoms:** Clarinet deployment fails because contract files cannot be found.
+**Fix:** Confirm deployment plan paths use `contracts/*.clar` (not misspelled directory names) before running `clarinet deployments apply`.
+
 ### Wrong Network
 **Symptoms:** Contract calls fail despite a connected wallet.
 **Fix:** Confirm wallet network and app configuration target the same chain.
