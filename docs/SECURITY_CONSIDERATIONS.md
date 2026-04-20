@@ -19,6 +19,7 @@ This document outlines security guidance when using ChainStamps.
 - Never expose private keys in client-side code.
 - Use secure wallets or server-side signing services.
 - Rotate keys if compromise is suspected.
+- Keep `.env` and mnemonic material out of commits and logs.
 
 ## Transaction Safety
 - Validate contract addresses and network (testnet vs mainnet).
