@@ -73,7 +73,7 @@ Tip: Sign commits when possible to improve traceability (`git commit -S`).
 
 ## 🔄 Pull Request Process
 
-1. Ensure all tests pass: `npm test`
+1. Ensure all tests pass: `npm run test`
 2. Ensure Clarity syntax is valid: `clarinet check`
 3. Run frontend lint when UI code changes: `npm --prefix frontend run lint`
 4. Update documentation if needed
