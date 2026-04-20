@@ -26,22 +26,30 @@ export const MAX_FEE = 10;
  */
 export function estimateFee(payload: number | string): number {
     const rawSize = resolvePayloadSize(payload);
-    const size = Number.isFinite(rawSize) && rawSize > 0 ? rawSize : 0;
+    const size = normalizePayloadSize(rawSize);
     const estimated = BASE_FEE + (size * FEE_PER_BYTE);
     return Math.round(Math.min(estimated, MAX_FEE) * 10000) / 10000;
 }
 
 function resolvePayloadSize(payload: number | string): number {
     if (typeof payload === 'number') {
-        return Number.isFinite(payload) ? payload : 0;
+        return payload;
     }
 
     const normalized = payload.trim();
-    if (/^\d+$/.test(normalized)) {
+    if (/^[+-]?\d+(\.\d+)?$/.test(normalized)) {
         return Number(normalized);
     }
 
     return new TextEncoder().encode(payload).length;
+}
+
+function normalizePayloadSize(size: number): number {
+    if (!Number.isFinite(size) || size <= 0) {
+        return 0;
+    }
+
+    return Math.floor(size);
 }
 
 /**
