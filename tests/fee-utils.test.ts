@@ -28,6 +28,10 @@ describe('fee utils', () => {
     expect(estimateFee(' 250 ')).toBe(0.0135)
   })
 
+  it('uses UTF-8 byte length for multibyte payload strings', () => {
+    expect(estimateFee('🔥')).toBe(0.0012)
+  })
+
   it('converts STX and microSTX values safely', () => {
     expect(stxToMicroStx(1.25)).toBe(1_250_000)
     expect(stxToMicroStx(-1)).toBe(0)
