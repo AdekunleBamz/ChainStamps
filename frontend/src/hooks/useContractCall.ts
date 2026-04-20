@@ -47,6 +47,7 @@ export const useContractCall = () => {
   const [txId, setTxId] = useState<string | null>(null);
   const [error, setError] = useState<string | null>(null);
   const [history, setHistory] = useState<Activity[]>([]);
+  const [submittedAt, setSubmittedAt] = useState<number | null>(null);
   const { addToast } = useToast();
 
   useEffect(() => {
@@ -71,6 +72,7 @@ export const useContractCall = () => {
     setStep('preparing');
     setTxId(null);
     setError(null);
+    setSubmittedAt(Date.now());
 
     try {
       updateFavicon('pending');
@@ -131,12 +133,17 @@ export const useContractCall = () => {
     txId,
     error,
     history,
+    submittedAt,
+    isIdle: step === 'idle',
+    hasError: step === 'error',
+    isConfirmed: step === 'confirmed',
     execute,
     reset: () => {
       setTxId(null);
       setError(null);
       setIsSubmitting(false);
       setStep('idle');
+      setSubmittedAt(null);
     }
   };
 };
