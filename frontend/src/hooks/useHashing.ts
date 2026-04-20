@@ -85,6 +85,8 @@ export const useHashing = (): {
     fileSize,
     fileName,
     hashCount,
+    hasHash: hash !== null,
+    hasError: error !== null,
     computeHash,
     resetHash
   };
