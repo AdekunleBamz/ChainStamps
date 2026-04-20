@@ -30,6 +30,11 @@ const WalletContext = createContext<WalletContextType | undefined>(undefined);
 
 const DEBUG = import.meta.env.VITE_DEBUG === 'true';
 
+/** Separator character in CAIP-10 account strings (e.g. "stacks:1:SP..."). */
+const CAIP_SEPARATOR = ':';
+/** Index of the address part after splitting a CAIP-10 account string. */
+const CAIP_ADDRESS_INDEX = 2;
+
 /**
  * Provider component for managing Stacks wallet connection state.
  * Handles WalletConnect sessions, QR modal visibility, and account metadata.
@@ -60,8 +65,8 @@ export const WalletProvider = ({ children }: { children: ReactNode }) => {
           // Try to get address from session
           const accounts = session.namespaces?.stacks?.accounts || [];
           if (accounts.length > 0) {
-            const parts = accounts[0].split(':');
-            const address = parts[2] || parts[0];
+            const parts = accounts[0].split(CAIP_SEPARATOR);
+            const address = parts[CAIP_ADDRESS_INDEX] || parts[0];
             setUserAddress(address);
             setIsConnected(true);
             if (DEBUG) console.log('🔄 Restored session:', address);
