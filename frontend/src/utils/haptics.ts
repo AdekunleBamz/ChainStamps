@@ -55,3 +55,9 @@ export const hapticSuccess = (): void => triggerHaptic('success');
 
 /** Convenience alias: triggers an 'error' haptic */
 export const hapticError = (): void => triggerHaptic('error');
+
+/** Convenience alias: triggers a 'light' haptic for minor feedback */
+export const hapticLight = (): void => triggerHaptic('light');
+
+/** Convenience alias: triggers a 'notification' haptic for informational feedback */
+export const hapticNotification = (): void => triggerHaptic('notification');
