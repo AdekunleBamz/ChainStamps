@@ -151,3 +151,14 @@ export function estimateFeeDetailed(payload: number | string): {
         totalMicroStx: stxToMicroStx(total),
     };
 }
+
+/**
+ * Returns the fee cap headroom — the remaining margin before reaching MAX_FEE.
+ *
+ * @param currentFee - The current fee in STX.
+ * @returns How much STX remains before hitting MAX_FEE.
+ */
+export function feeHeadroom(currentFee: number): number {
+    const normalized = Number.isFinite(currentFee) ? Math.max(currentFee, 0) : 0;
+    return Math.max(MAX_FEE - normalized, 0);
+}
