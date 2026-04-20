@@ -83,3 +83,19 @@ export const triggerSubtleConfetti = () => {
         scalar: 0.8
     });
 };
+
+/**
+ * Triggers a minimal confetti pop for micro-celebrations (e.g., copy to clipboard).
+ * Uses very few particles concentrated near the top-center of the screen.
+ */
+export const triggerMiniConfetti = () => {
+    confetti({
+        particleCount: 20,
+        spread: 30,
+        origin: { x: 0.5, y: 0.4 },
+        colors: CONFETTI_COLORS,
+        ticks: 60,
+        gravity: 1.0,
+        scalar: 0.6,
+    });
+};
