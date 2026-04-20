@@ -17,6 +17,10 @@ describe('fee utils', () => {
     expect(estimateFee('hello')).toBe(0.0013)
   })
 
+  it('uses the base fee for an empty payload string', () => {
+    expect(estimateFee('')).toBe(0.001)
+  })
+
   it('caps estimated fees at the configured maximum', () => {
     expect(estimateFee(500_000)).toBe(10)
   })
