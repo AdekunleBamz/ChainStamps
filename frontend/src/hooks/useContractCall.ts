@@ -75,7 +75,7 @@ export const useContractCall = () => {
       setStep('pending');
       
       const newActivity: Activity = {
-        id: Math.random().toString(36).substr(2, 9),
+        id: Math.random().toString(36).slice(2, 11),
         type: params.contractName.includes('hash') ? 'hash' : params.contractName.includes('tag') ? 'tag' : 'stamp',
         label: label,
         txId: newTxId,
