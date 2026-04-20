@@ -137,6 +137,8 @@ export const useContractCall = () => {
     isIdle: step === 'idle',
     hasError: step === 'error',
     isConfirmed: step === 'confirmed',
+    isPending: step === 'pending',
+    historyCount: history.length,
     execute,
     reset: () => {
       setTxId(null);
