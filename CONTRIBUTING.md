@@ -28,6 +28,9 @@ clarinet test
 
 # Run tests with coverage report
 npm run test:report
+
+# Run focused SDK fee fetch tests
+npx vitest run tests/chainstamp-sdk-fees.test.ts
 ```
 
 #### Frontend (React)
