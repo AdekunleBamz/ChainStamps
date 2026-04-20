@@ -2,6 +2,11 @@ import { useState, useEffect, useRef } from 'react';
 import { Activity } from 'lucide-react';
 import { motion, AnimatePresence } from 'framer-motion';
 
+/** FPS value above which performance is considered good (green). */
+const FPS_GOOD_THRESHOLD = 55;
+/** Target maximum FPS used for the progress bar width calculation. */
+const FPS_MAX_TARGET = 60;
+
 /**
  * A floating overlay that displays real-time frame rate (FPS) and performance status.
  * Can be toggled on and off.
@@ -43,7 +48,7 @@ export const PerformanceOverlay = () => {
                 onClick={() => setIsVisible(!isVisible)}
                 className="flex items-center gap-2 px-3 py-1.5 glass rounded-full text-[10px] font-bold tracking-widest uppercase hover:bg-white/10 transition-colors"
             >
-                <Activity size={12} className={fps > 55 ? "text-green-500" : "text-yellow-500"} />
+                <Activity size={12} className={fps > FPS_GOOD_THRESHOLD ? "text-green-500" : "text-yellow-500"} />
                 <span>Performance</span>
             </button>
 
@@ -57,15 +62,15 @@ export const PerformanceOverlay = () => {
                     >
                         <div className="flex justify-between items-center">
                             <span className="text-[10px] text-muted-foreground uppercase font-bold">Frame Rate</span>
-                            <span className={`text-sm font-mono font-bold ${fps > 55 ? "text-green-500" : "text-yellow-500"}`}>
+                            <span className={`text-sm font-mono font-bold ${fps > FPS_GOOD_THRESHOLD ? "text-green-500" : "text-yellow-500"}`}>
                                 {fps} FPS
                             </span>
                         </div>
 
                         <div className="w-full h-1 bg-white/5 rounded-full overflow-hidden">
                             <motion.div
-                                className={`h-full ${fps > 55 ? "bg-green-500" : "bg-yellow-500"}`}
-                                animate={{ width: `${(fps / 60) * 100}%` }}
+                                className={`h-full ${fps > FPS_GOOD_THRESHOLD ? "bg-green-500" : "bg-yellow-500"}`}
+                                animate={{ width: `${(fps / FPS_MAX_TARGET) * 100}%` }}
                             />
                         </div>
 
