@@ -38,8 +38,7 @@ export const CopyButton = ({ value, className, size = 14 }: CopyButtonProps) => 
                 transition: { duration: 0.2 }
             });
             addToast('Copied to clipboard', 'success');
-            const timeoutId = setTimeout(() => setCopied(false), 2000);
-            return () => clearTimeout(timeoutId);
+            setTimeout(() => setCopied(false), 2000);
         } catch (err) {
             console.error('Failed to copy text: ', err);
             triggerHaptic('error');
