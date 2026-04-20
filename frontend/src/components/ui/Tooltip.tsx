@@ -15,6 +15,8 @@ interface TooltipProps {
     children: ReactNode;
     /** Additional CSS classes for styling the tooltip trigger container. */
     className?: string;
+    /** Where the tooltip appears relative to the trigger. Defaults to 'top'. */
+    placement?: 'top' | 'bottom';
 }
 
 /**
@@ -23,7 +25,7 @@ interface TooltipProps {
  * @param {TooltipProps} props - The component properties.
  * @returns {JSX.Element} The rendered tooltip container and popover.
  */
-export const Tooltip = ({ content, children, className }: TooltipProps) => {
+export const Tooltip = ({ content, children, className, placement = 'top' }: TooltipProps) => {
     const [isVisible, setIsVisible] = useState(false);
 
     return (
@@ -39,15 +41,22 @@ export const Tooltip = ({ content, children, className }: TooltipProps) => {
             <AnimatePresence>
                 {isVisible && (
                     <motion.div
-                        initial={{ opacity: 0, y: 10, scale: 0.95 }}
+                        initial={{ opacity: 0, y: placement === 'top' ? 10 : -10, scale: 0.95 }}
                         animate={{ opacity: 1, y: 0, scale: 1 }}
-                        exit={{ opacity: 0, y: 10, scale: 0.95 }}
-                        className="absolute bottom-full left-1/2 z-[100] mb-2 -translate-x-1/2"
+                        exit={{ opacity: 0, y: placement === 'top' ? 10 : -10, scale: 0.95 }}
+                        className={placement === 'top'
+                            ? "absolute bottom-full left-1/2 z-[100] mb-2 -translate-x-1/2"
+                            : "absolute top-full left-1/2 z-[100] mt-2 -translate-x-1/2"}
                         style={{ left: '50%', transform: 'translateX(-50%)' }}
                     >
                         <div className="relative rounded-lg border border-border bg-popover px-3 py-1.5 text-xs font-medium text-popover-foreground shadow-xl backdrop-blur-md" role="tooltip">
                             {content}
-                            <div className="absolute top-full left-1/2 -mt-1 h-2 w-2 -translate-x-1/2 rotate-45 border-b border-r border-border bg-popover" />
+                            {placement === 'top' && (
+                                <div className="absolute top-full left-1/2 -mt-1 h-2 w-2 -translate-x-1/2 rotate-45 border-b border-r border-border bg-popover" />
+                            )}
+                            {placement === 'bottom' && (
+                                <div className="absolute bottom-full left-1/2 mb-[-4px] h-2 w-2 -translate-x-1/2 rotate-45 border-t border-l border-border bg-popover" />
+                            )}
                         </div>
                     </motion.div>
                 )}
