@@ -33,6 +33,9 @@ export const useHashing = (): {
   const [error, setError] = useState<string | null>(null);
 
   const computeHash = useCallback(async (file: File) => {
+    if (!(file instanceof File) || file.size === 0) {
+      throw new Error('A valid non-empty file is required');
+    }
     setIsHashing(true);
     setError(null);
     try {
