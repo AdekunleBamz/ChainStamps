@@ -108,7 +108,7 @@ npm ci
 npm --prefix frontend ci
 
 # Run tests
-npm test
+npm run test
 
 # Run focused fee utility tests
 npm run test:fee
