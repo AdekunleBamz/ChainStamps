@@ -24,6 +24,10 @@ describe('fee utils', () => {
     expect(estimateFee(-100)).toBe(0.001)
   })
 
+  it('parses and trims numeric string payload lengths', () => {
+    expect(estimateFee(' 250 ')).toBe(0.0135)
+  })
+
   it('converts STX and microSTX values safely', () => {
     expect(stxToMicroStx(1.25)).toBe(1_250_000)
     expect(stxToMicroStx(-1)).toBe(0)
