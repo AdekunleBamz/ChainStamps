@@ -30,6 +30,11 @@ const BUTTON_HOVER_SCALE = 1.02;
 /** Tap scale factor for button animation. */
 const BUTTON_TAP_SCALE = 0.98;
 
+/** Spring stiffness for button press animation. */
+const BUTTON_SPRING_STIFFNESS = 400;
+/** Spring damping for button press animation. */
+const BUTTON_SPRING_DAMPING = 17;
+
 /**
  * Properties for the Button component.
  * @extends {HTMLMotionProps<'button'>}
@@ -84,7 +89,7 @@ export function Button({
         <motion.button
             whileHover={{ scale: BUTTON_HOVER_SCALE }}
             whileTap={{ scale: BUTTON_TAP_SCALE }}
-            transition={{ type: "spring", stiffness: 400, damping: 17 }}
+            transition={{ type: "spring", stiffness: BUTTON_SPRING_STIFFNESS, damping: BUTTON_SPRING_DAMPING }}
             className={twMerge(
                 "inline-flex items-center justify-center rounded-xl font-medium transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring disabled:pointer-events-none disabled:opacity-50",
                 BUTTON_VARIANT_CLASSES[variant],
