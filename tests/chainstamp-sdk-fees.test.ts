@@ -111,4 +111,18 @@ describe('chainstamp sdk fee fetcher', () => {
     expect(fees.stamp).toBe(CONTRACTS.stampRegistry.fee)
     expect(fees.tag).toBe(CONTRACTS.tagRegistry.fee)
   })
+
+  it('refetches from rpc after clearing the fee cache', async () => {
+    const hashSpy = vi.spyOn(chainstampClient, 'getHashFee').mockResolvedValue(30_000n)
+    const stampSpy = vi.spyOn(chainstampClient, 'getStampFee').mockResolvedValue(50_000n)
+    const tagSpy = vi.spyOn(chainstampClient, 'getTagFee').mockResolvedValue(40_000n)
+
+    await fetchOnChainFees()
+    clearFeeCache()
+    await fetchOnChainFees()
+
+    expect(hashSpy).toHaveBeenCalledTimes(2)
+    expect(stampSpy).toHaveBeenCalledTimes(2)
+    expect(tagSpy).toHaveBeenCalledTimes(2)
+  })
 })
