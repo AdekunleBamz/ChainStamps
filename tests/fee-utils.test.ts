@@ -67,6 +67,11 @@ describe('fee utils', () => {
     expect(formatStx(-1)).toBe('0.0000 STX')
   })
 
+  it('rounds tiny fractional STX values to nearest micro-STX', () => {
+    expect(stxToMicroStx(0.00000049)).toBe(0)
+    expect(stxToMicroStx(0.0000005)).toBe(1)
+  })
+
   it('formats micro-STX values with grouping separators', () => {
     expect(formatUStx(1234567)).toBe('1,234,567 µSTX')
   })
