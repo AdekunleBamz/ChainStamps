@@ -31,4 +31,5 @@ Welcome to ChainStamps documentation. Use the links below to navigate.
 
 - Fast pre-push check: `npm run check:fast`
 - Focused fee utility tests: `npm run test:fee`
+- Focused SDK fee tests: `npx vitest run tests/chainstamp-sdk-fees.test.ts`
 - Frontend lint/build helpers: `npm run frontend:lint` and `npm run frontend:build`
