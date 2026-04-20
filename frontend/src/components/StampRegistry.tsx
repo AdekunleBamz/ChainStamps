@@ -34,6 +34,9 @@ const MAX_MESSAGE_LENGTH = 256;
 /** Minimum message length for valid stamp. */
 const MIN_MESSAGE_LENGTH = 1;
 
+/** Number of characters to show in stamp activity preview. */
+const STAMP_PREVIEW_LENGTH = 32;
+
 /**
  * StampRegistry component for permanently recording text messages on the Stacks blockchain.
  */
@@ -78,7 +81,7 @@ export const StampRegistry = memo(({ searchQuery = '' }: { searchQuery?: string 
         contractName: CONTRACTS.stampRegistry.name,
         functionName: 'stamp-message',
         functionArgs: [cvToHex(stringUtf8CV(sanitizedMessage))],
-      }, 'Message stamped successfully!', sanitizedMessage.slice(0, 32) + (sanitizedMessage.length > 32 ? '...' : ''));
+      }, 'Message stamped successfully!', sanitizedMessage.slice(0, STAMP_PREVIEW_LENGTH) + (sanitizedMessage.length > STAMP_PREVIEW_LENGTH ? '...' : ''));
       setMessage('');
       setLastSubmitTime(Date.now());
     } catch {
