@@ -113,6 +113,10 @@ describe('fee utils', () => {
     expect(formatUStx(Number.NaN)).toBe('0 µSTX')
   })
 
+  it('formats infinite micro-STX values as zero', () => {
+    expect(formatUStx(Number.POSITIVE_INFINITY)).toBe('0 µSTX')
+  })
+
   it('formats negative fractional micro-STX values as zero', () => {
     expect(formatUStx(-0.4)).toBe('0 µSTX')
   })
