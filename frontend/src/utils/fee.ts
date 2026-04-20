@@ -118,3 +118,13 @@ export function formatFee(fee: number): string {
 export function isValidFee(fee: number): boolean {
     return Number.isFinite(fee) && fee >= 0 && fee <= MAX_FEE;
 }
+
+/**
+ * Returns true if the given fee meets the minimum base fee threshold.
+ *
+ * @param fee - The fee value in STX.
+ * @returns Whether the fee is at least BASE_FEE.
+ */
+export function isMinimumFee(fee: number): boolean {
+    return Number.isFinite(fee) && fee >= BASE_FEE;
+}
