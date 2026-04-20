@@ -49,6 +49,10 @@ describe('fee utils', () => {
     expect(estimateFee(' 250 ')).toBe(0.0135)
   })
 
+  it('floors decimal numeric string payload lengths to whole bytes', () => {
+    expect(estimateFee('10.9')).toBe(0.0015)
+  })
+
   it('treats a zero-length numeric string payload as base fee', () => {
     expect(estimateFee('0')).toBe(0.001)
   })
