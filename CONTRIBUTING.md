@@ -32,11 +32,11 @@ npm run test:report
 
 #### Frontend (React)
 ```bash
-# Run Vitest suite
-npm --prefix frontend test
+# Run lint checks
+npm --prefix frontend run lint
 
-# Run Vitest in watch mode
-npm --prefix frontend run test:watch
+# Build frontend (includes type-check)
+npm --prefix frontend run build
 ```
 
 ### Checking Clarity Syntax
