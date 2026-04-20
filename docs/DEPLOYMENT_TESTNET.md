@@ -69,7 +69,7 @@ Ensure all contracts pass syntax validation.
 ### Step 2: Run Tests
 
 ```bash
-npm test
+npm run test
 ```
 
 Make sure all tests pass before deployment.
