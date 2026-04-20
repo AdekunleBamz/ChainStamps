@@ -39,3 +39,21 @@ export const FEE_REFRESH_INTERVAL = 60_000;
 
 /** Interval in milliseconds for polling the latest Stacks block height. */
 export const BLOCK_FETCH_INTERVAL = 30_000;
+
+/** Maximum file size allowed for hashing in megabytes. */
+export const MAX_FILE_SIZE_MB = 100;
+
+/** Default debounce delay in milliseconds for search and input handlers. */
+export const DEFAULT_DEBOUNCE_DELAY_MS = 300;
+
+/** Expected length (in hex characters) of a SHA-256 hash output. */
+export const HASH_HEX_LENGTH = 64;
+
+/** Pagination defaults for registry browsing. */
+export const PAGINATION = {
+  DEFAULT_PAGE_SIZE: 20,
+  MAX_PAGE_SIZE: 100,
+};
+
+/** Base URL for the Stacks explorer (mainnet). */
+export const EXPLORER_BASE_URL = 'https://explorer.stacks.co';
