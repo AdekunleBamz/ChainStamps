@@ -28,6 +28,9 @@ const SHAKE_ANIMATION = ANIMATIONS.SHAKE;
 /** Rate limit interval for hash submission in milliseconds. */
 const RATE_LIMIT_INTERVAL = UI.RATE_LIMIT_COOLDOWN;
 
+/** Hash algorithm identifier used with crypto.subtle.digest. */
+const HASH_ALGORITHM = 'SHA-256';
+
 /** Number of hex characters to display in shortened hash previews. */
 const HASH_PREVIEW_LENGTH = 16;
 
@@ -110,7 +113,7 @@ export const HashRegistry = memo(({ searchQuery = '' }: { searchQuery?: string }
 
     try {
       const arrayBuffer = await file.arrayBuffer();
-      const hashBuffer = await crypto.subtle.digest('SHA-256', arrayBuffer);
+      const hashBuffer = await crypto.subtle.digest(HASH_ALGORITHM, arrayBuffer);
       const hashArray = Array.from(new Uint8Array(hashBuffer));
       const hashHex = hashArray.map(b => b.toString(16).padStart(2, '0')).join('');
       setHash(hashHex);
