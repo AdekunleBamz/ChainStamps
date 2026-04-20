@@ -51,7 +51,7 @@ clarinet check
 
 ## 📝 Commit Convention
 
-We follow [Conventional Commits](https://www.conventionalcommits.org/). **All commits must be GPG-signed** to ensure authenticity.
+We follow [Conventional Commits](https://www.conventionalcommits.org/). **All commits should be signed** to ensure authenticity.
 
 - `feat:` - New features
 - `fix:` - Bug fixes
