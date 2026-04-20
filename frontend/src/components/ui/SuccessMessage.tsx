@@ -1,6 +1,7 @@
 import React from 'react';
 import { CheckCircle, ExternalLink } from 'lucide-react';
 import { motion, AnimatePresence } from 'framer-motion';
+import { NETWORK } from '../../config/contracts';
 
 /** Default Stacks Explorer URL for transaction links. */
 const DEFAULT_EXPLORER_URL = 'https://explorer.stacks.co/txid';
@@ -33,7 +34,7 @@ export const SuccessMessage: React.FC<SuccessMessageProps> = ({
           <span className="truncate">{message} </span>
           {txId && (
             <a
-              href={`${explorerUrl}/${txId}?chain=mainnet`}
+              href={`${explorerUrl}/${txId}?chain=${NETWORK}`}
               target="_blank"
               rel="noopener noreferrer"
               className="flex items-center gap-1 underline underline-offset-4 hover:opacity-80 transition-opacity"
