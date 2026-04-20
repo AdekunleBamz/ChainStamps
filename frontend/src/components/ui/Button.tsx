@@ -100,7 +100,12 @@ export function Button({
             disabled={isDisabled}
             onClick={handleClick}
         >
-            {isLoading ? <Loader2 className="animate-spin" size={loaderSize} /> : children}
+            {isLoading ? (
+              <>
+                <Loader2 className="animate-spin" aria-hidden="true" size={loaderSize} />
+                <span className="sr-only">Loading…</span>
+              </>
+            ) : children}
         </motion.button>
     );
 }
