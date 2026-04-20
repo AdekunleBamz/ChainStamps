@@ -97,3 +97,24 @@ export function formatUStx(microStx: number): string {
     const normalized = Number.isFinite(microStx) ? Math.max(Math.round(microStx), 0) : 0;
     return `${normalized.toLocaleString()} µSTX`;
 }
+
+/**
+ * Formats a contract fee in STX, stripping unnecessary trailing zeros.
+ *
+ * @param fee - The fee amount in STX.
+ * @returns A compact human-readable fee string (e.g. "0.03 STX").
+ */
+export function formatFee(fee: number): string {
+    const normalized = Number.isFinite(fee) ? Math.max(fee, 0) : 0;
+    return `${parseFloat(normalized.toFixed(4))} STX`;
+}
+
+/**
+ * Returns true when the given fee falls within the valid range [0, MAX_FEE].
+ *
+ * @param fee - The fee value in STX to validate.
+ * @returns Whether the fee is a finite, non-negative number within bounds.
+ */
+export function isValidFee(fee: number): boolean {
+    return Number.isFinite(fee) && fee >= 0 && fee <= MAX_FEE;
+}
