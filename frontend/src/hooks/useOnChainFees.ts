@@ -11,27 +11,44 @@ const DEFAULT_FEES: OnChainFees = {
 
 export const useOnChainFees = () => {
   const [fees, setFees] = useState<OnChainFees>(DEFAULT_FEES);
+  const [isLoaded, setIsLoaded] = useState(false);
+  const [lastFetched, setLastFetched] = useState<number | null>(null);
+
+  const syncOnChainFees = async (forceRefresh = false) => {
+    try {
+      const nextFees = await fetchOnChainFees(forceRefresh);
+      if (nextFees && typeof nextFees === 'object') {
+        setFees(nextFees);
+        setLastFetched(Date.now());
+        setIsLoaded(true);
+      }
+    } catch {
+      // Silent fallback to static fee config.
+      setIsLoaded(true);
+    }
+  };
 
   useEffect(() => {
     let cancelled = false;
-
-    const syncOnChainFees = async () => {
+    const fetchWithGuard = async () => {
       try {
         const nextFees = await fetchOnChainFees();
         if (!cancelled && nextFees && typeof nextFees === 'object') {
           setFees(nextFees);
+          setLastFetched(Date.now());
+          setIsLoaded(true);
         }
       } catch {
-        // Silent fallback to static fee config.
+        if (!cancelled) setIsLoaded(true);
       }
     };
-
-    syncOnChainFees();
-
+    fetchWithGuard();
     return () => {
       cancelled = true;
     };
   }, []);
 
-  return { fees };
+  const refreshFees = () => syncOnChainFees(true);
+
+  return { fees, isLoaded, lastFetched, refreshFees };
 };
