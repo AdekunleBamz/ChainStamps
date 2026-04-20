@@ -20,6 +20,8 @@ interface AnimatedNumberProps {
     suffix?: string;
     /** The number of decimal places to display. Defaults to 0. */
     decimals?: number;
+    /** Optional callback fired when the animation completes. */
+    onComplete?: () => void;
 }
 
 /**
@@ -28,7 +30,7 @@ interface AnimatedNumberProps {
  * 
  * @param {AnimatedNumberProps} props - Component properties.
  */
-export function AnimatedNumber({ value, className, prefix = '', suffix = '', decimals = 0 }: AnimatedNumberProps) {
+export function AnimatedNumber({ value, className, prefix = '', suffix = '', decimals = 0, onComplete }: AnimatedNumberProps) {
     const safeValue = Number.isFinite(value) ? value : 0;
     const safeDecimals = Number.isInteger(decimals) && decimals >= 0 ? decimals : 0;
     const [displayValue, setDisplayValue] = useState(safeValue);
@@ -43,11 +45,12 @@ export function AnimatedNumber({ value, className, prefix = '', suffix = '', dec
             onUpdate: (latest: number) => {
                 latestValueRef.current = latest;
                 setDisplayValue(latest);
-            }
+            },
+            onComplete,
         });
 
         return () => controls.stop();
-    }, [safeValue]);
+    }, [safeValue, onComplete]);
 
     return (
         <span 
