@@ -6,6 +6,15 @@ import { Button } from './Button';
 import { Tooltip } from './Tooltip';
 import { triggerHaptic } from '../../utils/haptics';
 
+const FAB_ACTIONS = [
+    { id: 'hash', icon: Hash, label: 'Hash Registry', color: 'bg-primary' },
+    { id: 'stamp', icon: Stamp, label: 'Stamp Registry', color: 'bg-primary' },
+    { id: 'tag', icon: TagIcon, label: 'Tag Registry', color: 'bg-primary' },
+];
+
+/** Number of pixels scrolled before the FAB becomes visible. */
+const FAB_SCROLL_THRESHOLD = 400;
+
 /**
  * QuickActions component providing a floating action button (FAB) for rapid access
  * to primary registry functions and navigation.
@@ -21,19 +30,13 @@ export const QuickActions = () => {
 
   useEffect(() => {
     const handleScroll = () => {
-      // Show FAB after 400px of scrolling
-      setIsVisible(window.scrollY > 400);
-      if (window.scrollY <= 400 && isOpen) setIsOpen(false);
+      // Show FAB after FAB_SCROLL_THRESHOLD px of scrolling
+      setIsVisible(window.scrollY > FAB_SCROLL_THRESHOLD);
+      if (window.scrollY <= FAB_SCROLL_THRESHOLD && isOpen) setIsOpen(false);
     };
     window.addEventListener('scroll', handleScroll, { passive: true });
     return () => window.removeEventListener('scroll', handleScroll);
   }, [isOpen]);
-
-  const actions = [
-    { id: 'hash', icon: Hash, label: 'Hash Registry', color: 'bg-primary' },
-    { id: 'stamp', icon: Stamp, label: 'Stamp Registry', color: 'bg-primary' },
-    { id: 'tag', icon: TagIcon, label: 'Tag Registry', color: 'bg-primary' },
-  ];
 
   const handleAction = (id: string) => {
     const element = document.getElementById(id);
@@ -70,7 +73,7 @@ export const QuickActions = () => {
             transition={{ type: "spring", damping: 20, stiffness: 300 }}
             className="flex flex-col items-end gap-4 mb-4"
           >
-            {actions.map((action, index) => (
+            {FAB_ACTIONS.map((action, index) => (
               <motion.div 
                 key={action.id} 
                 initial={{ opacity: 0, x: 20 }}
