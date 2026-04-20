@@ -28,6 +28,9 @@ const SHAKE_ANIMATION = ANIMATIONS.SHAKE;
 /** Rate limit interval for hash submission in milliseconds. */
 const RATE_LIMIT_INTERVAL = UI.RATE_LIMIT_COOLDOWN;
 
+/** Number of hex characters to display in shortened hash previews. */
+const HASH_PREVIEW_LENGTH = 16;
+
 /** Regular expression pattern for validating SHA-256 hash format. */
 const HASH_VALIDATION_PATTERN = /^[a-fA-F0-9]{64}$/;
 
@@ -83,7 +86,7 @@ export const HashRegistry = memo(({ searchQuery = '' }: { searchQuery?: string }
       }
 
       const hashBytes = Uint8Array.from(hashPairs.map((byte) => parseInt(byte, 16)));
-      const description = `ChainStamp hash ${hash.slice(0, 16)}...`;
+      const description = `ChainStamp hash ${hash.slice(0, HASH_PREVIEW_LENGTH)}...`;
 
       await execute({
         contractAddress: CONTRACT_ADDRESS,
@@ -93,7 +96,7 @@ export const HashRegistry = memo(({ searchQuery = '' }: { searchQuery?: string }
           cvToHex(bufferCV(hashBytes)),
           cvToHex(stringUtf8CV(description)),
         ],
-      }, 'Hash registered successfully!', hash.slice(0, 16) + '...');
+      }, 'Hash registered successfully!', hash.slice(0, HASH_PREVIEW_LENGTH) + '...');
       setHash('');
       setLastSubmitTime(Date.now());
     } catch {
