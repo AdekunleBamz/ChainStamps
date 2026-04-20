@@ -41,6 +41,10 @@ describe('fee utils', () => {
     expect(estimateFee('🔥')).toBe(0.0012)
   })
 
+  it('estimates UTF-8 byte length correctly for repeated emoji payloads', () => {
+    expect(estimateFee('🔥🔥')).toBe(0.0014)
+  })
+
   it('falls back to base fee when payload size is NaN', () => {
     expect(estimateFee(Number.NaN)).toBe(0.001)
   })
