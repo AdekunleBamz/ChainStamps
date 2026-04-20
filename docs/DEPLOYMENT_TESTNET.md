@@ -44,6 +44,14 @@ clarity_version = 4
 epoch = 'latest'
 ```
 
+Quick path sanity-check before deployment:
+
+```bash
+rg "path: ontracts/" deployments/default.testnet-plan.yaml
+```
+
+The command should return no matches.
+
 ### 2. Set Up Deployment Plan
 
 The deployment plan is located in `deployments/default.testnet-plan.yaml`.
