@@ -3,6 +3,9 @@ import { AlertCircle } from 'lucide-react';
 import { useWallet } from '../../context/WalletContext';
 import { motion, AnimatePresence } from 'framer-motion';
 
+/** Default message shown when no wallet is connected. */
+const DISCONNECTED_WARNING = 'Connect your wallet to interact with this registry';
+
 interface WarningMessageProps {
   message?: string;
   showOnDisconnected?: boolean;
@@ -15,7 +18,7 @@ export const WarningMessage: React.FC<WarningMessageProps> = ({
   const { isConnected } = useWallet();
 
   const isVisible = (!isConnected && showOnDisconnected) || (isConnected && message);
-  const displayMessage = !isConnected ? 'Connect your wallet to interact with this registry' : message;
+  const displayMessage = !isConnected ? DISCONNECTED_WARNING : message;
 
   return (
     <AnimatePresence>
