@@ -3,6 +3,15 @@ import { QRCodeSVG } from 'qrcode.react';
 import { Button } from './ui/Button';
 import { motion } from 'framer-motion';
 
+/** WalletConnect deep-link base URL for opening URIs in mobile wallets. */
+const WALLETCONNECT_MOBILE_BASE = 'https://walletconnect.com/wc';
+/** Side length in pixels for the QR code SVG. */
+const QR_CODE_SIZE = 240;
+/** QR code background colour. */
+const QR_BG_COLOR = '#1a1a2e';
+/** QR code foreground colour. */
+const QR_FG_COLOR = '#ffffff';
+
 interface WalletConnectQRModalProps {
   uri: string;
   onClose: () => void;
@@ -17,7 +26,7 @@ interface WalletConnectQRModalProps {
  */
 export const WalletConnectQRModal = ({ uri, onClose }: WalletConnectQRModalProps) => {
   // Create a camera-friendly link for mobile users
-  const mobileLink = `https://walletconnect.com/wc?uri=${encodeURIComponent(uri)}`;
+  const mobileLink = `${WALLETCONNECT_MOBILE_BASE}?uri=${encodeURIComponent(uri)}`;
 
   return (
     <div className="qr-modal-overlay flex-center" onClick={onClose} role="dialog" aria-modal="true" aria-labelledby="qr-modal-title">
@@ -39,9 +48,9 @@ export const WalletConnectQRModal = ({ uri, onClose }: WalletConnectQRModalProps
           <div className="qr-code-container shadow-md">
             <QRCodeSVG
               value={uri}
-              size={240}
-              bgColor="#1a1a2e"
-              fgColor="#ffffff"
+              size={QR_CODE_SIZE}
+              bgColor={QR_BG_COLOR}
+              fgColor={QR_FG_COLOR}
               level="M"
               includeMargin
             />
