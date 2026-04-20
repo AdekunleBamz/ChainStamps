@@ -128,3 +128,26 @@ export function isValidFee(fee: number): boolean {
 export function isMinimumFee(fee: number): boolean {
     return Number.isFinite(fee) && fee >= BASE_FEE;
 }
+
+/**
+ * Returns a detailed breakdown of a fee as an object.
+ *
+ * @param payload - The data or byte count to estimate from.
+ * @returns An object with `baseFee`, `payloadFee`, `total`, and `totalMicroStx`.
+ */
+export function estimateFeeDetailed(payload: number | string): {
+    baseFee: number;
+    payloadFee: number;
+    total: number;
+    totalMicroStx: number;
+} {
+    const size = typeof payload === 'string' ? new TextEncoder().encode(payload.trim()).length : Math.max(0, Math.floor(Number.isFinite(payload) ? payload : 0));
+    const payloadFee = size * FEE_PER_BYTE;
+    const total = Math.round(Math.min(BASE_FEE + payloadFee, MAX_FEE) * 10000) / 10000;
+    return {
+        baseFee: BASE_FEE,
+        payloadFee: Math.round(payloadFee * 10000) / 10000,
+        total,
+        totalMicroStx: stxToMicroStx(total),
+    };
+}
