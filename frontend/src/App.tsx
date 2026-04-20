@@ -28,6 +28,12 @@ import { FilterDrawer } from './components/ui/FilterDrawer';
 import { triggerHaptic } from './utils/haptics';
 import './App.css';
 
+/** Suggested search tags shown in the search bar and filter drawer. */
+const SUGGESTED_SEARCH_TAGS = ['SHA-256', 'Immutable', 'Identity', 'Security'];
+
+/** Registry category options shown in the filter drawer. */
+const REGISTRY_CATEGORIES = ['Hash', 'Stamp', 'Tag'];
+
 /**
  * A purely logic component that updates the site's favicon based on wallet connection status.
  */
@@ -244,7 +250,7 @@ const App = () => {
                       <span className="text-[10px] uppercase tracking-wider text-muted-foreground font-bold">Categories:</span>
                     </div>
                     <AnimatePresence mode="popLayout">
-                      {['Hash', 'Stamp', 'Tag'].map(suggestion => {
+                      {REGISTRY_CATEGORIES.map(suggestion => {
                         const isSelected = selectedCategories.includes(suggestion);
                         return (
                           <motion.button
@@ -277,7 +283,7 @@ const App = () => {
                     <div className="flex items-center gap-2 mr-2">
                       <span className="text-[10px] uppercase tracking-wider text-muted-foreground font-bold">Suggested:</span>
                     </div>
-                    {['SHA-256', 'Immutable', 'Identity', 'Security'].map(tag => (
+                    {SUGGESTED_SEARCH_TAGS.map(tag => (
                       <button
                         key={tag}
                         type="button"
@@ -303,7 +309,7 @@ const App = () => {
                     <div>
                       <h4 className="text-xs uppercase tracking-widest font-bold text-muted-foreground mb-4">Categories</h4>
                       <div className="flex flex-wrap gap-2">
-                        {['Hash', 'Stamp', 'Tag'].map(suggestion => (
+                        {REGISTRY_CATEGORIES.map(suggestion => (
                           <button
                             key={suggestion}
                             type="button"
@@ -322,7 +328,7 @@ const App = () => {
                     <div>
                       <h4 className="text-xs uppercase tracking-widest font-bold text-muted-foreground mb-4">Suggested Searches</h4>
                       <div className="flex flex-wrap gap-2">
-                        {['SHA-256', 'Immutable', 'Identity', 'Security'].map(tag => (
+                        {SUGGESTED_SEARCH_TAGS.map(tag => (
                           <button
                             key={tag}
                             type="button"
