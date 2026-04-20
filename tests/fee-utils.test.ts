@@ -67,6 +67,11 @@ describe('fee utils', () => {
     expect(formatStx(-1)).toBe('0.0000 STX')
   })
 
+  it('formats invalid STX values as zero', () => {
+    expect(formatStx(Number.NaN)).toBe('0.0000 STX')
+    expect(formatStx(Number.POSITIVE_INFINITY)).toBe('0.0000 STX')
+  })
+
   it('rounds tiny fractional STX values to nearest micro-STX', () => {
     expect(stxToMicroStx(0.00000049)).toBe(0)
     expect(stxToMicroStx(0.0000005)).toBe(1)
