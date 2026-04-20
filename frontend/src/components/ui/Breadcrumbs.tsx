@@ -44,7 +44,7 @@ export const Breadcrumbs = ({ items }: BreadcrumbsProps) => {
                                 {item.label}
                             </a>
                         ) : (
-                            <span className="text-foreground">{item.label}</span>
+                            <span className="text-foreground" aria-current="page">{item.label}</span>
                         )}
                     </li>
                 ))}
