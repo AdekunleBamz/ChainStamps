@@ -53,6 +53,10 @@ describe('fee utils', () => {
     expect(estimateFee('0008')).toBe(0.0014)
   })
 
+  it('parses numeric strings with a leading plus sign', () => {
+    expect(estimateFee('+8')).toBe(0.0014)
+  })
+
   it('uses UTF-8 byte length for multibyte payload strings', () => {
     expect(estimateFee('🔥')).toBe(0.0012)
   })
