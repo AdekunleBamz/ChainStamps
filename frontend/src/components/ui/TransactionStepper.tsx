@@ -57,7 +57,7 @@ export const TransactionStepper = ({ currentStep }: TransactionStepperProps) => 
                 )}
               >
                 {isActive && currentStep !== 'confirmed' ? (
-                  <Loader2 size={20} className="animate-spin" />
+                  <Loader2 size={20} className="animate-spin" aria-hidden="true" />
                 ) : (
                   <Icon size={20} />
                 )}
