@@ -23,6 +23,11 @@ const ICON_MAP = {
   tag: TagIcon,
 };
 
+/** Milliseconds in one day. */
+const ONE_DAY_MS = 24 * 60 * 60 * 1000;
+/** Milliseconds in one week. */
+const ONE_WEEK_MS = 7 * ONE_DAY_MS;
+
 type FilterType = 'all' | 'today' | 'week';
 
 const ActivitySkeleton = () => (
@@ -47,14 +52,12 @@ export const RecentActivity = memo(({ activities, isLoading, className }: Recent
 
   const filteredActivities = useMemo(() => {
     const now = Date.now();
-    const oneDay = 24 * 60 * 60 * 1000;
-    const oneWeek = 7 * oneDay;
 
     switch (filter) {
       case 'today':
-        return activities.filter(a => now - a.timestamp < oneDay);
+        return activities.filter(a => now - a.timestamp < ONE_DAY_MS);
       case 'week':
-        return activities.filter(a => now - a.timestamp < oneWeek);
+        return activities.filter(a => now - a.timestamp < ONE_WEEK_MS);
       default:
         return activities;
     }
