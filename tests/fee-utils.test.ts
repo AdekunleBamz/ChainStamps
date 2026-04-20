@@ -16,6 +16,10 @@ describe('fee utils', () => {
     expect(estimateFee('hello')).toBe(0.0013)
   })
 
+  it('caps estimated fees at the configured maximum', () => {
+    expect(estimateFee(500_000)).toBe(10)
+  })
+
   it('converts STX and microSTX values safely', () => {
     expect(stxToMicroStx(1.25)).toBe(1_250_000)
     expect(stxToMicroStx(-1)).toBe(0)
