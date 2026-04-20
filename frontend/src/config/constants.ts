@@ -73,3 +73,9 @@ export const STAMP_TYPES = Object.freeze({
   TEXT: 'text',
   URL: 'url',
 } as const);
+
+/** Number of blocks per day on Stacks (10-minute block time × 6 × 24). */
+export const STACKS_BLOCKS_PER_DAY = 144;
+
+/** Average block time in seconds. */
+export const AVG_BLOCK_TIME_SECONDS = 600;
