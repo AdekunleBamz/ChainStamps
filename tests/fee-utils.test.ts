@@ -37,6 +37,10 @@ describe('fee utils', () => {
     expect(estimateFee(-100)).toBe(0.001)
   })
 
+  it('falls back to base fee for negative numeric string payloads', () => {
+    expect(estimateFee('-100')).toBe(0.001)
+  })
+
   it('uses the base fee for zero-byte numeric payloads', () => {
     expect(estimateFee(0)).toBe(0.001)
   })
