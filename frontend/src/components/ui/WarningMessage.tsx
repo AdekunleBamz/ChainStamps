@@ -28,6 +28,8 @@ export const WarningMessage: React.FC<WarningMessageProps> = ({
           animate={{ opacity: 1, y: 0 }}
           exit={{ opacity: 0, y: 10 }}
           className="warning-message flex items-center justify-center gap-2 mt-4 p-3 rounded-xl bg-orange-500/10 border border-orange-500/20 text-orange-500 text-xs font-bold"
+          role="alert"
+          aria-live="assertive"
         >
           <AlertCircle size={14} className="shrink-0" />
           <span>{displayMessage}</span>
