@@ -74,7 +74,7 @@ Tip: Sign commits before pushing to keep history verifiable (`git commit -S`).
 ## 🔄 Pull Request Process
 
 1. Ensure all tests pass: `npm test`
-2. Ensure Clarity syntax is valid: `clarinet check`
+2. Ensure Clarity syntax is valid: `npm run contracts:check`
 3. Run frontend lint when UI code changes: `npm --prefix frontend run lint`
 4. Update documentation if needed
 5. Create a PR with a clear description
