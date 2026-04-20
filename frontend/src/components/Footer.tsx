@@ -8,6 +8,13 @@ const SOCIAL_LINK_ANIMATION = {
     tap: { scale: 0.9 },
 };
 
+/** Social and external link URLs used in the footer. */
+const FOOTER_LINKS = {
+    github: 'https://github.com/AdekunleBamz/ChainStamps',
+    twitter: 'https://twitter.com',
+    explorer: 'https://explorer.hiro.so/address/SP5K2RHMSBH4PAP4PGX77MCVNK1ZEED07CWX9TJT?chain=mainnet',
+};
+
 /**
  * Global Footer component.
  * Displays copyright information, social links, and site-wide navigation landmarks.
@@ -76,7 +83,7 @@ export const Footer = memo(() => {
           <motion.a
             whileHover={SOCIAL_LINK_ANIMATION.hover}
             whileTap={SOCIAL_LINK_ANIMATION.tap}
-            href="https://github.com/AdekunleBamz/ChainStamps"
+            href={FOOTER_LINKS.github}
             target="_blank"
             rel="noopener noreferrer"
             aria-label="View ChainStamps source code on GitHub"
@@ -87,7 +94,7 @@ export const Footer = memo(() => {
           <motion.a
             whileHover={SOCIAL_LINK_ANIMATION.hover}
             whileTap={SOCIAL_LINK_ANIMATION.tap}
-            href="https://twitter.com"
+            href={FOOTER_LINKS.twitter}
             target="_blank"
             rel="noopener noreferrer"
             aria-label="Follow ChainStamps on X (formerly Twitter)"
@@ -98,7 +105,7 @@ export const Footer = memo(() => {
           <motion.a
             whileHover={SOCIAL_LINK_ANIMATION.hover}
             whileTap={SOCIAL_LINK_ANIMATION.tap}
-            href="https://explorer.hiro.so/address/SP5K2RHMSBH4PAP4PGX77MCVNK1ZEED07CWX9TJT?chain=mainnet"
+            href={FOOTER_LINKS.explorer}
             target="_blank"
             rel="noopener noreferrer"
             aria-label="View ChainStamps contract on Hiro Explorer"
