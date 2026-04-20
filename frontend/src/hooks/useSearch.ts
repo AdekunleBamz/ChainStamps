@@ -71,10 +71,12 @@ export const useSearch = <T extends SearchableItem>(items: T[]) => {
   }, [items, deferredQuery, selectedCategories]);
 
   const toggleCategory = useCallback((category: string) => {
-    setSelectedCategories(prev => 
-      prev.includes(category) 
-        ? prev.filter(c => c !== category) 
-        : [...prev, category]
+    const trimmedCategory = typeof category === 'string' ? category.trim() : '';
+    if (!trimmedCategory) return;
+    setSelectedCategories(prev =>
+      prev.includes(trimmedCategory)
+        ? prev.filter(c => c !== trimmedCategory)
+        : [...prev, trimmedCategory]
     );
   }, []);
 
