@@ -3,6 +3,11 @@ import { RefreshCw } from 'lucide-react';
 import { useEffect, useState } from 'react';
 import { useToast } from '../../context/ToastContext';
 
+/** Pull distance in pixels required to trigger a refresh. */
+const PULL_REFRESH_THRESHOLD = 80;
+/** Opacity divisor used to fade in the pull indicator. */
+const PULL_OPACITY_DIVISOR = 60;
+
 /**
  * Properties for the PullToRefresh component.
  */
@@ -24,7 +29,6 @@ export const PullToRefresh = ({ onRefresh }: PullToRefreshProps) => {
 
     useEffect(() => {
         let startY = 0;
-        const threshold = 80;
 
         const handleTouchStart = (e: TouchEvent) => {
             if (window.scrollY === 0) {
@@ -50,9 +54,9 @@ export const PullToRefresh = ({ onRefresh }: PullToRefreshProps) => {
          * triggers the onRefresh callback and provides visual/toast feedback.
          */
         const handleTouchEnd = async () => {
-            if (pullDistance > threshold && !isRefreshing) {
+            if (pullDistance > PULL_REFRESH_THRESHOLD && !isRefreshing) {
                 setIsRefreshing(true);
-                setPullDistance(threshold);
+                setPullDistance(PULL_REFRESH_THRESHOLD);
                 try {
                     await onRefresh();
                     addToast('Accounts refreshed successfully', 'success');
@@ -83,7 +87,7 @@ export const PullToRefresh = ({ onRefresh }: PullToRefreshProps) => {
         <motion.div
             style={{
                 height: pullDistance,
-                opacity: Math.min(1, pullDistance / 60)
+                opacity: Math.min(1, pullDistance / PULL_OPACITY_DIVISOR)
             }}
             className="pull-to-refresh-indicator overflow-hidden flex items-center justify-center w-full"
         >
