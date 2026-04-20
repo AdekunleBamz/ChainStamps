@@ -9,7 +9,7 @@ This document shows how to interact with ChainStamps contracts using the Stacks.
 ## Installation
 
 ```bash
-npm install @stacks/transactions @stacks/network @stacks/connect
+npm install @stacks/transactions @stacks/network @stacks/connect @noble/hashes
 ```
 
 ## Setup
