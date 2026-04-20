@@ -33,6 +33,7 @@ const getErrorMessage = (err: unknown) => {
 };
 
 const HISTORY_KEY = 'chainstamp_activity_history';
+const HISTORY_MAX_ENTRIES = 10;
 const generateActivityId = () =>
   globalThis.crypto?.randomUUID?.() || Math.random().toString(36).slice(2, 11);
 
@@ -88,7 +89,7 @@ export const useContractCall = () => {
       };
 
       setHistory((previousHistory) => {
-        const updatedHistory = [newActivity, ...previousHistory].slice(0, 10);
+        const updatedHistory = [newActivity, ...previousHistory].slice(0, HISTORY_MAX_ENTRIES);
         localStorage.setItem(HISTORY_KEY, JSON.stringify(updatedHistory));
         return updatedHistory;
       });
