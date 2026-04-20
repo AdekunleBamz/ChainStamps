@@ -16,7 +16,7 @@
     "format:check": "prettier --check ."
   },
   "author": "Adekunle Bamz (@adekunlebamz)",
-  "license": "ISC",
+  "license": "MIT",
   "repository": {
     "type": "git",
     "url": "https://github.com/AdekunleBamz/ChainStamps.git"
