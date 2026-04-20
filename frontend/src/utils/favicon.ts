@@ -65,3 +65,14 @@ export const updateFavicon = (status: FaviconStatus) => {
         }
     };
 };
+
+/**
+ * Resets the site favicon to its original static file by removing any
+ * dynamically generated data-URL overrides.
+ */
+export const resetFavicon = (): void => {
+    const link = document.querySelector("link[rel~='icon']") as HTMLLinkElement | null;
+    if (link) {
+        link.href = FAVICON_IMG_SRC;
+    }
+};
