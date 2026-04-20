@@ -1,6 +1,11 @@
 import { useEffect, useRef, useState } from 'react';
 import { animate } from 'framer-motion';
 
+/** Animation duration in seconds for number transitions. */
+const ANIMATED_NUMBER_DURATION = 1.5;
+/** Cubic bezier easing for smooth deceleration of animated numbers. */
+const ANIMATED_NUMBER_EASE: [number, number, number, number] = [0.22, 1, 0.36, 1];
+
 /**
  * Properties for the AnimatedNumber component.
  */
@@ -31,8 +36,8 @@ export function AnimatedNumber({ value, className, prefix = '', suffix = '', dec
         if (latestValueRef.current === value) return;
 
         const controls = animate(latestValueRef.current, value, {
-            duration: 1.5,
-            ease: [0.22, 1, 0.36, 1],
+            duration: ANIMATED_NUMBER_DURATION,
+            ease: ANIMATED_NUMBER_EASE,
             onUpdate: (latest: number) => {
                 latestValueRef.current = latest;
                 setDisplayValue(latest);
