@@ -32,6 +32,7 @@ export const CopyButton = ({ value, className, size = 14 }: CopyButtonProps) => 
     const controls = useAnimation();
 
     const handleCopy = async () => {
+        if (!value || typeof value !== 'string') return;
         try {
             await navigator.clipboard.writeText(value);
             setCopied(true);
