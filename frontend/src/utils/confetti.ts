@@ -99,3 +99,10 @@ export const triggerMiniConfetti = () => {
         scalar: 0.6,
     });
 };
+
+/**
+ * Returns true if canvas-confetti is likely renderable in the current environment.
+ * Checks for a valid DOM context.
+ */
+export const isConfettiSupported = (): boolean =>
+    typeof window !== 'undefined' && typeof document !== 'undefined';
