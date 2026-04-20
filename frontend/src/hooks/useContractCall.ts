@@ -64,6 +64,9 @@ export const useContractCall = () => {
   }, []);
 
   const execute = useCallback(async (params: ContractCallParams, successMessage = 'Transaction submitted successfully!', label = 'Unknown Action') => {
+    if (!params.contractAddress?.trim() || !params.contractName?.trim() || !params.functionName?.trim()) {
+      throw new Error('Invalid contract call parameters: address, name, and function are required');
+    }
     setIsSubmitting(true);
     setStep('preparing');
     setTxId(null);
