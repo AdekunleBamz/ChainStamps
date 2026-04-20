@@ -45,6 +45,10 @@ describe('fee utils', () => {
     expect(estimateFee('🔥🔥')).toBe(0.0014)
   })
 
+  it('uses UTF-8 byte length for CJK payload strings', () => {
+    expect(estimateFee('你好')).toBe(0.0013)
+  })
+
   it('falls back to base fee when payload size is NaN', () => {
     expect(estimateFee(Number.NaN)).toBe(0.001)
   })
