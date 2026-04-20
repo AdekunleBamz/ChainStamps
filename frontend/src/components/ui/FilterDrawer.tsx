@@ -3,6 +3,11 @@ import { X, Filter } from 'lucide-react';
 import { type ReactNode } from 'react';
 import { twMerge } from 'tailwind-merge';
 
+/** Spring damping coefficient for the filter drawer slide animation. */
+const DRAWER_SPRING_DAMPING = 25;
+/** Spring stiffness coefficient for the filter drawer slide animation. */
+const DRAWER_SPRING_STIFFNESS = 200;
+
 interface FilterDrawerProps {
   isOpen: boolean;
   onClose: () => void;
@@ -49,7 +54,7 @@ export const FilterDrawer = ({ isOpen, onClose, children, activeFiltersCount }: 
               initial={{ y: "100%" }}
               animate={{ y: 0 }}
               exit={{ y: "100%" }}
-              transition={{ type: "spring", damping: 25, stiffness: 200 }}
+              transition={{ type: "spring", damping: DRAWER_SPRING_DAMPING, stiffness: DRAWER_SPRING_STIFFNESS }}
               className="fixed bottom-0 left-0 right-0 bg-background border-t border-white/10 rounded-t-[32px] p-8 z-[1001] md:hidden max-h-[80vh] overflow-y-auto"
             >
               <div className="flex-between mb-6">
