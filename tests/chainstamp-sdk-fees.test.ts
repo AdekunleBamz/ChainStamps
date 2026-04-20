@@ -87,4 +87,16 @@ describe('chainstamp sdk fee fetcher', () => {
       tag: 0.04,
     })
   })
+
+  it('uses configured fallback when wrapped fee value is non-numeric', async () => {
+    vi.spyOn(chainstampClient, 'getHashFee').mockResolvedValue({ value: 'not-a-number' })
+    vi.spyOn(chainstampClient, 'getStampFee').mockResolvedValue(50_000n)
+    vi.spyOn(chainstampClient, 'getTagFee').mockResolvedValue(40_000n)
+
+    const fees = await fetchOnChainFees(true)
+
+    expect(fees.hash).toBe(CONTRACTS.hashRegistry.fee)
+    expect(fees.stamp).toBe(0.05)
+    expect(fees.tag).toBe(0.04)
+  })
 })
