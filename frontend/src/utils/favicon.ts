@@ -11,12 +11,25 @@ const STATUS_DOT_Y = 26;
 /** Source path for the base favicon image. */
 const FAVICON_IMG_SRC = '/logo.png';
 
+type FaviconStatus = 'connected' | 'connecting' | 'disconnected' | 'disconnecting' | 'pending' | 'confirmed' | 'error';
+
+/** Status dot fill colours for each favicon state. */
+const STATUS_DOT_COLOR: Record<FaviconStatus, string> = {
+    connected: '#22c55e',
+    connecting: '#f59e0b',
+    pending: '#f59e0b',
+    confirmed: '#10b981',
+    error: '#ef4444',
+    disconnected: '#64748b',
+    disconnecting: '#94a3b8',
+};
+
 /**
  * Dynamically updates the site's favicon based on the current application state.
  *
  * @param status - Application state indicator.
  */
-export const updateFavicon = (status: 'connected' | 'connecting' | 'disconnected' | 'disconnecting' | 'pending' | 'confirmed' | 'error') => {
+export const updateFavicon = (status: FaviconStatus) => {
     const canvas = document.createElement('canvas');
     canvas.width = FAVICON_SIZE;
     canvas.height = FAVICON_SIZE;
@@ -34,27 +47,7 @@ export const updateFavicon = (status: 'connected' | 'connecting' | 'disconnected
         ctx.beginPath();
         ctx.arc(STATUS_DOT_X, STATUS_DOT_Y, STATUS_DOT_RADIUS, 0, 2 * Math.PI);
 
-        switch (status) {
-            case 'connected':
-                ctx.fillStyle = '#22c55e';
-                break;
-            case 'connecting':
-            case 'pending':
-                ctx.fillStyle = '#f59e0b';
-                break;
-            case 'confirmed':
-                ctx.fillStyle = '#10b981';
-                break;
-            case 'error':
-                ctx.fillStyle = '#ef4444';
-                break;
-            case 'disconnected':
-                ctx.fillStyle = '#64748b';
-                break;
-            case 'disconnecting':
-                ctx.fillStyle = '#94a3b8';
-                break;
-        }
+        ctx.fillStyle = STATUS_DOT_COLOR[status];
 
         ctx.fill();
         ctx.strokeStyle = '#ffffff';
