@@ -33,6 +33,7 @@ export const Tooltip = ({ content, children, className }: TooltipProps) => {
             onMouseLeave={() => setIsVisible(false)}
             onFocus={() => setIsVisible(true)}
             onBlur={() => setIsVisible(false)}
+            tabIndex={0}
         >
             {children}
             <AnimatePresence>
