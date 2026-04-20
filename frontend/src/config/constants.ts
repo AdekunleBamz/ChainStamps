@@ -57,3 +57,6 @@ export const PAGINATION = {
 
 /** Base URL for the Stacks explorer (mainnet). */
 export const EXPLORER_BASE_URL = 'https://explorer.stacks.co';
+
+/** Maximum number of past stamps to show in the recent activity list. */
+export const MAX_RECENT_STAMPS = 50;
