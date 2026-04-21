@@ -172,3 +172,13 @@ export function feeAsPercent(fee: number): string {
     const normalized = Number.isFinite(fee) ? Math.max(fee, 0) : 0;
     return `${((normalized / MAX_FEE) * 100).toFixed(2)}%`;
 }
+
+/**
+ * Returns true if two fee values are equal within a small tolerance.
+ * @param a - First fee in STX.
+ * @param b - Second fee in STX.
+ * @param tolerance - Allowed difference (default 0.00001).
+ */
+export function feesAreEqual(a: number, b: number, tolerance = 0.00001): boolean {
+    return Math.abs(a - b) <= tolerance;
+}
