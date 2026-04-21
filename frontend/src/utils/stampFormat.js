@@ -41,54 +41,6 @@ export const formatWalletAddress = (a) => {
 
 export const formatProofLength = (n) => n + " chars";
 
-export const formatNetworkName = (n) => {
-  const normalized = typeof n === 'string' ? n.trim().toLowerCase() : '';
-  if (!normalized) return 'Unknown';
-  return normalized.charAt(0).toUpperCase() + normalized.slice(1);
-};
+export const formatNetworkName = (n) => n.charAt(0).toUpperCase() + n.slice(1);
 
 export const formatConfirmations = (n) => n + " confirmations";
-
-export const formatStampType = (t) => t.toUpperCase();
-
-export const formatBlocksRemaining = (n) => n + " blocks left";
-
-export const formatMemoText = (s) => {
-  const normalized = typeof s === 'string' ? s.trim() : '';
-  if (!normalized) return '';
-  return normalized.length > 32 ? normalized.slice(0, 32) + '...' : normalized;
-};
-
-export const formatHashAlgorithm = (a) => a.toUpperCase();
-
-export const formatStampVersion = (v) => "v" + v;
-
-export const formatExpiryDate = (ts) => "Expires: " + new Date(ts).toLocaleDateString();
-
-export const formatStampAge = (blocks, blocksPerDay) => {
-  const days = Math.floor(blocks / blocksPerDay);
-  return days + (days === 1 ? " day old" : " days old");
-};
-
-export const formatBatchProgress = (done, total) => done + " / " + total + " stamps";
-
-export const formatStampFeeUstx = (v) => Number(v).toLocaleString() + " µSTX fee";
-
-export const formatConfirmationStatus = (n, required) => n + " / " + required + " confirmed";
-
-export const formatRetryCount = (n) => "Attempt " + (n + 1);
-
-export const formatStampLabel = (label, hash) => label || hash.slice(0, 10);
-
-export const formatNetworkFee = (v) => (Number(v) / 1e6).toFixed(6) + " STX fee";
-
-export const formatDataSize = (bytes) => bytes + " bytes";
-
-export const formatStampOwner = (addr) => {
-  const s = typeof addr === "string" ? addr.trim() : "";
-  if (!s) return "Unknown";
-  return s.slice(0, 6) + "..." + s.slice(-4);
-};
-
-export const formatBatchStatus = (done, total, failed) =>
-  done + " done, " + failed + " failed of " + total;
