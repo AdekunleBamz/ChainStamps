@@ -8,3 +8,5 @@ export const formatStampDate = (ts) => new Date(ts).toLocaleDateString();
 export const formatStampId = (id) => "STAMP-" + id;
 
 export const formatBlockHeight = (n) => "Block #" + n;
+
+export const formatStampStatus = (s) => s.charAt(0).toUpperCase() + s.slice(1);
