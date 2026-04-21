@@ -10,3 +10,5 @@ export const formatStampId = (id) => "STAMP-" + id;
 export const formatBlockHeight = (n) => "Block #" + n;
 
 export const formatStampStatus = (s) => s.charAt(0).toUpperCase() + s.slice(1);
+
+export const formatTxId = (id) => id.slice(0, 8) + "...";
