@@ -8,7 +8,7 @@ const metadata = {
   name: 'ChainStamp',
   description: 'Immutable timestamping on Bitcoin via Stacks',
   url: typeof window !== 'undefined' ? window.location.origin : 'https://chainstamp.app',
-  icons: [typeof window !== 'undefined' ? new URL('/logo.svg', window.location.origin).toString() : 'https://chainstamp.app/logo.svg'],
+  icons: [typeof window !== 'undefined' ? new URL('/logo.png', window.location.origin).toString() : 'https://chainstamp.app/logo.png'],
 };
 
 // Stacks mainnet chain ID in CAIP format
