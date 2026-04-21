@@ -26,3 +26,5 @@ export const DEFAULT_NETWORK = "mainnet"
 export const BLOCKS_PER_DAY = 144
 
 export const STAMP_HASH_ALGORITHM = "sha256"
+
+export const MAX_BATCH_SIZE = 10
