@@ -94,3 +94,11 @@ export const SEARCH_DEBOUNCE_MS = 250;
 
 /** Maximum number of search result items to display without pagination. */
 export const MAX_SEARCH_RESULTS = 100;
+
+/** Timeout in ms after which a pending transaction is considered stuck. */
+export const TX_STUCK_TIMEOUT_MS = 10 * 60 * 1000; // 10 minutes
+
+/** Short-form address display: characters kept at start. */
+export const SHORT_ADDR_START = 6;
+/** Short-form address display: characters kept at end. */
+export const SHORT_ADDR_END = 4;
