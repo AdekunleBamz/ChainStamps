@@ -36,3 +36,5 @@ export const CONFIRMATION_BLOCKS = 3
 export const MAX_MEMO_LENGTH = 64
 
 export const SUPPORTED_FILE_TYPES = ["pdf","txt","json","csv"]
+
+export const STAMP_UI_VERSION = "2.0"
