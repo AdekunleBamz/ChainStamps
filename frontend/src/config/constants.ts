@@ -102,3 +102,9 @@ export const TX_STUCK_TIMEOUT_MS = 10 * 60 * 1000; // 10 minutes
 export const SHORT_ADDR_START = 6;
 /** Short-form address display: characters kept at end. */
 export const SHORT_ADDR_END = 4;
+
+/** Frozen set of supported hash algorithms for file fingerprinting. */
+export const SUPPORTED_HASH_ALGORITHMS = Object.freeze(['SHA-256'] as const);
+
+/** Display name for the application. */
+export const APP_DISPLAY_NAME = 'ChainStamp';
