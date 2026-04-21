@@ -20,3 +20,5 @@ export const STAMP_STATUS_PENDING = "pending"
 export const STAMP_STATUS_CONFIRMED = "confirmed"
 
 export const STAMP_STATUS_FAILED = "failed"
+
+export const DEFAULT_NETWORK = "mainnet"
