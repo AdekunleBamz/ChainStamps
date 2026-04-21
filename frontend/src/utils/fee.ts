@@ -162,3 +162,13 @@ export function feeHeadroom(currentFee: number): number {
     const normalized = Number.isFinite(currentFee) ? Math.max(currentFee, 0) : 0;
     return Math.max(MAX_FEE - normalized, 0);
 }
+
+/**
+ * Formats a fee as a percentage of the max allowed fee.
+ * @param fee - Current fee in STX.
+ * @returns Percentage string e.g. "3.20%".
+ */
+export function feeAsPercent(fee: number): string {
+    const normalized = Number.isFinite(fee) ? Math.max(fee, 0) : 0;
+    return `${((normalized / MAX_FEE) * 100).toFixed(2)}%`;
+}
