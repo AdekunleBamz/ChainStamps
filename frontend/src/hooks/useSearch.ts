@@ -33,10 +33,9 @@ export const useSearch = <T extends SearchableItem>(items: T[]) => {
 
     const timeoutId = setTimeout(() => {
       const params = new URLSearchParams();
-      if (searchQuery) params.set('q', searchQuery);
-      if (selectedCategories.length > 0) {
-        params.set('c', [...selectedCategories].sort().join(','));
-      }
+      const normalizedQuery = searchQuery.trim();
+      if (normalizedQuery) params.set('q', normalizedQuery);
+      if (selectedCategories.length > 0) params.set('c', selectedCategories.join(','));
       
       const newSearch = params.toString();
       const currentSearch = window.location.search.replace('?', '');
