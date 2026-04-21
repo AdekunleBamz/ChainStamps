@@ -60,6 +60,7 @@ export const useContractCall = () => {
         }
       } catch (e) {
         console.error('Failed to load history', e);
+        localStorage.removeItem(HISTORY_KEY);
       }
     }
   }, []);
