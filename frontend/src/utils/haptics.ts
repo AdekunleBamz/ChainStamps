@@ -69,3 +69,13 @@ export const hapticNotification = (): void => triggerHaptic('notification');
 export const isHapticsReducedMotion = (): boolean =>
     typeof window !== 'undefined' &&
     window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+
+/**
+ * Triggers haptic feedback only if haptics are supported and reduced motion is not preferred.
+ * @param type - The haptic pattern to fire.
+ */
+export const triggerHapticSafe = (type: HapticType): void => {
+    if (isHapticsSupported() && !isHapticsReducedMotion()) {
+        triggerHaptic(type);
+    }
+};
