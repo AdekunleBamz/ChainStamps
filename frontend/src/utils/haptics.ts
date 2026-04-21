@@ -61,3 +61,11 @@ export const hapticLight = (): void => triggerHaptic('light');
 
 /** Convenience alias: triggers a 'notification' haptic for informational feedback */
 export const hapticNotification = (): void => triggerHaptic('notification');
+
+/**
+ * Returns true if haptics are currently disabled via a user media preference.
+ * Checks for the prefers-reduced-motion media query.
+ */
+export const isHapticsReducedMotion = (): boolean =>
+    typeof window !== 'undefined' &&
+    window.matchMedia('(prefers-reduced-motion: reduce)').matches;
