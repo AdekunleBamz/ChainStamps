@@ -24,3 +24,5 @@ export const STAMP_STATUS_FAILED = "failed"
 export const DEFAULT_NETWORK = "mainnet"
 
 export const BLOCKS_PER_DAY = 144
+
+export const STAMP_HASH_ALGORITHM = "sha256"
