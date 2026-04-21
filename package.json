@@ -15,7 +15,8 @@
     "frontend:dev": "npm --prefix frontend run dev",
     "frontend:lint": "npm --prefix frontend run lint",
     "frontend:build": "npm --prefix frontend run build",
-    "check:fast": "npm run contracts:check && npm run test:fee"
+    "check:fast": "npm run contracts:check && npm run test:fee",
+    "validate": "npm run check:fast && npm run frontend:lint && npm run frontend:build"
   },
   "author": "Adekunle Bamz (@adekunlebamz)",
   "license": "ISC",
