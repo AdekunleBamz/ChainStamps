@@ -1,7 +1,7 @@
 {
   "name": "chainstamp-tests",
   "version": "1.0.0",
-  "description": "Run unit tests on this project.",
+  "description": "Contract and frontend tooling workspace for ChainStamps on Stacks.",
   "type": "module",
   "private": true,
   "scripts": {
