@@ -6,6 +6,10 @@ type ToastType = 'success' | 'error' | 'info' | 'warning';
 const TOAST_AUTO_DISMISS_MS = 5000;
 /** Character length of the randomly generated toast ID. */
 const TOAST_ID_LENGTH = 9;
+const createToastId = () =>
+    typeof crypto !== 'undefined' && typeof crypto.randomUUID === 'function'
+        ? crypto.randomUUID()
+        : Math.random().toString(36).slice(2, TOAST_ID_LENGTH + 2);
 
 /**
  * Represents a single toast notification.
@@ -76,7 +80,7 @@ export const ToastProvider = ({ children }: { children: ReactNode }) => {
      * @param {ToastType} [type='info'] - The severity/type of the toast.
      */
     const addToast = useCallback((message: string, type: ToastType = 'info') => {
-        const id = Math.random().toString(36).substr(2, TOAST_ID_LENGTH);
+        const id = createToastId();
         setToasts((prev) => [...prev, { id, message, type }]);
 
         // Auto-remove after 5 seconds
