@@ -28,3 +28,5 @@ export const isValidNetworkName = (v) => ["mainnet","testnet"].includes(v);
 export const isValidConfirmations = (v) => Number.isInteger(Number(v)) && Number(v) >= 0;
 
 export const isValidStampVersion = (v) => typeof v === "string" && /^\d+\.\d+\.\d+$/.test(v);
+
+export const isValidProofLength = (v) => Number.isInteger(Number(v)) && Number(v) > 0;
