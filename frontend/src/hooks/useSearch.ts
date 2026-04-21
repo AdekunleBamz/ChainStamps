@@ -19,7 +19,7 @@ export interface SearchableItem {
 export const useSearch = <T extends SearchableItem>(items: T[]) => {
   const [searchQuery, setSearchQuery] = useState(() => {
     if (typeof window === 'undefined') return '';
-    return new URLSearchParams(window.location.search).get('q') || '';
+    return (new URLSearchParams(window.location.search).get('q') || '').trim();
   });
   const [selectedCategories, setSelectedCategories] = useState<string[]>(() => {
     if (typeof window === 'undefined') return [];
