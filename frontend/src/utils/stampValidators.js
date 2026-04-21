@@ -20,3 +20,5 @@ export const isValidBatchSize = (v) => Number.isInteger(Number(v)) && Number(v) 
 export const isValidHashAlgorithm = (v) => ["sha256","sha512"].includes(v);
 
 export const isValidStampStatus = (v) => ["pending","confirmed","failed"].includes(v);
+
+export const isValidStampType = (v) => typeof v === "string" && v.length > 0;
