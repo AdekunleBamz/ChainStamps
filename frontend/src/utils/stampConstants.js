@@ -32,3 +32,5 @@ export const MAX_BATCH_SIZE = 10
 export const STAMP_PROOF_PREFIX = "0x"
 
 export const CONFIRMATION_BLOCKS = 3
+
+export const MAX_MEMO_LENGTH = 64
