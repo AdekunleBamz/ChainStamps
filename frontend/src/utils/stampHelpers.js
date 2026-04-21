@@ -36,3 +36,5 @@ export const blockTimeEstimate = (blocks) => blocks * 10 + " minutes";
 export const normalizeStampInput = (s) => typeof s === "string" ? s.trim().toLowerCase() : "";
 
 export const stampListStats = (stamps) => ({ total: stamps.length, confirmed: stamps.filter((s) => s.status === "confirmed").length });
+
+export const resolveStampLabel = (stamp) => stamp.memo || stamp.hash.slice(0, 10);
