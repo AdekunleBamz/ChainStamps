@@ -114,3 +114,17 @@ export const isConfettiSupported = (): boolean =>
 export const safeConfetti = (fn: () => void): void => {
     if (isConfettiSupported()) fn();
 };
+
+/**
+ * Triggers confetti once with a random spread and origin for variety.
+ * Useful for random micro-celebrations.
+ */
+export const triggerRandomConfetti = (): void => {
+    confetti({
+        particleCount: 60,
+        spread: 50 + Math.random() * 70,
+        origin: { x: 0.3 + Math.random() * 0.4, y: 0.5 + Math.random() * 0.2 },
+        colors: SUCCESS_COLORS,
+        ticks: 80,
+    });
+};
