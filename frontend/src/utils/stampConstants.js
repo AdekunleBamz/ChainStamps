@@ -16,3 +16,5 @@ export const STAMP_EXPIRY_BLOCKS = 52560
 export const MAX_STAMPS_PER_TX = 5
 
 export const STAMP_STATUS_PENDING = "pending"
+
+export const STAMP_STATUS_CONFIRMED = "confirmed"
