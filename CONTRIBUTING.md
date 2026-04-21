@@ -68,7 +68,7 @@ fix(stamp-registry): correct fee calculation
 docs: update API reference
 test(tag-registry): add edge case tests
 
-Tip: Sign commits when possible to improve traceability (`git commit -S`).
+Tip: Sign commits before pushing to keep history verifiable (`git commit -S`).
 ```
 
 ## 🔄 Pull Request Process
