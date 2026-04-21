@@ -10,3 +10,5 @@ export const isValidBlockHeight = (v) => Number.isInteger(Number(v)) && Number(v
 export const isValidStampFee = (v) => !isNaN(Number(v)) && Number(v) >= 0;
 
 export const isValidWalletAddress = (v) => typeof v === "string" && v.startsWith("SP") && v.length > 10;
+
+export const isValidMemoText = (v) => typeof v === "string" && v.length <= 64;
