@@ -118,7 +118,7 @@ npm run test:fee
 
 ```bash
 # Start Clarinet console
-clarinet console
+npm run console
 
 # Run all tests with coverage
 npm run test:report
