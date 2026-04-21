@@ -88,3 +88,9 @@ export const MAX_NOTE_LENGTH = 500;
 
 /** Maximum number of characters allowed in a stamp note or message field. */
 export const MAX_NOTE_LENGTH = 500;
+
+/** Debounce delay specifically for search input fields (ms). */
+export const SEARCH_DEBOUNCE_MS = 250;
+
+/** Maximum number of search result items to display without pagination. */
+export const MAX_SEARCH_RESULTS = 100;
