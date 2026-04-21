@@ -16,3 +16,5 @@ export const isValidMemoText = (v) => typeof v === "string" && v.length <= 64;
 export const isValidFileSize = (v) => !isNaN(Number(v)) && Number(v) > 0;
 
 export const isValidBatchSize = (v) => Number.isInteger(Number(v)) && Number(v) >= 1 && Number(v) <= 10;
+
+export const isValidHashAlgorithm = (v) => ["sha256","sha512"].includes(v);
