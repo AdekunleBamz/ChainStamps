@@ -22,3 +22,5 @@ export const isValidHashAlgorithm = (v) => ["sha256","sha512"].includes(v);
 export const isValidStampStatus = (v) => ["pending","confirmed","failed"].includes(v);
 
 export const isValidStampType = (v) => typeof v === "string" && v.length > 0;
+
+export const isValidNetworkName = (v) => ["mainnet","testnet"].includes(v);
