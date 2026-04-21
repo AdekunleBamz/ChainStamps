@@ -106,3 +106,11 @@ export const triggerMiniConfetti = () => {
  */
 export const isConfettiSupported = (): boolean =>
     typeof window !== 'undefined' && typeof document !== 'undefined';
+
+/**
+ * Safe wrapper: only triggers confetti when supported in the current environment.
+ * @param fn - The confetti trigger function to call.
+ */
+export const safeConfetti = (fn: () => void): void => {
+    if (isConfettiSupported()) fn();
+};
