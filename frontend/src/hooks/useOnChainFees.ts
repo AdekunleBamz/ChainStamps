@@ -8,6 +8,7 @@ const DEFAULT_FEES: OnChainFees = {
   stamp: CONTRACTS.stampRegistry.fee,
   tag: CONTRACTS.tagRegistry.fee,
 };
+const FEES_STALE_THRESHOLD_MS = 60_000;
 
 export const useOnChainFees = () => {
   const [fees, setFees] = useState<OnChainFees>(DEFAULT_FEES);
@@ -56,6 +57,6 @@ export const useOnChainFees = () => {
     isLoaded,
     lastFetched,
     refreshFees,
-    isStale,
+    isStale: lastFetched !== null ? Date.now() - lastFetched > FEES_STALE_THRESHOLD_MS : false,
   };
 };
