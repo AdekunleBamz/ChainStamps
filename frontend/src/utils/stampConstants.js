@@ -12,3 +12,5 @@ export const STAMP_VERSION = "1.0.0"
 export const STACKS_API_BASE = "https://stacks-node-api.mainnet.stacks.co"
 
 export const STAMP_EXPIRY_BLOCKS = 52560
+
+export const MAX_STAMPS_PER_TX = 5
