@@ -34,3 +34,5 @@ export const STAMP_PROOF_PREFIX = "0x"
 export const CONFIRMATION_BLOCKS = 3
 
 export const MAX_MEMO_LENGTH = 64
+
+export const SUPPORTED_FILE_TYPES = ["pdf","txt","json","csv"]
