@@ -10,3 +10,5 @@ export const getStampAge = (blockStamped, currentBlock) => currentBlock - blockS
 export const truncateAddress = (addr) => addr ? addr.slice(0, 8) + "..." + addr.slice(-6) : "";
 
 export const stampUrl = (txid, network) => network === "mainnet" ? "https://explorer.hiro.so/txid/" + txid : "https://explorer.hiro.so/txid/" + txid + "?chain=testnet";
+
+export const calcFeeWithBuffer = (fee, pct) => Math.ceil(fee * (1 + pct / 100));
