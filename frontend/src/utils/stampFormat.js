@@ -24,23 +24,4 @@ export const formatStampStatus = (s) => {
 
 export const formatTxId = (id) => id.slice(0, 8) + "...";
 
-export const formatMicroStx = (v) => (v / MICROSTX_PER_STX).toFixed(6) + " STX";
-
-export const formatStampCount = (n) => n + " stamps";
-
-export const formatBatchId = (id) => "BATCH-" + id;
-
-export const formatFileSize = (b) => (b / 1024).toFixed(2) + " KB";
-
-export const formatWalletAddress = (a) => {
-  const normalized = typeof a === 'string' ? a.trim() : '';
-  if (!normalized) return '';
-  if (normalized.length <= 10) return normalized;
-  return normalized.slice(0, 6) + '...' + normalized.slice(-4);
-};
-
-export const formatProofLength = (n) => n + " chars";
-
-export const formatNetworkName = (n) => n.charAt(0).toUpperCase() + n.slice(1);
-
-export const formatConfirmations = (n) => n + " confirmations";
+export const formatMicroStx = (v) => (v / 1e6).toFixed(6) + " STX";
