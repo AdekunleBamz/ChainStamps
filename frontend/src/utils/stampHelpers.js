@@ -24,3 +24,5 @@ export const filterConfirmedStamps = (stamps) => stamps.filter((s) => s.status =
 export const filterPendingStamps = (stamps) => stamps.filter((s) => s.status === "pending");
 
 export const countByStatus = (stamps, status) => stamps.filter((s) => s.status === status).length;
+
+export const mergeStampMeta = (stamp, meta) => Object.assign({}, stamp, meta);
