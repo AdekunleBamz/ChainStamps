@@ -22,3 +22,5 @@ export const sortStampsByBlock = (stamps) => [...stamps].sort((a, b) => b.block 
 export const filterConfirmedStamps = (stamps) => stamps.filter((s) => s.status === "confirmed");
 
 export const filterPendingStamps = (stamps) => stamps.filter((s) => s.status === "pending");
+
+export const countByStatus = (stamps, status) => stamps.filter((s) => s.status === status).length;
