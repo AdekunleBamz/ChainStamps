@@ -36,3 +36,5 @@ export const formatBlocksRemaining = (n) => n + " blocks left";
 export const formatMemoText = (s) => s.length > 32 ? s.slice(0, 32) + "..." : s;
 
 export const formatHashAlgorithm = (a) => a.toUpperCase();
+
+export const formatStampVersion = (v) => "v" + v;
