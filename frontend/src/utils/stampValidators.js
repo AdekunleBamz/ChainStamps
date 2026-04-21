@@ -32,3 +32,5 @@ export const isValidStampVersion = (v) => typeof v === "string" && /^\d+\.\d+\.\
 export const isValidProofLength = (v) => Number.isInteger(Number(v)) && Number(v) > 0;
 
 export const isValidStampCount = (v) => Number.isInteger(Number(v)) && Number(v) >= 0;
+
+export const isValidMicroStx = (v) => !isNaN(Number(v)) && Number(v) >= 0;
