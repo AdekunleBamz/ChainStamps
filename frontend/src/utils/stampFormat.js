@@ -26,3 +26,5 @@ export const formatWalletAddress = (a) => a.slice(0, 6) + "..." + a.slice(-4);
 export const formatProofLength = (n) => n + " chars";
 
 export const formatNetworkName = (n) => n.charAt(0).toUpperCase() + n.slice(1);
+
+export const formatConfirmations = (n) => n + " confirmations";
