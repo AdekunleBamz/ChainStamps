@@ -18,3 +18,5 @@ export const isValidFileSize = (v) => !isNaN(Number(v)) && Number(v) > 0;
 export const isValidBatchSize = (v) => Number.isInteger(Number(v)) && Number(v) >= 1 && Number(v) <= 10;
 
 export const isValidHashAlgorithm = (v) => ["sha256","sha512"].includes(v);
+
+export const isValidStampStatus = (v) => ["pending","confirmed","failed"].includes(v);
