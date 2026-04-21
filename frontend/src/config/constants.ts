@@ -82,3 +82,9 @@ export const AVG_BLOCK_TIME_SECONDS = 600;
 
 /** Minimum STX balance in microSTX required to be able to submit a transaction. */
 export const MIN_STX_FOR_TX_MICROSTX = 1000; // 0.001 STX
+
+/** Maximum number of characters allowed in a stamp note or message field. */
+export const MAX_NOTE_LENGTH = 500;
+
+/** Maximum number of characters allowed in a stamp note or message field. */
+export const MAX_NOTE_LENGTH = 500;
