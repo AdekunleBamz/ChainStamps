@@ -32,3 +32,5 @@ export const stampToJSON = (stamp) => JSON.stringify(stamp, null, 2);
 export const hashPreview = (hash) => hash ? hash.slice(0, 12) + "..." : "";
 
 export const blockTimeEstimate = (blocks) => blocks * 10 + " minutes";
+
+export const normalizeStampInput = (s) => typeof s === "string" ? s.trim().toLowerCase() : "";
