@@ -30,3 +30,5 @@ export const isValidConfirmations = (v) => Number.isInteger(Number(v)) && Number
 export const isValidStampVersion = (v) => typeof v === "string" && /^\d+\.\d+\.\d+$/.test(v);
 
 export const isValidProofLength = (v) => Number.isInteger(Number(v)) && Number(v) > 0;
+
+export const isValidStampCount = (v) => Number.isInteger(Number(v)) && Number(v) >= 0;
