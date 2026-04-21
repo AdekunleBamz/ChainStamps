@@ -182,3 +182,12 @@ export function feeAsPercent(fee: number): string {
 export function feesAreEqual(a: number, b: number, tolerance = 0.00001): boolean {
     return Math.abs(a - b) <= tolerance;
 }
+
+/**
+ * Converts a fee from STX to a display-friendly microSTX string.
+ * @param stx - Fee in STX.
+ * @returns Localized microSTX string e.g. "1,000 µSTX".
+ */
+export function feeToUStxDisplay(stx: number): string {
+    return formatUStx(stxToMicroStx(stx));
+}
