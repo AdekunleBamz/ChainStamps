@@ -18,3 +18,5 @@ export const stampSummary = (stamp) => stamp.hash + " @ block " + stamp.block;
 export const groupStampsByStatus = (stamps) => stamps.reduce((acc, s) => { (acc[s.status] = acc[s.status] || []).push(s); return acc; }, {});
 
 export const sortStampsByBlock = (stamps) => [...stamps].sort((a, b) => b.block - a.block);
+
+export const filterConfirmedStamps = (stamps) => stamps.filter((s) => s.status === "confirmed");
