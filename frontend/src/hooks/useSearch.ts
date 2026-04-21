@@ -94,6 +94,7 @@ export const useSearch = <T extends SearchableItem>(items: T[]) => {
     filteredItems,
     resultCount: filteredItems.length,
     hasResults: filteredItems.length > 0,
+    hasQuery: searchQuery.trim().length > 0,
     clearSearch,
     isStale: searchQuery !== deferredQuery
   };
