@@ -49,12 +49,13 @@ export const useOnChainFees = () => {
   }, []);
 
   const refreshFees = () => syncOnChainFees(true);
+  const isStale = lastFetched !== null ? Date.now() - lastFetched > 60_000 : false;
 
   return {
     fees,
     isLoaded,
     lastFetched,
     refreshFees,
-    isStale: lastFetched !== null ? Date.now() - lastFetched > 60_000 : false,
+    isStale,
   };
 };
