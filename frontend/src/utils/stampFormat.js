@@ -18,3 +18,5 @@ export const formatMicroStx = (v) => (v / 1e6).toFixed(6) + " STX";
 export const formatStampCount = (n) => n + " stamps";
 
 export const formatBatchId = (id) => "BATCH-" + id;
+
+export const formatFileSize = (b) => (b / 1024).toFixed(2) + " KB";
