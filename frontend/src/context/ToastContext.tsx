@@ -80,7 +80,7 @@ export const ToastProvider = ({ children }: { children: ReactNode }) => {
      * @param {ToastType} [type='info'] - The severity/type of the toast.
      */
     const addToast = useCallback((message: string, type: ToastType = 'info') => {
-        const id = createToastId();
+        const id = Math.random().toString(36).slice(2, TOAST_ID_LENGTH + 2);
         setToasts((prev) => [...prev, { id, message, type }]);
 
         // Auto-remove after 5 seconds
