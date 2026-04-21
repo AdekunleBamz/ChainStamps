@@ -75,7 +75,7 @@ Tip: Sign commits when possible to improve traceability (`git commit -S`).
 
 1. Ensure all tests pass: `npm test`
 2. Ensure Clarity syntax is valid: `clarinet check`
-3. Run frontend lint when UI code changes: `npm --prefix frontend run lint`
+3. Run frontend lint and build when UI code changes: `npm --prefix frontend run lint && npm --prefix frontend run build`
 4. Update documentation if needed
 5. Create a PR with a clear description
 6. Wait for review and address feedback
