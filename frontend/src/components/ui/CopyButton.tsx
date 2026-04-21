@@ -33,6 +33,7 @@ export const CopyButton = ({ value, className, size = 14 }: CopyButtonProps) => 
 
     const handleCopy = async () => {
         if (!value || typeof value !== 'string') return;
+        if (typeof navigator === 'undefined' || !navigator.clipboard?.writeText) return;
         try {
             await navigator.clipboard.writeText(value);
             setCopied(true);
