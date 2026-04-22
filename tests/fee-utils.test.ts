@@ -240,6 +240,10 @@ describe('fee utils', () => {
     expect(feeAsPercent(-1)).toBe('0.00%')
   })
 
+  it('formats fees as microSTX display values', () => {
+    expect(feeToUStxDisplay(0.001)).toBe('1,000 µSTX')
+  })
+
   it('calculates remaining fee headroom', () => {
     expect(feeHeadroom(4)).toBe(6)
   })
