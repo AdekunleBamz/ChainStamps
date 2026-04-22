@@ -223,4 +223,8 @@ describe('fee utils', () => {
   it('calculates remaining fee headroom', () => {
     expect(feeHeadroom(4)).toBe(6)
   })
+
+  it('uses the full headroom for negative fee values', () => {
+    expect(feeHeadroom(-1)).toBe(MAX_FEE)
+  })
 })
