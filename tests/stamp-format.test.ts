@@ -89,4 +89,8 @@ describe('stamp format', () => {
   it('formats stamp types in uppercase', () => {
     expect(formatStampType('hash')).toBe('HASH')
   })
+
+  it('formats remaining block labels', () => {
+    expect(formatBlocksRemaining(12)).toBe('12 blocks left')
+  })
 })
