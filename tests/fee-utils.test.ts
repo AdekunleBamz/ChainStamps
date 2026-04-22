@@ -140,6 +140,10 @@ describe('fee utils', () => {
     expect(formatFee(0.03)).toBe('0.03 STX')
   })
 
+  it('formats invalid compact fee labels as zero', () => {
+    expect(formatFee(Number.NaN)).toBe('0 STX')
+  })
+
   it('rounds tiny fractional STX values to nearest micro-STX', () => {
     expect(stxToMicroStx(0.00000049)).toBe(0)
     expect(stxToMicroStx(0.0000005)).toBe(1)
