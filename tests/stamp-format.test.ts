@@ -97,4 +97,8 @@ describe('stamp format', () => {
   it('formats remaining block labels', () => {
     expect(formatBlocksRemaining(12)).toBe('12 blocks left')
   })
+
+  it('formats hash algorithm labels in uppercase', () => {
+    expect(formatHashAlgorithm('sha256')).toBe('SHA256')
+  })
 })
