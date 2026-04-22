@@ -115,4 +115,8 @@ describe('stamp validators', () => {
   it('accepts semantic stamp versions', () => {
     expect(isValidStampVersion('1.0.0')).toBe(true)
   })
+
+  it('accepts positive proof lengths', () => {
+    expect(isValidProofLength(1)).toBe(true)
+  })
 })
