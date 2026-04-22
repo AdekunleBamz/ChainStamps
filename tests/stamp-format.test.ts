@@ -81,4 +81,8 @@ describe('stamp format', () => {
   it('formats trimmed network names with title casing', () => {
     expect(formatNetworkName(' testnet ')).toBe('Testnet')
   })
+
+  it('formats confirmation count labels', () => {
+    expect(formatConfirmations(3)).toBe('3 confirmations')
+  })
 })
