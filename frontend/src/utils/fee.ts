@@ -141,7 +141,7 @@ export function estimateFeeDetailed(payload: number | string): {
     total: number;
     totalMicroStx: number;
 } {
-    const size = typeof payload === 'string' ? new TextEncoder().encode(payload.trim()).length : Math.max(0, Math.floor(Number.isFinite(payload) ? payload : 0));
+    const size = normalizePayloadSize(resolvePayloadSize(payload));
     const payloadFee = size * FEE_PER_BYTE;
     const total = Math.round(Math.min(BASE_FEE + payloadFee, MAX_FEE) * 10000) / 10000;
     return {

@@ -1,6 +1,7 @@
 import { describe, expect, it } from 'vitest'
 import {
   estimateFee,
+  estimateFeeDetailed,
   formatStx,
   formatUStx,
   microStxToStx,
@@ -135,5 +136,10 @@ describe('fee utils', () => {
 
   it('formats negative fractional micro-STX values as zero', () => {
     expect(formatUStx(-0.4)).toBe('0 µSTX')
+  })
+
+  it('keeps detailed fee size parsing consistent with estimateFee for numeric strings', () => {
+    const detailed = estimateFeeDetailed('100')
+    expect(detailed.total).toBe(estimateFee('100'))
   })
 })
