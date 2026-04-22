@@ -74,6 +74,10 @@ describe('stamp format', () => {
     expect(formatMemoText('   hello world   ')).toBe('hello world')
   })
 
+  it('truncates long memo text for compact display', () => {
+    expect(formatMemoText('x'.repeat(40))).toBe(`${'x'.repeat(32)}...`)
+  })
+
   it('returns Unknown when network value is missing', () => {
     expect(formatNetworkName(undefined)).toBe('Unknown')
   })
