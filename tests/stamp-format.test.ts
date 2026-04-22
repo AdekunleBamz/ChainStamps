@@ -38,6 +38,10 @@ describe('stamp format', () => {
     expect(formatStampStatus('pending')).toBe('Pending')
   })
 
+  it('formats transaction ids for compact display', () => {
+    expect(formatTxId('abcdef123456')).toBe('abcdef12...')
+  })
+
   it('returns short hashes without truncation', () => {
     expect(formatStampHash('abc123')).toBe('abc123')
   })
