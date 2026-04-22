@@ -54,6 +54,10 @@ describe('stamp format', () => {
     expect(formatBatchId('alpha')).toBe('BATCH-alpha')
   })
 
+  it('formats byte counts as kilobytes', () => {
+    expect(formatFileSize(2048)).toBe('2.00 KB')
+  })
+
   it('returns short hashes without truncation', () => {
     expect(formatStampHash('abc123')).toBe('abc123')
   })
