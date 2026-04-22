@@ -211,6 +211,10 @@ describe('fee utils', () => {
     expect(estimateFeeDetailed(100).totalMicroStx).toBe(6_000)
   })
 
+  it('caps detailed fee totals at the maximum fee', () => {
+    expect(estimateFeeDetailed(500_000).totalMicroStx).toBe(10_000_000)
+  })
+
   it('returns false for non-finite fee comparison inputs', () => {
     expect(feesAreEqual(Number.NaN, 0.1)).toBe(false)
     expect(feesAreEqual(0.1, Number.POSITIVE_INFINITY)).toBe(false)
