@@ -1,5 +1,6 @@
 
-export const isValidStampHash = (v) => typeof v === "string" && v.length === 64;
+export const isValidStampHash = (v) =>
+  typeof v === 'string' && /^[a-fA-F0-9]{64}$/.test(v.trim());
 
 export const isValidStampId = (v) => typeof v === "string" && v.length > 0;
 
