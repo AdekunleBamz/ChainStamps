@@ -127,4 +127,8 @@ describe('stamp validators', () => {
   it('accepts non-negative microSTX values', () => {
     expect(isValidMicroStx(0)).toBe(true)
   })
+
+  it('accepts data length at the contract limit', () => {
+    expect(isValidDataLength(256)).toBe(true)
+  })
 })
