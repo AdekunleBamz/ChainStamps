@@ -90,6 +90,7 @@ export const fetchOnChainFees = async (forceRefresh = false): Promise<OnChainFee
     };
 
     cachedFees = nextFees;
+    lastFeesFetchedAt = Date.now();
     inFlightFeeRequest = null;
     return nextFees;
   })().catch(error => {

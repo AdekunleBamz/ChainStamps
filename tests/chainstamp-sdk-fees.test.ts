@@ -5,6 +5,7 @@ import {
   chainstampClient,
   clearFeeCache,
   fetchOnChainFees,
+  getFeesAge,
 } from '../frontend/src/sdk/chainstamp'
 
 describe('chainstamp sdk fee fetcher', () => {
@@ -124,5 +125,18 @@ describe('chainstamp sdk fee fetcher', () => {
     expect(hashSpy).toHaveBeenCalledTimes(2)
     expect(stampSpy).toHaveBeenCalledTimes(2)
     expect(tagSpy).toHaveBeenCalledTimes(2)
+  })
+
+  it('tracks cache age after a successful fee fetch', async () => {
+    vi.spyOn(chainstampClient, 'getHashFee').mockResolvedValue(30_000n)
+    vi.spyOn(chainstampClient, 'getStampFee').mockResolvedValue(50_000n)
+    vi.spyOn(chainstampClient, 'getTagFee').mockResolvedValue(40_000n)
+
+    expect(getFeesAge()).toBeNull()
+    await fetchOnChainFees(true)
+    const age = getFeesAge()
+    expect(typeof age).toBe('number')
+    expect(age).not.toBeNull()
+    expect(age!).toBeGreaterThanOrEqual(0)
   })
 })
