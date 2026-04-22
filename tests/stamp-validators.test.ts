@@ -103,4 +103,8 @@ describe('stamp validators', () => {
     expect(isValidNetworkName('mainnet')).toBe(true)
     expect(isValidNetworkName('testnet')).toBe(true)
   })
+
+  it('rejects unsupported network names', () => {
+    expect(isValidNetworkName('devnet')).toBe(false)
+  })
 })
