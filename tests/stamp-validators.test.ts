@@ -94,4 +94,8 @@ describe('stamp validators', () => {
   it('rejects unsupported stamp statuses', () => {
     expect(isValidStampStatus('queued')).toBe(false)
   })
+
+  it('accepts non-empty stamp types', () => {
+    expect(isValidStampType('hash')).toBe(true)
+  })
 })
