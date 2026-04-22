@@ -66,6 +66,10 @@ describe('stamp format', () => {
     expect(formatStampHash('abc123')).toBe('abc123')
   })
 
+  it('truncates long hashes with visible ends', () => {
+    expect(formatStampHash('a'.repeat(64))).toBe('aaaaaaaa...aaaaaaaa')
+  })
+
   it('returns short wallet labels without truncation', () => {
     expect(formatWalletAddress('SP1234')).toBe('SP1234')
   })
