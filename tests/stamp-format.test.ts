@@ -101,4 +101,8 @@ describe('stamp format', () => {
   it('formats hash algorithm labels in uppercase', () => {
     expect(formatHashAlgorithm('sha256')).toBe('SHA256')
   })
+
+  it('formats stamp versions with a prefix', () => {
+    expect(formatStampVersion('1.0.0')).toBe('v1.0.0')
+  })
 })
