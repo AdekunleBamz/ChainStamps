@@ -219,4 +219,8 @@ describe('fee utils', () => {
   it('caps fee percentage display at 100%', () => {
     expect(feeAsPercent(100)).toBe('100.00%')
   })
+
+  it('calculates remaining fee headroom', () => {
+    expect(feeHeadroom(4)).toBe(6)
+  })
 })
