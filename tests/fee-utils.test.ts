@@ -182,6 +182,10 @@ describe('fee utils', () => {
     expect(isValidFee(MAX_FEE)).toBe(true)
   })
 
+  it('rejects fees above the maximum', () => {
+    expect(isValidFee(MAX_FEE + 0.01)).toBe(false)
+  })
+
   it('keeps detailed fee size parsing consistent with estimateFee for numeric strings', () => {
     const detailed = estimateFeeDetailed('100')
     expect(detailed.total).toBe(estimateFee('100'))
