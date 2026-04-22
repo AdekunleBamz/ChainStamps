@@ -42,6 +42,10 @@ describe('stamp format', () => {
     expect(formatTxId('abcdef123456')).toBe('abcdef12...')
   })
 
+  it('formats microSTX stamp values', () => {
+    expect(formatMicroStx(2_500_000)).toBe('2.500000 STX')
+  })
+
   it('returns short hashes without truncation', () => {
     expect(formatStampHash('abc123')).toBe('abc123')
   })
