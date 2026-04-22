@@ -27,6 +27,10 @@ describe('stamp validators', () => {
     expect(isValidStampId('stamp-1')).toBe(true)
   })
 
+  it('rejects empty stamp ids', () => {
+    expect(isValidStampId('')).toBe(false)
+  })
+
   it('requires hexadecimal content for stamp hashes', () => {
     expect(isValidStampHash('a'.repeat(64))).toBe(true)
     expect(isValidStampHash('z'.repeat(64))).toBe(false)
