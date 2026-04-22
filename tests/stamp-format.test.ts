@@ -74,6 +74,10 @@ describe('stamp format', () => {
     expect(formatWalletAddress('SP1234')).toBe('SP1234')
   })
 
+  it('truncates long wallet labels with visible ends', () => {
+    expect(formatWalletAddress('SP5K2RHMSBH4PAP4PGX77MCVNK1ZEED07CWX9TJT')).toBe('SP5K2R...9TJT')
+  })
+
   it('normalizes whitespace before memo truncation', () => {
     expect(formatMemoText('   hello world   ')).toBe('hello world')
   })
