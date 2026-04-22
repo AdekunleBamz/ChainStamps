@@ -178,6 +178,10 @@ describe('fee utils', () => {
     expect(estimateFeeDetailed(100).baseFee).toBe(BASE_FEE)
   })
 
+  it('includes rounded payload fees in detailed estimates', () => {
+    expect(estimateFeeDetailed(100).payloadFee).toBe(0.005)
+  })
+
   it('returns false for non-finite fee comparison inputs', () => {
     expect(feesAreEqual(Number.NaN, 0.1)).toBe(false)
     expect(feesAreEqual(0.1, Number.POSITIVE_INFINITY)).toBe(false)
