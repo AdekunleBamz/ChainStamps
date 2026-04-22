@@ -1,5 +1,10 @@
 
-export const formatStampHash = (h) => h.slice(0, 8) + "..." + h.slice(-8);
+export const formatStampHash = (h) => {
+  const normalized = typeof h === 'string' ? h.trim() : '';
+  if (!normalized) return '';
+  if (normalized.length <= 16) return normalized;
+  return normalized.slice(0, 8) + '...' + normalized.slice(-8);
+};
 
 export const formatStampFee = (v) => (v / 1e6).toFixed(6) + " STX";
 
