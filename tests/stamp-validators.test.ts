@@ -80,4 +80,8 @@ describe('stamp validators', () => {
     expect(isValidHashAlgorithm('SHA256')).toBe(true)
     expect(isValidHashAlgorithm(' sha512 ')).toBe(true)
   })
+
+  it('rejects unsupported hash algorithms', () => {
+    expect(isValidHashAlgorithm('md5')).toBe(false)
+  })
 })
