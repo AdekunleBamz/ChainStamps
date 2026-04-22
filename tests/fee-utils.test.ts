@@ -224,6 +224,10 @@ describe('fee utils', () => {
     expect(feeAsPercent(MAX_FEE / 2)).toBe('50.00%')
   })
 
+  it('formats negative fees as zero percent', () => {
+    expect(feeAsPercent(-1)).toBe('0.00%')
+  })
+
   it('calculates remaining fee headroom', () => {
     expect(feeHeadroom(4)).toBe(6)
   })
