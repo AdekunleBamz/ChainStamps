@@ -28,6 +28,10 @@ describe('fee utils', () => {
     expect(BASE_FEE).toBe(0.001)
   })
 
+  it('exposes the configured byte fee', () => {
+    expect(FEE_PER_BYTE).toBe(0.00005)
+  })
+
   it('estimates fees from numeric payload sizes', () => {
     expect(estimateFee(100)).toBe(0.006)
     expect(estimateFee('100')).toBe(0.006)
