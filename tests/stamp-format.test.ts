@@ -77,4 +77,8 @@ describe('stamp format', () => {
   it('returns Unknown when network value is missing', () => {
     expect(formatNetworkName(undefined)).toBe('Unknown')
   })
+
+  it('formats trimmed network names with title casing', () => {
+    expect(formatNetworkName(' testnet ')).toBe('Testnet')
+  })
 })
