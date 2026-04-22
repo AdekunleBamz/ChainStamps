@@ -85,4 +85,8 @@ describe('stamp format', () => {
   it('formats confirmation count labels', () => {
     expect(formatConfirmations(3)).toBe('3 confirmations')
   })
+
+  it('formats stamp types in uppercase', () => {
+    expect(formatStampType('hash')).toBe('HASH')
+  })
 })
