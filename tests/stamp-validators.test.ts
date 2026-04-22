@@ -90,4 +90,8 @@ describe('stamp validators', () => {
     expect(isValidStampStatus('confirmed')).toBe(true)
     expect(isValidStampStatus('failed')).toBe(true)
   })
+
+  it('rejects unsupported stamp statuses', () => {
+    expect(isValidStampStatus('queued')).toBe(false)
+  })
 })
