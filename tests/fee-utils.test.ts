@@ -220,6 +220,10 @@ describe('fee utils', () => {
     expect(feeAsPercent(100)).toBe('100.00%')
   })
 
+  it('formats midrange fees as percentages', () => {
+    expect(feeAsPercent(MAX_FEE / 2)).toBe('50.00%')
+  })
+
   it('calculates remaining fee headroom', () => {
     expect(feeHeadroom(4)).toBe(6)
   })
