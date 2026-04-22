@@ -26,6 +26,10 @@ describe('stamp format', () => {
     expect(formatStampFee(1_500_000)).toBe('1.500000 STX')
   })
 
+  it('formats stamp ids with a prefix', () => {
+    expect(formatStampId(12)).toBe('STAMP-12')
+  })
+
   it('returns short hashes without truncation', () => {
     expect(formatStampHash('abc123')).toBe('abc123')
   })
