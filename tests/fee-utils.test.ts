@@ -220,6 +220,10 @@ describe('fee utils', () => {
     expect(feesAreEqual(0.1, 0.100001)).toBe(true)
   })
 
+  it('respects custom fee comparison tolerances', () => {
+    expect(feesAreEqual(0.1, 0.101, 0.0001)).toBe(false)
+  })
+
   it('caps fee percentage display at 100%', () => {
     expect(feeAsPercent(100)).toBe('100.00%')
   })
