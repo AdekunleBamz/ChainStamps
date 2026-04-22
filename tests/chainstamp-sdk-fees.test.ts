@@ -139,4 +139,15 @@ describe('chainstamp sdk fee fetcher', () => {
     expect(age).not.toBeNull()
     expect(age!).toBeGreaterThanOrEqual(0)
   })
+
+  it('resets cache age metadata when cache is cleared', async () => {
+    vi.spyOn(chainstampClient, 'getHashFee').mockResolvedValue(30_000n)
+    vi.spyOn(chainstampClient, 'getStampFee').mockResolvedValue(50_000n)
+    vi.spyOn(chainstampClient, 'getTagFee').mockResolvedValue(40_000n)
+
+    await fetchOnChainFees(true)
+    expect(getFeesAge()).not.toBeNull()
+    clearFeeCache()
+    expect(getFeesAge()).toBeNull()
+  })
 })

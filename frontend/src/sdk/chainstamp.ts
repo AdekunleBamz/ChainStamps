@@ -104,6 +104,7 @@ export const fetchOnChainFees = async (forceRefresh = false): Promise<OnChainFee
 export const clearFeeCache = (): void => {
   cachedFees = null;
   inFlightFeeRequest = null;
+  lastFeesFetchedAt = null;
 };
 
 /**
