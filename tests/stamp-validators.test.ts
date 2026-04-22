@@ -84,4 +84,10 @@ describe('stamp validators', () => {
   it('rejects unsupported hash algorithms', () => {
     expect(isValidHashAlgorithm('md5')).toBe(false)
   })
+
+  it('accepts supported stamp statuses', () => {
+    expect(isValidStampStatus('pending')).toBe(true)
+    expect(isValidStampStatus('confirmed')).toBe(true)
+    expect(isValidStampStatus('failed')).toBe(true)
+  })
 })
