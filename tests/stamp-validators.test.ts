@@ -1,13 +1,32 @@
 import { describe, expect, it } from 'vitest'
 import {
+  isValidBatchId,
+  isValidBatchSize,
+  isValidBlockHeight,
+  isValidConfirmations,
+  isValidDataLength,
+  isValidFileSize,
   isValidMemoText,
+  isValidMicroStx,
   isValidHashAlgorithm,
+  isValidNetworkName,
+  isValidProofLength,
+  isValidStampCount,
+  isValidStampFee,
   isValidStampHash,
+  isValidStampId,
+  isValidStampStatus,
+  isValidStampType,
+  isValidStampVersion,
   isValidTxId,
   isValidWalletAddress,
 } from '../frontend/src/utils/stampValidators'
 
 describe('stamp validators', () => {
+  it('accepts non-empty stamp ids', () => {
+    expect(isValidStampId('stamp-1')).toBe(true)
+  })
+
   it('requires hexadecimal content for stamp hashes', () => {
     expect(isValidStampHash('a'.repeat(64))).toBe(true)
     expect(isValidStampHash('z'.repeat(64))).toBe(false)
