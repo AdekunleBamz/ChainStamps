@@ -30,6 +30,10 @@ describe('stamp format', () => {
     expect(formatStampId(12)).toBe('STAMP-12')
   })
 
+  it('formats block heights with labels', () => {
+    expect(formatBlockHeight(123)).toBe('Block #123')
+  })
+
   it('returns short hashes without truncation', () => {
     expect(formatStampHash('abc123')).toBe('abc123')
   })
