@@ -58,6 +58,10 @@ describe('stamp format', () => {
     expect(formatFileSize(2048)).toBe('2.00 KB')
   })
 
+  it('formats proof length labels', () => {
+    expect(formatProofLength(64)).toBe('64 chars')
+  })
+
   it('returns short hashes without truncation', () => {
     expect(formatStampHash('abc123')).toBe('abc123')
   })
