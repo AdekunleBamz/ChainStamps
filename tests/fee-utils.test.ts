@@ -32,6 +32,10 @@ describe('fee utils', () => {
     expect(FEE_PER_BYTE).toBe(0.00005)
   })
 
+  it('exposes the configured maximum fee', () => {
+    expect(MAX_FEE).toBe(10)
+  })
+
   it('estimates fees from numeric payload sizes', () => {
     expect(estimateFee(100)).toBe(0.006)
     expect(estimateFee('100')).toBe(0.006)
