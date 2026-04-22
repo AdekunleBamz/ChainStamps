@@ -62,6 +62,10 @@ describe('stamp validators', () => {
     expect(isValidBatchSize(10)).toBe(true)
   })
 
+  it('rejects oversized batch sizes', () => {
+    expect(isValidBatchSize(11)).toBe(false)
+  })
+
   it('accepts trimmed mainnet and testnet wallet addresses', () => {
     expect(isValidWalletAddress(' SP5K2RHMSBH4PAP4PGX77MCVNK1ZEED07CWX9TJT ')).toBe(true)
     expect(isValidWalletAddress(' ST5K2RHMSBH4PAP4PGX77MCVNK1ZEED07CWX9TJT ')).toBe(true)
