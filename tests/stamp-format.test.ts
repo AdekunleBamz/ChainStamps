@@ -34,6 +34,10 @@ describe('stamp format', () => {
     expect(formatBlockHeight(123)).toBe('Block #123')
   })
 
+  it('formats stamp statuses with title casing', () => {
+    expect(formatStampStatus('pending')).toBe('Pending')
+  })
+
   it('returns short hashes without truncation', () => {
     expect(formatStampHash('abc123')).toBe('abc123')
   })
