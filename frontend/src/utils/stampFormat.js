@@ -26,7 +26,12 @@ export const formatBatchId = (id) => "BATCH-" + id;
 
 export const formatFileSize = (b) => (b / 1024).toFixed(2) + " KB";
 
-export const formatWalletAddress = (a) => a.slice(0, 6) + "..." + a.slice(-4);
+export const formatWalletAddress = (a) => {
+  const normalized = typeof a === 'string' ? a.trim() : '';
+  if (!normalized) return '';
+  if (normalized.length <= 10) return normalized;
+  return normalized.slice(0, 6) + '...' + normalized.slice(-4);
+};
 
 export const formatProofLength = (n) => n + " chars";
 
