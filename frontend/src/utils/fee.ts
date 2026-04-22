@@ -180,7 +180,9 @@ export function feeAsPercent(fee: number): string {
  * @param tolerance - Allowed difference (default 0.00001).
  */
 export function feesAreEqual(a: number, b: number, tolerance = 0.00001): boolean {
-    return Math.abs(a - b) <= tolerance;
+    if (!Number.isFinite(a) || !Number.isFinite(b)) return false;
+    const normalizedTolerance = Number.isFinite(tolerance) && tolerance >= 0 ? tolerance : 0.00001;
+    return Math.abs(a - b) <= normalizedTolerance;
 }
 
 /**

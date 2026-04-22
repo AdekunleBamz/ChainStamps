@@ -2,6 +2,7 @@ import { describe, expect, it } from 'vitest'
 import {
   estimateFee,
   estimateFeeDetailed,
+  feesAreEqual,
   formatStx,
   formatUStx,
   microStxToStx,
@@ -141,5 +142,10 @@ describe('fee utils', () => {
   it('keeps detailed fee size parsing consistent with estimateFee for numeric strings', () => {
     const detailed = estimateFeeDetailed('100')
     expect(detailed.total).toBe(estimateFee('100'))
+  })
+
+  it('returns false for non-finite fee comparison inputs', () => {
+    expect(feesAreEqual(Number.NaN, 0.1)).toBe(false)
+    expect(feesAreEqual(0.1, Number.POSITIVE_INFINITY)).toBe(false)
   })
 })
