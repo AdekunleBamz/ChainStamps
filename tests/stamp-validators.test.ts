@@ -111,4 +111,8 @@ describe('stamp validators', () => {
   it('accepts non-negative confirmation counts', () => {
     expect(isValidConfirmations(0)).toBe(true)
   })
+
+  it('accepts semantic stamp versions', () => {
+    expect(isValidStampVersion('1.0.0')).toBe(true)
+  })
 })
