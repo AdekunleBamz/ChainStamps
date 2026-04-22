@@ -177,6 +177,11 @@ describe('fee utils', () => {
     expect(formatUStx(-0.4)).toBe('0 µSTX')
   })
 
+  it('accepts valid fee range boundaries', () => {
+    expect(isValidFee(0)).toBe(true)
+    expect(isValidFee(MAX_FEE)).toBe(true)
+  })
+
   it('keeps detailed fee size parsing consistent with estimateFee for numeric strings', () => {
     const detailed = estimateFeeDetailed('100')
     expect(detailed.total).toBe(estimateFee('100'))
