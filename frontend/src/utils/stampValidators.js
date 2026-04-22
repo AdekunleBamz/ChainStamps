@@ -4,7 +4,8 @@ export const isValidStampHash = (v) =>
 
 export const isValidStampId = (v) => typeof v === "string" && v.length > 0;
 
-export const isValidTxId = (v) => typeof v === "string" && v.length === 64;
+export const isValidTxId = (v) =>
+  typeof v === 'string' && /^(0x)?[a-fA-F0-9]{64}$/.test(v.trim());
 
 export const isValidBlockHeight = (v) => Number.isInteger(Number(v)) && Number(v) >= 0;
 
