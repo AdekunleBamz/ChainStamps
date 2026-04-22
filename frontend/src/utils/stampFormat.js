@@ -43,7 +43,11 @@ export const formatStampType = (t) => t.toUpperCase();
 
 export const formatBlocksRemaining = (n) => n + " blocks left";
 
-export const formatMemoText = (s) => s.length > 32 ? s.slice(0, 32) + "..." : s;
+export const formatMemoText = (s) => {
+  const normalized = typeof s === 'string' ? s.trim() : '';
+  if (!normalized) return '';
+  return normalized.length > 32 ? normalized.slice(0, 32) + '...' : normalized;
+};
 
 export const formatHashAlgorithm = (a) => a.toUpperCase();
 
