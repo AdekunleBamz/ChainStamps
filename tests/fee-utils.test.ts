@@ -224,6 +224,10 @@ describe('fee utils', () => {
     expect(feesAreEqual(0.1, 0.101, 0.0001)).toBe(false)
   })
 
+  it('falls back when fee comparison tolerance is invalid', () => {
+    expect(feesAreEqual(0.1, 0.100001, -1)).toBe(true)
+  })
+
   it('caps fee percentage display at 100%', () => {
     expect(feeAsPercent(100)).toBe('100.00%')
   })
