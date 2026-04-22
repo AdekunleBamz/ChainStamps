@@ -216,6 +216,10 @@ describe('fee utils', () => {
     expect(feesAreEqual(0.1, Number.POSITIVE_INFINITY)).toBe(false)
   })
 
+  it('matches fees within the default tolerance', () => {
+    expect(feesAreEqual(0.1, 0.100001)).toBe(true)
+  })
+
   it('caps fee percentage display at 100%', () => {
     expect(feeAsPercent(100)).toBe('100.00%')
   })
