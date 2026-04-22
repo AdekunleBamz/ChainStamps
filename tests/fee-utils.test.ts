@@ -3,6 +3,7 @@ import {
   estimateFee,
   estimateFeeDetailed,
   feesAreEqual,
+  feeAsPercent,
   formatStx,
   formatUStx,
   microStxToStx,
@@ -147,5 +148,9 @@ describe('fee utils', () => {
   it('returns false for non-finite fee comparison inputs', () => {
     expect(feesAreEqual(Number.NaN, 0.1)).toBe(false)
     expect(feesAreEqual(0.1, Number.POSITIVE_INFINITY)).toBe(false)
+  })
+
+  it('caps fee percentage display at 100%', () => {
+    expect(feeAsPercent(100)).toBe('100.00%')
   })
 })

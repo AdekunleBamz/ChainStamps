@@ -169,7 +169,7 @@ export function feeHeadroom(currentFee: number): number {
  * @returns Percentage string e.g. "3.20%".
  */
 export function feeAsPercent(fee: number): string {
-    const normalized = Number.isFinite(fee) ? Math.max(fee, 0) : 0;
+    const normalized = Number.isFinite(fee) ? Math.min(Math.max(fee, 0), MAX_FEE) : 0;
     return `${((normalized / MAX_FEE) * 100).toFixed(2)}%`;
 }
 
