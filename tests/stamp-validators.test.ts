@@ -1,6 +1,7 @@
 import { describe, expect, it } from 'vitest'
 import {
   isValidMemoText,
+  isValidHashAlgorithm,
   isValidStampHash,
   isValidTxId,
   isValidWalletAddress,
@@ -25,5 +26,10 @@ describe('stamp validators', () => {
   it('validates memo length after trimming whitespace', () => {
     expect(isValidMemoText(`   ${'x'.repeat(64)}   `)).toBe(true)
     expect(isValidMemoText(` ${'x'.repeat(65)} `)).toBe(false)
+  })
+
+  it('accepts hash algorithm names regardless of case', () => {
+    expect(isValidHashAlgorithm('SHA256')).toBe(true)
+    expect(isValidHashAlgorithm(' sha512 ')).toBe(true)
   })
 })
