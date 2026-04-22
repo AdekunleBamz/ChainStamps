@@ -45,6 +45,10 @@ describe('stamp validators', () => {
     expect(isValidBlockHeight(0)).toBe(true)
   })
 
+  it('rejects fractional block heights', () => {
+    expect(isValidBlockHeight(1.5)).toBe(false)
+  })
+
   it('accepts trimmed mainnet and testnet wallet addresses', () => {
     expect(isValidWalletAddress(' SP5K2RHMSBH4PAP4PGX77MCVNK1ZEED07CWX9TJT ')).toBe(true)
     expect(isValidWalletAddress(' ST5K2RHMSBH4PAP4PGX77MCVNK1ZEED07CWX9TJT ')).toBe(true)
