@@ -244,6 +244,10 @@ describe('fee utils', () => {
     expect(feeToUStxDisplay(0.001)).toBe('1,000 µSTX')
   })
 
+  it('formats invalid fees as zero microSTX display values', () => {
+    expect(feeToUStxDisplay(Number.NaN)).toBe('0 µSTX')
+  })
+
   it('calculates remaining fee headroom', () => {
     expect(feeHeadroom(4)).toBe(6)
   })
