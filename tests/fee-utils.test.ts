@@ -41,6 +41,10 @@ describe('fee utils', () => {
     expect(estimateFee('100')).toBe(0.006)
   })
 
+  it('rounds tiny payload fees to four decimals', () => {
+    expect(estimateFee(1)).toBe(0.0011)
+  })
+
   it('floors fractional numeric payload sizes to whole bytes', () => {
     expect(estimateFee(10.9)).toBe(0.0015)
   })
