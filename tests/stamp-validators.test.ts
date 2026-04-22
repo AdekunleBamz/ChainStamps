@@ -123,4 +123,8 @@ describe('stamp validators', () => {
   it('accepts non-negative stamp counts', () => {
     expect(isValidStampCount(0)).toBe(true)
   })
+
+  it('accepts non-negative microSTX values', () => {
+    expect(isValidMicroStx(0)).toBe(true)
+  })
 })
