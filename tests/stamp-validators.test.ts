@@ -107,4 +107,8 @@ describe('stamp validators', () => {
   it('rejects unsupported network names', () => {
     expect(isValidNetworkName('devnet')).toBe(false)
   })
+
+  it('accepts non-negative confirmation counts', () => {
+    expect(isValidConfirmations(0)).toBe(true)
+  })
 })
