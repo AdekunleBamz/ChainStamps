@@ -1,16 +1,29 @@
 import { describe, expect, it } from 'vitest'
 import {
+  BASE_FEE,
+  FEE_PER_BYTE,
+  MAX_FEE,
+  MICROSTX_PER_STX,
   estimateFee,
   estimateFeeDetailed,
+  feeHeadroom,
   feesAreEqual,
   feeAsPercent,
+  feeToUStxDisplay,
+  formatFee,
   formatStx,
   formatUStx,
+  isMinimumFee,
+  isValidFee,
   microStxToStx,
   stxToMicroStx,
 } from '../frontend/src/utils/fee'
 
 describe('fee utils', () => {
+  it('exposes the expected STX precision constant', () => {
+    expect(MICROSTX_PER_STX).toBe(1_000_000)
+  })
+
   it('estimates fees from numeric payload sizes', () => {
     expect(estimateFee(100)).toBe(0.006)
     expect(estimateFee('100')).toBe(0.006)
