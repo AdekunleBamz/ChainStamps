@@ -24,6 +24,10 @@ describe('fee utils', () => {
     expect(MICROSTX_PER_STX).toBe(1_000_000)
   })
 
+  it('exposes the configured base fee', () => {
+    expect(BASE_FEE).toBe(0.001)
+  })
+
   it('estimates fees from numeric payload sizes', () => {
     expect(estimateFee(100)).toBe(0.006)
     expect(estimateFee('100')).toBe(0.006)
