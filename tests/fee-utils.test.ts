@@ -190,6 +190,10 @@ describe('fee utils', () => {
     expect(isMinimumFee(BASE_FEE)).toBe(true)
   })
 
+  it('rejects fees below the base minimum', () => {
+    expect(isMinimumFee(BASE_FEE / 2)).toBe(false)
+  })
+
   it('keeps detailed fee size parsing consistent with estimateFee for numeric strings', () => {
     const detailed = estimateFeeDetailed('100')
     expect(detailed.total).toBe(estimateFee('100'))
