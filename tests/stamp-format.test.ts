@@ -50,6 +50,10 @@ describe('stamp format', () => {
     expect(formatStampCount(3)).toBe('3 stamps')
   })
 
+  it('formats batch ids with a prefix', () => {
+    expect(formatBatchId('alpha')).toBe('BATCH-alpha')
+  })
+
   it('returns short hashes without truncation', () => {
     expect(formatStampHash('abc123')).toBe('abc123')
   })
