@@ -41,6 +41,10 @@ describe('stamp validators', () => {
     expect(isValidTxId(`0x${'b'.repeat(64)}`)).toBe(true)
   })
 
+  it('accepts non-negative block heights', () => {
+    expect(isValidBlockHeight(0)).toBe(true)
+  })
+
   it('accepts trimmed mainnet and testnet wallet addresses', () => {
     expect(isValidWalletAddress(' SP5K2RHMSBH4PAP4PGX77MCVNK1ZEED07CWX9TJT ')).toBe(true)
     expect(isValidWalletAddress(' ST5K2RHMSBH4PAP4PGX77MCVNK1ZEED07CWX9TJT ')).toBe(true)
