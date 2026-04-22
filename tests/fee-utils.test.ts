@@ -182,6 +182,10 @@ describe('fee utils', () => {
     expect(estimateFeeDetailed(100).payloadFee).toBe(0.005)
   })
 
+  it('includes microSTX totals in detailed estimates', () => {
+    expect(estimateFeeDetailed(100).totalMicroStx).toBe(6_000)
+  })
+
   it('returns false for non-finite fee comparison inputs', () => {
     expect(feesAreEqual(Number.NaN, 0.1)).toBe(false)
     expect(feesAreEqual(0.1, Number.POSITIVE_INFINITY)).toBe(false)
