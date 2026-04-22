@@ -1,12 +1,31 @@
 import { describe, expect, it } from 'vitest'
 import {
+  formatBatchId,
+  formatBlockHeight,
+  formatBlocksRemaining,
+  formatConfirmations,
+  formatFileSize,
+  formatHashAlgorithm,
   formatMemoText,
+  formatMicroStx,
   formatNetworkName,
+  formatProofLength,
+  formatStampCount,
+  formatStampFee,
   formatStampHash,
+  formatStampId,
+  formatStampStatus,
+  formatStampType,
+  formatStampVersion,
+  formatTxId,
   formatWalletAddress,
 } from '../frontend/src/utils/stampFormat'
 
 describe('stamp format', () => {
+  it('formats stamp fees from microSTX', () => {
+    expect(formatStampFee(1_500_000)).toBe('1.500000 STX')
+  })
+
   it('returns short hashes without truncation', () => {
     expect(formatStampHash('abc123')).toBe('abc123')
   })
