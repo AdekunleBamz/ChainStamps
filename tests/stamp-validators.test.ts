@@ -98,4 +98,9 @@ describe('stamp validators', () => {
   it('accepts non-empty stamp types', () => {
     expect(isValidStampType('hash')).toBe(true)
   })
+
+  it('accepts supported network names', () => {
+    expect(isValidNetworkName('mainnet')).toBe(true)
+    expect(isValidNetworkName('testnet')).toBe(true)
+  })
 })
