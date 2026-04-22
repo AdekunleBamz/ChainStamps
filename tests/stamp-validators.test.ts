@@ -119,4 +119,8 @@ describe('stamp validators', () => {
   it('accepts positive proof lengths', () => {
     expect(isValidProofLength(1)).toBe(true)
   })
+
+  it('accepts non-negative stamp counts', () => {
+    expect(isValidStampCount(0)).toBe(true)
+  })
 })
