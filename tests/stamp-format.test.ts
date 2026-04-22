@@ -1,5 +1,10 @@
 import { describe, expect, it } from 'vitest'
-import { formatMemoText, formatStampHash, formatWalletAddress } from '../frontend/src/utils/stampFormat'
+import {
+  formatMemoText,
+  formatNetworkName,
+  formatStampHash,
+  formatWalletAddress,
+} from '../frontend/src/utils/stampFormat'
 
 describe('stamp format', () => {
   it('returns short hashes without truncation', () => {
@@ -12,5 +17,9 @@ describe('stamp format', () => {
 
   it('normalizes whitespace before memo truncation', () => {
     expect(formatMemoText('   hello world   ')).toBe('hello world')
+  })
+
+  it('returns Unknown when network value is missing', () => {
+    expect(formatNetworkName(undefined)).toBe('Unknown')
   })
 })
