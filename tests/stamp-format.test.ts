@@ -86,6 +86,10 @@ describe('stamp format', () => {
     expect(formatMemoText('x'.repeat(40))).toBe(`${'x'.repeat(32)}...`)
   })
 
+  it('returns empty memo labels for non-string input', () => {
+    expect(formatMemoText(12)).toBe('')
+  })
+
   it('returns Unknown when network value is missing', () => {
     expect(formatNetworkName(undefined)).toBe('Unknown')
   })
