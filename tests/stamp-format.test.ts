@@ -46,6 +46,10 @@ describe('stamp format', () => {
     expect(formatMicroStx(2_500_000)).toBe('2.500000 STX')
   })
 
+  it('formats stamp count labels', () => {
+    expect(formatStampCount(3)).toBe('3 stamps')
+  })
+
   it('returns short hashes without truncation', () => {
     expect(formatStampHash('abc123')).toBe('abc123')
   })
