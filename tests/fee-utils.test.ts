@@ -174,6 +174,10 @@ describe('fee utils', () => {
     expect(detailed.total).toBe(estimateFee('100'))
   })
 
+  it('includes the base fee in detailed estimates', () => {
+    expect(estimateFeeDetailed(100).baseFee).toBe(BASE_FEE)
+  })
+
   it('returns false for non-finite fee comparison inputs', () => {
     expect(feesAreEqual(Number.NaN, 0.1)).toBe(false)
     expect(feesAreEqual(0.1, Number.POSITIVE_INFINITY)).toBe(false)
