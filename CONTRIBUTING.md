@@ -35,8 +35,8 @@ npx vitest run tests/chainstamp-sdk-fees.test.ts
 
 #### Frontend (React)
 ```bash
-# Run Vitest suite
-npm --prefix frontend test
+# Run frontend lint
+npm --prefix frontend run lint
 
 # Run Vitest in watch mode
 npm --prefix frontend run test:watch
