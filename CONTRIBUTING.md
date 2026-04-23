@@ -38,8 +38,8 @@ npx vitest run tests/chainstamp-sdk-fees.test.ts
 # Run Vitest suite
 npm --prefix frontend test
 
-# Run Vitest in watch mode
-npm --prefix frontend run test:watch
+# Run frontend build verification
+npm --prefix frontend run build
 ```
 
 ### Checking Clarity Syntax
