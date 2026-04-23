@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useEffect, useRef, useState } from 'react';
 import { motion, AnimatePresence, useAnimation } from 'framer-motion';
 import { Copy, Check } from 'lucide-react';
 import { twMerge } from 'tailwind-merge';
@@ -28,8 +28,17 @@ interface CopyButtonProps {
  */
 export const CopyButton = ({ value, className, size = 14 }: CopyButtonProps) => {
     const [copied, setCopied] = useState(false);
+    const resetTimerRef = useRef<ReturnType<typeof setTimeout> | null>(null);
     const { addToast } = useToast();
     const controls = useAnimation();
+
+    useEffect(() => {
+        return () => {
+            if (resetTimerRef.current) {
+                clearTimeout(resetTimerRef.current);
+            }
+        };
+    }, []);
 
     const handleCopy = async () => {
         if (!value || typeof value !== 'string') return;
@@ -42,8 +51,7 @@ export const CopyButton = ({ value, className, size = 14 }: CopyButtonProps) => 
                 transition: { duration: 0.2 }
             });
             addToast('Copied to clipboard', 'success');
-            const timeoutId = setTimeout(() => setCopied(false), COPY_FEEDBACK_DURATION);
-            return () => clearTimeout(timeoutId);
+            resetTimerRef.current = setTimeout(() => setCopied(false), COPY_FEEDBACK_DURATION);
         } catch (err) {
             console.error('Failed to copy text: ', err);
             triggerHaptic('error');
