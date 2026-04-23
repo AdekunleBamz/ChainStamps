@@ -15,6 +15,7 @@
     "frontend:dev": "npm --prefix frontend run dev",
     "frontend:lint": "npm --prefix frontend run lint",
     "frontend:build": "npm --prefix frontend run build",
+    "frontend:preview": "npm --prefix frontend run preview",
     "check:fast": "npm run contracts:check && npm run test:fee"
   },
   "author": "Adekunle Bamz (@adekunlebamz)",
