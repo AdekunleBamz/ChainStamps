@@ -1,4 +1,6 @@
 
+import { MICROSTX_PER_STX } from './stampConstants.js';
+
 export const formatStampHash = (h) => {
   const normalized = typeof h === 'string' ? h.trim() : '';
   if (!normalized) return '';
@@ -6,7 +8,7 @@ export const formatStampHash = (h) => {
   return normalized.slice(0, 8) + '...' + normalized.slice(-8);
 };
 
-export const formatStampFee = (v) => (v / 1e6).toFixed(6) + " STX";
+export const formatStampFee = (v) => (v / MICROSTX_PER_STX).toFixed(6) + " STX";
 
 export const formatStampDate = (ts) => new Date(ts).toLocaleDateString();
 
@@ -22,7 +24,7 @@ export const formatStampStatus = (s) => {
 
 export const formatTxId = (id) => id.slice(0, 8) + "...";
 
-export const formatMicroStx = (v) => (v / 1e6).toFixed(6) + " STX";
+export const formatMicroStx = (v) => (v / MICROSTX_PER_STX).toFixed(6) + " STX";
 
 export const formatStampCount = (n) => n + " stamps";
 
