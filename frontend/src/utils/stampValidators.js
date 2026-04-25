@@ -1,4 +1,6 @@
 
+import { MAX_BATCH_SIZE, MAX_MEMO_LENGTH } from './stampConstants.js';
+
 export const isValidStampHash = (v) =>
   typeof v === 'string' && /^[a-fA-F0-9]{64}$/.test(v.trim());
 
@@ -14,11 +16,11 @@ export const isValidStampFee = (v) => !isNaN(Number(v)) && Number(v) >= 0;
 export const isValidWalletAddress = (v) =>
   typeof v === 'string' && /^(SP|ST)[0-9A-Z]{30,}$/.test(v.trim().toUpperCase());
 
-export const isValidMemoText = (v) => typeof v === 'string' && v.trim().length <= 64;
+export const isValidMemoText = (v) => typeof v === 'string' && v.trim().length <= MAX_MEMO_LENGTH;
 
 export const isValidFileSize = (v) => !isNaN(Number(v)) && Number(v) > 0;
 
-export const isValidBatchSize = (v) => Number.isInteger(Number(v)) && Number(v) >= 1 && Number(v) <= 10;
+export const isValidBatchSize = (v) => Number.isInteger(Number(v)) && Number(v) >= 1 && Number(v) <= MAX_BATCH_SIZE;
 
 export const isValidHashAlgorithm = (v) =>
   typeof v === 'string' && ['sha256', 'sha512'].includes(v.trim().toLowerCase());
