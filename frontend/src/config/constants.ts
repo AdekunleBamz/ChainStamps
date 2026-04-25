@@ -86,9 +86,6 @@ export const MIN_STX_FOR_TX_MICROSTX = 1000; // 0.001 STX
 /** Maximum number of characters allowed in a stamp note or message field. */
 export const MAX_NOTE_LENGTH = 500;
 
-/** Maximum number of characters allowed in a stamp note or message field. */
-export const MAX_NOTE_LENGTH = 500;
-
 /** Debounce delay specifically for search input fields (ms). */
 export const SEARCH_DEBOUNCE_MS = 250;
 
