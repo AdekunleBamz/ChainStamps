@@ -40,3 +40,5 @@ export const MAX_MEMO_LENGTH = 64
 export const SUPPORTED_FILE_TYPES = ["pdf","txt","json","csv"]
 
 export const STAMP_UI_VERSION = "2.0"
+
+export const MAX_RETRY_COUNT = 3
