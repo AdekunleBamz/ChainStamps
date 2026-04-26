@@ -42,3 +42,5 @@ export const SUPPORTED_FILE_TYPES = ["pdf","txt","json","csv"]
 export const STAMP_UI_VERSION = "2.0"
 
 export const MAX_RETRY_COUNT = 3
+
+export const STAMP_LABEL_MAX_LENGTH = 80
