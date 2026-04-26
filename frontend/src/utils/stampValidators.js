@@ -54,3 +54,5 @@ export const isValidRetryCount = (v) => Number.isInteger(Number(v)) && Number(v)
 export const isValidTimestamp = (v) => !isNaN(Number(v)) && Number(v) > 0;
 
 export const isValidStampLabel = (v) => typeof v === "string" && v.trim().length > 0 && v.trim().length <= 80;
+
+export const isValidNetworkFee = (v) => !isNaN(Number(v)) && Number(v) >= 0 && Number(v) <= 50000000;
