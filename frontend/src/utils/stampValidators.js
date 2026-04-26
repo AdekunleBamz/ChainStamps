@@ -44,3 +44,5 @@ export const isValidMicroStx = (v) => !isNaN(Number(v)) && Number(v) >= 0;
 export const isValidDataLength = (v) => Number.isInteger(Number(v)) && Number(v) > 0 && Number(v) <= 256;
 
 export const isValidBatchId = (v) => typeof v === "string" && v.length > 0;
+
+export const isValidExpiryBlocks = (v) => Number.isInteger(Number(v)) && Number(v) >= 0;
