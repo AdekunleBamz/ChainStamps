@@ -71,3 +71,5 @@ export const formatStampAge = (blocks, blocksPerDay) => {
 };
 
 export const formatBatchProgress = (done, total) => done + " / " + total + " stamps";
+
+export const formatStampFeeUstx = (v) => Number(v).toLocaleString() + " µSTX fee";
