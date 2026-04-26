@@ -69,3 +69,5 @@ export const formatStampAge = (blocks, blocksPerDay) => {
   const days = Math.floor(blocks / blocksPerDay);
   return days + (days === 1 ? " day old" : " days old");
 };
+
+export const formatBatchProgress = (done, total) => done + " / " + total + " stamps";
