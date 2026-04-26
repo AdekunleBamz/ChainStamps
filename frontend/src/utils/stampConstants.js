@@ -46,3 +46,5 @@ export const MAX_RETRY_COUNT = 3
 export const STAMP_LABEL_MAX_LENGTH = 80
 
 export const MIN_CONFIRMATION_BLOCKS = 1
+
+export const STAMP_DATA_ENCODING = "hex"
