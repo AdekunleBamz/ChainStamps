@@ -48,3 +48,5 @@ export const STAMP_LABEL_MAX_LENGTH = 80
 export const MIN_CONFIRMATION_BLOCKS = 1
 
 export const STAMP_DATA_ENCODING = "hex"
+
+export const MAX_NETWORK_FEE_USTX = 50000000
