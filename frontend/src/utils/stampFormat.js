@@ -89,3 +89,6 @@ export const formatStampOwner = (addr) => {
   if (!s) return "Unknown";
   return s.slice(0, 6) + "..." + s.slice(-4);
 };
+
+export const formatBatchStatus = (done, total, failed) =>
+  done + " done, " + failed + " failed of " + total;
