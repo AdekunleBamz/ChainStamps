@@ -62,3 +62,5 @@ export const formatMemoText = (s) => {
 export const formatHashAlgorithm = (a) => a.toUpperCase();
 
 export const formatStampVersion = (v) => "v" + v;
+
+export const formatExpiryDate = (ts) => "Expires: " + new Date(ts).toLocaleDateString();
