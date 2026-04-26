@@ -64,3 +64,8 @@ export const formatHashAlgorithm = (a) => a.toUpperCase();
 export const formatStampVersion = (v) => "v" + v;
 
 export const formatExpiryDate = (ts) => "Expires: " + new Date(ts).toLocaleDateString();
+
+export const formatStampAge = (blocks, blocksPerDay) => {
+  const days = Math.floor(blocks / blocksPerDay);
+  return days + (days === 1 ? " day old" : " days old");
+};
