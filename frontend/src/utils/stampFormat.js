@@ -83,3 +83,9 @@ export const formatStampLabel = (label, hash) => label || hash.slice(0, 10);
 export const formatNetworkFee = (v) => (Number(v) / 1e6).toFixed(6) + " STX fee";
 
 export const formatDataSize = (bytes) => bytes + " bytes";
+
+export const formatStampOwner = (addr) => {
+  const s = typeof addr === "string" ? addr.trim() : "";
+  if (!s) return "Unknown";
+  return s.slice(0, 6) + "..." + s.slice(-4);
+};
