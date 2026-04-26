@@ -77,3 +77,5 @@ export const formatStampFeeUstx = (v) => Number(v).toLocaleString() + " µSTX fe
 export const formatConfirmationStatus = (n, required) => n + " / " + required + " confirmed";
 
 export const formatRetryCount = (n) => "Attempt " + (n + 1);
+
+export const formatStampLabel = (label, hash) => label || hash.slice(0, 10);
