@@ -75,3 +75,5 @@ export const formatBatchProgress = (done, total) => done + " / " + total + " sta
 export const formatStampFeeUstx = (v) => Number(v).toLocaleString() + " µSTX fee";
 
 export const formatConfirmationStatus = (n, required) => n + " / " + required + " confirmed";
+
+export const formatRetryCount = (n) => "Attempt " + (n + 1);
