@@ -79,3 +79,5 @@ export const formatConfirmationStatus = (n, required) => n + " / " + required + 
 export const formatRetryCount = (n) => "Attempt " + (n + 1);
 
 export const formatStampLabel = (label, hash) => label || hash.slice(0, 10);
+
+export const formatNetworkFee = (v) => (Number(v) / 1e6).toFixed(6) + " STX fee";
