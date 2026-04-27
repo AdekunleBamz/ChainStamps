@@ -246,6 +246,7 @@ section[id] {
   color: white;
   font-weight: 600;
   cursor: pointer;
+  touch-action: manipulation;
   transition: transform 0.2s, box-shadow 0.2s;
 }
 
