@@ -137,7 +137,7 @@ npm run test:fee
 
 ```bash
 # Start Clarinet console
-clarinet console
+npm run console
 
 # Run combined contract + test checks
 npm run check
