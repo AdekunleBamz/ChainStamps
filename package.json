@@ -8,6 +8,7 @@
     "contracts:check": "clarinet check",
     "check": "npm run contracts:check && npm run test",
     "test": "vitest run",
+    "test:fee": "vitest run tests/fee-utils.test.ts tests/chainstamp-sdk-fees.test.ts",
     "test:report": "vitest run --coverage --costs",
     "test:ci": "vitest run --coverage --costs",
     "test:watch": "chokidar \"tests/**/*.ts\" \"contracts/**/*.clar\" -c \"npm run test:report\"",
