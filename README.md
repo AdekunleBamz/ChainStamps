@@ -68,7 +68,7 @@ ChainStamps follows a modern React architecture with:
 - **Performance Optimized**: GPU-accelerated animations, throttled event listeners, and memoized components.
 
 ### Developer Flow
-1. **Connect**: Wallet connection integration for Stacks mainnet.
+1. **Connect**: Wallet connection integration for Stacks mainnet or testnet.
 2. **Interact**: Declarative hooks handle transaction lifecycles.
 3. **Verify**: Direct links to Stacks Explorer for all on-chain actions.
 4. **Audit**: Real-time performance monitoring via `PerformanceOverlay`.
