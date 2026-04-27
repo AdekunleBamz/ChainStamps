@@ -16,7 +16,7 @@ npm ci
 npm --prefix frontend ci
 
 # Start the development server
-npm --prefix frontend run dev
+npm run frontend:dev
 ```
 
 For prerequisites, environment setup, and contract workflows, see the [Detailed Setup](#-detailed-setup) section below.
