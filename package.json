@@ -7,6 +7,7 @@
   "scripts": {
     "contracts:check": "clarinet check",
     "check": "npm run contracts:check && npm run test",
+    "check:fast": "npm run contracts:check && npm run test:fee",
     "test": "vitest run",
     "test:fee": "vitest run tests/fee-utils.test.ts tests/chainstamp-sdk-fees.test.ts",
     "test:report": "vitest run --coverage --costs",
