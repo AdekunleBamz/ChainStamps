@@ -328,6 +328,7 @@ section[id] {
   max-width: 800px;
   margin-left: auto;
   margin-right: auto;
+  overflow-wrap: anywhere;
 }
 
 .hero-description {
