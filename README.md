@@ -73,7 +73,7 @@ ChainStamps follows a modern React architecture with:
 3. **Verify**: Direct links to Stacks Explorer for all on-chain actions.
 4. **Audit**: Real-time performance monitoring via `PerformanceOverlay`.
 
-## ✨ Features
+## 💸 Protocol Fees
 
 | Feature | Description | Fee |
 |---------|-------------|-----|
