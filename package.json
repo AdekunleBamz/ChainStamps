@@ -14,6 +14,8 @@
     "test:ci": "vitest run --coverage --costs",
     "test:watch": "chokidar \"tests/**/*.ts\" \"contracts/**/*.clar\" -c \"npm run test:report\"",
     "consolidate:test-wallets": "node scripts/consolidate-test-wallets.js",
+    "frontend:dev": "npm --prefix frontend run dev",
+    "frontend:lint": "npm --prefix frontend run lint",
     "lint": "eslint .",
     "lint:fix": "eslint . --fix",
     "format": "prettier --write .",
