@@ -325,6 +325,7 @@ section[id] {
 .hero-subtitle {
   font-size: clamp(1.1rem, 3vw, 1.5rem);
   color: var(--text-secondary);
+  line-height: 1.75;
   margin-bottom: 1.5rem;
   max-width: 800px;
   margin-left: auto;
