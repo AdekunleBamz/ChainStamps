@@ -281,7 +281,7 @@ export const Header = () => {
                       {userAddress?.slice(0, 6)}...{userAddress?.slice(-4)}
                     </span>
                   </Tooltip>
-                  <CopyButton value={userAddress || ''} size={14} className="h-8 w-8" />
+                  <CopyButton value={userAddress || ''} size={14} className="h-9 w-9" />
                 </div>
                   <Button
                     variant="outline"
