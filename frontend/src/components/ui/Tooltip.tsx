@@ -19,7 +19,7 @@ interface TooltipProps {
     placement?: 'top' | 'bottom';
 }
 
-export const Tooltip = memo(function Tooltip({ content, children, className }: TooltipProps) {
+export const Tooltip = memo(function Tooltip({ content, children, className, placement = 'top' }: TooltipProps) {
     const [isVisible, setIsVisible] = useState(false);
 
     return (
