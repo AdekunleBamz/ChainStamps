@@ -69,7 +69,7 @@ export const CopyButton = ({ value, className, size = 14 }: CopyButtonProps) => 
             type="button"
             onClick={handleCopy}
             className={twMerge(
-                "relative flex items-center justify-center rounded-md p-1.5 transition-colors hover:bg-accent hover:text-accent-foreground",
+                "relative flex items-center justify-center rounded-md p-1.5 transition-colors hover:bg-accent hover:text-accent-foreground focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary/60",
                 className
             )}
             aria-live={copied ? 'polite' : 'off'}
