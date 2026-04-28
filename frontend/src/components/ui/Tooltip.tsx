@@ -38,6 +38,7 @@ export const Tooltip = memo(function Tooltip({ content, children, className }: T
                         initial={{ opacity: 0, y: placement === 'top' ? 10 : -10, scale: 0.95 }}
                         animate={{ opacity: 1, y: 0, scale: 1 }}
                         exit={{ opacity: 0, y: placement === 'top' ? 10 : -10, scale: 0.95 }}
+                        aria-hidden={!isVisible}
                         className={placement === 'top'
                             ? "absolute bottom-full left-1/2 z-[100] mb-2 -translate-x-1/2"
                             : "absolute top-full left-1/2 z-[100] mt-2 -translate-x-1/2"}
