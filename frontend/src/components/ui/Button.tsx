@@ -96,10 +96,10 @@ export const Button = memo(function Button({
             onClick={handleClick}
         >
             {isLoading ? (
-              <>
+              <span className="inline-flex items-center gap-2" role="status" aria-live="polite">
                 <Loader2 className="animate-spin" aria-hidden="true" size={loaderSize} />
                 <span className="sr-only">Loading…</span>
-              </>
+              </span>
             ) : children}
         </motion.button>
     );
