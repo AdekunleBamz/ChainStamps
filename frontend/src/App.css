@@ -912,7 +912,7 @@ section[id] {
 .network-heartbeat {
   display: flex;
   align-items: center;
-  padding: 0.25rem 0.75rem;
+  padding: 0.35rem 0.75rem;
   background: hsla(var(--primary-h), var(--primary-s), var(--primary-l), 0.1);
   border-radius: 99px;
   border: 1px solid hsla(var(--primary-h), var(--primary-s), var(--primary-l), 0.2);
