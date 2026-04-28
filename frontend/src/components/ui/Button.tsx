@@ -93,6 +93,7 @@ export const Button = memo(function Button({
             )}
             {...props}
             disabled={isDisabled}
+            aria-disabled={isDisabled}
             onClick={handleClick}
         >
             {isLoading ? (
