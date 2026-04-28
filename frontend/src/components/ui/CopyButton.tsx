@@ -72,6 +72,7 @@ export const CopyButton = ({ value, className, size = 14 }: CopyButtonProps) => 
                 "relative flex items-center justify-center rounded-md p-1.5 transition-colors hover:bg-accent hover:text-accent-foreground",
                 className
             )}
+            aria-label={copied ? 'Copied to clipboard' : 'Copy to clipboard'}
             aria-live={copied ? 'polite' : 'off'}
             title="Copy to clipboard"
         >
