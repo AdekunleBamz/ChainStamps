@@ -1159,6 +1159,8 @@ section[id] {
   color: var(--foreground);
   cursor: pointer;
   z-index: 101;
+  min-width: 44px;
+  min-height: 44px;
   padding: 0.5rem;
   border-radius: 8px;
   transition: background 0.2s;
