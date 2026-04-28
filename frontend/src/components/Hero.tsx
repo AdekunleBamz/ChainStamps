@@ -150,6 +150,7 @@ export const Hero = () => {
         onClick={() => document.querySelector('#hash')?.scrollIntoView({ behavior: 'smooth' })}
         onKeyDown={(e: React.KeyboardEvent) => {
           if (e.key === 'Enter' || e.key === ' ') {
+            e.preventDefault();
             document.querySelector('#hash')?.scrollIntoView({ behavior: 'smooth' });
           }
         }}
