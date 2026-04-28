@@ -186,6 +186,7 @@ export const Header = () => {
                     className="mobile-menu-toggle"
                     onClick={() => setIsMenuOpen(!isMenuOpen)}
                     aria-label={isMenuOpen ? 'Close navigation menu' : 'Open navigation menu'}
+                    title={isMenuOpen ? 'Close navigation menu' : 'Open navigation menu'}
                     aria-expanded={isMenuOpen}
                     aria-haspopup="true"
                     aria-controls="primary-navigation"
