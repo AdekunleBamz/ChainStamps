@@ -132,7 +132,7 @@
 }
 
 .skip-link:focus {
-  top: 0;
+  top: env(safe-area-inset-top, 0px);
 }
 
 *:focus {
