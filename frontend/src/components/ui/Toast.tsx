@@ -27,7 +27,7 @@ export const ToastContainer = () => {
 
     return (
         <div 
-            className="fixed bottom-6 right-6 z-[1000] flex flex-col gap-3 pointer-events-none"
+            className="fixed bottom-[calc(1.5rem+env(safe-area-inset-bottom,0px))] right-[calc(1.5rem+env(safe-area-inset-right,0px))] z-[1000] flex flex-col gap-3 pointer-events-none"
             aria-live="polite"
             aria-relevant="additions"
             role="status"
