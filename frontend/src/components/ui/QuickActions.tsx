@@ -67,6 +67,7 @@ export const QuickActions = () => {
       <AnimatePresence>
         {isOpen && (
           <motion.div
+            id="quick-actions-panel"
             initial={{ opacity: 0, scale: 0.8, y: 40 }}
             animate={{ opacity: 1, scale: 1, y: 0 }}
             exit={{ opacity: 0, scale: 0.8, y: 40 }}
@@ -138,6 +139,7 @@ export const QuickActions = () => {
         )}
         aria-label={isOpen ? "Close actions menu" : "Open quick actions"}
         aria-expanded={isOpen}
+        aria-controls="quick-actions-panel"
       >
         <AnimatePresence mode="wait">
           {isOpen ? (
