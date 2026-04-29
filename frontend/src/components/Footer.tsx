@@ -99,6 +99,7 @@ export const Footer = memo(() => {
             target="_blank"
             rel="noopener noreferrer"
             aria-label="Follow ChainStamps on X (formerly Twitter)"
+            title="Follow ChainStamps updates on X"
             className="focus-visible:ring-2 focus-visible:ring-primary focus-visible:ring-offset-2 rounded-lg"
           >
             <Twitter size={20} strokeWidth={1.5} role="img" aria-hidden="true" />
