@@ -74,7 +74,7 @@ export const Footer = memo(() => {
               <Zap size={16} className="text-muted-foreground" />
               <div className="metric-info">
                 <span className="metric-label">TPS (Active)</span>
-                <span className="metric-value">0.45</span>
+                <span className="metric-value tabular-nums">0.45</span>
               </div>
             </div>
           </div>
