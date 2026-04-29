@@ -28,6 +28,7 @@ export const FilterDrawer = ({ isOpen, onOpen, onClose, children, activeFiltersC
           isOpen ? "scale-0 opacity-0" : "scale-100 opacity-100"
         )}
         aria-label="Open filters"
+        title="Open filters"
       >
         <div className="relative">
           <Filter size={24} />
