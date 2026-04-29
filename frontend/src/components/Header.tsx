@@ -238,6 +238,7 @@ export const Header = () => {
                   className="transition-base" 
                   onClick={() => setIsMenuOpen(false)} 
                   aria-label="Navigate to Hash Registry section"
+                  title="Go to Hash Registry"
                   aria-current={activeHash === '#hash' ? 'page' : undefined}
                 >Hash</a>
               </li>
