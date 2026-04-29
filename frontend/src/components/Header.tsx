@@ -247,6 +247,7 @@ export const Header = () => {
                   className="transition-base" 
                   onClick={() => setIsMenuOpen(false)} 
                   aria-label="Navigate to Stamp Registry section"
+                  title="Go to Stamp Registry"
                   aria-current={activeHash === '#stamp' ? 'page' : undefined}
                 >Stamp</a>
               </li>
