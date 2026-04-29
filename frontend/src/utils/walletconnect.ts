@@ -1,14 +1,23 @@
 import UniversalProvider from '@walletconnect/universal-provider';
 
+/** WalletConnect project ID from environment variables. */
 const PROJECT_ID = (import.meta.env.VITE_WALLETCONNECT_PROJECT_ID || '').trim();
+
+/** Debug flag for verbose WalletConnect logging. */
 const DEBUG = import.meta.env.VITE_DEBUG === 'true';
+
+/** Timeout in milliseconds for stx_getAddresses request. */
+const ADDRESS_REQUEST_TIMEOUT = 15000;
+
+/** WalletConnect relay WebSocket URL. */
+const RELAY_URL = 'wss://relay.walletconnect.com';
 
 // Metadata for WalletConnect - icons array must be non-empty
 const metadata = {
   name: 'ChainStamp',
   description: 'Immutable timestamping on Bitcoin via Stacks',
   url: typeof window !== 'undefined' ? window.location.origin : 'https://chainstamp.app',
-  icons: [typeof window !== 'undefined' ? new URL('/logo.png', window.location.origin).toString() : 'https://chainstamp.app/logo.png'],
+  icons: [typeof window !== 'undefined' ? new URL('/logo.svg', window.location.origin).toString() : 'https://chainstamp.app/logo.svg'],
 };
 
 // Stacks mainnet chain ID in CAIP format
@@ -222,7 +231,7 @@ export const wcSignTransaction = async (
 
 /**
  * Call a contract method via WalletConnect.
- * This is the primary method for interacting with the ChainStamps smart contracts.
+ * This is the primary method for interacting with the ChainStamp smart contracts.
  * 
  * @param {Object} params - The contract call parameters.
  * @param {string} params.contractAddress - The Stacks address of the contract.
@@ -276,9 +285,3 @@ export const hasActiveSession = (): boolean => {
 export const getSession = (): WCSession | null => {
   return provider?.session as WCSession | null;
 }
-
-/**
- * Returns true when the WalletConnect Universal Provider has been initialised
- * and is ready to accept new connection or transaction requests.
- */
-export const isProviderReady = (): boolean => provider !== null;

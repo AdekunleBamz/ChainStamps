@@ -1,6 +1,6 @@
 import { motion, AnimatePresence } from 'framer-motion';
 import { Check, Shield, Wallet, Clock, AlertCircle, Loader2 } from 'lucide-react';
-import { TransactionStep } from '../../hooks/useContractCall';
+import type { TransactionStep } from '../../hooks/useContractCall';
 import { twMerge } from 'tailwind-merge';
 
 interface TransactionStepperProps {
@@ -57,7 +57,7 @@ export const TransactionStepper = ({ currentStep }: TransactionStepperProps) => 
                 )}
               >
                 {isActive && currentStep !== 'confirmed' ? (
-                  <Loader2 size={20} className="animate-spin" aria-hidden="true" />
+                  <Loader2 size={20} className="animate-spin" />
                 ) : (
                   <Icon size={20} />
                 )}

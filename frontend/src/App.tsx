@@ -1,4 +1,6 @@
-import { useEffect, useState, useMemo } from 'react';
+import { useEffect, useState, useMemo, memo, Suspense, lazy } from 'react';
+import { twMerge } from 'tailwind-merge';
+import { motion, AnimatePresence } from 'framer-motion';
 import { WalletProvider } from './context/WalletContext';
 import { Header } from './components/Header';
 import { Hero } from './components/Hero';
@@ -46,51 +48,96 @@ const FaviconManager = () => {
   return null;
 }
 
+/** Animation stagger delay multiplier for registry items (seconds per index step). */
+const REGISTRY_STAGGER_DELAY = 0.1;
+/** Minimum skeleton height for lazy-loaded registry cards. */
+const REGISTRY_SKELETON_HEIGHT = 400;
+
 const RegistryItem = memo(({ component, index }: { component: React.ReactNode, index: number }) => (
   <motion.div
     initial={{ opacity: 0, y: 30 }}
     whileInView={{ opacity: 1, y: 0 }}
     viewport={{ once: true }}
-    transition={{ delay: index * 0.1 }}
+    transition={{ delay: index * REGISTRY_STAGGER_DELAY }}
     className="registry-wrapper"
   >
-    {component}
+    <Suspense fallback={
+      <div className={`h-[${REGISTRY_SKELETON_HEIGHT}px] w-full bg-white/5 animate-pulse rounded-3xl border border-white/10 flex items-center justify-center`}>
+        <Loader2 className="spinning text-primary/20" size={32} />
+      </div>
+    }>
+      {component}
+    </Suspense>
   </motion.div>
 ));
 
-/**
- * Main Application component.
- * Acts as the root coordinator for the ChainStamps frontend, managing:
- * - Global layout structure (Hero, Search, Roadmap)
- * - Integration with Wallet and Toast providers
- * - Registry filtering and search logic
- * 
- * @component
- */
-const App = () => {
-  const [searchQuery, setSearchQuery] = useState('');
+interface Registry extends SearchableItem {
+  render: (query: string) => React.ReactNode;
+}
 
-  const registries = useMemo(() => [
-    { id: 'hash', name: 'Hash Registry', component: <HashRegistry /> },
-    { id: 'stamp', name: 'Stamp Registry', component: <StampRegistry /> },
-    { id: 'tag', name: 'Tag Registry', component: <TagRegistry /> },
-    { id: 'verify', name: 'Verification Center', component: <VerificationModule /> },
+const App = () => {
+  const [lastUpdated] = useState(new Date().toLocaleTimeString());
+  const [isFilterDrawerOpen, setIsFilterDrawerOpen] = useState(false);
+
+  const INITIAL_REGISTRIES: Registry[] = useMemo(() => [
+    { 
+      id: 'hash', 
+      name: 'Hash Registry', 
+      category: 'Hash',
+      description: 'Store and verify SHA-256 hashes for files and data',
+      tags: ['security', 'verification', 'hashes'],
+      render: (query) => <HashRegistry searchQuery={query} /> 
+    },
+    { 
+      id: 'stamp', 
+      name: 'Stamp Registry', 
+      category: 'Stamp',
+      description: 'Permanent on-chain text stamps and messages',
+      tags: ['timestamp', 'content', 'identity'],
+      render: (query) => <StampRegistry searchQuery={query} /> 
+    },
+    { 
+      id: 'tag', 
+      name: 'Tag Registry', 
+      category: 'Tag',
+      description: 'Key-value metadata storage for on-chain identity',
+      tags: ['metadata', 'tags', 'identity'],
+      render: (query) => <TagRegistry searchQuery={query} /> 
+    },
   ], []);
 
-  const filteredRegistries = useMemo(() => {
-    const query = searchQuery.toLowerCase();
-    if (!query) return registries;
+  const { searchQuery, setSearchQuery, selectedCategories, setSelectedCategories, toggleCategory, filteredItems, isStale } = useSearch<Registry>(INITIAL_REGISTRIES);
 
-    return registries.filter(reg => {
-      // Direct match in registry name
-      if (reg.name.toLowerCase().includes(query)) return true;
-
-      // If query looks like a hex string (hash/txid), it's highly relevant to all registries
-      if (query.startsWith('0x') || query.length > 20) return true;
-
-      return false;
-    });
-  }, [searchQuery, registries]);
+  useEffect(() => {
+    const handleKeyDown = (e: KeyboardEvent) => {
+      // Search shortcut
+      if ((e.metaKey || e.ctrlKey) && e.key === 'k') {
+        e.preventDefault();
+        document.querySelector<HTMLInputElement>('.search-input')?.focus();
+      }
+      
+      // Registry navigation shortcuts (Alt + 1/2/3)
+      if (e.altKey) {
+        if (e.key === '1') {
+          e.preventDefault();
+          document.getElementById('hash')?.scrollIntoView({ behavior: 'smooth' });
+          triggerHaptic('light');
+        }
+        if (e.key === '2') {
+          e.preventDefault();
+          document.getElementById('stamp')?.scrollIntoView({ behavior: 'smooth' });
+          triggerHaptic('light');
+        }
+        if (e.key === '3') {
+          e.preventDefault();
+          document.getElementById('tag')?.scrollIntoView({ behavior: 'smooth' });
+          triggerHaptic('light');
+        }
+      }
+    };
+    window.addEventListener('keydown', handleKeyDown);
+    return () => window.removeEventListener('keydown', handleKeyDown);
+  }, []);
 
   return (
     <ToastProvider>
@@ -259,7 +306,6 @@ const App = () => {
                 {/* Mobile Filter Drawer */}
                 <FilterDrawer
                   isOpen={isFilterDrawerOpen}
-                  onOpen={() => setIsFilterDrawerOpen(true)}
                   onClose={() => setIsFilterDrawerOpen(false)}
                   activeFiltersCount={(searchQuery ? 1 : 0) + selectedCategories.length}
                 >

@@ -47,7 +47,6 @@ export const useContractCall = () => {
   const [txId, setTxId] = useState<string | null>(null);
   const [error, setError] = useState<string | null>(null);
   const [history, setHistory] = useState<Activity[]>([]);
-  const [submittedAt, setSubmittedAt] = useState<number | null>(null);
   const { addToast } = useToast();
 
   useEffect(() => {
@@ -60,20 +59,15 @@ export const useContractCall = () => {
         }
       } catch (e) {
         console.error('Failed to load history', e);
-        localStorage.removeItem(HISTORY_KEY);
       }
     }
   }, []);
 
   const execute = useCallback(async (params: ContractCallParams, successMessage = 'Transaction submitted successfully!', label = 'Unknown Action') => {
-    if (!params.contractAddress?.trim() || !params.contractName?.trim() || !params.functionName?.trim()) {
-      throw new Error('Invalid contract call parameters: address, name, and function are required');
-    }
     setIsSubmitting(true);
     setStep('preparing');
     setTxId(null);
     setError(null);
-    setSubmittedAt(Date.now());
 
     try {
       updateFavicon('pending');
@@ -134,19 +128,12 @@ export const useContractCall = () => {
     txId,
     error,
     history,
-    submittedAt,
-    isIdle: step === 'idle',
-    hasError: step === 'error',
-    isConfirmed: step === 'confirmed',
-    isPending: step === 'pending',
-    historyCount: history.length,
     execute,
     reset: () => {
       setTxId(null);
       setError(null);
       setIsSubmitting(false);
       setStep('idle');
-      setSubmittedAt(null);
     }
   };
 };

@@ -10,12 +10,8 @@ interface WalletContextType {
   isConnected: boolean;
   /** Whether a connection is currently being established. */
   isConnecting: boolean;
-  /** True when the wallet is connected and not in the process of connecting. */
-  isReady: boolean;
   /** The current user's Stacks address, or null if not connected. */
   userAddress: string | null;
-  /** Abbreviated version of the user address (first 6 + last 4 chars), or null. */
-  shortAddress: string | null;
   /** The current user's public key, if available. */
   publicKey: string | null;
   /** Function to initiate a WalletConnect connection. */
@@ -28,18 +24,11 @@ interface WalletContextType {
   showQRModal: boolean;
   /** Function to toggle the visibility of the QR modal. */
   setShowQRModal: (show: boolean) => void;
-  /** True when neither connected nor in the process of connecting. */
-  isDisconnected: boolean;
 }
 
 const WalletContext = createContext<WalletContextType | undefined>(undefined);
 
 const DEBUG = import.meta.env.VITE_DEBUG === 'true';
-
-/** Separator character in CAIP-10 account strings (e.g. "stacks:1:SP..."). */
-const CAIP_SEPARATOR = ':';
-/** Index of the address part after splitting a CAIP-10 account string. */
-const CAIP_ADDRESS_INDEX = 2;
 
 /**
  * Provider component for managing Stacks wallet connection state.
@@ -71,8 +60,8 @@ export const WalletProvider = ({ children }: { children: ReactNode }) => {
           // Try to get address from session
           const accounts = session.namespaces?.stacks?.accounts || [];
           if (accounts.length > 0) {
-            const parts = accounts[0].split(CAIP_SEPARATOR);
-            const address = parts[CAIP_ADDRESS_INDEX] || parts[0];
+            const parts = accounts[0].split(':');
+            const address = parts[2] || parts[0];
             setUserAddress(address);
             setIsConnected(true);
             if (DEBUG) console.log('🔄 Restored session:', address);
@@ -132,18 +121,13 @@ export const WalletProvider = ({ children }: { children: ReactNode }) => {
       value={{
         isConnected,
         isConnecting,
-        isReady: isConnected && !isConnecting,
         userAddress,
-        shortAddress: userAddress
-          ? `${userAddress.slice(0, 6)}…${userAddress.slice(-4)}`
-          : null,
         publicKey,
         connect,
         disconnect,
         wcUri,
         showQRModal,
         setShowQRModal,
-        isDisconnected: !isConnected && !isConnecting,
       }}
     >
       {children}

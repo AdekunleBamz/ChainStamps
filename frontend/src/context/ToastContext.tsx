@@ -6,10 +6,6 @@ type ToastType = 'success' | 'error' | 'info' | 'warning';
 const TOAST_AUTO_DISMISS_MS = 5000;
 /** Character length of the randomly generated toast ID. */
 const TOAST_ID_LENGTH = 9;
-const createToastId = () =>
-    typeof crypto !== 'undefined' && typeof crypto.randomUUID === 'function'
-        ? crypto.randomUUID()
-        : Math.random().toString(36).slice(2, TOAST_ID_LENGTH + 2);
 
 /**
  * Represents a single toast notification.
@@ -29,33 +25,17 @@ interface Toast {
 interface ToastContextType {
     /** Array of currently active toast notifications visible on the screen. */
     toasts: Toast[];
-    /** Total number of active toast notifications. */
-    toastCount: number;
     /** 
      * Adds a new toast notification.
      * @param {string} message - The text to display in the toast.
      * @param {ToastType} [type] - The visual style (success, error, info, warning).
      */
     addToast: (message: string, type?: ToastType) => void;
-    /** Convenience method to add a success toast. */
-    addSuccess: (message: string) => void;
-    /** Convenience method to add an error toast. */
-    addError: (message: string) => void;
-    /** Convenience method to add a warning toast. */
-    addWarning: (message: string) => void;
-    /** Convenience method to add an info toast. */
-    addInfo: (message: string) => void;
     /** 
      * Manually removes a toast by its ID.
      * @param {string} id - The unique identifier of the toast to remove.
      */
     removeToast: (id: string) => void;
-    /** Removes all active toasts immediately. */
-    clearAll: () => void;
-    /** True when there is at least one active toast. */
-    hasToasts: boolean;
-    /** The most recently added toast, or null if none active. */
-    latestToast: Toast | null;
 }
 
 const ToastContext = createContext<ToastContextType | undefined>(undefined);
@@ -80,27 +60,20 @@ export const ToastProvider = ({ children }: { children: ReactNode }) => {
      * @param {ToastType} [type='info'] - The severity/type of the toast.
      */
     const addToast = useCallback((message: string, type: ToastType = 'info') => {
-        const id = Math.random().toString(36).slice(2, TOAST_ID_LENGTH + 2);
+        const id = Math.random().toString(36).substr(2, TOAST_ID_LENGTH);
         setToasts((prev) => [...prev, { id, message, type }]);
 
         // Auto-remove after 5 seconds
         const timeoutId = setTimeout(() => {
             removeToast(id);
         }, TOAST_AUTO_DISMISS_MS);
-        void timeoutId;
+
+        // Cleanup timeout on unmount or before re-adding
+        return () => clearTimeout(timeoutId);
     }, [removeToast]);
 
-    const clearAll = useCallback(() => {
-        setToasts([]);
-    }, []);
-
-    const addSuccess = useCallback((message: string) => addToast(message, 'success'), [addToast]);
-    const addError = useCallback((message: string) => addToast(message, 'error'), [addToast]);
-    const addWarning = useCallback((message: string) => addToast(message, 'warning'), [addToast]);
-    const addInfo = useCallback((message: string) => addToast(message, 'info'), [addToast]);
-
     return (
-        <ToastContext.Provider value={{ toasts, toastCount: toasts.length, addToast, addSuccess, addError, addWarning, addInfo, removeToast, clearAll, hasToasts: toasts.length > 0, latestToast: toasts.length > 0 ? toasts[toasts.length - 1] : null }}>
+        <ToastContext.Provider value={{ toasts, addToast, removeToast }}>
             {children}
         </ToastContext.Provider>
     );

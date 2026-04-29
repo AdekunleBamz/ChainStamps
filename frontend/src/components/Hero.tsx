@@ -3,6 +3,8 @@ import { motion, useScroll, useTransform } from 'framer-motion';
 import { useRef, memo, type ComponentType } from 'react';
 import { AnimatedNumber } from './ui/AnimatedNumber';
 
+const EASE_STANDARD = [0.22, 1, 0.36, 1] as const;
+
 const CONTAINER_VARIANTS = {
   hidden: { opacity: 0 },
   visible: {
@@ -10,7 +12,7 @@ const CONTAINER_VARIANTS = {
     transition: {
       staggerChildren: 0.15,
       delayChildren: 0.3,
-      ease: [0.22, 1, 0.36, 1],
+      ease: EASE_STANDARD,
     },
   },
 };
@@ -23,7 +25,7 @@ const ITEM_VARIANTS = {
     scale: 1,
     transition: {
       duration: 0.8,
-      ease: [0.22, 1, 0.36, 1],
+      ease: EASE_STANDARD,
     }
   },
 };
@@ -124,7 +126,6 @@ export const Hero = () => {
 
       <motion.div className="hero-cta flex-center gap-4" variants={ITEM_VARIANTS}>
         <button
-          type="button"
           onClick={() => (document.querySelector('.connect-btn') as HTMLButtonElement)?.click()}
           className="cta-primary h-14 px-8 rounded-2xl bg-primary text-white font-bold flex items-center gap-2 hover:scale-105 active:scale-95 transition-all shadow-xl shadow-primary/20"
         >

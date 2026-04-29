@@ -246,7 +246,6 @@ section[id] {
   color: white;
   font-weight: 600;
   cursor: pointer;
-  touch-action: manipulation;
   transition: transform 0.2s, box-shadow 0.2s;
 }
 
@@ -329,14 +328,12 @@ section[id] {
   max-width: 800px;
   margin-left: auto;
   margin-right: auto;
-  overflow-wrap: anywhere;
 }
 
 .hero-description {
   max-width: 600px;
   margin: 0 auto 3rem;
   color: var(--text-secondary);
-  line-height: 1.7;
 }
 
 .features {

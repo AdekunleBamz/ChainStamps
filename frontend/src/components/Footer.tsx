@@ -1,7 +1,6 @@
-import { Github, Twitter, Globe, Zap, Clock, ShieldCheck } from 'lucide-react';
+import { ExternalLink, Globe, Zap, Clock, ShieldCheck } from 'lucide-react';
 import { motion } from 'framer-motion';
 import { memo } from 'react';
-import { CONTRACT_ADDRESS, NETWORK } from '../config/contracts';
 
 /** Animation variants for social link hover effects. */
 const SOCIAL_LINK_ANIMATION = {
@@ -90,7 +89,7 @@ export const Footer = memo(() => {
             aria-label="View ChainStamps source code on GitHub"
             className="focus-visible:ring-2 focus-visible:ring-primary focus-visible:ring-offset-2 rounded-lg"
           >
-            <Github size={20} strokeWidth={1.5} role="img" aria-hidden="true" />
+            <ExternalLink size={20} strokeWidth={1.5} role="img" aria-hidden="true" />
           </motion.a>
           <motion.a
             whileHover={SOCIAL_LINK_ANIMATION.hover}
@@ -101,12 +100,12 @@ export const Footer = memo(() => {
             aria-label="Follow ChainStamps on X (formerly Twitter)"
             className="focus-visible:ring-2 focus-visible:ring-primary focus-visible:ring-offset-2 rounded-lg"
           >
-            <Twitter size={20} strokeWidth={1.5} role="img" aria-hidden="true" />
+            <ExternalLink size={20} strokeWidth={1.5} role="img" aria-hidden="true" />
           </motion.a>
           <motion.a
-            whileHover={{ scale: 1.1, y: -2 }}
-            whileTap={{ scale: 0.9 }}
-            href={`https://explorer.stacks.co/address/${CONTRACT_ADDRESS}?chain=${NETWORK}`}
+            whileHover={SOCIAL_LINK_ANIMATION.hover}
+            whileTap={SOCIAL_LINK_ANIMATION.tap}
+            href={FOOTER_LINKS.explorer}
             target="_blank"
             rel="noopener noreferrer"
             aria-label="View ChainStamps contract on Hiro Explorer"

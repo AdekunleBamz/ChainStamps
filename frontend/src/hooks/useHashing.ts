@@ -25,29 +25,16 @@ export const useHashing = (): {
   hash: string | null;
   isHashing: boolean;
   error: string | null;
-  fileSize: number | null;
-  fileName: string | null;
-  hashCount: number;
-  hasHash: boolean;
-  hasError: boolean;
   computeHash: (file: File) => Promise<string>;
   resetHash: () => void;
 } => {
   const [hash, setHash] = useState<string | null>(null);
   const [isHashing, setIsHashing] = useState(false);
   const [error, setError] = useState<string | null>(null);
-  const [fileSize, setFileSize] = useState<number | null>(null);
-  const [fileName, setFileName] = useState<string | null>(null);
-  const [hashCount, setHashCount] = useState(0);
 
   const computeHash = useCallback(async (file: File) => {
-    if (!(file instanceof File) || file.size === 0) {
-      throw new Error('A valid non-empty file is required');
-    }
     setIsHashing(true);
     setError(null);
-    setFileSize(file.size);
-    setFileName(file.name);
     try {
       if (!globalThis.crypto?.subtle) {
         throw new Error('Web Crypto API is not available in this environment');
@@ -57,7 +44,6 @@ export const useHashing = (): {
       const hashArray = Array.from(new Uint8Array(hashBuffer));
       const hashHex = hashArray.map(b => b.toString(16).padStart(2, '0')).join('');
       setHash(hashHex);
-      setHashCount(c => c + 1);
       return hashHex;
     } catch (err: unknown) {
       const msg = getErrorMessage(err);
@@ -76,19 +62,12 @@ export const useHashing = (): {
     setHash(null);
     setError(null);
     setIsHashing(false);
-    setFileSize(null);
-    setFileName(null);
   }, []);
 
   return {
     hash,
     isHashing,
     error,
-    fileSize,
-    fileName,
-    hashCount,
-    hasHash: hash !== null,
-    hasError: error !== null,
     computeHash,
     resetHash
   };

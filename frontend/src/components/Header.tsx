@@ -67,7 +67,7 @@ export const Header = () => {
         const response = await fetch(STACKS_INFO_API);
         if (!response.ok) throw new Error('Network response was not ok');
         const data = await response.json();
-        if (data.stacks_tip_height && typeof data.stacks_tip_height === 'number') {
+        if (data.stacks_tip_height) {
           setBlockHeight(data.stacks_tip_height);
         }
       } catch (error) {

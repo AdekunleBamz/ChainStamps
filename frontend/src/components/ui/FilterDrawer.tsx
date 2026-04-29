@@ -3,26 +3,20 @@ import { X, Filter } from 'lucide-react';
 import { type ReactNode } from 'react';
 import { twMerge } from 'tailwind-merge';
 
-/** Spring damping coefficient for the filter drawer slide animation. */
-const DRAWER_SPRING_DAMPING = 25;
-/** Spring stiffness coefficient for the filter drawer slide animation. */
-const DRAWER_SPRING_STIFFNESS = 200;
-
 interface FilterDrawerProps {
   isOpen: boolean;
-  onOpen: () => void;
   onClose: () => void;
   children: ReactNode;
   activeFiltersCount: number;
 }
 
-export const FilterDrawer = ({ isOpen, onOpen, onClose, children, activeFiltersCount }: FilterDrawerProps) => {
+export const FilterDrawer = ({ isOpen, onClose, children, activeFiltersCount }: FilterDrawerProps) => {
   return (
     <>
       {/* Mobile Toggle Button */}
       <button
         type="button"
-        onClick={onOpen}
+        onClick={onClose}
         className={twMerge(
           "md:hidden fixed bottom-24 right-6 z-[100] h-14 w-14 rounded-full bg-primary text-white shadow-2xl flex-center transition-all",
           isOpen ? "scale-0 opacity-0" : "scale-100 opacity-100"
@@ -55,7 +49,7 @@ export const FilterDrawer = ({ isOpen, onOpen, onClose, children, activeFiltersC
               initial={{ y: "100%" }}
               animate={{ y: 0 }}
               exit={{ y: "100%" }}
-              transition={{ type: "spring", damping: DRAWER_SPRING_DAMPING, stiffness: DRAWER_SPRING_STIFFNESS }}
+              transition={{ type: "spring", damping: 25, stiffness: 200 }}
               className="fixed bottom-0 left-0 right-0 bg-background border-t border-white/10 rounded-t-[32px] p-8 z-[1001] md:hidden max-h-[80vh] overflow-y-auto"
             >
               <div className="flex-between mb-6">
@@ -68,11 +62,9 @@ export const FilterDrawer = ({ isOpen, onOpen, onClose, children, activeFiltersC
                   )}
                 </div>
                 <button
-                  type="button"
                   onClick={onClose}
                   className="p-2 hover:bg-white/5 rounded-full transition-colors"
                   aria-label="Close filters"
-                  title="Close filters"
                 >
                   <X size={20} />
                 </button>

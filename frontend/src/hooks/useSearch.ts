@@ -19,15 +19,11 @@ export interface SearchableItem {
 export const useSearch = <T extends SearchableItem>(items: T[]) => {
   const [searchQuery, setSearchQuery] = useState(() => {
     if (typeof window === 'undefined') return '';
-    return (new URLSearchParams(window.location.search).get('q') || '').trim();
+    return new URLSearchParams(window.location.search).get('q') || '';
   });
   const [selectedCategories, setSelectedCategories] = useState<string[]>(() => {
     if (typeof window === 'undefined') return [];
-    return new URLSearchParams(window.location.search)
-      .get('c')
-      ?.split(',')
-      .map((category) => category.trim())
-      .filter(Boolean) || [];
+    return new URLSearchParams(window.location.search).get('c')?.split(',').filter(Boolean) || [];
   });
   const deferredQuery = useDeferredValue(searchQuery);
 
@@ -37,8 +33,7 @@ export const useSearch = <T extends SearchableItem>(items: T[]) => {
 
     const timeoutId = setTimeout(() => {
       const params = new URLSearchParams();
-      const normalizedQuery = searchQuery.trim();
-      if (normalizedQuery) params.set('q', normalizedQuery);
+      if (searchQuery) params.set('q', searchQuery);
       if (selectedCategories.length > 0) params.set('c', selectedCategories.join(','));
       
       const newSearch = params.toString();
@@ -76,18 +71,11 @@ export const useSearch = <T extends SearchableItem>(items: T[]) => {
   }, [items, deferredQuery, selectedCategories]);
 
   const toggleCategory = useCallback((category: string) => {
-    const trimmedCategory = typeof category === 'string' ? category.trim() : '';
-    if (!trimmedCategory) return;
-    setSelectedCategories(prev =>
-      prev.includes(trimmedCategory)
-        ? prev.filter(c => c !== trimmedCategory)
-        : [...prev, trimmedCategory]
+    setSelectedCategories(prev => 
+      prev.includes(category) 
+        ? prev.filter(c => c !== category) 
+        : [...prev, category]
     );
-  }, []);
-
-  const clearSearch = useCallback(() => {
-    setSearchQuery('');
-    setSelectedCategories([]);
   }, []);
 
   return {
@@ -97,10 +85,6 @@ export const useSearch = <T extends SearchableItem>(items: T[]) => {
     setSelectedCategories,
     toggleCategory,
     filteredItems,
-    resultCount: filteredItems.length,
-    hasResults: filteredItems.length > 0,
-    hasQuery: searchQuery.trim().length > 0,
-    clearSearch,
     isStale: searchQuery !== deferredQuery
   };
 };

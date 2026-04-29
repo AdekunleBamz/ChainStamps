@@ -1,10 +1,5 @@
-import { useEffect, useState, memo } from 'react';
+import { useEffect, useRef, useState } from 'react';
 import { animate } from 'framer-motion';
-
-/** Animation duration in seconds for number transitions. */
-const ANIMATED_NUMBER_DURATION = 1.5;
-/** Cubic bezier easing for smooth deceleration of animated numbers. */
-const ANIMATED_NUMBER_EASE: [number, number, number, number] = [0.22, 1, 0.36, 1];
 
 /**
  * Properties for the AnimatedNumber component.
@@ -20,28 +15,32 @@ interface AnimatedNumberProps {
     suffix?: string;
     /** The number of decimal places to display. Defaults to 0. */
     decimals?: number;
-    /** Optional callback fired when the animation completes. */
-    onComplete?: () => void;
 }
 
-export const AnimatedNumber = memo(function AnimatedNumber({ value, className, prefix = '', suffix = '', decimals = 0 }: AnimatedNumberProps) {
+/**
+ * AnimatedNumber component for smooth numerical transitions.
+ * Uses framer-motion to animate value changes.
+ * 
+ * @param {AnimatedNumberProps} props - Component properties.
+ */
+export function AnimatedNumber({ value, className, prefix = '', suffix = '', decimals = 0 }: AnimatedNumberProps) {
     const [displayValue, setDisplayValue] = useState(value);
+    const latestValueRef = useRef(value);
 
     useEffect(() => {
-        if (latestValueRef.current === safeValue) return;
+        if (latestValueRef.current === value) return;
 
-        const controls = animate(latestValueRef.current, safeValue, {
-            duration: ANIMATED_NUMBER_DURATION,
-            ease: ANIMATED_NUMBER_EASE,
+        const controls = animate(latestValueRef.current, value, {
+            duration: 1.5,
+            ease: [0.22, 1, 0.36, 1],
             onUpdate: (latest: number) => {
                 latestValueRef.current = latest;
                 setDisplayValue(latest);
-            },
-            onComplete,
+            }
         });
 
         return () => controls.stop();
-    }, [safeValue, onComplete]);
+    }, [value]);
 
     return (
         <span 
@@ -51,10 +50,10 @@ export const AnimatedNumber = memo(function AnimatedNumber({ value, className, p
         >
             {prefix}
             {displayValue.toLocaleString(undefined, {
-                minimumFractionDigits: safeDecimals,
-                maximumFractionDigits: safeDecimals,
+                minimumFractionDigits: decimals,
+                maximumFractionDigits: decimals,
             })}
             {suffix}
         </span>
     );
-});
+}

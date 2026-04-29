@@ -14,11 +14,7 @@ interface EmptyStateProps {
 
 export const EmptyState = ({ title, description, action, icon: Icon = Search }: EmptyStateProps) => {
   return (
-    <div
-      className="flex flex-col items-center justify-center py-16 px-6 text-center bg-white/[0.02] border border-white/5 rounded-3xl backdrop-blur-sm"
-      role="status"
-      aria-label={title}
-    >
+    <div className="flex flex-col items-center justify-center py-16 px-6 text-center bg-white/[0.02] border border-white/5 rounded-3xl backdrop-blur-sm">
       <motion.div
         initial={{ opacity: 0, scale: 0.9 }}
         animate={{ opacity: 1, scale: 1 }}

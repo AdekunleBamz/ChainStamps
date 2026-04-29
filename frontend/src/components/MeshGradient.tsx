@@ -1,6 +1,8 @@
 import { motion } from 'framer-motion';
 import { memo } from 'react';
 
+const EASE_STANDARD = [0.22, 1, 0.36, 1] as const;
+
 const ANIMATIONS = {
   blob1: {
     animate: {
@@ -11,7 +13,7 @@ const ANIMATIONS = {
     transition: {
       duration: 25,
       repeat: Infinity,
-      ease: "easeInOut"
+      ease: EASE_STANDARD
     }
   },
   blob2: {
@@ -23,7 +25,7 @@ const ANIMATIONS = {
     transition: {
       duration: 35,
       repeat: Infinity,
-      ease: "easeInOut"
+      ease: EASE_STANDARD
     }
   }
 };

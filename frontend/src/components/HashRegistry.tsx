@@ -1,5 +1,5 @@
-import { useState, useEffect, useCallback, useMemo } from 'react';
-import { motion, useAnimation } from 'framer-motion';
+import { useState, useEffect, memo } from 'react';
+import { motion, useAnimation, AnimatePresence } from 'framer-motion';
 import { useWallet } from '../context/WalletContext';
 import { BASE_NETWORK_FEE_STX, CONTRACT_ADDRESS, CONTRACTS } from '../config/contracts';
 import { twMerge } from 'tailwind-merge';
@@ -18,8 +18,9 @@ import { HighlightText } from './ui/HighlightText';
 import { TransactionStepper } from './ui/TransactionStepper';
 import { useContractCall } from '../hooks/useContractCall';
 import { useToast } from '../context/ToastContext';
-import { triggerSuccessConfetti } from '../utils/confetti';
-import { RegistryLayout } from './RegistryLayout';
+import { ANIMATIONS, UI } from '../config/constants';
+import { bufferCV, cvToHex, stringUtf8CV } from '@stacks/transactions';
+import { useOnChainFees } from '../hooks/useOnChainFees';
 
 /** Pre-computed shake animation variant for form validation errors. */
 const SHAKE_ANIMATION = ANIMATIONS.SHAKE;
@@ -56,29 +57,17 @@ export const HashRegistry = memo(({ searchQuery = '' }: { searchQuery?: string }
     };
   }, []);
 
-  const shake = useCallback(async () => {
-    await controls.start({
-      x: [-10, 10, -10, 10, 0],
-      transition: { duration: 0.4 }
-    });
-  }, [controls]);
-  const handleFileChange = useCallback(async (e: React.ChangeEvent<HTMLInputElement>) => {
-    const selectedFile = e.target.files?.[0];
-    if (selectedFile) {
-      setFile(selectedFile);
-      setStatus('hashing');
+  const shake = () => {
+    controls.start(SHAKE_ANIMATION);
+    triggerHaptic('error');
+  };
 
-      const buffer = await selectedFile.arrayBuffer();
-      const hashBuffer = await crypto.subtle.digest('SHA-256', buffer);
-      const hashArray = Array.from(new Uint8Array(hashBuffer));
-      const hashHex = hashArray.map(b => b.toString(16).padStart(2, '0')).join('');
+  const [lastSubmitTime, setLastSubmitTime] = useState(0);
 
-      setHash(hashHex);
-      setStatus('idle');
-    }
-  }, []);
-
-  const storeHash = useCallback(async () => {
+  const storeHash = async () => {
+    const now = Date.now();
+    if (now - lastSubmitTime < RATE_LIMIT_INTERVAL) return;
+    
     if (!hash || !isConnected || !userAddress) {
       if (!hash) {
         addToast('Please enter a SHA-256 hash to register.', 'warning');
@@ -134,15 +123,15 @@ export const HashRegistry = memo(({ searchQuery = '' }: { searchQuery?: string }
       addToast('Failed to hash file.', 'error');
       triggerHaptic('error');
     }
-  }, [hash, isConnected, userAddress, description, addToast, shake]);
+  };
 
-  const handleKeyDown = useCallback((e: React.KeyboardEvent) => {
+  const handleKeyDown = (e: React.KeyboardEvent) => {
     if ((e.metaKey || e.ctrlKey) && e.key === 'Enter') {
       if (hash && isConnected && !isSubmitting) {
         storeHash();
       }
     }
-  }, [hash, isConnected, status, storeHash]);
+  };
 
   if (isLoading) return <CardSkeleton />;
 
@@ -154,33 +143,151 @@ export const HashRegistry = memo(({ searchQuery = '' }: { searchQuery?: string }
   const isHashValid = HASH_VALIDATION_PATTERN.test(hash);
 
   return (
-    <RegistryLayout
+    <motion.section
       id="hash"
-      title="Hash Registry"
-      description="Store SHA-256 document hashes on-chain for permanent verification"
-      icon={Hash}
-      controls={controls}
-      headerBadge={{ label: "SHA-256", tooltip: "Secure cryptographic identifier for your document" }}
-      fee={{ value: 0.03, unit: "STX", tooltip: "Stacks network transaction fee (paid in STX)" }}
+      className="card"
+      variants={cardVariants}
+      initial="initial"
+      animate={controls}
     >
-      <div className="form-group">
-        <label className="file-input-label">
-          <FileText size={20} strokeWidth={1.5} />
-          {file ? file.name : 'Choose a file to hash'}
-          <input
-            type="file"
-            onChange={handleFileChange}
-            className="file-input"
-            onKeyDown={handleKeyDown}
-          />
-        </label>
+      <Breadcrumbs items={[{ label: 'Hash Registry' }]} />
+      <div className="card-header flex-between mb-4">
+        <div className="flex items-center gap-2">
+          <div className="p-2 bg-primary/10 rounded-lg">
+            <Hash className="card-icon text-primary" size={24} strokeWidth={1.5} />
+          </div>
+          <div className="flex flex-col">
+            <h2 className="text-xl font-bold m-0 p-0 leading-none">
+              <HighlightText text="Hash Registry" query={searchQuery} />
+            </h2>
+            <Tooltip content="Register SHA-256 hashes to create a permanent, verifiable proof of existence for any digital file.">
+              <span className="text-[10px] uppercase tracking-wider text-muted-foreground font-bold mt-1">Immutable Verification</span>
+            </Tooltip>
+          </div>
+        </div>
+        <div className="flex items-center gap-3">
+          <Tooltip content="View contract on Hiro Explorer">
+            <a
+              href={`https://explorer.hiro.so/address/${CONTRACT_ADDRESS}.${CONTRACTS.hashRegistry.name}?chain=mainnet`}
+              target="_blank"
+              rel="noopener noreferrer"
+              className="h-8 w-8 flex-center rounded-full opacity-40 hover:opacity-100 hover:bg-primary/10 transition-all text-muted-foreground hover:text-primary"
+              aria-label="View contract on Hiro Explorer"
+            >
+              <ExternalLink size={16} strokeWidth={1.5} />
+            </a>
+          </Tooltip>
+          <Tooltip content="Copy link to this section">
+            <Button
+              variant="ghost"
+              size="icon"
+              className="h-8 w-8 rounded-full opacity-40 hover:opacity-100 hover:bg-primary/10 transition-all"
+              onClick={() => {
+                const url = new URL(window.location.href);
+                url.hash = 'hash';
+                navigator.clipboard.writeText(url.toString());
+                addToast('Section link copied!', 'success');
+                triggerHaptic('success');
+              }}
+              aria-label="Copy link to Hash Registry section"
+            >
+              <Share2 size={16} strokeWidth={1.5} />
+            </Button>
+          </Tooltip>
+          <Tooltip 
+            content={
+              <div className="flex flex-col gap-1 p-1">
+                <div className="flex-between gap-4">
+                  <span>Base Network Fee:</span>
+                  <span className="font-mono">{BASE_NETWORK_FEE_STX.toFixed(4)} STX</span>
+                </div>
+                <div className="flex-between gap-4">
+                  <span>Registration Fee:</span>
+                  <span className="font-mono">{hashFee.toFixed(4)} STX</span>
+                </div>
+                <div className="border-t border-white/10 mt-1 pt-1 flex-between gap-4 font-bold text-primary">
+                  <span>Total Due:</span>
+                  <span className="font-mono">{(hashFee + BASE_NETWORK_FEE_STX).toFixed(4)} STX</span>
+                </div>
+              </div>
+            }
+            aria-label="Fee breakdown for hash registration"
+          >
+            <span className="fee-badge bg-primary/10 text-primary border border-primary/20 px-3 py-1 rounded-full text-xs font-bold">
+              <AnimatedNumber value={hashFee + BASE_NETWORK_FEE_STX} decimals={4} suffix=" STX" />
+            </span>
+          </Tooltip>
+        </div>
       </div>
 
-      {hash && (
-        <div className="hash-display flex items-center justify-between">
-          <div className="flex-1 overflow-hidden">
-            <label>SHA-256 Hash:</label>
-            <code className="block truncate">{hash}</code>
+      <p className="card-description">
+        <HighlightText text="Store and verify SHA-256 hashes for files and data on the blockchain" query={searchQuery} />
+      </p>
+
+      <div className={twMerge("relative", isSubmitting && "pointer-events-none")}>
+        <div className="form-group mb-6">
+          <div className="flex flex-between items-center mb-2">
+            <div className="flex items-center gap-1.5 text-[10px] text-muted-foreground uppercase font-bold">
+              <label>SHA-256 Hash</label>
+              <Tooltip content="A 64-character hexadecimal string representing a SHA-256 hash.">
+                <div className="cursor-help opacity-40 hover:opacity-100 transition-opacity" role="note" aria-label="Hash format help">
+                  <HelpCircle size={10} aria-hidden="true" />
+                </div>
+              </Tooltip>
+            </div>
+            <AnimatePresence>
+              {hash.length > 0 && (
+                <motion.div
+                  initial={{ opacity: 0, x: 5 }}
+                  animate={{ opacity: 1, x: 0 }}
+                  exit={{ opacity: 0, x: 5 }}
+                  className="flex items-center gap-1"
+                >
+                  {isHashValid ? (
+                    <span className="text-[10px] text-success font-bold flex items-center gap-1">
+                      <CheckCircle2 size={10} /> Valid Hash
+                    </span>
+                  ) : (
+                    <span className="text-[10px] text-destructive font-bold flex items-center gap-1">
+                      <AlertCircle size={10} /> Invalid Length ({hash.length}/64)
+                    </span>
+                  )}
+                </motion.div>
+              )}
+            </AnimatePresence>
+          </div>
+          <div className="flex gap-2">
+            <div className="relative flex-1">
+              <input
+                type="text"
+                placeholder="Enter 64-char hex hash..."
+                value={hash}
+                onChange={(e) => setHash(e.target.value)}
+                onKeyDown={handleKeyDown}
+                maxLength={64}
+                className={twMerge(
+                  "input font-mono transition-all duration-200", 
+                  isSubmitting && "opacity-50",
+                  hash.length > 0 && isHashValid && "border-success/30 bg-success/5",
+                  hash.length > 0 && !isHashValid && "border-destructive/30 bg-destructive/5"
+                )}
+                aria-label="SHA-256 hash to register"
+                aria-required="true"
+              />
+            </div>
+            <label className="cursor-pointer">
+              <input
+                type="file"
+                className="hidden"
+                onChange={handleFileUpload}
+                accept="*"
+                aria-label="Upload file to hash"
+              />
+              <div className="h-full px-4 flex-center bg-white/5 border border-white/10 rounded-xl hover:bg-white/10 transition-all text-xs font-bold text-muted-foreground whitespace-nowrap gap-2">
+                <FileText size={14} />
+                Hash File
+              </div>
+            </label>
           </div>
         </div>
 
@@ -213,15 +320,10 @@ export const HashRegistry = memo(({ searchQuery = '' }: { searchQuery?: string }
         className="mt-6 pt-6 border-t border-white/5"
       />
 
-      {
-        !isConnected && (
-          <div className="warning-message">
-            <AlertCircle size={18} />
-            Connect your wallet to store hashes
-          </div>
-        )
-      }
-    </RegistryLayout>
+      <SuccessMessage message="Hash registered!" txId={txId} />
+
+      {!isConnected && <WarningMessage />}
+    </motion.section>
   );
 });
 

@@ -90,7 +90,6 @@ export const fetchOnChainFees = async (forceRefresh = false): Promise<OnChainFee
     };
 
     cachedFees = nextFees;
-    lastFeesFetchedAt = Date.now();
     inFlightFeeRequest = null;
     return nextFees;
   })().catch(error => {
@@ -104,20 +103,4 @@ export const fetchOnChainFees = async (forceRefresh = false): Promise<OnChainFee
 export const clearFeeCache = (): void => {
   cachedFees = null;
   inFlightFeeRequest = null;
-  lastFeesFetchedAt = null;
 };
-
-/**
- * Returns true when there is a valid in-memory fee cache available.
- */
-export const isFeesCached = (): boolean => cachedFees !== null;
-
-/** Timestamp (ms) of the most recent successful fee fetch, or null if never fetched. */
-let lastFeesFetchedAt: number | null = null;
-
-/**
- * Returns the age of the current fees cache in milliseconds,
- * or null if fees have never been successfully fetched.
- */
-export const getFeesAge = (): number | null =>
-  lastFeesFetchedAt !== null ? Date.now() - lastFeesFetchedAt : null;

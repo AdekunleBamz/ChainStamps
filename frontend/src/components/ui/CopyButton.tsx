@@ -1,4 +1,4 @@
-import { useRef, useState } from 'react';
+import { useState } from 'react';
 import { motion, AnimatePresence, useAnimation } from 'framer-motion';
 import { Copy, Check } from 'lucide-react';
 import { twMerge } from 'tailwind-merge';
@@ -28,21 +28,10 @@ interface CopyButtonProps {
  */
 export const CopyButton = ({ value, className, size = 14 }: CopyButtonProps) => {
     const [copied, setCopied] = useState(false);
-    const resetTimerRef = useRef<ReturnType<typeof setTimeout> | null>(null);
     const { addToast } = useToast();
     const controls = useAnimation();
 
-    useEffect(() => {
-        return () => {
-            if (resetTimerRef.current) {
-                clearTimeout(resetTimerRef.current);
-            }
-        };
-    }, []);
-
     const handleCopy = async () => {
-        if (!value || typeof value !== 'string') return;
-        if (typeof navigator === 'undefined' || !navigator.clipboard?.writeText) return;
         try {
             await navigator.clipboard.writeText(value);
             setCopied(true);
@@ -52,10 +41,8 @@ export const CopyButton = ({ value, className, size = 14 }: CopyButtonProps) => 
                 transition: { duration: 0.2 }
             });
             addToast('Copied to clipboard', 'success');
-            if (resetTimerRef.current) {
-                clearTimeout(resetTimerRef.current);
-            }
-            resetTimerRef.current = setTimeout(() => setCopied(false), COPY_FEEDBACK_DURATION);
+            const timeoutId = setTimeout(() => setCopied(false), COPY_FEEDBACK_DURATION);
+            return () => clearTimeout(timeoutId);
         } catch (err) {
             console.error('Failed to copy text: ', err);
             triggerHaptic('error');
@@ -66,13 +53,11 @@ export const CopyButton = ({ value, className, size = 14 }: CopyButtonProps) => 
     return (
         <motion.button
             animate={controls}
-            type="button"
             onClick={handleCopy}
             className={twMerge(
                 "relative flex items-center justify-center rounded-md p-1.5 transition-colors hover:bg-accent hover:text-accent-foreground",
                 className
             )}
-            aria-live={copied ? 'polite' : 'off'}
             title="Copy to clipboard"
         >
             <AnimatePresence mode="wait">
@@ -106,7 +91,6 @@ export const CopyButton = ({ value, className, size = 14 }: CopyButtonProps) => 
                         initial={{ opacity: 0, y: 10, x: '-50%' }}
                         animate={{ opacity: 1, y: 0, x: '-50%' }}
                         exit={{ opacity: 0, y: 10, x: '-50%' }}
-                        aria-atomic="true"
                         className="absolute bottom-full left-1/2 mb-2 -translate-x-1/2 rounded bg-primary px-2 py-0.5 text-[10px] font-bold text-primary-foreground shadow-lg"
                     >
                         COPIED!
