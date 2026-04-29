@@ -116,7 +116,7 @@ export const Footer = memo(() => {
           </motion.a>
         </div>
 
-        <p className="footer-copyright" aria-label={`Copyright ${new Date().getFullYear()} ChainStamps - Built on Stacks`}>
+        <p className="footer-copyright" aria-label={`Copyright ${new Date().getFullYear()} ChainStamps - Built on Stacks`} title="Built on the Stacks network">
           © {new Date().getFullYear()} ChainStamps. Built on Stacks.
         </p>
       </div>
