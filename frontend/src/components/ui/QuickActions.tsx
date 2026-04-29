@@ -137,6 +137,7 @@ export const QuickActions = () => {
             : "bg-primary text-white hover:scale-105 active:scale-95"
         )}
         aria-label={isOpen ? "Close actions menu" : "Open quick actions"}
+        title={isOpen ? "Close actions menu" : "Open quick actions"}
         aria-expanded={isOpen}
       >
         <AnimatePresence mode="wait">
