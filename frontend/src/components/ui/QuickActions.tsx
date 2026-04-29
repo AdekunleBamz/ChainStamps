@@ -90,6 +90,7 @@ export const QuickActions = () => {
                     onClick={() => handleAction(action.id)}
                     className="h-12 w-12 rounded-2xl bg-primary text-white shadow-2xl flex-center hover:scale-110 active:scale-95 transition-all relative overflow-hidden group/btn"
                     aria-label={`Go to ${action.label}`}
+                    title={`Go to ${action.label}`}
                   >
                     <div className="absolute inset-0 bg-gradient-to-tr from-white/20 to-transparent opacity-0 group-hover/btn:opacity-100 transition-opacity" />
                     <action.icon size={20} />
