@@ -256,6 +256,7 @@ export const Header = () => {
                   className="transition-base" 
                   onClick={() => setIsMenuOpen(false)} 
                   aria-label="Navigate to Tag Registry section"
+                  title="Go to Tag Registry"
                   aria-current={activeHash === '#tag' ? 'page' : undefined}
                 >Tag</a>
               </li>
