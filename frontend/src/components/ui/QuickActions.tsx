@@ -115,6 +115,7 @@ export const QuickActions = () => {
                   }}
                   className="h-12 w-12 rounded-2xl bg-white/5 backdrop-blur-xl border border-white/10 text-white/50 hover:text-white flex-center hover:bg-white/10 transition-all"
                   aria-label="Scroll to top"
+                  title="Scroll to top"
                 >
                   <ArrowUp size={20} />
                 </button>
