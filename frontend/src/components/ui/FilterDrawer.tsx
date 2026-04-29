@@ -72,6 +72,7 @@ export const FilterDrawer = ({ isOpen, onOpen, onClose, children, activeFiltersC
                   onClick={onClose}
                   className="p-2 hover:bg-white/5 rounded-full transition-colors"
                   aria-label="Close filters"
+                  title="Close filters"
                 >
                   <X size={20} />
                 </button>
