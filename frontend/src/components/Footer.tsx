@@ -26,7 +26,7 @@ export const Footer = memo(() => {
   return (
     <footer className="footer" aria-label="Site Footer" role="contentinfo">
       <div className="footer-content">
-        <div className="footer-brand flex items-center justify-center gap-2 mb-4" aria-label="ChainStamps Branding">
+        <div className="footer-brand flex items-center justify-center gap-2 mb-4" aria-label="ChainStamps Branding" title="ChainStamps brand area">
           <div className="w-8 h-8 bg-primary rounded-lg flex items-center justify-center">
             <svg
               viewBox="0 0 24 24"
