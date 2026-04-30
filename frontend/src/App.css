@@ -142,6 +142,7 @@
 *:focus-visible {
   outline: 2px solid var(--accent);
   outline-offset: 4px;
+  transition: outline-offset 0.15s ease;
 }
 
 body {
