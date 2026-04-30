@@ -257,6 +257,7 @@ export const Header = () => {
                   onClick={() => setIsMenuOpen(false)} 
                   aria-label="Navigate to Tag Registry section"
                   aria-current={activeHash === '#tag' ? 'page' : undefined}
+                  title="Jump to tag registry"
                 >Tag</a>
               </li>
             </ul>
