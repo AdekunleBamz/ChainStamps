@@ -98,6 +98,7 @@ export const Footer = memo(() => {
             target="_blank"
             rel="noopener noreferrer"
             aria-label="Follow ChainStamps on X (formerly Twitter)"
+            title="Open ChainStamps profile on X"
             className="focus-visible:ring-2 focus-visible:ring-primary focus-visible:ring-offset-2 rounded-lg"
           >
             <ExternalLink size={20} strokeWidth={1.5} role="img" aria-hidden="true" />
