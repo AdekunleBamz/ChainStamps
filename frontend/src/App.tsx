@@ -163,7 +163,7 @@ const App = () => {
                 whileInView={{ opacity: 1, y: 0 }}
                 viewport={{ once: true, margin: "-100px" }}
                 className="filter-container"
-                aria-label="Registry filtering and search tools"
+                aria-label="Registry filtering and search tools" title="Search and filter registries"
               >
                 <div className={twMerge(
                   "search-wrapper",
