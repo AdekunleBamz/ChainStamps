@@ -132,7 +132,7 @@ export const Hero = () => {
           Get Started
           <Shield size={20} />
         </button>
-        <a href="#hash" className="cta-secondary h-14 px-8 rounded-2xl border border-border bg-white/5 backdrop-blur-md text-primary font-bold flex items-center gap-2 hover:bg-white/10 transition-all">
+        <a href="#hash" className="cta-secondary h-14 px-8 rounded-2xl border border-border bg-white/5 backdrop-blur-md text-primary font-bold flex items-center gap-2 hover:bg-white/10 transition-all" title="Jump to registries">
           Learn More
         </a>
       </motion.div>
