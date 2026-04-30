@@ -55,7 +55,7 @@ export const Footer = memo(() => {
             <span>Live System Metrics</span>
           </div>
           <div className="metrics-grid">
-            <div className="metric-item" aria-label="Average Block Time: approximately 10 minutes">
+            <div className="metric-item" aria-label="Average Block Time: approximately 10 minutes" title="Average Bitcoin block time">
               <Clock size={16} className="text-muted-foreground" />
               <div className="metric-info">
                 <span className="metric-label">Avg. Block Time</span>
