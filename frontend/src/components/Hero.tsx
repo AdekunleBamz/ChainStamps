@@ -66,7 +66,7 @@ const HeroFeatures = memo(() => (
 
 const HeroStats = memo(() => (
   <motion.div className="hero-stats grid grid-cols-3 gap-8 mt-16 max-w-4xl mx-auto border-t border-border/50 pt-16" variants={CONTAINER_VARIANTS}>
-    <div className="stat flex flex-col gap-1 min-h-[64px]">
+    <div className="stat flex flex-col gap-1 min-h-[64px]" title="Total stamps created">
       <span className="text-3xl font-bold gradient-text"><AnimatedNumber value={25430} />+</span>
       <span className="text-[10px] uppercase tracking-widest text-muted-foreground font-bold">Stamps Created</span>
     </div>
