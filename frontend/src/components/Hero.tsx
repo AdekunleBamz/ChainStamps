@@ -74,7 +74,7 @@ const HeroStats = memo(() => (
       <span className="text-3xl font-bold gradient-text"><AnimatedNumber value={1200} />+</span>
       <span className="text-[10px] uppercase tracking-widest text-muted-foreground font-bold">Unique Users</span>
     </div>
-    <div className="stat flex flex-col gap-1 min-h-[64px]">
+    <div className="stat flex flex-col gap-1 min-h-[64px]" title="Verifiability ratio">
       <span className="text-3xl font-bold gradient-text"><AnimatedNumber value={100} />%</span>
       <span className="text-[10px] uppercase tracking-widest text-muted-foreground font-bold">Verifiable</span>
     </div>
