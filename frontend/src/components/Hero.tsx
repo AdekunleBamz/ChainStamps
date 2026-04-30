@@ -144,6 +144,7 @@ export const Hero = () => {
         className="hero-scroll-indicator absolute bottom-8 left-1/2 -translate-x-1/2 flex flex-col items-center gap-2 cursor-pointer opacity-50 hover:opacity-100 transition-opacity"
         role="button"
         aria-label="Scroll to registry section"
+        title="Scroll to registries"
         tabIndex={0}
         initial={{ opacity: 0, y: -20 }}
         animate={{ opacity: 0.5, y: 0 }}
