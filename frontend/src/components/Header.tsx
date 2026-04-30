@@ -170,7 +170,7 @@ export const Header = () => {
         isScrolled && "scrolled"
       )}>
         <div className="header-content flex-between">
-          <a className="logo flex items-center gap-3 transition-transform hover:scale-[1.02]" href="#top" aria-label="ChainStamps - Back to top" rel="home">
+          <a className="logo flex items-center gap-3 transition-transform hover:scale-[1.02]" href="#top" aria-label="ChainStamps - Back to top" title="Back to top" rel="home">
             <div className="relative h-8 w-8 flex-center overflow-hidden rounded-xl bg-primary/10 border border-primary/20 shadow-inner">
               <svg viewBox="0 0 32 32" className="h-5 w-5 fill-primary" aria-hidden="true">
                 <path d="M16 4L6 9v14l10 5 10-5V9L16 4zm8 17.5l-8 4-8-4V10.5l8-4 8 4v11z"/>
