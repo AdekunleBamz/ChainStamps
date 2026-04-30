@@ -109,6 +109,7 @@ export const Footer = memo(() => {
             target="_blank"
             rel="noopener noreferrer"
             aria-label="View ChainStamps contract on Hiro Explorer"
+            title="Open contract in Hiro Explorer"
             className="focus-visible:ring-2 focus-visible:ring-primary focus-visible:ring-offset-2 rounded-lg"
           >
             <Globe size={20} strokeWidth={1.5} role="img" aria-hidden="true" />
