@@ -57,7 +57,7 @@ const HeroBackground = memo(({ y1, y2 }: { y1: any, y2: any }) => (
 ));
 
 const HeroFeatures = memo(() => (
-  <motion.div className="features" variants={CONTAINER_VARIANTS}>
+  <motion.div className="features" variants={CONTAINER_VARIANTS} role="list" aria-label="Core verification features">
     <FeatureItem icon={Shield} title="Immutable" description="Data secured by Bitcoin's proof-of-work" ariaLabel="Feature: Immutable" />
     <FeatureItem icon={Clock} title="Timestamped" description="Permanent proof of existence" ariaLabel="Feature: Timestamped" />
     <FeatureItem icon={Database} title="Verifiable" description="Anyone can verify your data" ariaLabel="Feature: Verifiable" />
