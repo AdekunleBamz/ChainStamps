@@ -45,7 +45,7 @@ export const Footer = memo(() => {
           <span className="text-xl font-bold tracking-tight">ChainStamps</span>
         </div>
 
-        <p className="footer-tagline">
+        <p className="footer-tagline" title="ChainStamps value proposition">
           Permanent on-chain verification on Bitcoin's most secure layer
         </p>
 
