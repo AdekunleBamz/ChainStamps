@@ -277,7 +277,7 @@ export const Header = () => {
               <div className="wallet-connected flex-center gap-2">
                 <div className="flex items-center gap-2 rounded-xl border border-border bg-background/50 pl-3 pr-1 py-1 shadow-inner">
                   <Tooltip content={userAddress || ''}>
-                    <span className="text-sm font-mono text-muted-foreground mr-1 cursor-help" aria-label={`Wallet address: ${userAddress || 'Not connected'}`}>
+                    <span className="text-sm font-mono text-muted-foreground mr-1 cursor-help" aria-label={`Wallet address: `} title={userAddress || ""}>
                       {userAddress?.slice(0, 6)}...{userAddress?.slice(-4)}
                     </span>
                   </Tooltip>
