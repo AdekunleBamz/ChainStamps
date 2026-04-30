@@ -70,7 +70,7 @@ const HeroStats = memo(() => (
       <span className="text-3xl font-bold gradient-text"><AnimatedNumber value={25430} />+</span>
       <span className="text-[10px] uppercase tracking-widest text-muted-foreground font-bold">Stamps Created</span>
     </div>
-    <div className="stat flex flex-col gap-1 border-x border-border/50 min-h-[64px]">
+    <div className="stat flex flex-col gap-1 border-x border-border/50 min-h-[64px]" title="Unique users count">
       <span className="text-3xl font-bold gradient-text"><AnimatedNumber value={1200} />+</span>
       <span className="text-[10px] uppercase tracking-widest text-muted-foreground font-bold">Unique Users</span>
     </div>
