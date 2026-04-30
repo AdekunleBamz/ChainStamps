@@ -188,6 +188,7 @@ const App = () => {
                     className="search-input"
                     aria-label="Search registry cards"
                     aria-controls="registry-results"
+                            title={`Filter by `}
                     aria-keyshortcuts="Esc, Cmd+K"
                   />
                   {searchQuery && (
