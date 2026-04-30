@@ -62,7 +62,7 @@ export const Footer = memo(() => {
                 <span className="metric-value">~10 min</span>
               </div>
             </div>
-            <div className="metric-item" aria-label="Network Status: Operational">
+            <div className="metric-item" aria-label="Network Status: Operational" title="Current network operating status">
               <ShieldCheck size={16} className="text-muted-foreground" />
               <div className="metric-info">
                 <span className="metric-label">Network Status</span>
