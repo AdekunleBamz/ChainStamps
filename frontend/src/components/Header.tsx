@@ -189,6 +189,7 @@ export const Header = () => {
                     aria-expanded={isMenuOpen}
                     aria-haspopup="true"
                     aria-controls="primary-navigation"
+                    title={isMenuOpen ? "Close navigation menu" : "Open navigation menu"}
                   >
                     {isMenuOpen ? <X size={24} /> : <Menu size={24} />}
                   </button>
