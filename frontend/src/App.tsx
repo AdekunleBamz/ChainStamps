@@ -145,7 +145,7 @@ const App = () => {
         <FaviconManager />
         <div id="top" className="app">
           <LogicErrorBoundary>
-            <a href="#main-content" className="skip-to-content focus:top-0 fixed -top-20 left-1/2 -translate-x-1/2 bg-primary text-white px-4 py-2 z-[1000] rounded-b-xl font-bold transition-all">
+            <a href="#main-content" className="skip-to-content focus:top-0 fixed -top-20 left-1/2 -translate-x-1/2 bg-primary text-white px-4 py-2 z-[1000] rounded-b-xl font-bold transition-all" title="Skip to main content">
               Skip to content
             </a>
             <PullToRefresh onRefresh={async () => {
