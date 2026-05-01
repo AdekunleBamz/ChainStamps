@@ -23,7 +23,11 @@ export const useSearch = <T extends SearchableItem>(items: T[]) => {
   });
   const [selectedCategories, setSelectedCategories] = useState<string[]>(() => {
     if (typeof window === 'undefined') return [];
-    return new URLSearchParams(window.location.search).get('c')?.split(',').filter(Boolean) || [];
+    return new URLSearchParams(window.location.search)
+      .get('c')
+      ?.split(',')
+      .map((category) => category.trim())
+      .filter(Boolean) || [];
   });
   const deferredQuery = useDeferredValue(searchQuery);
 
