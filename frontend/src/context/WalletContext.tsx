@@ -51,22 +51,26 @@ export const WalletProvider = ({ children }: { children: ReactNode }) => {
    */
   useEffect(() => {
     const checkExistingSession = async () => {
-      // Initialize provider FIRST to check for existing session
-      await initProvider();
-      
-      if (hasActiveSession()) {
-        const session = getSession();
-        if (session) {
-          // Try to get address from session
-          const accounts = session.namespaces?.stacks?.accounts || [];
-          if (accounts.length > 0) {
-            const parts = accounts[0].split(':');
-            const address = parts[2] || parts[0];
-            setUserAddress(address);
-            setIsConnected(true);
-            if (DEBUG) console.log('🔄 Restored session:', address);
+      try {
+        // Initialize provider FIRST to check for existing session
+        await initProvider();
+
+        if (hasActiveSession()) {
+          const session = getSession();
+          if (session) {
+            // Try to get address from session
+            const accounts = session.namespaces?.stacks?.accounts || [];
+            if (accounts.length > 0) {
+              const parts = accounts[0].split(':');
+              const address = parts[2] || parts[0];
+              setUserAddress(address);
+              setIsConnected(true);
+              if (DEBUG) console.log('🔄 Restored session:', address);
+            }
           }
         }
+      } catch (error) {
+        if (DEBUG) console.warn('WalletConnect session restore skipped:', error);
       }
     };
 
