@@ -1,6 +1,7 @@
 import { createContext, useContext, useState, useEffect } from 'react';
 import type { ReactNode } from 'react';
 import { wcConnect, wcDisconnect, hasActiveSession, getSession, STACKS_MAINNET, getProvider, initProvider } from '../utils/walletconnect';
+import { useToast } from './ToastContext';
 
 /**
  * The structure of the wallet context, providing state and methods for wallet interaction.
@@ -38,6 +39,7 @@ const DEBUG = import.meta.env.VITE_DEBUG === 'true';
  * @param {React.ReactNode} props.children - The child components to render within the provider.
  */
 export const WalletProvider = ({ children }: { children: ReactNode }) => {
+  const { addToast } = useToast();
   const [isConnected, setIsConnected] = useState(false);
   const [isConnecting, setIsConnecting] = useState(false);
   const [userAddress, setUserAddress] = useState<string | null>(null);
@@ -101,6 +103,14 @@ export const WalletProvider = ({ children }: { children: ReactNode }) => {
       console.error('❌ Connection failed:', error);
       setShowQRModal(false);
       setWcUri(null);
+      const message = error instanceof Error ? error.message : 'Failed to connect wallet';
+      if (message.includes('VITE_WALLETCONNECT_PROJECT_ID')) {
+        addToast('WalletConnect is not configured. Set VITE_WALLETCONNECT_PROJECT_ID in your environment.', 'error');
+      } else if (message.includes('User rejected') || message.includes('rejected')) {
+        addToast('Connection cancelled.', 'info');
+      } else {
+        addToast(`Connection failed: ${message}`, 'error');
+      }
     } finally {
       setIsConnecting(false);
     }
