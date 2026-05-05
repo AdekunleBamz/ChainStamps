@@ -36,6 +36,7 @@ const requiredNamespaces = {
 };
 
 let provider: UniversalProvider | null = null;
+let providerInitPromise: Promise<UniversalProvider> | null = null;
 let wcUri: string | null = null;
 
 /**
@@ -67,6 +68,8 @@ export interface StxAddress {
  */
 export const initProvider = async (): Promise<UniversalProvider> => {
   if (provider) return provider;
+  // Prevent double-init from React StrictMode double-invoking effects
+  if (providerInitPromise) return providerInitPromise;
 
   if (!PROJECT_ID || PROJECT_ID.toLowerCase() === 'your_project_id_here') {
     throw new Error('Set VITE_WALLETCONNECT_PROJECT_ID before connecting a wallet');
@@ -74,20 +77,24 @@ export const initProvider = async (): Promise<UniversalProvider> => {
 
   if (DEBUG) console.log('🔧 Initializing WalletConnect provider...');
 
-  provider = await UniversalProvider.init({
+  providerInitPromise = UniversalProvider.init({
     projectId: PROJECT_ID,
     metadata,
     relayUrl: RELAY_URL,
+  }).then((prov) => {
+    provider = prov;
+    providerInitPromise = null;
+    // Listen for session disconnect
+    provider.on('session_delete', () => {
+      if (DEBUG) console.log('🔌 Session deleted');
+      wcUri = null;
+      provider = null;
+    });
+    if (DEBUG) console.log('✅ Provider initialized');
+    return provider;
   });
 
-  // Listen for session disconnect
-  provider.on('session_delete', () => {
-    if (DEBUG) console.log('🔌 Session deleted');
-    wcUri = null;
-  });
-
-  if (DEBUG) console.log('✅ Provider initialized');
-  return provider;
+  return providerInitPromise;
 }
 
 /**
@@ -123,7 +130,6 @@ export const wcConnect = async (
 
   if (DEBUG) console.log('🔗 Requesting connection with required namespaces...');
 
-  // Connect with REQUIRED namespaces (critical for non-blank QR)
   const session = await prov.connect({
     namespaces: requiredNamespaces,
   });
@@ -197,6 +203,7 @@ export const wcDisconnect = async (): Promise<void> => {
 
   wcUri = null;
   provider = null;
+  providerInitPromise = null;
 }
 
 /**

@@ -85,6 +85,14 @@ export const WalletProvider = ({ children }: { children: ReactNode }) => {
     setIsConnecting(true);
     setWcUri(null);
 
+    // 3-minute timeout — prov.connect() waits indefinitely for wallet scan
+    const timeout = setTimeout(() => {
+      setIsConnecting(false);
+      setShowQRModal(false);
+      setWcUri(null);
+      addToast('Connection timed out. Please try again.', 'warning');
+    }, 180_000);
+
     try {
       const result = await wcConnect((uri) => {
         // Called when WC generates the pairing URI
@@ -112,6 +120,7 @@ export const WalletProvider = ({ children }: { children: ReactNode }) => {
         addToast(`Connection failed: ${message}`, 'error');
       }
     } finally {
+      clearTimeout(timeout);
       setIsConnecting(false);
     }
   };
