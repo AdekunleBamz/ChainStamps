@@ -296,6 +296,7 @@ const App = () => {
                           triggerHaptic('light');
                         }}
                         className="text-[10px] text-primary/60 hover:text-primary transition-colors border border-primary/10 px-2 py-0.5 rounded-full hover:bg-primary/5"
+                        title={`Search for `}
                       >
                         {tag}
                       </button>
