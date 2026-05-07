@@ -271,7 +271,8 @@ export const Header = () => {
               style={{ marginRight: '12px' }} 
               role="status"
               aria-live="polite"
-              aria-label={`Wallet connection status: ${isConnected ? "Connected" : isConnecting ? "Connecting" : "Disconnected"}`}
+              aria-label={`Wallet connection status: `}
+              title={`Wallet status: `}
             />
             {isConnected ? (
               <div className="wallet-connected flex-center gap-2">
