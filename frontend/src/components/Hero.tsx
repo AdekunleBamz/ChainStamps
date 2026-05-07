@@ -128,6 +128,7 @@ export const Hero = () => {
         <button
           onClick={() => (document.querySelector('.connect-btn') as HTMLButtonElement)?.click()}
           className="cta-primary h-14 px-8 rounded-2xl bg-primary text-white font-bold flex items-center gap-2 hover:scale-105 active:scale-95 transition-all shadow-xl shadow-primary/20"
+          title="Connect your wallet and start stamping"
         >
           Get Started
           <Shield size={20} />
