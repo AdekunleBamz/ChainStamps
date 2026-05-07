@@ -103,6 +103,7 @@ export const Hero = () => {
     <motion.section
       ref={containerRef}
       className="hero relative overflow-hidden"
+      title="ChainStamps overview"
       initial="hidden"
       animate="visible"
       variants={CONTAINER_VARIANTS}
