@@ -304,6 +304,7 @@ export const Header = () => {
                     aria-busy={isConnecting}
                     aria-haspopup="dialog"
                     aria-label={isConnecting ? "Connecting to wallet" : "Connect Stacks wallet"}
+                    title={isConnecting ? "Connecting wallet" : "Connect Stacks wallet"}
                   >
                 {isConnecting ? (
                   <>
