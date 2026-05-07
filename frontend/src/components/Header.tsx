@@ -248,6 +248,7 @@ export const Header = () => {
                   onClick={() => setIsMenuOpen(false)} 
                   aria-label="Navigate to Stamp Registry section"
                   aria-current={activeHash === '#stamp' ? 'page' : undefined}
+                  title="Jump to stamp registry"
                 >Stamp</a>
               </li>
               <li>
