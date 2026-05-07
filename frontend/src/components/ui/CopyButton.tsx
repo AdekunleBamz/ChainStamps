@@ -91,6 +91,7 @@ export const CopyButton = ({ value, className, size = 14 }: CopyButtonProps) => 
                         initial={{ opacity: 0, y: 10, x: '-50%' }}
                         animate={{ opacity: 1, y: 0, x: '-50%' }}
                         exit={{ opacity: 0, y: 10, x: '-50%' }}
+                        aria-atomic="true"
                         className="absolute bottom-full left-1/2 mb-2 -translate-x-1/2 rounded bg-primary px-2 py-0.5 text-[10px] font-bold text-primary-foreground shadow-lg"
                     >
                         COPIED!
