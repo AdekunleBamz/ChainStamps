@@ -50,7 +50,7 @@ export const Footer = memo(() => {
         </p>
 
         <div className="footer-metrics">
-          <div className="metrics-title flex-center gap-2" aria-label="System Performance Heartbeat">
+          <div className="metrics-title flex-center gap-2" aria-label="System Performance Heartbeat" title="Live system metrics overview">
             <Zap size={14} className="text-yellow-500 fill-yellow-500" />
             <span>Live System Metrics</span>
           </div>
