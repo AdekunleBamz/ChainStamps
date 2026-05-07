@@ -154,7 +154,7 @@ const App = () => {
             <MeshGradient />
             <ToastContainer />
             <Header />
-            <main id="main-content" className="main" tabIndex={-1} aria-label="Main Application Content">
+            <main id="main-content" className="main" tabIndex={-1} aria-label="Main Application Content" title="Primary application content">
               <h1 className="sr-only">ChainStamps: Secure and Permanent On-Chain Document Verification on Bitcoin via Stacks</h1>
               <Hero />
 
