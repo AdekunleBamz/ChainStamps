@@ -69,7 +69,7 @@ export const Footer = memo(() => {
                 <span className="metric-value text-green-500">Operational</span>
               </div>
             </div>
-            <div className="metric-item" aria-label="Transactions Per Second: current active rate is 0.45">
+            <div className="metric-item" aria-label="Transactions Per Second: current active rate is 0.45" title="Current active transactions per second">
               <Zap size={16} className="text-muted-foreground" />
               <div className="metric-info">
                 <span className="metric-label">TPS (Active)</span>
