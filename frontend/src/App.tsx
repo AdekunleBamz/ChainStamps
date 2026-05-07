@@ -226,6 +226,7 @@ const App = () => {
                       type="button"
                       onClick={() => setIsFilterDrawerOpen(true)}
                       className="md:hidden flex items-center gap-2 bg-white/5 border border-white/10 px-3 py-1.5 rounded-xl text-xs font-bold hover:bg-white/10 transition-all"
+                      title="Open filter options"
                     >
                       <Filter size={14} />
                       Filters
