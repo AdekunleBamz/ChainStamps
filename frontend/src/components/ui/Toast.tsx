@@ -51,7 +51,7 @@ export const ToastContainer = () => {
                             className="ml-2 shrink-0 rounded-md p-1 opacity-50 transition-opacity hover:opacity-100"
                             aria-label="Dismiss notification"
                         >
-                            <X size={16} />
+                            <X size={16} aria-hidden="true" />
                         </button>
                     </motion.div>
                 ))}
