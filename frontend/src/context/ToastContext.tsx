@@ -67,9 +67,7 @@ export const ToastProvider = ({ children }: { children: ReactNode }) => {
         const timeoutId = setTimeout(() => {
             removeToast(id);
         }, TOAST_AUTO_DISMISS_MS);
-
-        // Cleanup timeout on unmount or before re-adding
-        return () => clearTimeout(timeoutId);
+        void timeoutId;
     }, [removeToast]);
 
     return (
