@@ -152,6 +152,10 @@ body {
   scroll-behavior: smooth;
 }
 
+html {
+  scroll-padding-top: 90px;
+}
+
 section[id] {
   scroll-margin-top: 100px;
 }
