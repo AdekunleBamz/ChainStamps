@@ -69,4 +69,9 @@ export const normalizeStampInput = (s) => typeof s === "string" ? s.trim().toLow
 
 export const stampListStats = (stamps) => ({ total: stamps.length, confirmed: stamps.filter((s) => s.status === "confirmed").length });
 
+/**
+ * Resolves a human-readable label for a stamp — uses memo if available, otherwise hash prefix.
+ * @param {{ memo?: string, hash: string }} stamp
+ * @returns {string}
+ */
 export const resolveStampLabel = (stamp) => stamp.memo || stamp.hash.slice(0, 10);
