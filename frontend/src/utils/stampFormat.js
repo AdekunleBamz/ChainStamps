@@ -54,3 +54,13 @@ export const formatStampAge = (blocks) => {
   if (days === 0) return 'today';
   return days + (days === 1 ? ' day ago' : ' days ago');
 };
+
+/**
+ * Formats a block confirmation count for display.
+ * @param {number} n - Number of confirmations
+ * @returns {string} e.g. "3 confirmations" or "Unconfirmed"
+ */
+export const formatConfirmations = (n) => {
+  if (!n || n <= 0) return 'Unconfirmed';
+  return n + (n === 1 ? ' confirmation' : ' confirmations');
+};
