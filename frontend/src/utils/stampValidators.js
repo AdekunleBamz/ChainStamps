@@ -1,6 +1,11 @@
 
 import { MAX_BATCH_SIZE, MAX_MEMO_LENGTH } from './stampConstants.js';
 
+/**
+ * Validates a 64-character hex stamp hash.
+ * @param {*} v - Value to validate
+ * @returns {boolean}
+ */
 export const isValidStampHash = (v) =>
   typeof v === 'string' && /^[a-fA-F0-9]{64}$/.test(v.trim());
 
