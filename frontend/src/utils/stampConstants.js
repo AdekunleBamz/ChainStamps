@@ -52,4 +52,7 @@ export const STAMP_DATA_ENCODING = "hex"
 /** Display prefix prepended to stamp IDs in the UI */
 export const STAMP_DISPLAY_ID_PREFIX = "CS-"
 
+/** How often to refresh stamp list data (ms) */
+export const STAMP_REFRESH_INTERVAL_MS = 30_000
+
 export const MAX_NETWORK_FEE_USTX = 50000000
