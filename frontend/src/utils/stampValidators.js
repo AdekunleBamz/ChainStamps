@@ -45,6 +45,11 @@ export const isValidBatchSize = (v) => Number.isInteger(Number(v)) && Number(v) 
 export const isValidHashAlgorithm = (v) =>
   typeof v === 'string' && ['sha256', 'sha512'].includes(v.trim().toLowerCase());
 
+/**
+ * Validates a stamp status is one of the known states.
+ * @param {*} v - Value to validate
+ * @returns {boolean}
+ */
 export const isValidStampStatus = (v) => ["pending","confirmed","failed"].includes(v);
 
 export const isValidStampType = (v) => typeof v === "string" && v.length > 0;
