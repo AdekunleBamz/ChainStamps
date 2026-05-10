@@ -89,3 +89,12 @@ export function formatUStx(microStx: number): string {
     const normalized = Number.isFinite(microStx) ? Math.max(Math.round(microStx), 0) : 0;
     return `${normalized.toLocaleString()} µSTX`;
 }
+
+/**
+ * Returns true if a fee value is within the acceptable range.
+ * @param fee - Fee in STX
+ * @returns `true` if fee is a non-negative finite number not exceeding MAX_FEE
+ */
+export function isAcceptableFee(fee: number): boolean {
+  return Number.isFinite(fee) && fee >= 0 && fee <= MAX_FEE;
+}
