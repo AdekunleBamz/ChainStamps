@@ -18,6 +18,11 @@ export const isValidBlockHeight = (v) => Number.isInteger(Number(v)) && Number(v
 
 export const isValidStampFee = (v) => !isNaN(Number(v)) && Number(v) >= 0;
 
+/**
+ * Validates a wallet address follows the Stacks SP/ST format.
+ * @param {*} v - Value to validate
+ * @returns {boolean}
+ */
 export const isValidWalletAddress = (v) =>
   typeof v === 'string' && /^(SP|ST)[0-9A-Z]{30,}$/.test(v.trim().toUpperCase());
 
