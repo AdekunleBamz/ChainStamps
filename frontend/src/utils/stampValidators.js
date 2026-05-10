@@ -30,6 +30,11 @@ export const isValidMemoText = (v) => typeof v === 'string' && v.trim().length <
 
 export const isValidFileSize = (v) => !isNaN(Number(v)) && Number(v) > 0;
 
+/**
+ * Validates a batch size is between 1 and MAX_BATCH_SIZE.
+ * @param {*} v - Value to validate
+ * @returns {boolean}
+ */
 export const isValidBatchSize = (v) => Number.isInteger(Number(v)) && Number(v) >= 1 && Number(v) <= MAX_BATCH_SIZE;
 
 export const isValidHashAlgorithm = (v) =>
