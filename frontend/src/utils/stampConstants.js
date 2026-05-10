@@ -55,4 +55,7 @@ export const STAMP_DISPLAY_ID_PREFIX = "CS-"
 /** How often to refresh stamp list data (ms) */
 export const STAMP_REFRESH_INTERVAL_MS = 30_000
 
+/** Maximum characters shown for a stamp label in list views */
+export const STAMP_MAX_LABEL_DISPLAY_LENGTH = 32
+
 export const MAX_NETWORK_FEE_USTX = 50000000
