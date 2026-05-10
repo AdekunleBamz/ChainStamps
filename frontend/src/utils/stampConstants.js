@@ -64,4 +64,7 @@ export const DEFAULT_SORT_ORDER = "desc"
 /** Number of blocks before expiry to show expiry warning banner */
 export const STAMP_EXPIRY_WARNING_BLOCKS = 1440
 
+/** Maximum stamps shown per page in stamp history view */
+export const MAX_STAMPS_PER_PAGE = 20
+
 export const MAX_NETWORK_FEE_USTX = 50000000
