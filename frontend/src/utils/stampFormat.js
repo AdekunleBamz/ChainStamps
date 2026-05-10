@@ -13,6 +13,11 @@ export const formatStampHash = (h) => {
   return normalized.slice(0, 8) + '...' + normalized.slice(-8);
 };
 
+/**
+ * Formats a microSTX fee as a STX decimal string.
+ * @param {number} v - Fee in microSTX
+ * @returns {string} e.g. "1.000000 STX"
+ */
 export const formatStampFee = (v) => (v / MICROSTX_PER_STX).toFixed(6) + " STX";
 
 export const formatStampDate = (ts) => new Date(ts).toLocaleDateString();
