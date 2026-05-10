@@ -1,6 +1,11 @@
 
 import { MICROSTX_PER_STX } from './stampConstants.js';
 
+/**
+ * Truncates a stamp hash for display.
+ * @param {string|null|undefined} h - Full hash string
+ * @returns {string} Shortened hash, e.g. "abcd1234...5678efgh"
+ */
 export const formatStampHash = (h) => {
   const normalized = typeof h === 'string' ? h.trim() : '';
   if (!normalized) return '';
