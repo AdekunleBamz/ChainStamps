@@ -27,3 +27,8 @@ export const triggerHaptic = (type: HapticType): void => {
     if (!isHapticsSupported()) return;
     navigator.vibrate(HAPTIC_PATTERN[type] ?? 10);
 };
+
+/**
+ * Triggers a light haptic pulse — convenience wrapper around triggerHaptic.
+ */
+export const triggerLightHaptic = (): void => triggerHaptic('light');
