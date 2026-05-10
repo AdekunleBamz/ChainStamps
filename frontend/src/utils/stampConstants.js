@@ -58,4 +58,7 @@ export const STAMP_REFRESH_INTERVAL_MS = 30_000
 /** Maximum characters shown for a stamp label in list views */
 export const STAMP_MAX_LABEL_DISPLAY_LENGTH = 32
 
+/** Default sort order for stamp list: newest first */
+export const DEFAULT_SORT_ORDER = "desc"
+
 export const MAX_NETWORK_FEE_USTX = 50000000
