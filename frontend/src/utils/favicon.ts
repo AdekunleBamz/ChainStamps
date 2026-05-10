@@ -23,7 +23,10 @@ const STATUS_DOT_COLOR: Record<FaviconStatus, string> = {
     disconnected: '#64748b',
     disconnecting: '#94a3b8',
 };
-
+/** All supported favicon status values. */
+export const FAVICON_STATUS_KEYS: FaviconStatus[] = [
+  'connected', 'connecting', 'disconnected', 'disconnecting', 'pending', 'confirmed', 'error',
+];
 /**
  * Dynamically updates the site's favicon based on the current application state.
  *
