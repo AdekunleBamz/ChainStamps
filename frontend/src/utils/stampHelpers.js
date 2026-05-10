@@ -1,4 +1,10 @@
 
+/**
+ * Builds a stamp transaction payload object.
+ * @param {string} hash - The document hash to stamp
+ * @param {string} memo - Optional memo/label for the stamp
+ * @returns {{ hash: string, memo: string }}
+ */
 export const buildStampPayload = (hash, memo) => ({ hash, memo });
 
 export const parseStampResponse = (res) => res && res.txid ? res : null;
