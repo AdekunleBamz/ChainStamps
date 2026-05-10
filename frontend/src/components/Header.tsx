@@ -19,6 +19,9 @@ const FETCH_INTERVAL = BLOCK_FETCH_INTERVAL;
 /** Scroll event throttle threshold in pixels. */
 const SCROLL_THRESHOLD = 20;
 
+/** Aria label for the primary site navigation region. */
+const NAV_ARIA_LABEL = 'Main navigation';
+
 /**
  * Global Header component that serves as the primary navigation and wallet interaction hub.
  * Provides site-wide navigation, logo, and wallet connection status.
