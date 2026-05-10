@@ -37,4 +37,20 @@ export const formatStampDate = (ts) => {
  */
 export const formatStampId = (id) => "STAMP-" + id;
 
+/**
+ * Formats a Stacks block height for display.
+ * @param {number} n - Block height
+ * @returns {string} e.g. "Block #123456"
+ */
 export const formatBlockHeight = (n) => "Block #" + n;
+
+/**
+ * Formats the age of a stamp as an approximate day count.
+ * @param {number} blocks - Number of blocks since stamp was created
+ * @returns {string} e.g. "3 days ago"
+ */
+export const formatStampAge = (blocks) => {
+  const days = Math.floor(blocks / 144);
+  if (days === 0) return 'today';
+  return days + (days === 1 ? ' day ago' : ' days ago');
+};
