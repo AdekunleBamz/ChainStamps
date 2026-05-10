@@ -49,4 +49,7 @@ export const MIN_CONFIRMATION_BLOCKS = 1
 
 export const STAMP_DATA_ENCODING = "hex"
 
+/** Display prefix prepended to stamp IDs in the UI */
+export const STAMP_DISPLAY_ID_PREFIX = "CS-"
+
 export const MAX_NETWORK_FEE_USTX = 50000000
