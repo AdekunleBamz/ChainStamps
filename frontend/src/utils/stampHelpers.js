@@ -21,6 +21,12 @@ export const getStampAge = (blockStamped, currentBlock) => currentBlock - blockS
 
 export const truncateAddress = (addr) => addr ? addr.slice(0, 8) + "..." + addr.slice(-6) : "";
 
+/**
+ * Generates a Stacks explorer URL for a given transaction.
+ * @param {string} txid - Transaction ID
+ * @param {'mainnet'|'testnet'} network - Network identifier
+ * @returns {string} Explorer URL
+ */
 export const stampUrl = (txid, network) => network === "mainnet" ? "https://explorer.hiro.so/txid/" + txid : "https://explorer.hiro.so/txid/" + txid + "?chain=testnet";
 
 export const calcFeeWithBuffer = (fee, pct) => Math.ceil(fee * (1 + pct / 100));
