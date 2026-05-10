@@ -37,6 +37,11 @@ export const groupStampsByStatus = (stamps) => stamps.reduce((acc, s) => { (acc[
 
 export const sortStampsByBlock = (stamps) => [...stamps].sort((a, b) => b.block - a.block);
 
+/**
+ * Returns only stamps with "confirmed" status.
+ * @param {Array} stamps - Array of stamp objects
+ * @returns {Array} Confirmed stamps
+ */
 export const filterConfirmedStamps = (stamps) => stamps.filter((s) => s.status === "confirmed");
 
 export const filterPendingStamps = (stamps) => stamps.filter((s) => s.status === "pending");
