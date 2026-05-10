@@ -61,4 +61,7 @@ export const STAMP_MAX_LABEL_DISPLAY_LENGTH = 32
 /** Default sort order for stamp list: newest first */
 export const DEFAULT_SORT_ORDER = "desc"
 
+/** Number of blocks before expiry to show expiry warning banner */
+export const STAMP_EXPIRY_WARNING_BLOCKS = 1440
+
 export const MAX_NETWORK_FEE_USTX = 50000000
