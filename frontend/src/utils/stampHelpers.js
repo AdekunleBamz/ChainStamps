@@ -35,6 +35,11 @@ export const stampSummary = (stamp) => stamp.hash + " @ block " + stamp.block;
 
 export const groupStampsByStatus = (stamps) => stamps.reduce((acc, s) => { (acc[s.status] = acc[s.status] || []).push(s); return acc; }, {});
 
+/**
+ * Sorts stamps by block height, newest first.
+ * @param {Array} stamps - Array of stamp objects
+ * @returns {Array} Sorted copy of stamps
+ */
 export const sortStampsByBlock = (stamps) => [...stamps].sort((a, b) => b.block - a.block);
 
 /**
