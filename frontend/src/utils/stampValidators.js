@@ -44,6 +44,11 @@ export const isValidStampStatus = (v) => ["pending","confirmed","failed"].includ
 
 export const isValidStampType = (v) => typeof v === "string" && v.length > 0;
 
+/**
+ * Validates a network name is one of the supported values.
+ * @param {*} v - Value to validate
+ * @returns {boolean}
+ */
 export const isValidNetworkName = (v) => ["mainnet","testnet"].includes(v);
 
 export const isValidConfirmations = (v) => Number.isInteger(Number(v)) && Number(v) >= 0;
