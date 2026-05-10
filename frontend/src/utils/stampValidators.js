@@ -26,6 +26,11 @@ export const isValidStampFee = (v) => !isNaN(Number(v)) && Number(v) >= 0;
 export const isValidWalletAddress = (v) =>
   typeof v === 'string' && /^(SP|ST)[0-9A-Z]{30,}$/.test(v.trim().toUpperCase());
 
+/**
+ * Validates a memo text does not exceed the maximum allowed length.
+ * @param {*} v - Value to validate
+ * @returns {boolean}
+ */
 export const isValidMemoText = (v) => typeof v === 'string' && v.trim().length <= MAX_MEMO_LENGTH;
 
 export const isValidFileSize = (v) => !isNaN(Number(v)) && Number(v) > 0;
