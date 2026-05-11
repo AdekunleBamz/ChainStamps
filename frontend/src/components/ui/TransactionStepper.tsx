@@ -3,6 +3,9 @@ import { Check, Shield, Wallet, Clock, AlertCircle, Loader2 } from 'lucide-react
 import type { TransactionStep } from '../../hooks/useContractCall';
 import { twMerge } from 'tailwind-merge';
 
+/**
+ * Properties for the TransactionStepper component.
+ */
 interface TransactionStepperProps {
   currentStep: TransactionStep;
 }
