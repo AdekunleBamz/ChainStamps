@@ -1,5 +1,6 @@
 /**
  * Global application constants.
+ * Centralises animation variants, UI timing values, and API retry configuration.
  */
 
 export const ANIMATIONS = {
