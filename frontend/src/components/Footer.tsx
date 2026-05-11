@@ -8,7 +8,7 @@ const SOCIAL_LINK_ANIMATION = {
     tap: { scale: 0.9 },
 };
 
-/** Social and external link URLs used in the footer. */
+/** Social and external link URLs used in the footer navigation. */
 const FOOTER_LINKS = {
     github: 'https://github.com/AdekunleBamz/ChainStamps',
     twitter: 'https://twitter.com',
