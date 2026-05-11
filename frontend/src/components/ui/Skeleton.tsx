@@ -7,7 +7,7 @@ interface SkeletonProps {
     className?: string;
 }
 
-/** Default animation duration for skeleton pulse effect in milliseconds. */
+/** Default animation duration for skeleton pulse opacity loop in seconds. */
 const SKELETON_ANIMATION_DURATION = 1.5;
 
 /**
