@@ -9,13 +9,33 @@ import { MAX_BATCH_SIZE, MAX_MEMO_LENGTH } from './stampConstants.js';
 export const isValidStampHash = (v) =>
   typeof v === 'string' && /^[a-fA-F0-9]{64}$/.test(v.trim());
 
+/**
+ * Validates a stamp identifier is a non-empty string.
+ * @param {*} v - Value to validate
+ * @returns {boolean}
+ */
 export const isValidStampId = (v) => typeof v === "string" && v.length > 0;
 
+/**
+ * Validates a transaction ID, accepting both bare hex and 0x-prefixed formats.
+ * @param {*} v - Value to validate
+ * @returns {boolean}
+ */
 export const isValidTxId = (v) =>
   typeof v === 'string' && /^(0x)?[a-fA-F0-9]{64}$/.test(v.trim());
 
+/**
+ * Validates a block height is a non-negative integer.
+ * @param {*} v - Value to validate
+ * @returns {boolean}
+ */
 export const isValidBlockHeight = (v) => Number.isInteger(Number(v)) && Number(v) >= 0;
 
+/**
+ * Validates a stamp fee value is a non-negative number.
+ * @param {*} v - Value to validate
+ * @returns {boolean}
+ */
 export const isValidStampFee = (v) => !isNaN(Number(v)) && Number(v) >= 0;
 
 /**
