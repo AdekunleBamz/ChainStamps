@@ -19,6 +19,7 @@ const CONTAINER_VARIANTS = {
   },
 };
 
+/** Framer Motion variants for individual Hero feature item entrance. */
 const ITEM_VARIANTS = {
   hidden: { opacity: 0, y: 30, scale: 0.95 },
   visible: { 
