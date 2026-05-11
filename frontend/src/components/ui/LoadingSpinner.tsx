@@ -16,7 +16,8 @@ interface LoadingSpinnerProps {
 
 /**
  * A reusable loading spinner component with smooth rotation and accessibility support.
- * 
+ * Uses `role="status"` and a visually hidden label for screen reader announcements.
+ *
  * @param {LoadingSpinnerProps} props - The loading spinner properties.
  * @returns {JSX.Element} The rendered loading spinner.
  */
