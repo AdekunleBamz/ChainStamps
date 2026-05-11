@@ -3,6 +3,7 @@ import { ExternalLink, Hash, Stamp, Tag as TagIcon, Clock } from 'lucide-react';
 import { memo, useState, useMemo } from 'react';
 import { twMerge } from 'tailwind-merge';
 
+/** Represents a single on-chain action shown in the RecentActivity feed. */
 interface Activity {
   id: string;
   type: 'hash' | 'stamp' | 'tag';
