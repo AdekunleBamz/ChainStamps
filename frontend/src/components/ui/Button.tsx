@@ -4,7 +4,7 @@ import { twMerge } from 'tailwind-merge';
 import { Loader2 } from 'lucide-react';
 import { triggerHaptic } from '../../utils/haptics';
 
-/** Loader size in pixels for each button size variant. */
+/** Loader size in pixels for each button size variant, keyed by size name. */
 const BUTTON_LOADER_SIZE: Record<string, number> = { sm: 14, md: 16, lg: 20, icon: 16 };
 
 /** CSS classes for each button colour variant. */
