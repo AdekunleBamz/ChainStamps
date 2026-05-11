@@ -62,6 +62,11 @@ export const isValidFileSize = (v) => !isNaN(Number(v)) && Number(v) > 0;
  */
 export const isValidBatchSize = (v) => Number.isInteger(Number(v)) && Number(v) >= 1 && Number(v) <= MAX_BATCH_SIZE;
 
+/**
+ * Validates a hash algorithm identifier against supported digest types.
+ * @param {*} v - Value to validate
+ * @returns {boolean}
+ */
 export const isValidHashAlgorithm = (v) =>
   typeof v === 'string' && ['sha256', 'sha512'].includes(v.trim().toLowerCase());
 
@@ -72,6 +77,11 @@ export const isValidHashAlgorithm = (v) =>
  */
 export const isValidStampStatus = (v) => ["pending","confirmed","failed"].includes(v);
 
+/**
+ * Validates a stamp type identifier is a non-empty string.
+ * @param {*} v - Value to validate
+ * @returns {boolean}
+ */
 export const isValidStampType = (v) => typeof v === "string" && v.length > 0;
 
 /**
