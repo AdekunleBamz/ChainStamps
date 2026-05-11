@@ -6,6 +6,7 @@ import { AnimatedNumber } from './ui/AnimatedNumber';
 /** Standard cubic-bezier easing used across Hero entrance animations. */
 const EASE_STANDARD = [0.22, 1, 0.36, 1] as const;
 
+/** Framer Motion variants for the Hero section container — staggers child animations. */
 const CONTAINER_VARIANTS = {
   hidden: { opacity: 0 },
   visible: {
