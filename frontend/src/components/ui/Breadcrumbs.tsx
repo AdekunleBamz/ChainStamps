@@ -18,7 +18,8 @@ interface BreadcrumbsProps {
 
 /**
  * A navigation component that displays the user's current location within a hierarchy.
- * 
+ * Always prepends a Home link; items without an href render as non-interactive text.
+ *
  * @param {BreadcrumbsProps} props - The component properties.
  * @returns {JSX.Element} The rendered breadcrumbs navigation.
  */
