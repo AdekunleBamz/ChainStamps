@@ -9,7 +9,7 @@ const FPS_MAX_TARGET = 60;
 
 /**
  * A floating overlay that displays real-time frame rate (FPS) and performance status.
- * Can be toggled on and off.
+ * Intended for development use; can be toggled on and off with its Activity button.
  */
 export const PerformanceOverlay = () => {
     const [fps, setFps] = useState(0);
