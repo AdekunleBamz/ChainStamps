@@ -3,7 +3,7 @@ import { ChevronUp } from 'lucide-react';
 import { twMerge } from 'tailwind-merge';
 import { Button } from './Button';
 
-/** Scroll offset in pixels before the scroll-to-top button becomes visible. */
+/** Scroll depth in pixels at which the scroll-to-top button fades into view. */
 const SCROLL_VISIBILITY_THRESHOLD = 300;
 
 export const ScrollToTop = () => {
