@@ -18,7 +18,7 @@ import { triggerHaptic } from '../utils/haptics';
 import { RecentActivity } from './ui/RecentActivity';
 import { HighlightText } from './ui/HighlightText';
 import { TransactionStepper } from './ui/TransactionStepper';
-import { cvToHex, stringUtf8CV } from '@stacks/transactions';
+import { stringUtf8CV } from '@stacks/transactions';
 import { useOnChainFees } from '../hooks/useOnChainFees';
 import { ANIMATIONS, UI } from '../config/constants';
 
@@ -80,7 +80,7 @@ export const StampRegistry = memo(({ searchQuery = '' }: { searchQuery?: string 
         contractAddress: CONTRACT_ADDRESS,
         contractName: CONTRACTS.stampRegistry.name,
         functionName: 'stamp-message',
-        functionArgs: [cvToHex(stringUtf8CV(sanitizedMessage))],
+        functionArgs: [stringUtf8CV(sanitizedMessage)],
       }, 'Message stamped successfully!', sanitizedMessage.slice(0, STAMP_PREVIEW_LENGTH) + (sanitizedMessage.length > STAMP_PREVIEW_LENGTH ? '...' : ''));
       setMessage('');
       setLastSubmitTime(Date.now());

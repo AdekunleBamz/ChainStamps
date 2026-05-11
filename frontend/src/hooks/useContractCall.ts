@@ -1,5 +1,8 @@
 import { useState, useCallback, useEffect } from 'react';
-import { wcCallContract } from '../utils/walletconnect';
+import { openContractCall } from '@stacks/connect';
+import { STACKS_MAINNET } from '@stacks/network';
+import type { ClarityValue } from '@stacks/transactions';
+import { userSession } from '../context/WalletContext';
 import { useToast } from '../context/ToastContext';
 import { triggerSuccessConfetti } from '../utils/confetti';
 import { updateFavicon } from '../utils/favicon';
@@ -18,7 +21,7 @@ interface ContractCallParams {
   contractAddress: string;
   contractName: string;
   functionName: string;
-  functionArgs: any[];
+  functionArgs: ClarityValue[];
   stxAmount?: number;
 }
 
@@ -75,7 +78,18 @@ export const useContractCall = () => {
       await new Promise(resolve => setTimeout(resolve, 800));
       setStep('signing');
 
-      const result = await wcCallContract(params);
+      const result = await new Promise<{ txid: string }>((resolve, reject) => {
+        openContractCall({
+          contractAddress: params.contractAddress,
+          contractName: params.contractName,
+          functionName: params.functionName,
+          functionArgs: params.functionArgs,
+          network: STACKS_MAINNET,
+          userSession,
+          onFinish: (data) => resolve({ txid: data.txId }),
+          onCancel: () => reject(new Error('User rejected')),
+        });
+      });
       const newTxId = result.txid;
       setTxId(newTxId);
       setStep('pending');

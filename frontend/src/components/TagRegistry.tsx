@@ -18,7 +18,7 @@ import { useContractCall } from '../hooks/useContractCall';
 import { triggerHaptic } from '../utils/haptics';
 import { HighlightText } from './ui/HighlightText';
 import { TransactionStepper } from './ui/TransactionStepper';
-import { cvToHex, stringUtf8CV } from '@stacks/transactions';
+import { stringUtf8CV } from '@stacks/transactions';
 import { useOnChainFees } from '../hooks/useOnChainFees';
 import { ANIMATIONS, UI } from '../config/constants';
 
@@ -83,8 +83,8 @@ export const TagRegistry = memo(({ searchQuery = '' }: { searchQuery?: string })
         contractName: CONTRACTS.tagRegistry.name,
         functionName: 'store-tag',
         functionArgs: [
-          cvToHex(stringUtf8CV(sanitizedKey)),
-          cvToHex(stringUtf8CV(sanitizedValue)),
+          stringUtf8CV(sanitizedKey),
+          stringUtf8CV(sanitizedValue),
         ],
       }, 'Tag stored successfully!', `Tag: ${sanitizedKey}`);
       setKey('');

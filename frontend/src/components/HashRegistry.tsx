@@ -19,7 +19,7 @@ import { TransactionStepper } from './ui/TransactionStepper';
 import { useContractCall } from '../hooks/useContractCall';
 import { useToast } from '../context/ToastContext';
 import { ANIMATIONS, UI } from '../config/constants';
-import { bufferCV, cvToHex, stringUtf8CV } from '@stacks/transactions';
+import { bufferCV, stringUtf8CV } from '@stacks/transactions';
 import { useOnChainFees } from '../hooks/useOnChainFees';
 
 /** Pre-computed shake animation variant for form validation errors. */
@@ -96,8 +96,8 @@ export const HashRegistry = memo(({ searchQuery = '' }: { searchQuery?: string }
         contractName: CONTRACTS.hashRegistry.name,
         functionName: 'store-hash',
         functionArgs: [
-          cvToHex(bufferCV(hashBytes)),
-          cvToHex(stringUtf8CV(description)),
+          bufferCV(hashBytes),
+          stringUtf8CV(description),
         ],
       }, 'Hash registered successfully!', hash.slice(0, HASH_PREVIEW_LENGTH) + '...');
       setHash('');

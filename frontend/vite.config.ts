@@ -9,4 +9,19 @@ import react from '@vitejs/plugin-react'
  */
 export default defineConfig({
   plugins: [react()],
+  build: {
+    sourcemap: false,
+    chunkSizeWarningLimit: 1000,
+    rollupOptions: {
+      output: {
+        manualChunks: {
+          'react-vendor': ['react', 'react-dom'],
+          'stacks-vendor': ['@stacks/connect', '@stacks/network', '@stacks/transactions'],
+          'walletconnect-vendor': ['@walletconnect/universal-provider', '@walletconnect/sign-client'],
+          'framer-vendor': ['framer-motion'],
+          'reown-vendor': ['@reown/appkit', '@reown/appkit-adapter-wagmi'],
+        },
+      },
+    },
+  },
 })

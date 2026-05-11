@@ -1,7 +1,6 @@
 import { useWallet } from '../context/WalletContext';
 import { Wallet, LogOut, Loader2, Activity, Menu, X } from 'lucide-react';
 import { useState, useEffect, useRef } from 'react';
-import { WalletConnectQRModal } from './WalletConnectQRModal';
 import { twMerge } from 'tailwind-merge';
 import { Button } from './ui/Button';
 import { Tooltip } from './ui/Tooltip';
@@ -35,7 +34,7 @@ const NAV_ARIA_LABEL = 'Main navigation';
  * @component
  */
 export const Header = () => {
-  const { isConnected, isConnecting, userAddress, connect, disconnect, wcUri, showQRModal, setShowQRModal } = useWallet();
+  const { isConnected, isConnecting, userAddress, connect, disconnect } = useWallet();
   const [isScrolled, setIsScrolled] = useState(false);
   const [blockHeight, setBlockHeight] = useState<number | null>(null);
   const [activeHash, setActiveHash] = useState(window.location.hash);
@@ -325,9 +324,6 @@ export const Header = () => {
         </div>
       </header>
 
-      {showQRModal && wcUri && (
-        <WalletConnectQRModal uri={wcUri} onClose={() => setShowQRModal(false)} />
-      )}
     </>
   );
 }
