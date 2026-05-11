@@ -34,7 +34,9 @@ const getErrorMessage = (err: unknown) => {
   return 'Transaction failed. Please check your connection and try again.';
 };
 
+/** localStorage key for persisting recent activity history across page loads. */
 const HISTORY_KEY = 'chainstamp_activity_history';
+/** Maximum number of activity entries retained in localStorage. */
 const HISTORY_MAX_ENTRIES = 10;
 const generateActivityId = () =>
   globalThis.crypto?.randomUUID?.() || Math.random().toString(36).slice(2, 11);
