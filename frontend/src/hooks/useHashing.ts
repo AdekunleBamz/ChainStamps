@@ -13,8 +13,9 @@ const getErrorMessage = (err: unknown): string =>
   err instanceof Error ? err.message : 'Failed to compute file hash';
 
 /**
- * Custom hook for computing SHA-256 hashes of files.
- * 
+ * Custom hook for computing SHA-256 hashes of files using the Web Crypto API.
+ * Falls back to an error state when `crypto.subtle` is unavailable (e.g. HTTP origins).
+ *
  * @returns {Object} Hashing state and the computeHash function.
  * @property {string|null} hash - The computed hex string of the file.
  * @property {boolean} isHashing - Loading state during computation.
