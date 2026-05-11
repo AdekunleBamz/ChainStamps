@@ -1,5 +1,6 @@
 import { createContext, useContext, useState, useCallback, type ReactNode } from 'react';
 
+/** Union of supported toast notification severity levels. */
 type ToastType = 'success' | 'error' | 'info' | 'warning';
 
 /** Duration in milliseconds before a toast auto-dismisses. */
