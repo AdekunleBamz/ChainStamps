@@ -3,6 +3,10 @@ import { X, Filter } from 'lucide-react';
 import { type ReactNode } from 'react';
 import { twMerge } from 'tailwind-merge';
 
+/**
+ * Properties for the FilterDrawer component.
+ * Used by the mobile registry filter sheet that slides up from the bottom.
+ */
 interface FilterDrawerProps {
   isOpen: boolean;
   onClose: () => void;
