@@ -32,7 +32,7 @@ export const formatStampDate = (ts) => {
 
 /**
  * Formats a stamp numeric ID with the STAMP- prefix.
- * @param {number|string} id - Stamp identifier
+ * @param {number|string} id - Stamp identifier (numeric or string)
  * @returns {string} e.g. "STAMP-42"
  */
 export const formatStampId = (id) => "STAMP-" + id;
