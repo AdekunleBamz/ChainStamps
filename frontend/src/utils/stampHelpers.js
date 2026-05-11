@@ -30,6 +30,11 @@ export const isStampExpired = (expiry, current) => current > expiry;
  */
 export const getStampAge = (blockStamped, currentBlock) => currentBlock - blockStamped;
 
+/**
+ * Shortens a Stacks address for display (first 8 + last 6 chars).
+ * @param {string|null|undefined} addr - Full Stacks address
+ * @returns {string} Truncated address or empty string
+ */
 export const truncateAddress = (addr) => addr ? addr.slice(0, 8) + "..." + addr.slice(-6) : "";
 
 /**
