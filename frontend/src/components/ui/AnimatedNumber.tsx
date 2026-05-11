@@ -19,8 +19,9 @@ interface AnimatedNumberProps {
 
 /**
  * AnimatedNumber component for smooth numerical transitions.
- * Uses framer-motion to animate value changes.
- * 
+ * Uses framer-motion to animate value changes with an ease-out curve.
+ * The span uses `aria-live="polite"` so screen readers announce updated values.
+ *
  * @param {AnimatedNumberProps} props - Component properties.
  */
 export function AnimatedNumber({ value, className, prefix = '', suffix = '', decimals = 0 }: AnimatedNumberProps) {
