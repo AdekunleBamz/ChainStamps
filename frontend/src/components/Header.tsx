@@ -15,7 +15,7 @@ const STACKS_INFO_API = `${STACKS_API_URL}/v2/info`;
 /** Interval in milliseconds for refreshing block height data. */
 const FETCH_INTERVAL = BLOCK_FETCH_INTERVAL;
 
-/** Scroll event throttle threshold in pixels. */
+/** Scroll event throttle threshold in pixels — header style changes after this scroll depth. */
 const SCROLL_THRESHOLD = 20;
 
 /** Aria label for the primary site navigation region. */
