@@ -3,6 +3,7 @@ import { useEffect, useState } from 'react';
 import { CONTRACTS } from '../config/contracts';
 import { fetchOnChainFees, type OnChainFees } from '../sdk/chainstamp';
 
+/** Static fee fallback used before on-chain values are fetched. */
 const DEFAULT_FEES: OnChainFees = {
   hash: CONTRACTS.hashRegistry.fee,
   stamp: CONTRACTS.stampRegistry.fee,
