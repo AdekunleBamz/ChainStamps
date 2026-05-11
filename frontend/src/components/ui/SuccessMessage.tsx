@@ -8,6 +8,10 @@ const DEFAULT_EXPLORER_URL = 'https://explorer.hiro.so/txid';
 /** Stacks mainnet chain query parameter appended to explorer links. */
 const EXPLORER_CHAIN = 'mainnet';
 
+/**
+ * Properties for the SuccessMessage component.
+ * Renders a confirmation banner after a successful on-chain action.
+ */
 interface SuccessMessageProps {
   message: string;
   txId?: string | null;
