@@ -25,7 +25,7 @@ interface WalletConnectQRModalProps {
  * @param {() => void} props.onClose - Callback when the modal is closed.
  */
 export const WalletConnectQRModal = ({ uri, onClose }: WalletConnectQRModalProps) => {
-  // Create a camera-friendly link for mobile users
+  // Build a camera-friendly deep-link for mobile users who cannot scan directly
   const mobileLink = `${WALLETCONNECT_MOBILE_BASE}?uri=${encodeURIComponent(uri)}`;
 
   return (
