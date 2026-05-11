@@ -2,6 +2,10 @@ import React from 'react';
 import { Loader2 } from 'lucide-react';
 import { Button } from './Button';
 
+/**
+ * Properties for the SubmitButton component.
+ * Designed for form submissions with loading state and accessibility support.
+ */
 interface SubmitButtonProps {
   onClick: () => void;
   isLoading: boolean;
