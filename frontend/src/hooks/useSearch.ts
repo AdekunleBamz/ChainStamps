@@ -27,7 +27,7 @@ export const useSearch = <T extends SearchableItem>(items: T[]) => {
   });
   const deferredQuery = useDeferredValue(searchQuery);
 
-  // Sync state to URL with debounce
+  // Sync search state to URL with a 300 ms debounce to avoid excessive history entries
   useEffect(() => {
     if (typeof window === 'undefined') return;
 
