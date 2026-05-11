@@ -18,8 +18,9 @@ interface TooltipProps {
 }
 
 /**
- * A floating tooltip component that appears on hover.
- * 
+ * A floating tooltip component that appears on hover or keyboard focus.
+ * Visibility is managed with both mouse and focus events for accessibility.
+ *
  * @param {TooltipProps} props - The component properties.
  * @returns {JSX.Element} The rendered tooltip container and popover.
  */
