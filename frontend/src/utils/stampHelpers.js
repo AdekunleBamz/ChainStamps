@@ -7,6 +7,11 @@
  */
 export const buildStampPayload = (hash, memo) => ({ hash, memo });
 
+/**
+ * Parses a contract response and returns the result, or null if no txid is present.
+ * @param {object|null|undefined} res - Raw response from @stacks/connect
+ * @returns {object|null}
+ */
 export const parseStampResponse = (res) => res && res.txid ? res : null;
 
 /**
