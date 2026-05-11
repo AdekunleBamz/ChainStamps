@@ -11,6 +11,7 @@ interface WalletPickerModalProps {
 /**
  * Modal component for choosing a wallet connection method.
  * Offers Hiro Wallet / Leather (browser extension) or WalletConnect (mobile QR).
+ * Closes on backdrop click; keyboard focus should be trapped while open.
  */
 export const WalletPickerModal = ({ onSelectHiro, onSelectWalletConnect, onClose }: WalletPickerModalProps) => {
   return (
