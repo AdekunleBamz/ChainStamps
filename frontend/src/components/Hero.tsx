@@ -3,6 +3,7 @@ import { motion, useScroll, useTransform } from 'framer-motion';
 import { useRef, memo, type ComponentType } from 'react';
 import { AnimatedNumber } from './ui/AnimatedNumber';
 
+/** Standard cubic-bezier easing used across Hero entrance animations. */
 const EASE_STANDARD = [0.22, 1, 0.36, 1] as const;
 
 const CONTAINER_VARIANTS = {
