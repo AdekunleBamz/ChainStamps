@@ -39,6 +39,7 @@ const HASH_VALIDATION_PATTERN = /^[a-fA-F0-9]{64}$/;
 
 /**
  * HashRegistry component for storing and verifying SHA-256 hashes on the Stacks blockchain.
+ * Accepts free-text input, computes the hash client-side, then submits it via contract call.
  */
 export const HashRegistry = memo(({ searchQuery = '' }: { searchQuery?: string }) => {
   const { isConnected, userAddress } = useWallet();
