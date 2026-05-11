@@ -38,7 +38,8 @@ const MAX_VALUE_LENGTH = 256;
 const TAG_KEY_PATTERN = /^[a-z0-9-]+$/;
 
 /**
- * TagRegistry component for managing decentralized key-value metadata.
+ * TagRegistry component for managing decentralized key-value metadata on Stacks.
+ * Keys must be kebab-case; values are stored as UTF-8 strings on-chain.
  */
 export const TagRegistry = memo(({ searchQuery = '' }: { searchQuery?: string }) => {
   const { isConnected, userAddress } = useWallet();
