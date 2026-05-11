@@ -19,8 +19,8 @@ const TOAST_VARIANTS = {
     warning: "border-yellow-500/20 bg-yellow-500/10",
 };
 /**
- * A container component that renders active toast notifications in a fixed position.
- * Listens to the toast context for updates.
+ * A container component that renders active toast notifications in a fixed bottom-right position.
+ * Listens to the toast context for additions and removals.
  */
 export const ToastContainer = () => {
     const { toasts, removeToast } = useToast();
