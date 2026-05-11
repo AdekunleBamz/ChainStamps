@@ -5,6 +5,7 @@ import {
   DEFAULT_NETWORK,
 } from '@bamzzstudio/chainstamps-sdk';
 
+/** Conversion factor from micro-STX to STX (10^6). */
 const MICROSTX_PER_STX = 1_000_000;
 
 const microStxToStx = (microStx: bigint): number => Number(microStx) / MICROSTX_PER_STX;
