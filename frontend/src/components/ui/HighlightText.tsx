@@ -1,5 +1,9 @@
 import { memo } from 'react';
 
+/**
+ * Properties for the HighlightText component.
+ * Wraps matched substrings with a styled span for search result highlighting.
+ */
 interface HighlightTextProps {
   text: string;
   query: string;
