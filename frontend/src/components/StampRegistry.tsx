@@ -39,6 +39,7 @@ const STAMP_PREVIEW_LENGTH = 32;
 
 /**
  * StampRegistry component for permanently recording text messages on the Stacks blockchain.
+ * Messages are stored as UTF-8 strings and are immutable once confirmed.
  */
 export const StampRegistry = memo(({ searchQuery = '' }: { searchQuery?: string }) => {
   const { isConnected, userAddress } = useWallet();
