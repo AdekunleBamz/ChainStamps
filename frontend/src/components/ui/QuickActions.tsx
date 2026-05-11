@@ -41,7 +41,7 @@ export const QuickActions = () => {
   const handleAction = (id: string) => {
     const element = document.getElementById(id);
     if (element) {
-      const offset = 100; // Account for sticky header
+      const offset = 100; // Account for the sticky header height
       const elementPosition = element.getBoundingClientRect().top;
       const offsetPosition = elementPosition + window.pageYOffset - offset;
 
