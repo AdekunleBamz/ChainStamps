@@ -12,6 +12,10 @@ interface Activity {
   timestamp: number;
 }
 
+/**
+ * Properties for the RecentActivity component.
+ * Displays a filterable list of recent on-chain registry actions.
+ */
 interface RecentActivityProps {
   activities: Activity[];
   isLoading?: boolean;
