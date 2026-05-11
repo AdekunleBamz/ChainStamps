@@ -1,10 +1,11 @@
 import { createContext, useContext, useState, useEffect } from 'react';
 import type { ReactNode } from 'react';
-import { showConnect, AppConfig, UserSession } from '@stacks/connect';
-
-/** Shared app config and user session — used for both auth and contract calls. */
-export const appConfig = new AppConfig(['store_write', 'publish_data']);
-export const userSession = new UserSession({ appConfig });
+import {
+  connect as stacksConnect,
+  disconnect as stacksDisconnect,
+  isConnected as stacksIsConnected,
+  getLocalStorage,
+} from '@stacks/connect';
 
 /**
  * The structure of the wallet context, providing state and methods for wallet interaction.
@@ -16,7 +17,7 @@ interface WalletContextType {
   isConnecting: boolean;
   /** The current user's Stacks address, or null if not connected. */
   userAddress: string | null;
-  /** Function to open the Hiro Wallet / Leather connect dialog. */
+  /** Function to open the wallet connect dialog. */
   connect: () => void;
   /** Function to sign out and clear the session. */
   disconnect: () => void;
@@ -26,44 +27,44 @@ const WalletContext = createContext<WalletContextType | undefined>(undefined);
 
 /**
  * Provider component for managing Stacks wallet connection state via Hiro Wallet / Leather.
+ * Uses the @stacks/connect v8 JSON-RPC API for modern wallet compatibility.
  */
 export const WalletProvider = ({ children }: { children: ReactNode }) => {
   const [isConnected, setIsConnected] = useState(false);
   const [isConnecting, setIsConnecting] = useState(false);
   const [userAddress, setUserAddress] = useState<string | null>(null);
 
-  // Restore existing session on mount — handles both cached sessions and redirect-based auth
+  // Restore existing session on mount
   useEffect(() => {
-    if (userSession.isSignInPending()) {
-      userSession.handlePendingSignIn().then((userData) => {
-        const addr = userData?.profile?.stxAddress?.mainnet;
-        if (addr) {
-          setUserAddress(addr);
-          setIsConnected(true);
-        }
-      }).catch(() => {});
-    } else if (userSession.isUserSignedIn()) {
-      const userData = userSession.loadUserData();
-      setUserAddress(userData.profile.stxAddress.mainnet);
-      setIsConnected(true);
+    if (stacksIsConnected()) {
+      const data = getLocalStorage();
+      const addr = data?.addresses?.stx?.[0]?.address ?? null;
+      if (addr) {
+        setUserAddress(addr);
+        setIsConnected(true);
+      }
     }
   }, []);
 
-  const connect = () => {
-    showConnect({
-      appDetails: { name: 'ChainStamps', icon: `${window.location.origin}/favicon.svg` },
-      onFinish: () => {
-        const userData = userSession.loadUserData();
-        setUserAddress(userData.profile.stxAddress.mainnet);
+  const connect = async () => {
+    setIsConnecting(true);
+    try {
+      await stacksConnect();
+      const data = getLocalStorage();
+      const addr = data?.addresses?.stx?.[0]?.address ?? null;
+      if (addr) {
+        setUserAddress(addr);
         setIsConnected(true);
-      },
-      onCancel: () => {},
-      userSession,
-    });
+      }
+    } catch {
+      // user cancelled or wallet error — ignore
+    } finally {
+      setIsConnecting(false);
+    }
   };
 
   const disconnect = () => {
-    userSession.signUserOut();
+    stacksDisconnect();
     setIsConnected(false);
     setUserAddress(null);
   };
@@ -86,3 +87,4 @@ export const useWallet = () => {
   }
   return context;
 }
+

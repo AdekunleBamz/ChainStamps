@@ -2,7 +2,6 @@ import { useState, useCallback, useEffect } from 'react';
 import { openContractCall } from '@stacks/connect';
 import { STACKS_MAINNET } from '@stacks/network';
 import type { ClarityValue } from '@stacks/transactions';
-import { userSession } from '../context/WalletContext';
 import { useToast } from '../context/ToastContext';
 import { triggerSuccessConfetti } from '../utils/confetti';
 import { updateFavicon } from '../utils/favicon';
@@ -85,7 +84,6 @@ export const useContractCall = () => {
           functionName: params.functionName,
           functionArgs: params.functionArgs,
           network: STACKS_MAINNET,
-          userSession,
           onFinish: (data) => resolve({ txid: data.txId }),
           onCancel: () => reject(new Error('User rejected')),
         });
