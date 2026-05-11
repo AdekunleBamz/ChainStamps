@@ -6,6 +6,10 @@ import { motion, AnimatePresence } from 'framer-motion';
 /** Default message shown when no wallet is connected. */
 const DISCONNECTED_WARNING = 'Connect your wallet to interact with this registry';
 
+/**
+ * Properties for the WarningMessage component.
+ * Renders a contextual warning banner, optionally shown when the wallet is disconnected.
+ */
 interface WarningMessageProps {
   message?: string;
   showOnDisconnected?: boolean;
