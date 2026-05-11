@@ -5,6 +5,10 @@ import { Search, type LucideProps } from 'lucide-react';
 /** Default rotation duration for the decorative ring animation in seconds. */
 const RING_ROTATION_DURATION = 20;
 
+/**
+ * Properties for the EmptyState component.
+ * Provides a placeholder view when a list or registry has no items.
+ */
 interface EmptyStateProps {
   title: string;
   description: string;
