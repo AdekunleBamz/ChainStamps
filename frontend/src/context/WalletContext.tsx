@@ -34,7 +34,7 @@ export const WalletProvider = ({ children }: { children: ReactNode }) => {
   const [isConnecting, setIsConnecting] = useState(false);
   const [userAddress, setUserAddress] = useState<string | null>(null);
 
-  // Restore existing session on mount
+  // Restore existing session from localStorage on first mount
   useEffect(() => {
     if (stacksIsConnected()) {
       const data = getLocalStorage();
