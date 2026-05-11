@@ -5,7 +5,7 @@ import { twMerge } from 'tailwind-merge';
 import { useToast } from '../../context/ToastContext';
 import { triggerHaptic } from '../../utils/haptics';
 
-/** Duration in milliseconds for copy feedback before resetting state. */
+/** Duration in milliseconds to show the check-mark copy feedback before reverting to the copy icon. */
 const COPY_FEEDBACK_DURATION = 2000;
 
 /**
