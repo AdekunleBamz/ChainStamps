@@ -30,7 +30,7 @@ export class LogicErrorBoundary extends Component<Props, State> {
 
     public componentDidCatch(error: Error, errorInfo: ErrorInfo) {
         console.error('Uncaught error:', error, errorInfo);
-        // Log to error tracking service in production
+        // Log to error tracking service in production only
         if (process.env.NODE_ENV === 'production') {
             this.logToService(error, errorInfo);
         }
