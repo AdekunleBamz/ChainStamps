@@ -10,6 +10,9 @@ const DEFAULT_FEES: OnChainFees = {
   tag: CONTRACTS.tagRegistry.fee,
 };
 
+/**
+ * Loads contract fees from chain data while keeping static config as a safe fallback.
+ */
 export const useOnChainFees = () => {
   const [fees, setFees] = useState<OnChainFees>(DEFAULT_FEES);
 
