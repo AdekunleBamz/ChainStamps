@@ -1,6 +1,7 @@
 import { useState, useMemo, useDeferredValue, useEffect, useCallback } from 'react';
 
 export interface SearchableItem {
+  /** Stable item identifier used as a render or selection key. */
   id: string;
   name: string;
   category: string;
