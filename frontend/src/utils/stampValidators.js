@@ -53,6 +53,11 @@ export const isValidWalletAddress = (v) =>
  */
 export const isValidMemoText = (v) => typeof v === 'string' && v.trim().length <= MAX_MEMO_LENGTH;
 
+/**
+ * Validates file size is a positive numeric byte count.
+ * @param {*} v - Value to validate
+ * @returns {boolean}
+ */
 export const isValidFileSize = (v) => !isNaN(Number(v)) && Number(v) > 0;
 
 /**
