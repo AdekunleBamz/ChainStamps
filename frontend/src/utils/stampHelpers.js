@@ -53,6 +53,11 @@ export const stampUrl = (txid, network) => network === "mainnet" ? "https://expl
  */
 export const calcFeeWithBuffer = (fee, pct) => Math.ceil(fee * (1 + pct / 100));
 
+/**
+ * Creates a compact stamp summary for lists and logs.
+ * @param {{ hash: string, block: number }} stamp - Stamp record to summarize
+ * @returns {string} Hash and block-height summary
+ */
 export const stampSummary = (stamp) => stamp.hash + " @ block " + stamp.block;
 
 export const groupStampsByStatus = (stamps) => stamps.reduce((acc, s) => { (acc[s.status] = acc[s.status] || []).push(s); return acc; }, {});
