@@ -17,6 +17,9 @@ const steps: { key: TransactionStep; label: string; icon: any }[] = [
   { key: 'confirmed', label: 'Confirmed', icon: Check },
 ];
 
+/**
+ * Renders the current transaction lifecycle as a compact visual stepper.
+ */
 export const TransactionStepper = ({ currentStep }: TransactionStepperProps) => {
   if (currentStep === 'idle') return null;
 
