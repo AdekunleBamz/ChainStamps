@@ -16,6 +16,7 @@ export const formatStampHash = (h) => {
 /**
  * Formats a microSTX fee as a STX decimal string.
  * @param {number} v - Fee in microSTX
+ * @remarks The value is displayed with fixed precision to match contract fee units.
  * @returns {string} e.g. "1.000000 STX"
  */
 export const formatStampFee = (v) => (v / MICROSTX_PER_STX).toFixed(6) + " STX";
