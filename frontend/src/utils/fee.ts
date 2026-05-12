@@ -31,6 +31,9 @@ export function estimateFee(payload: number | string): number {
     return Math.round(Math.min(estimated, MAX_FEE) * 10000) / 10000;
 }
 
+/**
+ * Resolves an explicit byte count or measures string payload byte length.
+ */
 function resolvePayloadSize(payload: number | string): number {
     if (typeof payload === 'number') {
         return Number.isFinite(payload) ? payload : 0;
