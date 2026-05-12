@@ -31,6 +31,7 @@ export const CopyButton = ({ value, className, size = 14 }: CopyButtonProps) => 
     const { addToast } = useToast();
     const controls = useAnimation();
 
+    /** Copies the current value and drives the success/error feedback path. */
     const handleCopy = async () => {
         try {
             await navigator.clipboard.writeText(value);
