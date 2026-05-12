@@ -21,6 +21,7 @@ export const ANIMATIONS = {
   }
 };
 
+/** Shared UI timing constants in milliseconds. */
 export const UI = {
   TOAST_DURATION: 3000,
   HAPTIC_COOLDOWN: 200,
