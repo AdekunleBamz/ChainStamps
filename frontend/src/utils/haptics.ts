@@ -3,6 +3,7 @@ export type HapticType = 'light' | 'medium' | 'heavy' | 'error' | 'success' | 'n
 
 /**
  * Returns true if the current environment supports the Web Vibration API.
+ * @returns Whether vibration can be called safely.
  */
 export const isHapticsSupported = (): boolean =>
   typeof window !== 'undefined' && 'vibrate' in navigator;
