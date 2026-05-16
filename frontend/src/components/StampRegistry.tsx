@@ -105,7 +105,7 @@ export const StampRegistry = memo(({ searchQuery = '' }: { searchQuery?: string 
     animate: { opacity: 1, y: 0, transition: { duration: 0.5 } },
   };
 
-  const isMessageValid = message.length > 0 && message.length <= MAX_MESSAGE_LENGTH;
+  const isMessageValid = message.length >= MIN_MESSAGE_LENGTH && message.length <= MAX_MESSAGE_LENGTH;
 
   return (
     <motion.section

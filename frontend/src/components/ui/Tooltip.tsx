@@ -2,9 +2,6 @@ import { useState, type ReactNode } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import { twMerge } from 'tailwind-merge';
 
-/** Animation duration for tooltip transitions in seconds. */
-const TOOLTIP_ANIMATION_DURATION = 0.15;
-
 /**
  * Properties for the Tooltip component.
  */

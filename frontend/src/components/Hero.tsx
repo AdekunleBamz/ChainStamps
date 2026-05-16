@@ -1,5 +1,5 @@
 import { Shield, Clock, Database } from 'lucide-react';
-import { motion, useScroll, useTransform } from 'framer-motion';
+import { motion, useScroll, useTransform, type MotionValue } from 'framer-motion';
 import { useRef, memo, type ComponentType } from 'react';
 import { AnimatedNumber } from './ui/AnimatedNumber';
 
@@ -43,7 +43,7 @@ const FeatureItem = memo(({ icon: Icon, title, description, ariaLabel }: { icon:
   </motion.div>
 ));
 
-const HeroBackground = memo(({ y1, y2 }: { y1: any, y2: any }) => (
+const HeroBackground = memo(({ y1, y2 }: { y1: MotionValue<number>, y2: MotionValue<number> }) => (
   <>
     <motion.div className="hero-glow" aria-hidden="true" style={{ y: y1 }} />
     <motion.div 

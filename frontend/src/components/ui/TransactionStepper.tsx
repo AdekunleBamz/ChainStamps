@@ -1,5 +1,5 @@
-import { motion, AnimatePresence } from 'framer-motion';
-import { Check, Shield, Wallet, Clock, AlertCircle, Loader2 } from 'lucide-react';
+import { motion } from 'framer-motion';
+import { Check, Shield, Wallet, Clock, AlertCircle, Loader2, type LucideIcon } from 'lucide-react';
 import type { TransactionStep } from '../../hooks/useContractCall';
 import { twMerge } from 'tailwind-merge';
 
@@ -10,7 +10,7 @@ interface TransactionStepperProps {
   currentStep: TransactionStep;
 }
 
-const steps: { key: TransactionStep; label: string; icon: any }[] = [
+const steps: { key: TransactionStep; label: string; icon: LucideIcon }[] = [
   { key: 'preparing', label: 'Preparing', icon: Shield },
   { key: 'signing', label: 'Sign in Wallet', icon: Wallet },
   { key: 'pending', label: 'Pending Network', icon: Clock },

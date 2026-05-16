@@ -120,7 +120,7 @@ export const HashRegistry = memo(({ searchQuery = '' }: { searchQuery?: string }
       setHash(hashHex);
       addToast('File hashed successfully!', 'success');
       triggerHaptic('success');
-    } catch (error) {
+    } catch {
       addToast('Failed to hash file.', 'error');
       triggerHaptic('error');
     }

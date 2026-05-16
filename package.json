@@ -16,8 +16,8 @@
     "consolidate:test-wallets": "node scripts/consolidate-test-wallets.js",
     "frontend:dev": "npm --prefix frontend run dev",
     "frontend:lint": "npm --prefix frontend run lint",
-    "lint": "eslint .",
-    "lint:fix": "eslint . --fix",
+    "lint": "npm run frontend:lint",
+    "lint:fix": "npm --prefix frontend run lint -- --fix",
     "format": "prettier --write .",
     "format:check": "prettier --check ."
   },

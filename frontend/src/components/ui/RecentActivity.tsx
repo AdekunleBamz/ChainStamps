@@ -54,19 +54,18 @@ const ActivitySkeleton = () => (
 
 export const RecentActivity = memo(({ activities, isLoading, className }: RecentActivityProps) => {
   const [filter, setFilter] = useState<FilterType>('all');
+  const [snapshotTime] = useState(() => Date.now());
 
   const filteredActivities = useMemo(() => {
-    const now = Date.now();
-
     switch (filter) {
       case 'today':
-        return activities.filter(a => now - a.timestamp < ONE_DAY_MS);
+        return activities.filter(a => snapshotTime - a.timestamp < ONE_DAY_MS);
       case 'week':
-        return activities.filter(a => now - a.timestamp < ONE_WEEK_MS);
+        return activities.filter(a => snapshotTime - a.timestamp < ONE_WEEK_MS);
       default:
         return activities;
     }
-  }, [activities, filter]);
+  }, [activities, filter, snapshotTime]);
 
   if (!isLoading && activities.length === 0) return null;
 
@@ -102,7 +101,7 @@ export const RecentActivity = memo(({ activities, isLoading, className }: Recent
           <AnimatePresence initial={false}>
             {filteredActivities.slice(0, 5).map((activity) => {
               const Icon = ICON_MAP[activity.type];
-              const isRecent = Date.now() - activity.timestamp < 180000; // 3 minutes
+              const isRecent = snapshotTime - activity.timestamp < 180000; // 3 minutes
 
               return (
                 <motion.div

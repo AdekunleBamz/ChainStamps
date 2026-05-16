@@ -198,7 +198,7 @@ export const Header = () => {
           <nav
             id="primary-navigation"
             ref={navRef}
-            aria-label="Main navigation links"
+            aria-label={NAV_ARIA_LABEL}
             className={twMerge("nav-links", isMenuOpen && "mobile-open")}
           >
             <ul className="flex items-center gap-6 list-none p-0 m-0">

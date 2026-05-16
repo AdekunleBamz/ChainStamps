@@ -1,5 +1,5 @@
 import { type ReactNode } from 'react';
-import { motion, useAnimation } from 'framer-motion';
+import { motion, type AnimationControls } from 'framer-motion';
 import { Breadcrumbs } from './ui/Breadcrumbs';
 import { Tooltip } from './ui/Tooltip';
 import { AnimatedNumber } from './ui/AnimatedNumber';
@@ -21,7 +21,7 @@ interface RegistryLayoutProps {
         tooltip: string;
     };
     children: ReactNode;
-    controls?: any;
+    controls?: AnimationControls;
 }
 
 export function RegistryLayout({

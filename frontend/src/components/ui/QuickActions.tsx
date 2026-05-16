@@ -2,7 +2,6 @@ import { useState, useEffect } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import { Plus, Hash, Stamp, Tag as TagIcon, ArrowUp, X } from 'lucide-react';
 import { twMerge } from 'tailwind-merge';
-import { Button } from './Button';
 import { Tooltip } from './Tooltip';
 import { triggerHaptic } from '../../utils/haptics';
 
