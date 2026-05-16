@@ -10,17 +10,6 @@
 ;; ============================================================
 ;; Contract owner principal for fee collection
 (define-constant CONTRACT-OWNER tx-sender)
-(define-constant ERR-NOT-AUTHORIZED (err u100))
-(define-constant ERR-HASH-ALREADY-EXISTS (err u101))
-(define-constant ERR-HASH-NOT-FOUND (err u102))
-(define-constant ERR-HASH-ALREADY-REVOKED (err u103))
-(define-constant ERR-DESCRIPTION-TOO-LONG (err u104))
-(define-constant ERR-BATCH-TOO-LARGE (err u105))
-(define-constant ERR-EMPTY-BATCH (err u106))
-(define-constant ERR-TRANSFER-TO-SELF (err u107))
-(define-constant ERR-NOT-HASH-OWNER (err u108))
-(define-constant ERR-INSUFFICIENT-FEE (err u109))
-(define-constant ERR-INVALID-DESCRIPTION (err u110))
 
 ;; Error: Caller is not authorized to perform this action (u100)
 (define-constant ERR-NOT-AUTHORIZED (err u100))
@@ -460,21 +449,4 @@
 ;; @param hash-list list of up to 10 hash buffers to verify
 (define-read-only (batch-verify-hashes (hash-list (list 10 (buff 32))))
     (map verify-hash hash-list)
-)
-
-;; Transfer hash ownership to another user
-(define-public (transfer-hash (hash (buff 32)) (new-owner principal))
-    (let
-        (
-            (hash-data (unwrap! (map-get? hashes hash) ERR-HASH-NOT-FOUND))
-        )
-        ;; Only current owner can transfer
-        (asserts! (is-eq tx-sender (get owner hash-data)) ERR-NOT-HASH-OWNER)
-        ;; Cannot transfer to self
-        (asserts! (not (is-eq tx-sender new-owner)) ERR-TRANSFER-TO-SELF)
-        
-        ;; Update ownership
-        (map-set hashes hash (merge hash-data { owner: new-owner }))
-        (ok true)
-    )
 )
