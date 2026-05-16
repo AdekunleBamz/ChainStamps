@@ -11,5 +11,6 @@ deployment_fee_rate = 10
 #
 # Enter your seed phrase and a password, then paste the encrypted mnemonic here.
 #
-# Otherwise, use the mnemonic field below:
-mnemonic = "usage upon hawk topic waste mobile stairs daughter hobby weekend answer illness"
+# Otherwise, use the mnemonic field below temporarily and keep it out of commits:
+# Public test mnemonic only; replace with an encrypted mainnet mnemonic before deployment.
+mnemonic = "zoo zoo zoo zoo zoo zoo zoo zoo zoo zoo zoo wrong"
