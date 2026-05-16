@@ -334,6 +334,7 @@ section[id] {
   max-width: 600px;
   margin: 0 auto 3rem;
   color: var(--text-secondary);
+  line-height: 1.7;
 }
 
 .features {
