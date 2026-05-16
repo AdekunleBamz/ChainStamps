@@ -18,6 +18,17 @@ export const FEE_PER_BYTE = 0.00005;
  */
 export const MAX_FEE = 10;
 
+export interface FeeEstimateDetails {
+    sizeBytes: number;
+    baseFee: number;
+    payloadFee: number;
+    total: number;
+    totalMicroStx: number;
+    capped: boolean;
+}
+
+const DEFAULT_FEE_TOLERANCE = 0.000001;
+
 /**
  * Calculates the estimated transaction fee based on payload size.
  * 
@@ -26,9 +37,26 @@ export const MAX_FEE = 10;
  */
 export function estimateFee(payload: number | string): number {
     const rawSize = resolvePayloadSize(payload);
-    const size = Number.isFinite(rawSize) && rawSize > 0 ? rawSize : 0;
+    const size = Number.isFinite(rawSize) && rawSize > 0 ? Math.floor(rawSize) : 0;
     const estimated = BASE_FEE + (size * FEE_PER_BYTE);
     return Math.round(Math.min(estimated, MAX_FEE) * 10000) / 10000;
+}
+
+export function estimateFeeDetailed(payload: number | string): FeeEstimateDetails {
+    const rawSize = resolvePayloadSize(payload);
+    const sizeBytes = Number.isFinite(rawSize) && rawSize > 0 ? Math.floor(rawSize) : 0;
+    const payloadFee = Math.round(sizeBytes * FEE_PER_BYTE * 10000) / 10000;
+    const uncappedTotal = BASE_FEE + payloadFee;
+    const total = estimateFee(payload);
+
+    return {
+        sizeBytes,
+        baseFee: BASE_FEE,
+        payloadFee,
+        total,
+        totalMicroStx: stxToMicroStx(total),
+        capped: uncappedTotal > MAX_FEE,
+    };
 }
 
 /**
@@ -40,11 +68,22 @@ function resolvePayloadSize(payload: number | string): number {
     }
 
     const normalized = payload.trim();
-    if (/^\d+$/.test(normalized)) {
-        return Number(normalized);
+    if (/^[+-]?\d+(?:\.\d+)?$/.test(normalized)) {
+        const size = Number(normalized);
+        return Number.isFinite(size) ? Math.floor(size) : 0;
     }
 
     return new TextEncoder().encode(payload).length;
+}
+
+export function formatFee(fee: number): string {
+    const normalized = Number.isFinite(fee) ? Math.max(fee, 0) : 0;
+    if (normalized === 0) {
+        return '0 STX';
+    }
+
+    const compact = normalized.toFixed(4).replace(/\.?0+$/, '');
+    return `${compact} STX`;
 }
 
 /**
@@ -93,11 +132,44 @@ export function formatUStx(microStx: number): string {
     return `${normalized.toLocaleString()} µSTX`;
 }
 
+export function isValidFee(fee: number): boolean {
+    return Number.isFinite(fee) && fee >= 0 && fee <= MAX_FEE;
+}
+
+export function isMinimumFee(fee: number): boolean {
+    return Number.isFinite(fee) && fee >= BASE_FEE;
+}
+
+export function feesAreEqual(a: number, b: number, tolerance = DEFAULT_FEE_TOLERANCE): boolean {
+    if (!Number.isFinite(a) || !Number.isFinite(b)) {
+        return false;
+    }
+
+    const normalizedTolerance =
+        Number.isFinite(tolerance) && tolerance > 0 ? tolerance : DEFAULT_FEE_TOLERANCE;
+    return Math.abs(a - b) <= normalizedTolerance + Number.EPSILON;
+}
+
+export function feeAsPercent(fee: number): string {
+    const normalized = Number.isFinite(fee) ? Math.min(Math.max(fee, 0), MAX_FEE) : 0;
+    return `${((normalized / MAX_FEE) * 100).toFixed(2)}%`;
+}
+
+export function feeToUStxDisplay(fee: number): string {
+    return formatUStx(stxToMicroStx(fee));
+}
+
+export function feeHeadroom(fee: number): number {
+    const normalized = Number.isFinite(fee) ? Math.max(fee, 0) : 0;
+    const headroom = Math.max(MAX_FEE - normalized, 0);
+    return Math.round(headroom * 10000) / 10000;
+}
+
 /**
  * Returns true if a fee value is within the acceptable range.
  * @param fee - Fee in STX
  * @returns `true` if fee is a non-negative finite number not exceeding MAX_FEE
  */
 export function isAcceptableFee(fee: number): boolean {
-  return Number.isFinite(fee) && fee >= 0 && fee <= MAX_FEE;
+  return isValidFee(fee);
 }

@@ -28,6 +28,7 @@ export const chainstampClient = new ChainstampClient({
 });
 
 let cachedFees: OnChainFees | null = null;
+let cachedFeesAt: number | null = null;
 let inFlightFeeRequest: Promise<OnChainFees> | null = null;
 
 const toMicroStx = (value: unknown): bigint | null => {
@@ -90,6 +91,7 @@ export const fetchOnChainFees = async (forceRefresh = false): Promise<OnChainFee
     };
 
     cachedFees = nextFees;
+    cachedFeesAt = Date.now();
     inFlightFeeRequest = null;
     return nextFees;
   })().catch(error => {
@@ -102,5 +104,14 @@ export const fetchOnChainFees = async (forceRefresh = false): Promise<OnChainFee
 
 export const clearFeeCache = (): void => {
   cachedFees = null;
+  cachedFeesAt = null;
   inFlightFeeRequest = null;
+};
+
+export const getFeesAge = (): number | null => {
+  if (cachedFeesAt === null) {
+    return null;
+  }
+
+  return Date.now() - cachedFeesAt;
 };
