@@ -1,4 +1,4 @@
-# Hash transfer duplicate check note
+# Hash Transfer Duplicate Check Note
 
 When ownership transfer code is edited, confirm `transfer-hash` has a single public entry point.
 
