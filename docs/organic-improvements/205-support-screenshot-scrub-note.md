@@ -1,7 +1,7 @@
 # Support Screenshot Scrub
 
 ## Summary
-Support screenshots should be scrubbed before they are attached to public issues.
+Support screenshots should be scrubbed before attachment to public issues.
 
 ## Checks
 - Hide wallet balances and unrelated addresses.
