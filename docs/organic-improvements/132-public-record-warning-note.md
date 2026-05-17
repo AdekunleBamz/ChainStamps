@@ -1,7 +1,7 @@
 # Public Record Warning
 
 ## Summary
-Write flows should remind users that stamped data is public and cannot be removed.
+Write flows should remind users that stamped data is public and cannot be deleted.
 
 ## Checks
 - Verify warning copy appears before wallet signing.
