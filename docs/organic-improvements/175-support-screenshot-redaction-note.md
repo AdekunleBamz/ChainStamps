@@ -4,6 +4,6 @@
 Support screenshots should redact wallet addresses when full principals are not needed.
 
 ## Checks
-- Redact addresses, webhook URLs, and private notes.
+- Redact addresses, webhook URLs, and any private notes.
 - Leave transaction status and timestamps visible.
 - Store raw screenshots outside public docs.
