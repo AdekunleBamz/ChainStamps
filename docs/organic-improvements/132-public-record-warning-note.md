@@ -5,5 +5,5 @@ Write flows should remind users that stamped data is public and cannot be remove
 
 ## Checks
 - Verify warning copy appears before wallet signing.
-- Confirm warning is visible on mobile.
+- Confirm the warning is visible on mobile.
 - Include the warning in release screenshots when copy changes.
