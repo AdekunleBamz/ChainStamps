@@ -1,7 +1,7 @@
 # Readonly Query Timeout
 
 ## Summary
-Readonly query failures should identify whether the API timed out or returned missing records.
+Readonly query failures should identify whether the API timed out or returned no records.
 
 ## Checks
 - Distinguish timeout, not-found, and network mismatch states.
