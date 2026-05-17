@@ -1,7 +1,7 @@
 # Wallet Reconnect After Rejection
 
 ## Summary
-Rejected wallet prompts should leave users with a clear retry path without forcing reconnect.
+Rejected wallet prompts should leave users with a clear retry path without forcing a reconnect.
 
 ## Checks
 - Reject stamp, tag, and hash registry prompts.
