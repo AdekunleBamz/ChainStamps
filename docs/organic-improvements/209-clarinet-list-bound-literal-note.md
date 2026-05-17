@@ -1,4 +1,4 @@
-# Clarinet list bound literal note
+# Clarinet List Bound Literal Note
 
 For `as-max-len?` checks, keep a focused Clarinet run after replacing literal list bounds with constants.
 
