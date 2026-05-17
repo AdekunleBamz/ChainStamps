@@ -1,7 +1,7 @@
 # Proof Export Filename
 
 ## Summary
-Proof downloads should use filenames that include the record type and network.
+Proof downloads should use filenames that include the record type and active network.
 
 ## Checks
 - Include hash, stamp, or tag context in exported filenames.
