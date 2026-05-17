@@ -1,4 +1,4 @@
-# Mainnet seed placeholder note
+# Mainnet Seed Placeholder Note
 
 Mainnet settings should never carry a private mnemonic in committed files.
 
