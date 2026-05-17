@@ -18,7 +18,7 @@ This document outlines fee optimization strategies for ChainStamps to minimize t
 
 ### Fee Structure
 - Set appropriate fee amounts
-- Consider network conditions
+- Consider current network conditions
 - Implement dynamic fee adjustment
 - Provide fee estimation tools
 
