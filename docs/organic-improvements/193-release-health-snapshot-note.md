@@ -1,7 +1,7 @@
 # Release Health Snapshot
 
 ## Summary
-Release handoffs should include a small health snapshot for build, registry reads, and write smoke tests.
+Release handoffs should include a small health snapshot for build, registry reads, and write smoke checks.
 
 ## Checks
 - Record frontend build status.
