@@ -5,5 +5,5 @@ Share links should include enough transaction context without exposing private d
 
 ## Checks
 - Share successful stamp, hash, and tag results.
-- Confirm links open to the expected registry view.
+- Confirm links open to the expected result view.
 - Keep draft-only fields out of shared URLs.
