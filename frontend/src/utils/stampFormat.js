@@ -65,3 +65,134 @@ export const formatConfirmations = (n) => {
   if (!n || n <= 0) return 'Unconfirmed';
   return n + (n === 1 ? ' confirmation' : ' confirmations');
 };
+
+/**
+ * Formats stamp lifecycle status labels.
+ * @param {string|null|undefined} status
+ * @returns {string}
+ */
+export const formatStampStatus = (status) => {
+  const normalized = typeof status === 'string' ? status.trim().toLowerCase() : '';
+  if (!normalized) return 'Unknown';
+  return normalized.charAt(0).toUpperCase() + normalized.slice(1);
+};
+
+/**
+ * Formats transaction id for compact UI display.
+ * @param {string|null|undefined} txid
+ * @returns {string}
+ */
+export const formatTxId = (txid) => {
+  const normalized = typeof txid === 'string' ? txid.trim() : '';
+  if (!normalized) return '';
+  if (normalized.length <= 8) return normalized;
+  return normalized.slice(0, 8) + '...';
+};
+
+/**
+ * Formats microSTX values as STX with fixed precision.
+ * @param {number} value
+ * @returns {string}
+ */
+export const formatMicroStx = (value) => (value / MICROSTX_PER_STX).toFixed(6) + ' STX';
+
+/**
+ * Formats stamp count labels with pluralization.
+ * @param {number} count
+ * @returns {string}
+ */
+export const formatStampCount = (count) => `${count} ${count === 1 ? 'stamp' : 'stamps'}`;
+
+/**
+ * Prefixes batch ids for UI clarity.
+ * @param {string|number} batchId
+ * @returns {string}
+ */
+export const formatBatchId = (batchId) => `BATCH-${batchId}`;
+
+/**
+ * Formats byte sizes with KB fallback.
+ * @param {number} bytes
+ * @returns {string}
+ */
+export const formatFileSize = (bytes) => {
+  if (!Number.isFinite(bytes) || bytes < 0) return '0 B';
+  if (bytes < 1024) return `${bytes} B`;
+  return `${(bytes / 1024).toFixed(2)} KB`;
+};
+
+/**
+ * Formats proof length values.
+ * @param {number|string} length
+ * @returns {string}
+ */
+export const formatProofLength = (length) => `${length} chars`;
+
+/**
+ * Formats wallet addresses for compact display.
+ * @param {string|null|undefined} address
+ * @returns {string}
+ */
+export const formatWalletAddress = (address) => {
+  const normalized = typeof address === 'string' ? address.trim() : '';
+  if (!normalized) return '';
+  if (normalized.length <= 10) return normalized;
+  return `${normalized.slice(0, 6)}...${normalized.slice(-4)}`;
+};
+
+/**
+ * Trims and truncates memo text for compact UI slots.
+ * @param {unknown} memo
+ * @returns {string}
+ */
+export const formatMemoText = (memo) => {
+  if (typeof memo !== 'string') return '';
+  const normalized = memo.trim();
+  if (normalized.length <= 32) return normalized;
+  return `${normalized.slice(0, 32)}...`;
+};
+
+/**
+ * Formats network labels with safe fallback.
+ * @param {string|null|undefined} network
+ * @returns {string}
+ */
+export const formatNetworkName = (network) => {
+  const normalized = typeof network === 'string' ? network.trim().toLowerCase() : '';
+  if (!normalized) return 'Unknown';
+  return normalized.charAt(0).toUpperCase() + normalized.slice(1);
+};
+
+/**
+ * Formats stamp types in uppercase.
+ * @param {string|null|undefined} type
+ * @returns {string}
+ */
+export const formatStampType = (type) => {
+  const normalized = typeof type === 'string' ? type.trim() : '';
+  return normalized.toUpperCase();
+};
+
+/**
+ * Formats remaining blocks for cooldown/status displays.
+ * @param {number} blocks
+ * @returns {string}
+ */
+export const formatBlocksRemaining = (blocks) => `${blocks} blocks left`;
+
+/**
+ * Formats hash algorithm labels in uppercase.
+ * @param {string|null|undefined} algorithm
+ * @returns {string}
+ */
+export const formatHashAlgorithm = (algorithm) => {
+  const normalized = typeof algorithm === 'string' ? algorithm.trim() : '';
+  return normalized.toUpperCase();
+};
+
+/**
+ * Formats version strings with a leading v.
+ * @param {string|number} version
+ * @returns {string}
+ */
+export const formatStampVersion = (version) => `v${version}`;
