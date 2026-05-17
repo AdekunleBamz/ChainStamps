@@ -490,4 +490,4 @@ ChainStamps is built for speed and efficiency:
 
 </div>
 
-Maintenance note: revalidate explorer links after switching network defaults.
+Maintenance note: recheck explorer links after switching network defaults.
