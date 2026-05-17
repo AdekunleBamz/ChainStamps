@@ -1,7 +1,7 @@
 # QR Code Alt Label
 
 ## Summary
-QR code outputs should have accessible labels that identify the proof or share target.
+QR code outputs should have accessible labels that identify the proof or sharing target.
 
 ## Checks
 - Review QR image labels with assistive technology.
