@@ -1,4 +1,4 @@
-import { useState, type ReactNode } from 'react';
+import { useState, useCallback, type ReactNode } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import { twMerge } from 'tailwind-merge';
 
@@ -24,13 +24,16 @@ interface TooltipProps {
 export const Tooltip = ({ content, children, className }: TooltipProps) => {
     const [isVisible, setIsVisible] = useState(false);
 
+    const showTooltip = useCallback(() => setIsVisible(true), []);
+    const hideTooltip = useCallback(() => setIsVisible(false), []);
+
     return (
         <div
             className={twMerge("relative inline-block", className)}
-            onMouseEnter={() => setIsVisible(true)}
-            onMouseLeave={() => setIsVisible(false)}
-            onFocus={() => setIsVisible(true)}
-            onBlur={() => setIsVisible(false)}
+            onMouseEnter={showTooltip}
+            onMouseLeave={hideTooltip}
+            onFocus={showTooltip}
+            onBlur={hideTooltip}
         >
             {children}
             <AnimatePresence>
