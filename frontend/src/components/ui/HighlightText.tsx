@@ -1,4 +1,4 @@
-import { memo } from 'react';
+import { memo, useMemo } from 'react';
 
 /**
  * Properties for the HighlightText component.
@@ -11,9 +11,14 @@ interface HighlightTextProps {
 }
 
 export const HighlightText = memo(({ text, query, className = "bg-primary/20 text-primary px-0.5 rounded-sm" }: HighlightTextProps) => {
+  const highlightRegex = useMemo(
+    () => new RegExp(`(${query.replace(/[.*+?^${}()|[\]\\]/g, '\\$&')})`, 'gi'),
+    [query]
+  );
+
   if (!query.trim()) return <>{text}</>;
 
-  const parts = text.split(new RegExp(`(${query.replace(/[.*+?^${}()|[\]\\]/g, '\\$&')})`, 'gi'));
+  const parts = text.split(highlightRegex);
 
   return (
     <>
