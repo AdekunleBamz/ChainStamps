@@ -1,4 +1,4 @@
-import { useState, useEffect } from 'react';
+import { useState, useEffect, useCallback } from 'react';
 import { ChevronUp } from 'lucide-react';
 import { twMerge } from 'tailwind-merge';
 import { Button } from './Button';
@@ -22,12 +22,11 @@ export const ScrollToTop = () => {
     return () => window.removeEventListener('scroll', toggleVisibility);
   }, []);
 
-  const scrollToTop = () => {
+  const scrollToTop = useCallback(() => {
     window.scrollTo({
       top: 0,
       behavior: 'smooth',
-    });
-  };
+  }, []);
 
   return (
     <div className={twMerge(
