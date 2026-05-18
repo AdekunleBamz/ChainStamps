@@ -69,7 +69,7 @@ export const StampRegistry = memo(({ searchQuery = '' }: { searchQuery?: string 
 
   const [lastSubmitTime, setLastSubmitTime] = useState(0);
 
-  const storeStamp = async () => {
+  const storeStamp = useCallback(async () => {
     const now = Date.now();
     if (now - lastSubmitTime < RATE_LIMIT_INTERVAL) return;
 
@@ -94,7 +94,7 @@ export const StampRegistry = memo(({ searchQuery = '' }: { searchQuery?: string 
     } catch {
       // Error handled by hook
     }
-  };
+  }, [lastSubmitTime, message, isConnected, userAddress, addToast, shake, execute]);
 
   const handleKeyDown = useCallback((e: React.KeyboardEvent) => {
     if ((e.metaKey || e.ctrlKey) && e.key === 'Enter') {
