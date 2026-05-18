@@ -1,6 +1,6 @@
 import { useWallet } from '../context/WalletContext';
 import { Wallet, LogOut, Loader2, Activity, Menu, X } from 'lucide-react';
-import { useState, useEffect, useRef } from 'react';
+import { useState, useEffect, useRef, useCallback } from 'react';
 import { twMerge } from 'tailwind-merge';
 import { Button } from './ui/Button';
 import { Tooltip } from './ui/Tooltip';
@@ -186,7 +186,7 @@ export const Header = () => {
                   <button
                     type="button"
                     className="mobile-menu-toggle"
-                    onClick={() => setIsMenuOpen(!isMenuOpen)}
+                    onClick={() => setIsMenuOpen(v => !v)}
                     aria-label={isMenuOpen ? 'Close navigation menu' : 'Open navigation menu'}
                     aria-expanded={isMenuOpen}
                     aria-haspopup="true"
