@@ -1,7 +1,7 @@
 import UniversalProvider from '@walletconnect/universal-provider';
 
 /** WalletConnect project ID from environment variables. */
-const PROJECT_ID = (import.meta.env.VITE_WALLETCONNECT_PROJECT_ID || '').trim();
+const PROJECT_ID = (import.meta.env.VITE_WALLETCONNECT_PROJECT_ID ?? '').trim();
 
 /** Debug flag for verbose WalletConnect logging. */
 const DEBUG = import.meta.env.VITE_DEBUG === 'true';
@@ -169,7 +169,7 @@ export const wcConnect = async (
     if (DEBUG) console.warn('⚠️ stx_getAddresses failed/timeout, falling back to session accounts');
     
     // Fallback: parse from session namespaces
-    const accounts = session.namespaces?.stacks?.accounts || [];
+    const accounts = session.namespaces?.stacks?.accounts ?? [];
     if (accounts.length > 0) {
       // Format: "stacks:1:SP..."
       const parts = accounts[0].split(':');
