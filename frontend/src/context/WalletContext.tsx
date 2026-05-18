@@ -1,4 +1,4 @@
-import { createContext, useContext, useState, useEffect } from 'react';
+import { createContext, useContext, useState, useEffect, useCallback } from 'react';
 import type { ReactNode } from 'react';
 import {
   connect as stacksConnect,
@@ -46,7 +46,7 @@ export const WalletProvider = ({ children }: { children: ReactNode }) => {
     }
   }, []);
 
-  const connect = async () => {
+  const connect = useCallback(async () => {
     setIsConnecting(true);
     try {
       await stacksConnect();
@@ -61,13 +61,12 @@ export const WalletProvider = ({ children }: { children: ReactNode }) => {
     } finally {
       setIsConnecting(false);
     }
-  };
+  }, []);
 
-  const disconnect = () => {
+  const disconnect = useCallback(() => {
     stacksDisconnect();
     setIsConnected(false);
-    setUserAddress(null);
-  };
+  }, []);
 
   return (
     <WalletContext.Provider value={{ isConnected, isConnecting, userAddress, connect, disconnect }}>
