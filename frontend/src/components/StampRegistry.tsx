@@ -1,4 +1,4 @@
-import { useState, useEffect, memo } from 'react';
+import { useState, useEffect, memo, useCallback } from 'react';
 import { motion, useAnimation, AnimatePresence } from 'framer-motion';
 import { useWallet } from '../context/WalletContext';
 import { BASE_NETWORK_FEE_STX, CONTRACT_ADDRESS, CONTRACTS } from '../config/contracts';
@@ -62,10 +62,10 @@ export const StampRegistry = memo(({ searchQuery = '' }: { searchQuery?: string 
     return () => clearTimeout(timer);
   }, []);
 
-  const shake = () => {
+  const shake = useCallback(() => {
     controls.start(SHAKE_ANIMATION);
     triggerHaptic('error');
-  };
+  }, [controls]);
 
   const [lastSubmitTime, setLastSubmitTime] = useState(0);
 
@@ -96,13 +96,13 @@ export const StampRegistry = memo(({ searchQuery = '' }: { searchQuery?: string 
     }
   };
 
-  const handleKeyDown = (e: React.KeyboardEvent) => {
+  const handleKeyDown = useCallback((e: React.KeyboardEvent) => {
     if ((e.metaKey || e.ctrlKey) && e.key === 'Enter') {
       if (message && isConnected && !isSubmitting) {
         storeStamp();
       }
     }
-  };
+  }, [message, isConnected, isSubmitting, storeStamp]);
 
   if (isLoading) return <CardSkeleton />;
 
