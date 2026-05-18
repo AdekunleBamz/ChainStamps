@@ -2,6 +2,7 @@ import { X, Smartphone, ExternalLink } from 'lucide-react';
 import { QRCodeSVG } from 'qrcode.react';
 import { Button } from './ui/Button';
 import { motion } from 'framer-motion';
+import { useCallback } from 'react';
 
 /** WalletConnect deep-link base URL for opening URIs in mobile wallets. */
 const WALLETCONNECT_MOBILE_BASE = 'https://walletconnect.com/wc';
@@ -28,9 +29,11 @@ export const WalletConnectQRModal = ({ uri, onClose }: WalletConnectQRModalProps
   // Build a camera-friendly deep-link for mobile users who cannot scan directly
   const mobileLink = `${WALLETCONNECT_MOBILE_BASE}?uri=${encodeURIComponent(uri)}`;
 
+  const stopPropagation = useCallback((e: React.MouseEvent) => e.stopPropagation(), []);
+
   return (
     <div className="qr-modal-overlay flex-center" onClick={onClose} role="dialog" aria-modal="true" aria-labelledby="qr-modal-title">
-      <div className="qr-modal glass shadow-lg" onClick={(e) => e.stopPropagation()}>
+      <div className="qr-modal glass shadow-lg" onClick={stopPropagation}>
         <div className="qr-modal-header flex-between mb-4">
           <h3 id="qr-modal-title">Connect Wallet</h3>
           <Button
