@@ -1,4 +1,4 @@
-import { useState, useEffect, memo } from 'react';
+import { useState, useEffect, memo, useCallback } from 'react';
 import { motion, useAnimation, AnimatePresence } from 'framer-motion';
 import { useWallet } from '../context/WalletContext';
 import { BASE_NETWORK_FEE_STX, CONTRACT_ADDRESS, CONTRACTS } from '../config/contracts';
@@ -64,14 +64,14 @@ export const HashRegistry = memo(({ searchQuery = '' }: { searchQuery?: string }
     };
   }, []);
 
-  const shake = () => {
+  const shake = useCallback(() => {
     controls.start(SHAKE_ANIMATION);
     triggerHaptic('error');
-  };
+  }, [controls]);
 
   const [lastSubmitTime, setLastSubmitTime] = useState(0);
 
-  const storeHash = async () => {
+  const storeHash = useCallback(async () => {
     const now = Date.now();
     if (now - lastSubmitTime < RATE_LIMIT_INTERVAL) return;
     
@@ -112,9 +112,9 @@ export const HashRegistry = memo(({ searchQuery = '' }: { searchQuery?: string }
     } catch {
       // Error handled by hook
     }
-  };
+  }, [lastSubmitTime, hash, isConnected, userAddress, addToast, shake, execute]);
 
-  const handleFileUpload = async (e: React.ChangeEvent<HTMLInputElement>) => {
+  const handleFileUpload = useCallback(async (e: React.ChangeEvent<HTMLInputElement>) => {
     const file = e.target.files?.[0];
     if (!file) return;
 
@@ -130,15 +130,15 @@ export const HashRegistry = memo(({ searchQuery = '' }: { searchQuery?: string }
       addToast('Failed to hash file.', 'error');
       triggerHaptic('error');
     }
-  };
+  }, [addToast]);
 
-  const handleKeyDown = (e: React.KeyboardEvent) => {
+  const handleKeyDown = useCallback((e: React.KeyboardEvent) => {
     if ((e.metaKey || e.ctrlKey) && e.key === 'Enter') {
       if (hash && isConnected && !isSubmitting) {
         storeHash();
       }
     }
-  };
+  }, [hash, isConnected, isSubmitting, storeHash]);
 
   if (isLoading) return <CardSkeleton />;
 
