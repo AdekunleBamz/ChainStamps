@@ -1,4 +1,3 @@
-import React from 'react';
 import { CheckCircle, ExternalLink } from 'lucide-react';
 import { motion, AnimatePresence } from 'framer-motion';
 
@@ -19,12 +18,12 @@ interface SuccessMessageProps {
   children?: React.ReactNode;
 }
 
-export const SuccessMessage: React.FC<SuccessMessageProps> = ({ 
+export const SuccessMessage = ({ 
   message, 
   txId, 
   explorerUrl = DEFAULT_EXPLORER_URL,
   children 
-}) => {
+}: SuccessMessageProps) => {
   return (
     <AnimatePresence>
       {(message || txId) && (

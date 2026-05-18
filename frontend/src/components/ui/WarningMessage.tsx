@@ -1,4 +1,3 @@
-import React from 'react';
 import { AlertCircle } from 'lucide-react';
 import { useWallet } from '../../context/WalletContext';
 import { motion, AnimatePresence } from 'framer-motion';
@@ -15,10 +14,10 @@ interface WarningMessageProps {
   showOnDisconnected?: boolean;
 }
 
-export const WarningMessage: React.FC<WarningMessageProps> = ({ 
+export const WarningMessage = ({ 
   message, 
   showOnDisconnected = true 
-}) => {
+}: WarningMessageProps) => {
   const { isConnected } = useWallet();
 
   const isVisible = (!isConnected && showOnDisconnected) || (isConnected && message);
