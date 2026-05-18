@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useState, useCallback } from 'react';
 import { motion, AnimatePresence, useAnimation } from 'framer-motion';
 import { Copy, Check } from 'lucide-react';
 import { twMerge } from 'tailwind-merge';
@@ -32,7 +32,7 @@ export const CopyButton = ({ value, className, size = 14 }: CopyButtonProps) => 
     const controls = useAnimation();
 
     /** Copies the current value and drives the success/error feedback path. */
-    const handleCopy = async () => {
+    const handleCopy = useCallback(async () => {
         try {
             await navigator.clipboard.writeText(value);
             setCopied(true);
@@ -49,7 +49,7 @@ export const CopyButton = ({ value, className, size = 14 }: CopyButtonProps) => 
             triggerHaptic('error');
             addToast('Failed to copy to clipboard', 'error');
         }
-    };
+    }, [value, controls, addToast]);
 
     return (
         <motion.button
