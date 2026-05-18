@@ -34,8 +34,8 @@ export const Breadcrumbs = ({ items }: BreadcrumbsProps) => {
                     </a>
                 </li>
 
-                {items.map((item, index) => (
-                    <li key={index} className="flex items-center space-x-2">
+                {items.map((item) => (
+                    <li key={item.label} className="flex items-center space-x-2">
                         <ChevronRight size={12} className="opacity-50" />
                         {item.href ? (
                             <a
