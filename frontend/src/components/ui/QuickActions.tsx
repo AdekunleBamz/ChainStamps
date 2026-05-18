@@ -1,4 +1,4 @@
-import { useState, useEffect } from 'react';
+import { useState, useEffect, useCallback } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import { Plus, Hash, Stamp, Tag as TagIcon, ArrowUp, X } from 'lucide-react';
 import { twMerge } from 'tailwind-merge';
@@ -37,7 +37,7 @@ export const QuickActions = () => {
     return () => window.removeEventListener('scroll', handleScroll);
   }, [isOpen]);
 
-  const handleAction = (id: string) => {
+  const handleAction = useCallback((id: string) => {
     const element = document.getElementById(id);
     if (element) {
       const offset = 100; // Account for the sticky header height
@@ -57,7 +57,7 @@ export const QuickActions = () => {
     }
     setIsOpen(false);
     triggerHaptic('light');
-  };
+  }, []);
 
   return (
     <div className={twMerge(
