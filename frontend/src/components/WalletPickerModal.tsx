@@ -1,6 +1,12 @@
 import { X } from 'lucide-react';
 import { Button } from './ui/Button';
 import { motion } from 'framer-motion';
+import { useCallback } from 'react';
+
+const handleHiroMouseOver = (e: React.MouseEvent<HTMLButtonElement>) => { e.currentTarget.style.opacity = '0.88'; };
+const handleHiroMouseOut = (e: React.MouseEvent<HTMLButtonElement>) => { e.currentTarget.style.opacity = '1'; };
+const handleWCMouseOver = (e: React.MouseEvent<HTMLButtonElement>) => { e.currentTarget.style.background = 'rgba(255,255,255,0.12)'; };
+const handleWCMouseOut = (e: React.MouseEvent<HTMLButtonElement>) => { e.currentTarget.style.background = 'rgba(255,255,255,0.07)'; };
 
 interface WalletPickerModalProps {
   onSelectHiro: () => void;
@@ -14,6 +20,8 @@ interface WalletPickerModalProps {
  * Closes on backdrop click; keyboard focus should be trapped while open.
  */
 export const WalletPickerModal = ({ onSelectHiro, onSelectWalletConnect, onClose }: WalletPickerModalProps) => {
+  const stopPropagation = useCallback((e: React.MouseEvent) => e.stopPropagation(), []);
+
   return (
     <div
       className="qr-modal-overlay flex-center"
@@ -24,7 +32,7 @@ export const WalletPickerModal = ({ onSelectHiro, onSelectWalletConnect, onClose
     >
       <motion.div
         className="qr-modal glass shadow-lg"
-        onClick={(e) => e.stopPropagation()}
+        onClick={stopPropagation}
         initial={{ opacity: 0, scale: 0.95 }}
         animate={{ opacity: 1, scale: 1 }}
         exit={{ opacity: 0, scale: 0.95 }}
@@ -47,8 +55,8 @@ export const WalletPickerModal = ({ onSelectHiro, onSelectWalletConnect, onClose
               border: 'none', cursor: 'pointer', fontSize: 15, fontWeight: 600, width: '100%',
               transition: 'opacity 0.15s',
             }}
-            onMouseOver={(e) => (e.currentTarget.style.opacity = '0.88')}
-            onMouseOut={(e) => (e.currentTarget.style.opacity = '1')}
+            onMouseOver={handleHiroMouseOver}
+            onMouseOut={handleHiroMouseOut}
           >
             <svg width="22" height="22" viewBox="0 0 24 24" fill="none" aria-hidden="true" style={{ flexShrink: 0 }}>
               <rect width="24" height="24" rx="6" fill="white" fillOpacity=".2"/>
@@ -67,8 +75,8 @@ export const WalletPickerModal = ({ onSelectHiro, onSelectWalletConnect, onClose
               border: '1px solid rgba(255,255,255,0.15)', cursor: 'pointer', fontSize: 15, fontWeight: 600, width: '100%',
               transition: 'background 0.15s',
             }}
-            onMouseOver={(e) => (e.currentTarget.style.background = 'rgba(255,255,255,0.12)')}
-            onMouseOut={(e) => (e.currentTarget.style.background = 'rgba(255,255,255,0.07)')}
+            onMouseOver={handleWCMouseOver}
+            onMouseOut={handleWCMouseOut}
           >
             <svg width="22" height="22" viewBox="0 0 24 24" fill="none" aria-hidden="true" style={{ flexShrink: 0 }}>
               <rect width="24" height="24" rx="6" fill="white" fillOpacity=".08"/>
