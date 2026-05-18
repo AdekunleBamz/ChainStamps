@@ -37,6 +37,12 @@ const MAX_VALUE_LENGTH = 256;
 /** Regular expression pattern for validating tag key format (kebab-case). */
 const TAG_KEY_PATTERN = /^[a-z0-9-]+$/;
 
+/** Animation variants for the card entry transition. */
+const CARD_VARIANTS = {
+  initial: { opacity: 0, y: 20 },
+  animate: { opacity: 1, y: 0, transition: { duration: 0.5 } },
+};
+
 /**
  * TagRegistry component for managing decentralized key-value metadata on Stacks.
  * Keys must be kebab-case; values are stored as UTF-8 strings on-chain.
@@ -106,11 +112,6 @@ export const TagRegistry = memo(({ searchQuery = '' }: { searchQuery?: string })
 
   if (isLoading) return <CardSkeleton />;
 
-  const cardVariants = {
-    initial: { opacity: 0, y: 20 },
-    animate: { opacity: 1, y: 0, transition: { duration: 0.5 } }
-  };
-
   const isKeyValid = key.length > 0 && TAG_KEY_PATTERN.test(key);
   const isValueValid = value.length > 0 && value.length <= MAX_VALUE_LENGTH;
 
@@ -118,7 +119,7 @@ export const TagRegistry = memo(({ searchQuery = '' }: { searchQuery?: string })
     <motion.section
       id="tag"
       className="card"
-      variants={cardVariants}
+      variants={CARD_VARIANTS}
       initial="initial"
       animate={controls}
     >

@@ -37,6 +37,12 @@ const MIN_MESSAGE_LENGTH = 1;
 /** Number of characters to show in stamp activity preview. */
 const STAMP_PREVIEW_LENGTH = 32;
 
+/** Animation variants for the card entry transition. */
+const CARD_VARIANTS = {
+  initial: { opacity: 0, y: 20 },
+  animate: { opacity: 1, y: 0, transition: { duration: 0.5 } },
+};
+
 /**
  * StampRegistry component for permanently recording text messages on the Stacks blockchain.
  * Messages are stored as UTF-8 strings and are immutable once confirmed.
@@ -100,18 +106,13 @@ export const StampRegistry = memo(({ searchQuery = '' }: { searchQuery?: string 
 
   if (isLoading) return <CardSkeleton />;
 
-  const cardVariants = {
-    initial: { opacity: 0, y: 20 },
-    animate: { opacity: 1, y: 0, transition: { duration: 0.5 } },
-  };
-
   const isMessageValid = message.length >= MIN_MESSAGE_LENGTH && message.length <= MAX_MESSAGE_LENGTH;
 
   return (
     <motion.section
       id="stamp"
       className="card"
-      variants={cardVariants}
+      variants={CARD_VARIANTS}
       initial="initial"
       animate={controls}
     >
