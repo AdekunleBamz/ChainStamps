@@ -76,8 +76,8 @@ const RoadmapPhase = memo(({ phase, index }: RoadmapPhaseProps) => {
                         className="grid grid-cols-1 md:grid-cols-2 gap-2"
                         aria-labelledby={`phase-title-${index}`}
                     >
-                        {phase.items.map((item, i) => (
-                            <li key={i} className="text-sm text-muted-foreground flex items-center gap-2">
+                        {phase.items.map((item) => (
+                            <li key={item} className="text-sm text-muted-foreground flex items-center gap-2">
                                 <div className="w-1.5 h-1.5 rounded-full bg-primary/40" />
                                 {item}
                             </li>
