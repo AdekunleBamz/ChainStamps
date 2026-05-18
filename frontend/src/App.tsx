@@ -142,6 +142,21 @@ const App = () => {
     return () => window.removeEventListener('keydown', handleKeyDown);
   }, []);
 
+  const handleSearchChange = useCallback((e: React.ChangeEvent<HTMLInputElement>) => setSearchQuery(e.target.value), [setSearchQuery]);
+  const handleSearchKeyDown = useCallback((event: React.KeyboardEvent<HTMLInputElement>) => {
+    if (event.key === 'Escape') {
+      setSearchQuery('');
+      (event.target as HTMLInputElement).blur();
+    }
+  }, [setSearchQuery]);
+  const clearSearch = useCallback(() => {
+    setSearchQuery('');
+    triggerHaptic('light');
+  }, [setSearchQuery]);
+  const handlePullToRefresh = useCallback(async () => {
+    window.location.reload();
+  }, []);
+
   return (
     <ToastProvider>
       <WalletProvider>
@@ -151,9 +166,7 @@ const App = () => {
             <a href="#main-content" className="skip-to-content focus:top-0 fixed -top-20 left-1/2 -translate-x-1/2 bg-primary text-white px-4 py-2 z-[1000] rounded-b-xl font-bold transition-all">
               Skip to content
             </a>
-            <PullToRefresh onRefresh={async () => {
-              window.location.reload();
-            }} />
+            <PullToRefresh onRefresh={handlePullToRefresh} />
             <MeshGradient />
             <ToastContainer />
             <Header />
@@ -181,13 +194,8 @@ const App = () => {
                     type="text"
                     placeholder="Search registries (Cmd+K)..."
                     value={searchQuery}
-                    onChange={(e) => setSearchQuery(e.target.value)}
-                    onKeyDown={(event) => {
-                      if (event.key === 'Escape') {
-                        setSearchQuery('');
-                        (event.target as HTMLInputElement).blur();
-                      }
-                    }}
+                    onChange={handleSearchChange}
+                    onKeyDown={handleSearchKeyDown}
                     className="search-input"
                     aria-label="Search registry cards"
                     aria-controls="registry-results"
@@ -196,10 +204,7 @@ const App = () => {
                   {searchQuery && (
                     <button
                       type="button"
-                      onClick={() => {
-                        setSearchQuery('');
-                        triggerHaptic('light');
-                      }}
+                      onClick={clearSearch}
                       className="search-clear"
                       aria-label="Clear registry search"
                     >
