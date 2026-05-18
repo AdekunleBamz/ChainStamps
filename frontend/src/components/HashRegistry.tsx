@@ -89,7 +89,7 @@ export const HashRegistry = memo(({ searchQuery = '' }: { searchQuery?: string }
         throw new Error('Failed to parse hash input.');
       }
 
-      const hashBytes = Uint8Array.from(hashPairs.map((byte) => parseInt(byte, 16)));
+      const hashBytes = Uint8Array.from(hashPairs.map((byte) => Number.parseInt(byte, 16)));
       const description = `ChainStamp hash ${hash.slice(0, HASH_PREVIEW_LENGTH)}...`;
 
       await execute({
