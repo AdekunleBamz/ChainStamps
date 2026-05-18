@@ -1,4 +1,4 @@
-import { useEffect, useState, useMemo, memo, Suspense, lazy } from 'react';
+import { useEffect, useState, useMemo, memo, Suspense, lazy, useCallback } from 'react';
 import { twMerge } from 'tailwind-merge';
 import { motion, AnimatePresence } from 'framer-motion';
 import { WalletProvider } from './context/WalletContext';
@@ -78,6 +78,9 @@ interface Registry extends SearchableItem {
 const App = () => {
   const [lastUpdated] = useState(new Date().toLocaleTimeString());
   const [isFilterDrawerOpen, setIsFilterDrawerOpen] = useState(false);
+
+  const openFilterDrawer = useCallback(() => setIsFilterDrawerOpen(true), []);
+  const closeFilterDrawer = useCallback(() => setIsFilterDrawerOpen(false), []);
 
   const INITIAL_REGISTRIES: Registry[] = useMemo(() => [
     { 
@@ -224,7 +227,7 @@ const App = () => {
                   <div className="flex items-center gap-3">
                     <button
                       type="button"
-                      onClick={() => setIsFilterDrawerOpen(true)}
+                      onClick={openFilterDrawer}
                       className="md:hidden flex items-center gap-2 bg-white/5 border border-white/10 px-3 py-1.5 rounded-xl text-xs font-bold hover:bg-white/10 transition-all"
                     >
                       <Filter size={14} />
@@ -306,7 +309,7 @@ const App = () => {
                 {/* Mobile Filter Drawer */}
                 <FilterDrawer
                   isOpen={isFilterDrawerOpen}
-                  onClose={() => setIsFilterDrawerOpen(false)}
+                  onClose={closeFilterDrawer}
                   activeFiltersCount={(searchQuery ? 1 : 0) + selectedCategories.length}
                 >
                   <div className="space-y-6">
@@ -338,7 +341,7 @@ const App = () => {
                             type="button"
                             onClick={() => {
                               setSearchQuery(tag);
-                              setIsFilterDrawerOpen(false);
+                              closeFilterDrawer();
                             }}
                             className="text-xs text-primary/60 hover:text-primary border border-primary/10 px-3 py-1.5 rounded-full hover:bg-primary/5 transition-all"
                           >
@@ -352,7 +355,7 @@ const App = () => {
                       onClick={() => {
                         setSearchQuery('');
                         setSelectedCategories([]);
-                        setIsFilterDrawerOpen(false);
+                        closeFilterDrawer();
                       }}
                       variant="outline"
                     >
