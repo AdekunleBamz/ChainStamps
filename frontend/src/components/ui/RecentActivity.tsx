@@ -1,6 +1,6 @@
 import { motion, AnimatePresence } from 'framer-motion';
 import { ExternalLink, Hash, Stamp, Tag as TagIcon, Clock } from 'lucide-react';
-import { memo, useState, useMemo } from 'react';
+import { memo, useState, useMemo, useCallback } from 'react';
 import { twMerge } from 'tailwind-merge';
 
 /** Represents a single on-chain action shown in the RecentActivity feed. */
@@ -56,6 +56,8 @@ export const RecentActivity = memo(({ activities, isLoading, className }: Recent
   const [filter, setFilter] = useState<FilterType>('all');
   const [snapshotTime] = useState(() => Date.now());
 
+  const handleFilterChange = useCallback((f: FilterType) => setFilter(f), []);
+
   const filteredActivities = useMemo(() => {
     switch (filter) {
       case 'today':
@@ -81,7 +83,7 @@ export const RecentActivity = memo(({ activities, isLoading, className }: Recent
             {(['all', 'today', 'week'] as FilterType[]).map((f) => (
               <button
                 key={f}
-                onClick={() => setFilter(f)}
+                onClick={() => handleFilterChange(f)}
                 className={twMerge(
                   "px-2 py-0.5 text-[9px] font-bold uppercase tracking-wider rounded-md transition-all",
                   filter === f ? "bg-primary text-white" : "text-muted-foreground hover:bg-white/5"
