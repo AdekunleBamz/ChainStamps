@@ -84,6 +84,20 @@ const HeroStats = memo(() => (
   </motion.div>
 ));
 
+const handleGetStarted = () => {
+  (document.querySelector('.connect-btn') as HTMLButtonElement)?.click();
+};
+
+const handleScrollToHash = () => {
+  document.querySelector('#hash')?.scrollIntoView({ behavior: 'smooth' });
+};
+
+const handleScrollKeyDown = (e: React.KeyboardEvent) => {
+  if (e.key === 'Enter' || e.key === ' ') {
+    handleScrollToHash();
+  }
+};
+
 /**
  * Hero section component.
  * Displays the main value proposition and core feature highlights.
@@ -129,7 +143,7 @@ export const Hero = () => {
 
       <motion.div className="hero-cta flex-center gap-4" variants={ITEM_VARIANTS}>
         <button
-          onClick={() => (document.querySelector('.connect-btn') as HTMLButtonElement)?.click()}
+          onClick={handleGetStarted}
           className="cta-primary h-14 px-8 rounded-2xl bg-primary text-white font-bold flex items-center gap-2 hover:scale-105 active:scale-95 transition-all shadow-xl shadow-primary/20"
         >
           Get Started
@@ -151,12 +165,8 @@ export const Hero = () => {
         initial={{ opacity: 0, y: -20 }}
         animate={{ opacity: 0.5, y: 0 }}
         transition={{ delay: 2, duration: 1 }}
-        onClick={() => document.querySelector('#hash')?.scrollIntoView({ behavior: 'smooth' })}
-        onKeyDown={(e: React.KeyboardEvent) => {
-          if (e.key === 'Enter' || e.key === ' ') {
-            document.querySelector('#hash')?.scrollIntoView({ behavior: 'smooth' });
-          }
-        }}
+        onClick={handleScrollToHash}
+        onKeyDown={handleScrollKeyDown}
       >
         <span className="text-[10px] uppercase tracking-widest font-bold">Scroll</span>
         <motion.div 
