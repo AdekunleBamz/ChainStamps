@@ -1,4 +1,4 @@
-import { useState, useEffect, useRef } from 'react';
+import { useState, useEffect, useRef, useCallback } from 'react';
 import { Activity } from 'lucide-react';
 import { motion, AnimatePresence } from 'framer-motion';
 
@@ -42,10 +42,12 @@ export const PerformanceOverlay = () => {
         return () => cancelAnimationFrame(animationId);
     }, []);
 
+    const toggleVisibility = useCallback(() => setIsVisible(v => !v), []);
+
     return (
         <div className="fixed bottom-4 left-4 z-[100]">
             <button
-                onClick={() => setIsVisible(!isVisible)}
+                onClick={toggleVisibility}
                 className="flex items-center gap-2 px-3 py-1.5 glass rounded-full text-[10px] font-bold tracking-widest uppercase hover:bg-white/10 transition-colors"
             >
                 <Activity size={12} className={fps > FPS_GOOD_THRESHOLD ? "text-green-500" : "text-yellow-500"} />
