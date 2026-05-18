@@ -1,4 +1,3 @@
-import React from 'react';
 import { Loader2 } from 'lucide-react';
 import { Button } from './Button';
 
@@ -33,7 +32,7 @@ interface SubmitButtonProps {
  * @param {'primary' | 'secondary' | 'ghost'} [props.variant] - Visual variant of the button.
  * @param {'sm' | 'md' | 'lg' | 'icon'} [props.size] - Size of the button.
  */
-export const SubmitButton: React.FC<SubmitButtonProps> = ({
+export const SubmitButton = ({
   onClick,
   isLoading,
   disabled,
@@ -43,7 +42,7 @@ export const SubmitButton: React.FC<SubmitButtonProps> = ({
   className = 'submit-btn w-full flex-center',
   variant = 'primary',
   size = 'lg'
-}) => {
+}: SubmitButtonProps) => {
   return (
     <Button
       type="submit"
