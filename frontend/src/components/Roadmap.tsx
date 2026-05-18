@@ -105,7 +105,7 @@ export const Roadmap = () => {
 
             <div className="space-y-8">
                 {ROADMAP_PHASES.map((phase, index) => (
-                    <RoadmapPhase key={index} phase={phase} index={index} />
+                    <RoadmapPhase key={phase.title} phase={phase} index={index} />
                 ))}
             </div>
         </section>
