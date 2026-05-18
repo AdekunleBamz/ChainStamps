@@ -136,6 +136,13 @@ export const useContractCall = () => {
     }
   }, [addToast]);
 
+  const reset = useCallback(() => {
+    setTxId(null);
+    setError(null);
+    setIsSubmitting(false);
+    setStep('idle');
+  }, []);
+
   return {
     isSubmitting,
     step,
@@ -143,11 +150,6 @@ export const useContractCall = () => {
     error,
     history,
     execute,
-    reset: () => {
-      setTxId(null);
-      setError(null);
-      setIsSubmitting(false);
-      setStep('idle');
-    }
+    reset,
   };
 };
