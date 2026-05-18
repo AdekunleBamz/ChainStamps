@@ -71,7 +71,7 @@ export const TagRegistry = memo(({ searchQuery = '' }: { searchQuery?: string })
     return () => clearTimeout(timer);
   }, []);
 
-  const storeTag = async () => {
+  const storeTag = useCallback(async () => {
     const now = Date.now();
     if (now - lastSubmitTime < RATE_LIMIT_INTERVAL) return;
 
@@ -100,7 +100,7 @@ export const TagRegistry = memo(({ searchQuery = '' }: { searchQuery?: string })
     } catch {
       // Error handled by hook
     }
-  };
+  }, [lastSubmitTime, key, value, isConnected, userAddress, handleError, execute]);
 
   const handleKeyDown = useCallback((e: React.KeyboardEvent) => {
     if ((e.metaKey || e.ctrlKey) && e.key === 'Enter') {
