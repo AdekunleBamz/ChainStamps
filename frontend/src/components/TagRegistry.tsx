@@ -1,4 +1,4 @@
-import { useState, useEffect, memo } from 'react';
+import { useState, useEffect, memo, useCallback } from 'react';
 import { motion, useAnimation, AnimatePresence } from 'framer-motion';
 import { useWallet } from '../context/WalletContext';
 import { BASE_NETWORK_FEE_STX, CONTRACT_ADDRESS, CONTRACTS } from '../config/contracts';
@@ -58,11 +58,11 @@ export const TagRegistry = memo(({ searchQuery = '' }: { searchQuery?: string })
   const { fees } = useOnChainFees();
   const tagFee = fees.tag;
 
-  const handleError = (msg: string) => {
+  const handleError = useCallback((msg: string) => {
     addToast(msg, 'error');
     controls.start(SHAKE_ANIMATION);
     triggerHaptic('error');
-  };
+  }, [addToast, controls]);
 
   const [lastSubmitTime, setLastSubmitTime] = useState(0);
 
@@ -102,13 +102,13 @@ export const TagRegistry = memo(({ searchQuery = '' }: { searchQuery?: string })
     }
   };
 
-  const handleKeyDown = (e: React.KeyboardEvent) => {
+  const handleKeyDown = useCallback((e: React.KeyboardEvent) => {
     if ((e.metaKey || e.ctrlKey) && e.key === 'Enter') {
       if (key && value && isConnected && !isSubmitting) {
         storeTag();
       }
     }
-  };
+  }, [key, value, isConnected, isSubmitting, storeTag]);
 
   if (isLoading) return <CardSkeleton />;
 
