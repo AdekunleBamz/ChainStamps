@@ -1,5 +1,5 @@
 import { motion, type HTMLMotionProps } from 'framer-motion';
-import { type ReactNode } from 'react';
+import { type ReactNode, useCallback } from 'react';
 import { twMerge } from 'tailwind-merge';
 import { Loader2 } from 'lucide-react';
 import { triggerHaptic } from '../../utils/haptics';
@@ -72,10 +72,10 @@ export function Button({
     disabled,
     ...props
 }: ButtonProps) {
-    const handleClick = (e: React.MouseEvent<HTMLButtonElement>) => {
+    const handleClick = useCallback((e: React.MouseEvent<HTMLButtonElement>) => {
         triggerHaptic(haptic);
         if (onClick) onClick(e);
-    };
+    }, [haptic, onClick]);
 
     const isDisabled = disabled || isLoading;
     const loaderSize = BUTTON_LOADER_SIZE[size] ?? 16;
