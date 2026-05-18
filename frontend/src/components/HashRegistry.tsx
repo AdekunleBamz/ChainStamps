@@ -22,6 +22,12 @@ import { ANIMATIONS, UI } from '../config/constants';
 import { bufferCV, stringUtf8CV } from '@stacks/transactions';
 import { useOnChainFees } from '../hooks/useOnChainFees';
 
+/** Animation variants for the card entry transition. */
+const CARD_VARIANTS = {
+  initial: { opacity: 0, y: 20 },
+  animate: { opacity: 1, y: 0, transition: { duration: 0.5 } },
+};
+
 /** Pre-computed shake animation variant for form validation errors. */
 const SHAKE_ANIMATION = ANIMATIONS.SHAKE;
 
@@ -136,18 +142,13 @@ export const HashRegistry = memo(({ searchQuery = '' }: { searchQuery?: string }
 
   if (isLoading) return <CardSkeleton />;
 
-  const cardVariants = {
-    initial: { opacity: 0, y: 20 },
-    animate: { opacity: 1, y: 0, transition: { duration: 0.5 } },
-  };
-
   const isHashValid = HASH_VALIDATION_PATTERN.test(hash);
 
   return (
     <motion.section
       id="hash"
       className="card"
-      variants={cardVariants}
+      variants={CARD_VARIANTS}
       initial="initial"
       animate={controls}
     >
