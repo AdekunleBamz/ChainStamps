@@ -189,6 +189,7 @@ const App = () => {
                     aria-label="Search registry cards"
                     aria-controls="registry-results"
                     aria-keyshortcuts="Esc, Cmd+K"
+                    title="Search registries (shortcut: Cmd+K)"
                   />
                   {searchQuery && (
                     <button
