@@ -164,6 +164,9 @@ export const Header = () => {
     return () => window.removeEventListener('click', handleGlobalClick);
   }, []);
 
+  const toggleMenu = useCallback(() => setIsMenuOpen(v => !v), []);
+  const closeMenu = useCallback(() => setIsMenuOpen(false), []);
+
   return (
     <>
       <a href="#hash" className="skip-link">Skip to Content</a>
@@ -186,7 +189,7 @@ export const Header = () => {
                   <button
                     type="button"
                     className="mobile-menu-toggle"
-                    onClick={() => setIsMenuOpen(v => !v)}
+                    onClick={toggleMenu}
                     aria-label={isMenuOpen ? 'Close navigation menu' : 'Open navigation menu'}
                     aria-expanded={isMenuOpen}
                     aria-haspopup="true"
@@ -238,7 +241,7 @@ export const Header = () => {
                 <a 
                   href="#hash" 
                   className="transition-base" 
-                  onClick={() => setIsMenuOpen(false)} 
+                  onClick={closeMenu} 
                   aria-label="Navigate to Hash Registry section"
                   aria-current={activeHash === '#hash' ? 'page' : undefined}
                 >Hash</a>
@@ -247,7 +250,7 @@ export const Header = () => {
                 <a 
                   href="#stamp" 
                   className="transition-base" 
-                  onClick={() => setIsMenuOpen(false)} 
+                  onClick={closeMenu} 
                   aria-label="Navigate to Stamp Registry section"
                   aria-current={activeHash === '#stamp' ? 'page' : undefined}
                 >Stamp</a>
@@ -256,7 +259,7 @@ export const Header = () => {
                 <a 
                   href="#tag" 
                   className="transition-base" 
-                  onClick={() => setIsMenuOpen(false)} 
+                  onClick={closeMenu} 
                   aria-label="Navigate to Tag Registry section"
                   aria-current={activeHash === '#tag' ? 'page' : undefined}
                 >Tag</a>
