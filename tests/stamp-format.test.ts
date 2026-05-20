@@ -163,4 +163,8 @@ describe('stamp format', () => {
   it('formats zero stamp fees with fixed precision', () => {
     expect(formatStampFee(0)).toBe('0.000000 STX')
   })
+
+  it('formats fractional STX stamp fees with fixed precision', () => {
+    expect(formatStampFee(500_000)).toBe('0.500000 STX')
+  })
 })
