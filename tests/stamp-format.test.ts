@@ -10,6 +10,7 @@ import {
   formatMicroStx,
   formatNetworkName,
   formatProofLength,
+  formatStampAge,
   formatStampCount,
   formatStampDate,
   formatStampFee,
@@ -121,5 +122,9 @@ describe('stamp format', () => {
 
   it('returns an empty stamp date when timestamp is missing', () => {
     expect(formatStampDate(null)).toBe('')
+  })
+
+  it('formats new stamp ages as today', () => {
+    expect(formatStampAge(0)).toBe('today')
   })
 })
