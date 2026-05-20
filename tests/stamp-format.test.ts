@@ -215,4 +215,8 @@ describe('stamp format', () => {
   it('formats zero stamp count labels as plural', () => {
     expect(formatStampCount(0)).toBe('0 stamps')
   })
+
+  it('formats numeric batch ids with a prefix', () => {
+    expect(formatBatchId(42)).toBe('BATCH-42')
+  })
 })
