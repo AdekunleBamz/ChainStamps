@@ -187,4 +187,8 @@ describe('stamp validators', () => {
   it('rejects non-string wallet addresses', () => {
     expect(isValidWalletAddress(12)).toBe(false)
   })
+
+  it('rejects short wallet addresses', () => {
+    expect(isValidWalletAddress('SP123')).toBe(false)
+  })
 })
