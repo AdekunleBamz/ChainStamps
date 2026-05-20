@@ -187,4 +187,8 @@ describe('stamp format', () => {
   it('returns Unknown for non-string stamp statuses', () => {
     expect(formatStampStatus(12)).toBe('Unknown')
   })
+
+  it('trims transaction ids before compact formatting', () => {
+    expect(formatTxId('  abcdef123456  ')).toBe('abcdef12...')
+  })
 })
