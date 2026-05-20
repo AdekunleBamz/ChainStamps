@@ -231,4 +231,8 @@ describe('stamp validators', () => {
   it('rejects non-string hash algorithms', () => {
     expect(isValidHashAlgorithm(256)).toBe(false)
   })
+
+  it('rejects uppercase stamp statuses', () => {
+    expect(isValidStampStatus('PENDING')).toBe(false)
+  })
 })
