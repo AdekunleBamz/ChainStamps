@@ -151,4 +151,8 @@ describe('stamp format', () => {
   it('returns an empty stamp hash label for non-string input', () => {
     expect(formatStampHash(123)).toBe('')
   })
+
+  it('keeps sixteen-character stamp hashes intact', () => {
+    expect(formatStampHash('1234567890abcdef')).toBe('1234567890abcdef')
+  })
 })
