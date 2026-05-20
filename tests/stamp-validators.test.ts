@@ -159,4 +159,8 @@ describe('stamp validators', () => {
   it('accepts trimmed prefixed transaction ids', () => {
     expect(isValidTxId(` 0x${'c'.repeat(64)} `)).toBe(true)
   })
+
+  it('accepts numeric string block heights', () => {
+    expect(isValidBlockHeight('123')).toBe(true)
+  })
 })
