@@ -127,4 +127,8 @@ describe('stamp format', () => {
   it('formats new stamp ages as today', () => {
     expect(formatStampAge(0)).toBe('today')
   })
+
+  it('keeps sub-day stamp ages as today', () => {
+    expect(formatStampAge(143)).toBe('today')
+  })
 })
