@@ -159,4 +159,8 @@ describe('stamp format', () => {
   it('preserves both ends when truncating stamp hashes', () => {
     expect(formatStampHash('12345678abcdefghijklmnop87654321')).toBe('12345678...87654321')
   })
+
+  it('formats zero stamp fees with fixed precision', () => {
+    expect(formatStampFee(0)).toBe('0.000000 STX')
+  })
 })
