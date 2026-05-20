@@ -263,4 +263,8 @@ describe('stamp validators', () => {
   it('rejects stamp versions without a patch segment', () => {
     expect(isValidStampVersion('1.0')).toBe(false)
   })
+
+  it('rejects stamp versions with a leading v', () => {
+    expect(isValidStampVersion('v1.0.0')).toBe(false)
+  })
 })
