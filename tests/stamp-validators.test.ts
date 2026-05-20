@@ -147,4 +147,8 @@ describe('stamp validators', () => {
   it('rejects non-string stamp hashes', () => {
     expect(isValidStampHash(123)).toBe(false)
   })
+
+  it('rejects short transaction ids', () => {
+    expect(isValidTxId('b'.repeat(63))).toBe(false)
+  })
 })
