@@ -195,4 +195,8 @@ describe('stamp validators', () => {
   it('accepts lowercase wallet address prefixes after normalization', () => {
     expect(isValidWalletAddress('sp5k2rhmsbh4pap4pgx77mcvnk1zeed07cwx9tjt')).toBe(true)
   })
+
+  it('rejects non-string memo text', () => {
+    expect(isValidMemoText(64)).toBe(false)
+  })
 })
