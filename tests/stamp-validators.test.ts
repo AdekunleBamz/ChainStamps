@@ -211,4 +211,8 @@ describe('stamp validators', () => {
   it('rejects negative file sizes', () => {
     expect(isValidFileSize(-1)).toBe(false)
   })
+
+  it('accepts numeric string file sizes', () => {
+    expect(isValidFileSize('1024')).toBe(true)
+  })
 })
