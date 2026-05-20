@@ -131,4 +131,8 @@ describe('stamp format', () => {
   it('keeps sub-day stamp ages as today', () => {
     expect(formatStampAge(143)).toBe('today')
   })
+
+  it('formats one-day stamp ages with a singular label', () => {
+    expect(formatStampAge(144)).toBe('1 day ago')
+  })
 })
