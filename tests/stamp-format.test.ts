@@ -191,4 +191,8 @@ describe('stamp format', () => {
   it('trims transaction ids before compact formatting', () => {
     expect(formatTxId('  abcdef123456  ')).toBe('abcdef12...')
   })
+
+  it('returns an empty transaction id label for missing input', () => {
+    expect(formatTxId(undefined)).toBe('')
+  })
 })
