@@ -235,4 +235,8 @@ describe('stamp format', () => {
   it('formats infinite file sizes with the zero fallback', () => {
     expect(formatFileSize(Number.POSITIVE_INFINITY)).toBe('0 B')
   })
+
+  it('formats string proof lengths with labels', () => {
+    expect(formatProofLength('64')).toBe('64 chars')
+  })
 })
