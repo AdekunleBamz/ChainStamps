@@ -175,4 +175,8 @@ describe('stamp format', () => {
   it('trims stamp statuses before title casing', () => {
     expect(formatStampStatus(' confirmed ')).toBe('Confirmed')
   })
+
+  it('normalizes uppercase stamp statuses before display', () => {
+    expect(formatStampStatus('FAILED')).toBe('Failed')
+  })
 })
