@@ -259,4 +259,8 @@ describe('stamp validators', () => {
   it('rejects fractional confirmation counts', () => {
     expect(isValidConfirmations(1.5)).toBe(false)
   })
+
+  it('rejects stamp versions without a patch segment', () => {
+    expect(isValidStampVersion('1.0')).toBe(false)
+  })
 })
