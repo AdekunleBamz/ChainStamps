@@ -247,4 +247,8 @@ describe('stamp validators', () => {
   it('rejects uppercase network names', () => {
     expect(isValidNetworkName('MAINNET')).toBe(false)
   })
+
+  it('accepts numeric string confirmation counts', () => {
+    expect(isValidConfirmations('2')).toBe(true)
+  })
 })
