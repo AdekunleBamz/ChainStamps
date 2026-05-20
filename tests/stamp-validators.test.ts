@@ -191,4 +191,8 @@ describe('stamp validators', () => {
   it('rejects short wallet addresses', () => {
     expect(isValidWalletAddress('SP123')).toBe(false)
   })
+
+  it('accepts lowercase wallet address prefixes after normalization', () => {
+    expect(isValidWalletAddress('sp5k2rhmsbh4pap4pgx77mcvnk1zeed07cwx9tjt')).toBe(true)
+  })
 })
