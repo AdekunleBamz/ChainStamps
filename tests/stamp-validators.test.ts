@@ -239,4 +239,8 @@ describe('stamp validators', () => {
   it('rejects empty stamp types', () => {
     expect(isValidStampType('')).toBe(false)
   })
+
+  it('rejects non-string stamp types', () => {
+    expect(isValidStampType(1)).toBe(false)
+  })
 })
