@@ -243,4 +243,8 @@ describe('stamp validators', () => {
   it('rejects non-string stamp types', () => {
     expect(isValidStampType(1)).toBe(false)
   })
+
+  it('rejects uppercase network names', () => {
+    expect(isValidNetworkName('MAINNET')).toBe(false)
+  })
 })
