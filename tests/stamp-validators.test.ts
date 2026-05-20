@@ -235,4 +235,8 @@ describe('stamp validators', () => {
   it('rejects uppercase stamp statuses', () => {
     expect(isValidStampStatus('PENDING')).toBe(false)
   })
+
+  it('rejects empty stamp types', () => {
+    expect(isValidStampType('')).toBe(false)
+  })
 })
