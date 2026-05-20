@@ -207,4 +207,8 @@ describe('stamp format', () => {
   it('formats single microSTX values with six decimals', () => {
     expect(formatMicroStx(1)).toBe('0.000001 STX')
   })
+
+  it('formats singular stamp count labels', () => {
+    expect(formatStampCount(1)).toBe('1 stamp')
+  })
 })
