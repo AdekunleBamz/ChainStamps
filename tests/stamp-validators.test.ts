@@ -203,4 +203,8 @@ describe('stamp validators', () => {
   it('accepts empty memo text', () => {
     expect(isValidMemoText('')).toBe(true)
   })
+
+  it('rejects zero file sizes', () => {
+    expect(isValidFileSize(0)).toBe(false)
+  })
 })
