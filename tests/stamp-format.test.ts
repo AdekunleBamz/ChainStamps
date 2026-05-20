@@ -203,4 +203,8 @@ describe('stamp format', () => {
   it('formats zero microSTX values with fixed precision', () => {
     expect(formatMicroStx(0)).toBe('0.000000 STX')
   })
+
+  it('formats single microSTX values with six decimals', () => {
+    expect(formatMicroStx(1)).toBe('0.000001 STX')
+  })
 })
