@@ -227,4 +227,8 @@ describe('stamp validators', () => {
   it('accepts numeric string batch sizes', () => {
     expect(isValidBatchSize('2')).toBe(true)
   })
+
+  it('rejects non-string hash algorithms', () => {
+    expect(isValidHashAlgorithm(256)).toBe(false)
+  })
 })
