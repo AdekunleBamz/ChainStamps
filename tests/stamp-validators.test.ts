@@ -143,4 +143,8 @@ describe('stamp validators', () => {
   it('rejects short stamp hashes', () => {
     expect(isValidStampHash('a'.repeat(63))).toBe(false)
   })
+
+  it('rejects non-string stamp hashes', () => {
+    expect(isValidStampHash(123)).toBe(false)
+  })
 })
