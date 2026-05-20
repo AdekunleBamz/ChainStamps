@@ -219,4 +219,8 @@ describe('stamp format', () => {
   it('formats numeric batch ids with a prefix', () => {
     expect(formatBatchId(42)).toBe('BATCH-42')
   })
+
+  it('formats zero byte file sizes without decimals', () => {
+    expect(formatFileSize(0)).toBe('0 B')
+  })
 })
