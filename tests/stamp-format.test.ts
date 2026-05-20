@@ -211,4 +211,8 @@ describe('stamp format', () => {
   it('formats singular stamp count labels', () => {
     expect(formatStampCount(1)).toBe('1 stamp')
   })
+
+  it('formats zero stamp count labels as plural', () => {
+    expect(formatStampCount(0)).toBe('0 stamps')
+  })
 })
