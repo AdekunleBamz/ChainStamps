@@ -163,4 +163,8 @@ describe('stamp validators', () => {
   it('accepts numeric string block heights', () => {
     expect(isValidBlockHeight('123')).toBe(true)
   })
+
+  it('rejects negative block heights', () => {
+    expect(isValidBlockHeight(-1)).toBe(false)
+  })
 })
