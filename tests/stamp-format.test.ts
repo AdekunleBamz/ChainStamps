@@ -179,4 +179,8 @@ describe('stamp format', () => {
   it('normalizes uppercase stamp statuses before display', () => {
     expect(formatStampStatus('FAILED')).toBe('Failed')
   })
+
+  it('returns Unknown for blank stamp statuses', () => {
+    expect(formatStampStatus('   ')).toBe('Unknown')
+  })
 })
