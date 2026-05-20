@@ -223,4 +223,8 @@ describe('stamp format', () => {
   it('formats zero byte file sizes without decimals', () => {
     expect(formatFileSize(0)).toBe('0 B')
   })
+
+  it('formats sub-kilobyte file sizes as bytes', () => {
+    expect(formatFileSize(512)).toBe('512 B')
+  })
 })
