@@ -231,4 +231,8 @@ describe('stamp format', () => {
   it('formats negative file sizes with the zero fallback', () => {
     expect(formatFileSize(-1)).toBe('0 B')
   })
+
+  it('formats infinite file sizes with the zero fallback', () => {
+    expect(formatFileSize(Number.POSITIVE_INFINITY)).toBe('0 B')
+  })
 })
