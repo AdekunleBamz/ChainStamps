@@ -219,4 +219,8 @@ describe('stamp validators', () => {
   it('rejects zero batch sizes', () => {
     expect(isValidBatchSize(0)).toBe(false)
   })
+
+  it('rejects fractional batch sizes', () => {
+    expect(isValidBatchSize(1.5)).toBe(false)
+  })
 })
