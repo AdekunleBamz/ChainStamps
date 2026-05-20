@@ -251,4 +251,8 @@ describe('stamp format', () => {
   it('keeps ten-character wallet addresses intact', () => {
     expect(formatWalletAddress('SP12345678')).toBe('SP12345678')
   })
+
+  it('returns empty memo labels for whitespace-only input', () => {
+    expect(formatMemoText('   ')).toBe('')
+  })
 })
