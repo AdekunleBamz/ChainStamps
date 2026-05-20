@@ -183,4 +183,8 @@ describe('stamp validators', () => {
   it('rejects nonnumeric stamp fees', () => {
     expect(isValidStampFee('free')).toBe(false)
   })
+
+  it('rejects non-string wallet addresses', () => {
+    expect(isValidWalletAddress(12)).toBe(false)
+  })
 })
