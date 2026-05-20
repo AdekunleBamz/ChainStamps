@@ -199,4 +199,8 @@ describe('stamp validators', () => {
   it('rejects non-string memo text', () => {
     expect(isValidMemoText(64)).toBe(false)
   })
+
+  it('accepts empty memo text', () => {
+    expect(isValidMemoText('')).toBe(true)
+  })
 })
