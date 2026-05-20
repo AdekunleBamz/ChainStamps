@@ -227,4 +227,8 @@ describe('stamp format', () => {
   it('formats sub-kilobyte file sizes as bytes', () => {
     expect(formatFileSize(512)).toBe('512 B')
   })
+
+  it('formats negative file sizes with the zero fallback', () => {
+    expect(formatFileSize(-1)).toBe('0 B')
+  })
 })
