@@ -215,4 +215,8 @@ describe('stamp validators', () => {
   it('accepts numeric string file sizes', () => {
     expect(isValidFileSize('1024')).toBe(true)
   })
+
+  it('rejects zero batch sizes', () => {
+    expect(isValidBatchSize(0)).toBe(false)
+  })
 })
