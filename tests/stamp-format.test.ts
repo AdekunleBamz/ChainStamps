@@ -147,4 +147,8 @@ describe('stamp format', () => {
   it('returns an empty stamp hash label for missing input', () => {
     expect(formatStampHash(undefined)).toBe('')
   })
+
+  it('returns an empty stamp hash label for non-string input', () => {
+    expect(formatStampHash(123)).toBe('')
+  })
 })
