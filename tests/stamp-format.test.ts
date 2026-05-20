@@ -255,4 +255,8 @@ describe('stamp format', () => {
   it('returns empty memo labels for whitespace-only input', () => {
     expect(formatMemoText('   ')).toBe('')
   })
+
+  it('keeps thirty-two-character memo text intact', () => {
+    expect(formatMemoText('x'.repeat(32))).toBe('x'.repeat(32))
+  })
 })
