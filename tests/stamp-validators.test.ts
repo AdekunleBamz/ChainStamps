@@ -131,4 +131,8 @@ describe('stamp validators', () => {
   it('accepts data length at the contract limit', () => {
     expect(isValidDataLength(256)).toBe(true)
   })
+
+  it('rejects non-string stamp ids', () => {
+    expect(isValidStampId(12)).toBe(false)
+  })
 })
