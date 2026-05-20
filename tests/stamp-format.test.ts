@@ -139,4 +139,8 @@ describe('stamp format', () => {
   it('formats multi-day stamp ages with a plural label', () => {
     expect(formatStampAge(288)).toBe('2 days ago')
   })
+
+  it('trims stamp hashes before display formatting', () => {
+    expect(formatStampHash('  abc123  ')).toBe('abc123')
+  })
 })
