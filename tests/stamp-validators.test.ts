@@ -179,4 +179,8 @@ describe('stamp validators', () => {
   it('rejects negative stamp fees', () => {
     expect(isValidStampFee(-1)).toBe(false)
   })
+
+  it('rejects nonnumeric stamp fees', () => {
+    expect(isValidStampFee('free')).toBe(false)
+  })
 })
