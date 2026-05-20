@@ -171,4 +171,8 @@ describe('stamp format', () => {
   it('formats string stamp ids with the same prefix', () => {
     expect(formatStampId('alpha')).toBe('STAMP-alpha')
   })
+
+  it('trims stamp statuses before title casing', () => {
+    expect(formatStampStatus(' confirmed ')).toBe('Confirmed')
+  })
 })
