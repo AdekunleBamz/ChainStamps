@@ -171,4 +171,8 @@ describe('stamp validators', () => {
   it('rejects decimal string block heights', () => {
     expect(isValidBlockHeight('1.5')).toBe(false)
   })
+
+  it('accepts numeric string stamp fees', () => {
+    expect(isValidStampFee('1000')).toBe(true)
+  })
 })
