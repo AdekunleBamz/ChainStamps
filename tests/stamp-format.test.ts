@@ -155,4 +155,8 @@ describe('stamp format', () => {
   it('keeps sixteen-character stamp hashes intact', () => {
     expect(formatStampHash('1234567890abcdef')).toBe('1234567890abcdef')
   })
+
+  it('preserves both ends when truncating stamp hashes', () => {
+    expect(formatStampHash('12345678abcdefghijklmnop87654321')).toBe('12345678...87654321')
+  })
 })
