@@ -135,4 +135,8 @@ describe('stamp validators', () => {
   it('rejects non-string stamp ids', () => {
     expect(isValidStampId(12)).toBe(false)
   })
+
+  it('accepts trimmed uppercase stamp hashes', () => {
+    expect(isValidStampHash(` ${'A'.repeat(64)} `)).toBe(true)
+  })
 })
