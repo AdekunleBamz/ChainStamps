@@ -167,4 +167,8 @@ describe('stamp format', () => {
   it('formats fractional STX stamp fees with fixed precision', () => {
     expect(formatStampFee(500_000)).toBe('0.500000 STX')
   })
+
+  it('formats string stamp ids with the same prefix', () => {
+    expect(formatStampId('alpha')).toBe('STAMP-alpha')
+  })
 })
