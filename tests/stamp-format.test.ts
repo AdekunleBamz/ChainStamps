@@ -183,4 +183,8 @@ describe('stamp format', () => {
   it('returns Unknown for blank stamp statuses', () => {
     expect(formatStampStatus('   ')).toBe('Unknown')
   })
+
+  it('returns Unknown for non-string stamp statuses', () => {
+    expect(formatStampStatus(12)).toBe('Unknown')
+  })
 })
