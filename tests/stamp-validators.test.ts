@@ -267,4 +267,8 @@ describe('stamp validators', () => {
   it('rejects stamp versions with a leading v', () => {
     expect(isValidStampVersion('v1.0.0')).toBe(false)
   })
+
+  it('rejects zero proof lengths', () => {
+    expect(isValidProofLength(0)).toBe(false)
+  })
 })
