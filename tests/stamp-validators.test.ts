@@ -255,4 +255,8 @@ describe('stamp validators', () => {
   it('rejects negative confirmation counts', () => {
     expect(isValidConfirmations(-1)).toBe(false)
   })
+
+  it('rejects fractional confirmation counts', () => {
+    expect(isValidConfirmations(1.5)).toBe(false)
+  })
 })
