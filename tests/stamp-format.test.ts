@@ -239,4 +239,8 @@ describe('stamp format', () => {
   it('formats string proof lengths with labels', () => {
     expect(formatProofLength('64')).toBe('64 chars')
   })
+
+  it('trims wallet addresses before compact formatting', () => {
+    expect(formatWalletAddress('  SP1234  ')).toBe('SP1234')
+  })
 })
