@@ -135,4 +135,8 @@ describe('stamp format', () => {
   it('formats one-day stamp ages with a singular label', () => {
     expect(formatStampAge(144)).toBe('1 day ago')
   })
+
+  it('formats multi-day stamp ages with a plural label', () => {
+    expect(formatStampAge(288)).toBe('2 days ago')
+  })
 })
