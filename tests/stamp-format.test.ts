@@ -195,4 +195,8 @@ describe('stamp format', () => {
   it('returns an empty transaction id label for missing input', () => {
     expect(formatTxId(undefined)).toBe('')
   })
+
+  it('keeps eight-character transaction ids intact', () => {
+    expect(formatTxId('12345678')).toBe('12345678')
+  })
 })
