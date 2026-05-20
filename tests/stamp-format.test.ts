@@ -11,6 +11,7 @@ import {
   formatNetworkName,
   formatProofLength,
   formatStampCount,
+  formatStampDate,
   formatStampFee,
   formatStampHash,
   formatStampId,
@@ -116,5 +117,9 @@ describe('stamp format', () => {
 
   it('formats stamp versions with a prefix', () => {
     expect(formatStampVersion('1.0.0')).toBe('v1.0.0')
+  })
+
+  it('returns an empty stamp date when timestamp is missing', () => {
+    expect(formatStampDate(null)).toBe('')
   })
 })
