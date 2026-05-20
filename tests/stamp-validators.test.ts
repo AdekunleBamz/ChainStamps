@@ -155,4 +155,8 @@ describe('stamp validators', () => {
   it('rejects non-hex transaction ids', () => {
     expect(isValidTxId('z'.repeat(64))).toBe(false)
   })
+
+  it('accepts trimmed prefixed transaction ids', () => {
+    expect(isValidTxId(` 0x${'c'.repeat(64)} `)).toBe(true)
+  })
 })
