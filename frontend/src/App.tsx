@@ -207,6 +207,7 @@ const App = () => {
                       onClick={clearSearch}
                       className="search-clear"
                       aria-label="Clear registry search"
+                      title="Clear search query"
                     >
                       <X size={16} />
                     </button>
