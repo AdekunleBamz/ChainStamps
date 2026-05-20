@@ -243,4 +243,8 @@ describe('stamp format', () => {
   it('trims wallet addresses before compact formatting', () => {
     expect(formatWalletAddress('  SP1234  ')).toBe('SP1234')
   })
+
+  it('returns an empty wallet address label for missing input', () => {
+    expect(formatWalletAddress(undefined)).toBe('')
+  })
 })
