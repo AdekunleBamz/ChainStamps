@@ -199,4 +199,8 @@ describe('stamp format', () => {
   it('keeps eight-character transaction ids intact', () => {
     expect(formatTxId('12345678')).toBe('12345678')
   })
+
+  it('formats zero microSTX values with fixed precision', () => {
+    expect(formatMicroStx(0)).toBe('0.000000 STX')
+  })
 })
