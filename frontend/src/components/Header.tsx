@@ -169,7 +169,7 @@ export const Header = () => {
 
   return (
     <>
-      <a href="#hash" className="skip-link">Skip to Content</a>
+      <a href="#hash" className="skip-link">Skip to Registry</a>
       <header role="banner" className={twMerge(
         "header",
         isScrolled && "scrolled"
