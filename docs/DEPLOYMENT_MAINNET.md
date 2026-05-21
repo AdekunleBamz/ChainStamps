@@ -86,7 +86,7 @@ plan:
 Quick path sanity-check before broadcasting:
 
 ```bash
-rg "path: ontracts/" deployments/default.mainnet-plan.yaml
+rg "path: contracts/" deployments/default.mainnet-plan.yaml
 ```
 
 The command should return no matches.

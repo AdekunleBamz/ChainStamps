@@ -124,7 +124,7 @@ cd ChainStamps
 
 # Install dependencies
 npm ci
-npm run frontend:install
+npm --prefix frontend install
 
 # Run tests
 npm run test
