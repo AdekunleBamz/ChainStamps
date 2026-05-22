@@ -45,7 +45,7 @@ epoch = 'latest'
 Quick path sanity-check before deployment:
 
 ```bash
-rg "path: ontracts/" deployments/default.testnet-plan.yaml
+rg "path: contracts/" deployments/default.testnet-plan.yaml
 ```
 
 The command should return no matches.
