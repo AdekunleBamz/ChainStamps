@@ -69,3 +69,4 @@ This document outlines deployment automation strategies for ChainStamps to ensur
 - [Deployment Best Practices](./docs/organic-improvements/17-deployment-best-practices.md)
 - [Release Checklist](./RELEASE_CHECKLIST.md)
 - [Rollback Guide](./docs/operations/ROLLBACK_GUIDE.md)
+- Confirm automation links still resolve after documentation folder moves.
