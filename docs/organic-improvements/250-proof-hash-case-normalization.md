@@ -2,3 +2,5 @@
 
 Normalize displayed proof hashes to one casing in docs and QA notes so manual
 verification does not treat the same digest as two separate records.
+
+Follow-up note: Confirm copied proof hashes use the same casing as displayed values.
