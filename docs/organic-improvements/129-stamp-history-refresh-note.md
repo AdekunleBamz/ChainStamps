@@ -7,3 +7,4 @@ Stamp history should refresh after successful writes without hiding pending reco
 - Test successful stamp, failed stamp, and page reload.
 - Confirm pending records retain explorer links.
 - Record refresh timing in QA evidence.
+- Recheck refresh behavior after changing polling backoff.
