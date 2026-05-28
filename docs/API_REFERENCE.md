@@ -4,6 +4,7 @@
 
 Complete API documentation for all ChainStamps smart contracts.
 Use network-specific contract addresses (testnet/mainnet) when calling these functions.
+Record the contract principal and block height used for read-only snapshots so API results can be reproduced later.
 
 ## Table of Contents
 
