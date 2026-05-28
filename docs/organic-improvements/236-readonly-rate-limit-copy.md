@@ -2,3 +2,5 @@
 
 Read-only query throttling should tell users when to retry and whether the
 current input was saved locally.
+
+Follow-up note: Confirm retry copy stays visible when cached results are shown.
