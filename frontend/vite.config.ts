@@ -9,6 +9,9 @@ import react from '@vitejs/plugin-react'
  */
 export default defineConfig({
   plugins: [react()],
+  resolve: {
+    preserveSymlinks: true,
+  },
   build: {
     sourcemap: false,
     chunkSizeWarningLimit: 1000,
