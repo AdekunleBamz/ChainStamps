@@ -2,3 +2,5 @@
 
 Check printed proof QR codes at common paper sizes so high-density payloads stay
 scannable after export.
+
+Follow-up note: Recheck print density after proof payload fields change.
