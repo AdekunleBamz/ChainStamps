@@ -43,3 +43,4 @@ The haptic system uses the Web Vibration API with the following patterns:
 - [ ] Add haptic intensity settings in user preferences
 - [ ] Implement adaptive haptics based on device capabilities
 - [ ] Add haptic patterns for loading states
+- [ ] Recheck haptic fallback behavior on browsers without vibration support
