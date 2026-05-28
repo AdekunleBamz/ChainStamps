@@ -7,3 +7,4 @@ Deployment metadata and build outputs should stay out of commits unless intentio
 - Inspect git status after production builds.
 - Leave local deployment metadata uncommitted.
 - Document any intentional generated artifact.
+- Confirm preview metadata folders are excluded from release commits.
