@@ -65,3 +65,4 @@ This document outlines best practices for deploying ChainStamps smart contracts 
 - [Deployment Testnet Guide](./DEPLOYMENT_TESTNET.md)
 - [Deployment Mainnet Guide](./DEPLOYMENT_MAINNET.md)
 - [Release Checklist](./RELEASE_CHECKLIST.md)
+- Recheck related deployment links after docs navigation changes.
