@@ -15,6 +15,8 @@
     "test:watch": "chokidar \"tests/**/*.ts\" \"contracts/**/*.clar\" -c \"npm run test:report\"",
     "consolidate:test-wallets": "node scripts/consolidate-test-wallets.js",
     "frontend:dev": "npm --prefix frontend run dev",
+    "frontend:build": "npm --prefix frontend run build",
+    "build": "npm run frontend:build",
     "frontend:lint": "npm --prefix frontend run lint",
     "lint": "npm run frontend:lint",
     "lint:fix": "npm --prefix frontend run lint -- --fix",
