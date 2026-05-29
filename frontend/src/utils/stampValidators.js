@@ -14,7 +14,7 @@ export const isValidStampHash = (v) =>
  * @param {*} v - Value to validate
  * @returns {boolean}
  */
-export const isValidStampId = (v) => typeof v === "string" && v.length > 0;
+export const isValidStampId = (v) => typeof v === "string" && v.trim().length > 0;
 
 /**
  * Validates a transaction ID, accepting both bare hex and 0x-prefixed formats.
