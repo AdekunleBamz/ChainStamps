@@ -27,6 +27,7 @@ We take security seriously. If you discover a security vulnerability in ChainSta
 - Acknowledgment within 48 hours
 - Regular updates on progress
 - Credit for responsible disclosure (if desired)
+- Requests for clarification when reproduction steps omit the affected network or contract identifier
 
 ### Scope
 
@@ -68,4 +69,3 @@ Currently, there is no formal bug bounty program. However, we appreciate and ack
 
 For security concerns, use GitHub's private reporting flow:
 [Open a private security advisory](https://github.com/AdekunleBamz/ChainStamps/security/advisories/new)
-
