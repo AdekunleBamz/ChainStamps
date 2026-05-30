@@ -154,11 +154,11 @@ npm run frontend:dev
 
 ### Development Workflow
 
-1.  **Code**: Write Clarity contracts in `contracts/`.
-2.  **Test**: Run `npm test` to verify contract behavior.
-3.  **Frontend**: Update React components in `frontend/src/`.
-4.  **Verify**: Run `npm run frontend:lint`, `npm run frontend:build`, and `npm run check:fast`.
-5.  **Deploy**: Use `clarinet deployments apply`.
+1. **Code**: Write Clarity contracts in `contracts/`.
+2. **Test**: Run `npm test` to verify contract behavior.
+3. **Frontend**: Update React components in `frontend/src/`.
+4. **Verify**: Run `npm run frontend:lint`, `npm run frontend:build`, and `npm run check:fast`.
+5. **Deploy**: Use `clarinet deployments apply`.
 
 ## 📜 Smart Contracts
 
