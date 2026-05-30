@@ -21,7 +21,8 @@
     "lint": "npm run frontend:lint",
     "lint:fix": "npm --prefix frontend run lint -- --fix",
     "format": "prettier --write .",
-    "format:check": "prettier --check ."
+    "format:check": "prettier --check .",
+    "verify:production": "npm run lint && npm run build"
   },
   "author": "Adekunle Bamz (@adekunlebamz)",
   "license": "MIT",
