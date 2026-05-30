@@ -6,6 +6,7 @@ import {
   isConnected as stacksIsConnected,
   getLocalStorage,
 } from '@stacks/connect';
+import { WalletPickerModal } from '../components/WalletPickerModal';
 
 /**
  * The structure of the wallet context, providing state and methods for wallet interaction.
@@ -33,6 +34,7 @@ export const WalletProvider = ({ children }: { children: ReactNode }) => {
   const [isConnected, setIsConnected] = useState(false);
   const [isConnecting, setIsConnecting] = useState(false);
   const [userAddress, setUserAddress] = useState<string | null>(null);
+  const [isWalletPickerOpen, setIsWalletPickerOpen] = useState(false);
 
   // Restore existing session from localStorage on first mount
   useEffect(() => {
@@ -46,9 +48,10 @@ export const WalletProvider = ({ children }: { children: ReactNode }) => {
     }
   }, []);
 
-  const connect = useCallback(async () => {
+  const connectWithExtension = useCallback(async () => {
     setIsConnecting(true);
     try {
+      setIsWalletPickerOpen(false);
       await stacksConnect();
       const data = getLocalStorage();
       const addr = data?.addresses?.stx?.[0]?.address ?? null;
@@ -63,6 +66,16 @@ export const WalletProvider = ({ children }: { children: ReactNode }) => {
     }
   }, []);
 
+  const connect = useCallback(() => {
+    setIsWalletPickerOpen(true);
+  }, []);
+
+  const closeWalletPicker = useCallback(() => {
+    if (!isConnecting) {
+      setIsWalletPickerOpen(false);
+    }
+  }, [isConnecting]);
+
   const disconnect = useCallback(() => {
     stacksDisconnect();
     setIsConnected(false);
@@ -71,6 +84,13 @@ export const WalletProvider = ({ children }: { children: ReactNode }) => {
   return (
     <WalletContext.Provider value={{ isConnected, isConnecting, userAddress, connect, disconnect }}>
       {children}
+      {isWalletPickerOpen && (
+        <WalletPickerModal
+          onSelectHiro={connectWithExtension}
+          onSelectWalletConnect={connectWithExtension}
+          onClose={closeWalletPicker}
+        />
+      )}
     </WalletContext.Provider>
   );
 }
@@ -86,4 +106,3 @@ export const useWallet = () => {
   }
   return context;
 }
-
