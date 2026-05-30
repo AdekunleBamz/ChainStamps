@@ -74,6 +74,8 @@ test(tag-registry): add edge case tests
 Tip: Sign commits before pushing to keep history verifiable (`git commit -S`).
 ```
 
+For docs-only commits, keep the scope narrow and mention any verification commands that were intentionally skipped because no runtime files changed.
+
 ## 🔄 Pull Request Process
 
 1. Ensure all tests pass: `npm run test`
