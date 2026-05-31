@@ -218,6 +218,15 @@ section[id] {
   gap: 2rem;
 }
 
+.nav-links ul {
+  display: flex;
+  align-items: center;
+  gap: 1.5rem;
+  list-style: none;
+  padding: 0;
+  margin: 0;
+}
+
 .nav-links a {
   color: var(--text-secondary);
   text-decoration: none;
@@ -303,7 +312,7 @@ section[id] {
 
 .hero {
   text-align: center;
-  padding: 4rem 0;
+  padding: 3rem 0 2.5rem;
 }
 
 .hero-title {
@@ -332,8 +341,135 @@ section[id] {
 
 .hero-description {
   max-width: 600px;
-  margin: 0 auto 3rem;
+  margin: 0 auto 2rem;
   color: var(--text-secondary);
+}
+
+.hero-cta {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 1rem;
+  margin-bottom: 1.5rem;
+}
+
+.cta-primary,
+.cta-secondary {
+  min-height: 3.5rem;
+  padding: 0 2rem;
+  border-radius: var(--radius-sm);
+  font-weight: 800;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.5rem;
+  border: 1px solid transparent;
+  transition: transform 0.2s ease, background 0.2s ease, border-color 0.2s ease;
+}
+
+.cta-primary {
+  color: white;
+  background: var(--primary);
+  box-shadow: 0 18px 34px rgba(99, 102, 241, 0.22);
+}
+
+.cta-primary:hover {
+  transform: translateY(-2px);
+}
+
+.cta-secondary {
+  color: var(--primary);
+  background: rgba(255, 255, 255, 0.05);
+  border-color: var(--border);
+  cursor: pointer;
+}
+
+.cta-secondary:hover {
+  background: rgba(255, 255, 255, 0.1);
+  border-color: rgba(99, 102, 241, 0.35);
+}
+
+.hero-actions {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 1rem;
+  width: min(100%, 960px);
+  margin: 0 auto 2.5rem;
+}
+
+.hero-action {
+  display: grid;
+  grid-template-columns: auto 1fr;
+  grid-template-areas:
+    "icon copy"
+    "cta cta";
+  gap: 0.9rem;
+  min-height: 164px;
+  padding: 1.1rem;
+  text-align: left;
+  color: var(--text-primary);
+  background: rgba(255, 255, 255, 0.055);
+  border: 1px solid rgba(255, 255, 255, 0.12);
+  border-radius: var(--radius-sm);
+  cursor: pointer;
+  box-shadow: 0 14px 30px rgba(0, 0, 0, 0.2);
+  transition: transform 0.2s ease, border-color 0.2s ease, background 0.2s ease;
+}
+
+.hero-action:hover,
+.hero-action:focus-visible {
+  transform: translateY(-3px);
+  border-color: rgba(99, 102, 241, 0.55);
+  background: rgba(255, 255, 255, 0.08);
+}
+
+.hero-action-icon {
+  grid-area: icon;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 44px;
+  height: 44px;
+  border-radius: var(--radius-sm);
+  color: var(--primary);
+  background: rgba(99, 102, 241, 0.14);
+  border: 1px solid rgba(99, 102, 241, 0.24);
+}
+
+.hero-action-copy {
+  grid-area: copy;
+  display: flex;
+  flex-direction: column;
+  min-width: 0;
+}
+
+.hero-action-copy strong {
+  font-family: var(--font-heading);
+  font-size: 1rem;
+  line-height: 1.2;
+}
+
+.hero-action-copy span {
+  color: var(--text-secondary);
+  font-size: 0.86rem;
+  line-height: 1.45;
+  margin-top: 0.28rem;
+}
+
+.hero-action-cta {
+  grid-area: cta;
+  align-self: end;
+  display: inline-flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 0.65rem;
+  min-height: 42px;
+  padding: 0 0.85rem;
+  color: white;
+  background: var(--primary);
+  border-radius: var(--radius-sm);
+  font-size: 0.82rem;
+  font-weight: 800;
 }
 
 .features {
@@ -365,6 +501,35 @@ section[id] {
 .feature p {
   color: var(--text-secondary);
   font-size: 0.9rem;
+}
+
+.hero-stats {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 2rem;
+  max-width: 720px;
+  margin: 2.5rem auto 0;
+  padding-top: 2rem;
+  border-top: 1px solid rgba(255, 255, 255, 0.08);
+}
+
+.hero-stats .stat {
+  min-height: 64px;
+  display: flex;
+  flex-direction: column;
+  gap: 0.25rem;
+  align-items: center;
+  justify-content: center;
+}
+
+.hero-scroll-indicator {
+  position: absolute;
+  right: 1rem;
+  bottom: 1rem;
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  color: var(--text-secondary);
 }
 
 .cards-container {
@@ -655,8 +820,41 @@ section[id] {
     font-size: 2.5rem;
   }
 
+  .hero {
+    padding-top: 2rem;
+  }
+
+  .hero-cta {
+    flex-direction: column;
+  }
+
+  .hero-cta .cta-primary,
+  .hero-cta .cta-secondary {
+    width: min(100%, 320px);
+    justify-content: center;
+  }
+
+  .hero-actions {
+    grid-template-columns: 1fr;
+    gap: 0.8rem;
+    margin-bottom: 2rem;
+  }
+
+  .hero-action {
+    min-height: 118px;
+  }
+
   .features {
     grid-template-columns: 1fr;
+  }
+
+  .hero-stats {
+    grid-template-columns: 1fr;
+    gap: 1.25rem;
+  }
+
+  .hero-scroll-indicator {
+    display: none;
   }
 
   .cards-container {
@@ -1189,6 +1387,13 @@ section[id] {
     z-index: 100;
     border-left: 1px solid hsla(var(--border-h), var(--border-s), var(--border-l), 0.3);
     box-shadow: -10px 0 30px rgba(0, 0, 0, 0.1);
+  }
+
+  .nav-links ul {
+    width: 100%;
+    flex-direction: column;
+    align-items: stretch;
+    gap: 0.75rem;
   }
 
   .nav-links.mobile-open {

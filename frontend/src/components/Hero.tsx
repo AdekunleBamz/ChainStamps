@@ -1,4 +1,4 @@
-import { Shield, Clock, Database } from 'lucide-react';
+import { ArrowRight, Clock, Database, FileText, Shield, Stamp, Tag } from 'lucide-react';
 import { motion, useScroll, useTransform, type MotionValue } from 'framer-motion';
 import { useRef, memo, type ComponentType } from 'react';
 import { AnimatedNumber } from './ui/AnimatedNumber';
@@ -33,7 +33,9 @@ const ITEM_VARIANTS = {
   },
 };
 
-const FeatureItem = memo(({ icon: Icon, title, description, ariaLabel }: { icon: ComponentType<{ className?: string; size?: number; strokeWidth?: number }>, title: string, description: string, ariaLabel: string }) => (
+type HeroIcon = ComponentType<{ className?: string; size?: number; strokeWidth?: number }>;
+
+const FeatureItem = memo(({ icon: Icon, title, description, ariaLabel }: { icon: HeroIcon, title: string, description: string, ariaLabel: string }) => (
   <motion.div className="feature group will-change-transform" variants={ITEM_VARIANTS} aria-label={ariaLabel} role="listitem">
     <div className="feature-icon-wrapper flex-center shadow-md aspect-square w-16 h-16 mx-auto">
       <Icon className="feature-icon" size={40} strokeWidth={1.5} />
@@ -42,6 +44,36 @@ const FeatureItem = memo(({ icon: Icon, title, description, ariaLabel }: { icon:
     <p>{description}</p>
   </motion.div>
 ));
+
+const REGISTRY_ACTIONS: Array<{
+  id: string;
+  title: string;
+  description: string;
+  icon: HeroIcon;
+  cta: string;
+}> = [
+  {
+    id: 'hash',
+    title: 'File Hash',
+    description: 'Create proof for a document or data hash.',
+    icon: FileText,
+    cta: 'Register Hash',
+  },
+  {
+    id: 'stamp',
+    title: 'Message Stamp',
+    description: 'Record a short statement with a timestamp.',
+    icon: Stamp,
+    cta: 'Stamp Message',
+  },
+  {
+    id: 'tag',
+    title: 'Metadata Tag',
+    description: 'Attach a key-value record to your address.',
+    icon: Tag,
+    cta: 'Save Tag',
+  },
+];
 
 const HeroBackground = memo(({ y1, y2 }: { y1: MotionValue<number>, y2: MotionValue<number> }) => (
   <>
@@ -84,12 +116,47 @@ const HeroStats = memo(() => (
   </motion.div>
 ));
 
+const focusRegistryInput = (id: string) => {
+  const registry = document.getElementById(id);
+  registry?.scrollIntoView({ behavior: 'smooth', block: 'start' });
+
+  window.setTimeout(() => {
+    registry?.querySelector<HTMLInputElement | HTMLTextAreaElement>('input, textarea')?.focus();
+  }, 450);
+};
+
+const HeroActions = memo(() => (
+  <motion.div className="hero-actions" variants={CONTAINER_VARIANTS} aria-label="Registry actions">
+    {REGISTRY_ACTIONS.map(({ id, title, description, icon: Icon, cta }) => (
+      <motion.button
+        key={id}
+        type="button"
+        className="hero-action"
+        variants={ITEM_VARIANTS}
+        onClick={() => focusRegistryInput(id)}
+      >
+        <span className="hero-action-icon" aria-hidden="true">
+          <Icon size={22} strokeWidth={1.8} />
+        </span>
+        <span className="hero-action-copy">
+          <strong>{title}</strong>
+          <span>{description}</span>
+        </span>
+        <span className="hero-action-cta">
+          {cta}
+          <ArrowRight size={16} strokeWidth={1.8} />
+        </span>
+      </motion.button>
+    ))}
+  </motion.div>
+));
+
 const handleGetStarted = () => {
   (document.querySelector('.connect-btn') as HTMLButtonElement)?.click();
 };
 
 const handleScrollToHash = () => {
-  document.querySelector('#hash')?.scrollIntoView({ behavior: 'smooth' });
+  focusRegistryInput('hash');
 };
 
 const handleScrollKeyDown = (e: React.KeyboardEvent) => {
@@ -114,8 +181,6 @@ export const Hero = () => {
 
   const y1 = useTransform(scrollYProgress, [0, 1], [0, 200]);
   const y2 = useTransform(scrollYProgress, [0, 1], [0, -150]);
-  const opacity = useTransform(scrollYProgress, [0, 0.5, 1], [1, 1, 0]);
-
   return (
     <motion.section
       ref={containerRef}
@@ -123,7 +188,6 @@ export const Hero = () => {
       initial="hidden"
       animate="visible"
       variants={CONTAINER_VARIANTS}
-      style={{ opacity }}
     >
       <HeroBackground y1={y1} y2={y2} />
 
@@ -149,11 +213,16 @@ export const Hero = () => {
           Get Started
           <Shield size={20} />
         </button>
-        <a href="#hash" className="cta-secondary h-14 px-8 rounded-2xl border border-border bg-white/5 backdrop-blur-md text-primary font-bold flex items-center gap-2 hover:bg-white/10 transition-all">
-          Learn More
-        </a>
+        <button
+          type="button"
+          onClick={handleScrollToHash}
+          className="cta-secondary h-14 px-8 rounded-2xl border border-border bg-white/5 backdrop-blur-md text-primary font-bold flex items-center gap-2 hover:bg-white/10 transition-all"
+        >
+          Open Registry
+        </button>
       </motion.div>
 
+      <HeroActions />
       <HeroFeatures />
       <HeroStats />
 

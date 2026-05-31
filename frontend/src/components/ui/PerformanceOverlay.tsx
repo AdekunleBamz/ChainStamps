@@ -16,12 +16,18 @@ export const PerformanceOverlay = () => {
     const [isVisible, setIsVisible] = useState(false);
     const frameCount = useRef(0);
     const lastTime = useRef(0);
+    const isEnabled = typeof window !== 'undefined' && (
+        new URLSearchParams(window.location.search).has('performance') ||
+        window.localStorage.getItem('chainstamp:performance') === 'enabled'
+    );
 
     /**
      * Effect hook that calculates the current frames per second (FPS)
      * using requestAnimationFrame for high-precision measurement.
      */
     useEffect(() => {
+        if (!isEnabled) return undefined;
+
         let animationId: number;
         lastTime.current = performance.now();
 
@@ -40,9 +46,11 @@ export const PerformanceOverlay = () => {
 
         animationId = requestAnimationFrame(update);
         return () => cancelAnimationFrame(animationId);
-    }, []);
+    }, [isEnabled]);
 
     const toggleVisibility = useCallback(() => setIsVisible(v => !v), []);
+
+    if (!isEnabled) return null;
 
     return (
         <div className="fixed bottom-4 left-4 z-[100]">
