@@ -27,5 +27,6 @@ Use this checklist to prepare a release.
 - [ ] Tag release in GitHub
 - [ ] Announce release notes
 - [ ] Monitor transaction success rates
+- [ ] Capture one read-only verification result for each registry before closing release monitoring
 - [ ] Confirm release commits show as `Verified` on GitHub
 - [ ] Assign an explicit escalation owner for the first 24h post-release window
