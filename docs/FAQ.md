@@ -49,6 +49,7 @@ No, ChainStamps stores hashes and small messages, not files. For document verifi
 No. All data stored on-chain is publicly visible. For sensitive documents:
 - Only store the hash, not the content
 - The hash proves existence without revealing content
+- Avoid placing names, emails, private URLs, or internal ticket references in public stamp messages.
 
 ## Usage Questions
 
