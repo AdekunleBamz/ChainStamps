@@ -39,5 +39,6 @@ This document lists error codes used across ChainStamps contracts for easier deb
 - Error codes are returned as `(err u###)` in Clarity.
 - For read-only calls, validate that you handle `none` responses where applicable.
 - Keep frontend error maps in sync with this table whenever contract errors change.
+- When filing a support issue, include the contract name with the numeric code so maintainers can distinguish reused codes across registries.
 
 Maintenance note: include txid and network context beside each reproduced error during triage.
