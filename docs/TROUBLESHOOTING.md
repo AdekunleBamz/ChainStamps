@@ -16,7 +16,7 @@ This guide helps resolve common issues when using ChainStamps.
 
 ### Wrong Network
 **Symptoms:** Transactions fail or appear missing.
-**Fix:** Verify you are using testnet or mainnet consistently.
+**Fix:** Verify the app, wallet, explorer link, and contract address all point to the same network before retrying.
 
 ## API Issues
 
