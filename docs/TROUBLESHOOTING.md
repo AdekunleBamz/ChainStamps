@@ -42,7 +42,7 @@ This guide helps resolve common issues when using ChainStamps.
 
 ### Tests Failing
 **Symptoms:** `npm test` fails locally.
-**Fix:** Ensure Clarinet is installed and dependencies are up to date.
+**Fix:** Ensure Clarinet is installed, dependencies are up to date, and generated deployment-plan changes are reviewed before committing.
 
 ### Build Errors
 **Symptoms:** TypeScript or lint errors.
